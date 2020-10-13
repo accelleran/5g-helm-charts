@@ -3,7 +3,17 @@ entries:
   amf-controller:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2020-10-13T21:50:17.3367856Z"
+    created: "2020-10-13T21:57:27.516086923Z"
+    description: A Helm chart for Kubernetes
+    digest: f7f26d44015714e3964a11daae8cfc88389a00724734dd77a407baa51028a219
+    name: amf-controller
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/accelleran/5g-helm-charts/master/amf-controller-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2020-10-13T21:57:27.515279049Z"
     description: A Helm chart for Kubernetes
     digest: 6ba18237b57aa5c5f66100e98686940acfbca2e905ecf601b55039fa233028b7
     name: amf-controller
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://raw.githubusercontent.com/accelleran/5g-helm-charts/master/amf-controller-0.1.0.tgz
     version: 0.1.0
-generated: "2020-10-13T21:50:17.335704974Z"
+generated: "2020-10-13T21:57:27.514305885Z"

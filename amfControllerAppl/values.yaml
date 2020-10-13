@@ -22,7 +22,7 @@ nats:
   # Port of NAST
   port: 31000
 
-extraEnvs: [] 
+extraEnvs: []
 #  - name: example_env_name
 #    value: example_env_value
 #  - name: ex1

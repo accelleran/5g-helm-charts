@@ -45,7 +45,9 @@ spec:
               value: nats://{{ .Values.nats.url }}:{{ .Values.nats.port}}
             - name: ZLOG_CONF_PATH
               value: /5G/zlog.conf
+            {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
+            {{- end }}
           ports:
             - name: http
               containerPort: 80
