@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: dsctrlappl
+  repository: amfcontrollerappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -17,11 +17,11 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "__APPNAME=dsCtrl ./dsCtrlAppl.exe"
+cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
 
-args:
-  - name: "--rel_msec"
-    value: 500
+args: []
+#  - name: "--own"
+#    value: 127.0.0.2
 
 # NATS Settings
 nats:

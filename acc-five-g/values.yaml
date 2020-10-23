@@ -1,0 +1,198 @@
+global:
+  # Kubernetes Advertise Address, used as External address for services
+  kubeIp: "10.55.2.2"
+  natsUrl: "10.55.2.2"
+  natsPort: "31000"
+
+acc-fiveg-amf-controller:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+ 
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-cu-up:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+  args:
+    - name: "--own"
+      value: 127.0.0.2
+    - name: "--pub"
+      value: 127.0.0.2
+
+acc-fiveg-cu-up-controller:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-ds-ctrl:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+  args: 
+    - name: "--rel_msec"
+      value: 500
+
+acc-fiveg-du-controller:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-e1-cp:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-e1-sctp-up:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+  args:
+    - name: "--own"
+      value: 127.0.0.2
+    - name: "--cucp"
+      value: 127.0.0.1
+    - name: "--pub"
+      value: 127.0.0.2
+
+acc-fiveg-f1-ap:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+  args:
+    - name: "--f1ap_id"
+      value: "du_1"
+
+acc-fiveg-gnb-cotroller:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-ng-ap:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-pm-controller:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-res-mgr:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-res-mgr-up:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-rr-ctrl:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+acc-fiveg-sctp:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+  args:
+    - name: "--own"
+      value: 127.0.0.1
+    - name: "--ng"
+      value: 127.0.0.5
