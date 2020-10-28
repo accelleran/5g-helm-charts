@@ -1,7 +1,7 @@
 global:
   # Kubernetes Advertise Address, used as External address for services
-  kubeIp: "10.55.2.2"
-  natsUrl: "10.55.2.2"
+  kubeIp: "10.55.1.2"
+  natsUrl: "10.55.1.2"
   natsPort: "31000"
 
 acc-fiveg-amf-tester:
