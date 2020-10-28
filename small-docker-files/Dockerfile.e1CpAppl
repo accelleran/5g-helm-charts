@@ -1,0 +1,61 @@
+FROM ubuntu:bionic-20181112 AS base
+MAINTAINER Accelleran
+
+ENV 	DEBIAN_FRONTEND noninteractive
+
+RUN 	echo 'deb [trusted=yes] http://jenkins.ant.accelleran.com/packages/local-bionic /' > /etc/apt/sources.list
+
+RUN 	apt-get update \
+	&&	apt-get install -y python3 python3-yaml python3-pip
+
+COPY	install-mini-packages.py mini-packages.yml /tmp/
+RUN 	/tmp/install-mini-packages.py ap
+
+CMD 	["/bin/bash"]
+
+RUN		groupadd --gid 1000 accelleran \
+	&&	useradd -m \
+			--home-dir /home/accelleran \
+			--shell /bin/bash \
+			--gid accelleran \
+			--uid 1000 \
+			accelleran \
+	&&  echo 'accelleran ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+WORKDIR /home/accelleran/5G
+
+# RUN mkdir -p ./lib
+
+#COPY  ./native/monAppl.exe .
+
+#COPY ./native/redis-cli .
+#COPY ./native/redis-server .
+
+#COPY zlog_printf.conf .
+#COPY zlog_syslog.conf .
+
+COPY ./lib/ ./lib/
+
+#WORKDIR /home/accelleran/5G/temp-lib
+
+#RUN tar cf - *.so* | tar xvf - -C /home/accelleran/5G/lib
+
+#WORKDIR /home/accelleran/5G
+
+#RUN rm -rf ./temp-lib
+
+USER accelleran
+ENV HOME /home/accelleran
+ENV PATH $PATH:/opt/klocwork/bin/:/usr/local/go/bin
+WORKDIR /home/accelleran/5G
+
+ENV   NATS_SERVICE_URL=nats://127.0.0.1:4222
+ENV   LD_LIBRARY_PATH=/home/accelleran/5G/lib
+ENV   ZLOG_CONF_PATH=/home/accelleran/5G/zlog_printf.conf
+
+FROM base AS e1cp
+
+COPY	./native/e1CpAppl.exe .
+
+#CMD		["echo "Starting e1cp" && (__APPNAME=e1cp e1CpAppl.exe > e1Cp.log 2>&1 &)"]
+

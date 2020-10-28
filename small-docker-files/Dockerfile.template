@@ -1,0 +1,155 @@
+FROM ubuntu:bionic-20181112 AS base
+MAINTAINER Accelleran
+
+RUN   apt-get update \
+  &&  apt-get install -y iputils-ping vim
+
+ENV 	DEBIAN_FRONTEND noninteractive
+
+RUN 	echo 'deb [trusted=yes] http://jenkins.ant.accelleran.com/packages/local-bionic /' > /etc/apt/sources.list
+
+RUN 	apt-get update \
+	&&	apt-get install -y python3 python3-yaml python3-pip
+
+COPY	install-packages.py accelleran-packages.yml /tmp/
+RUN 	/tmp/install-packages.py ap
+
+RUN 	pip3 install pyang==2.2.1
+
+RUN 	wget -q "http://jenkins.ant.accelleran.com/extra-files/go.tgz"; \
+		echo "ea4caddf76b86ed5d101a61bc9a273be5b24d81f0567270bb4d5beaaded9b567 *go.tgz" | sha256sum -c -; \
+		tar -C /usr/local -xzf go.tgz; \
+		rm go.tgz; \
+		export PATH="/usr/local/go/bin:$PATH"; \
+		go version
+
+CMD 	["/bin/bash"]
+
+RUN		groupadd --gid 1000 accelleran \
+	&&	useradd -m \
+			--home-dir /home/accelleran_ \
+			--shell /bin/bash \
+			--gid accelleran \
+			--uid 1000 \
+			accelleran \
+	&&  echo 'accelleran ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Make scons use python3
+RUN 	sed -i "s%#! /usr/bin/python2%#! /usr/bin/python3%" /usr/bin/scons
+
+USER accelleran
+ENV HOME /home/accelleran
+ENV PATH $PATH:/opt/klocwork/bin/:/usr/local/go/bin
+WORKDIR /5G
+
+ENV   NATS_SERVICE_URL=nats://127.0.0.1:4222
+ENV   LD_LIBRARY_PATH=/5G/lib
+ENV   ZLOG_CONF_PATH=/5G/zlog_printf.conf
+
+COPY  ./native/monAppl.exe .
+
+
+COPY ./native/lib/ ./lib/
+
+COPY ./native/redis-cli .
+COPY ./native/redis-server .
+
+COPY zlog_printf.conf .
+COPY zlog_syslog.conf .
+
+FROM base AS e1cp
+
+COPY	./native/e1CpAppl.exe .
+
+#CMD		["echo "Starting e1cp" && (__APPNAME=e1cp e1CpAppl.exe > e1Cp.log 2>&1 &)"]
+
+FROM base AS f1apIntfAppl
+
+COPY ./native/f1apIntfAppl.exe .
+
+#CMD ["echo "Starting f1ap" && (__APPNAME=f1pap ${RUN_PATH}/f1apIntfAppl.exe --f1ap_id du_1 >${RUN_PATH}/f1ap.log 2>&1 &)"]
+
+FROM base AS sctpCpAppl
+
+COPY ./native/sctpCpAppl.exe .
+
+#CMD ["echo "Starting sctp" && (__APPNAME=sctpCp ${RUN_PATH}/sctpCpAppl.exe  --own 127.0.0.1 --ng 127.0.0.5 >${RUN_PATH}/sctp.log 2>&1 &)"]
+
+FROM base AS ngapAppl
+
+COPY ./native/ngapAppl.exe .
+
+#CMD ["echo "Starting ngap" && (__APPNAME=ngap ${RUN_PATH}/ngapAppl.exe  >${RUN_PATH}/ngap.log 2>&1 &)"]
+
+FROM base AS duControllerAppl
+
+COPY ./native/duControllerAppl.exe .
+
+#CMD ["echo "Starting duController" && (__APPNAME=duController ${RUN_PATH}/duControllerAppl.exe  >${RUN_PATH}/duController.log 2>&1 &)"]
+
+FROM base AS cuUpController
+
+COPY ./native/cuUpControllerAppl.exe .
+
+#CMD ["echo "Starting cuUpController" && (__APPNAME=cuUpController ${RUN_PATH}/cuUpControllerAppl.exe >${RUN_PATH}/cuUpController.log 2>&1 &)"]
+
+FROM base AS amfController
+
+COPY ./native/amfControllerAppl.exe .
+
+#CMD ["echo "Starting amfController" && (__APPNAME=amfController ${RUN_PATH}/amfControllerAppl.exe >${RUN_PATH}/amfController.log 2>&1 &)"]
+
+FROM base AS gnbController
+
+COPY ./native/gnbControllerAppl.exe .
+
+#CMD ["echo "Starting gnbController" && (__APPNAME=gnbController ${RUN_PATH}/gnbControllerAppl.exe >${RUN_PATH}/gnbController.log 2>&1 &)"]
+
+FROM base AS rrCtrl
+
+COPY ./native/rrCtrlAppl.exe .
+
+#CMD ["echo "Starting rrCtrl" && (__APPNAME=rrCtrl ${RUN_PATH}/rrCtrlAppl.exe >${RUN_PATH}/rrCtrl.log 2>&1 &)"]
+
+FROM base AS dsCtrl
+
+COPY ./native/dsCtrlAppl.exe .
+
+#CMD ["echo "Starting dsCtrl" && (__APPNAME=dsCtrl ${RUN_PATH}/dsCtrlAppl.exe --rel_msec 500 >${RUN_PATH}/dsCtrl.log 2>&1 &)"]
+
+FROM base AS resMgr
+
+COPY ./native/resMgrAppl.exe .
+
+#CMD ["echo "Starting resMgr" && (__APPNAME=resMgr ${RUN_PATH}/resMgrAppl.exe >${RUN_PATH}/resMgrAppl.log 2>&1 &)"]
+
+FROM base AS resMgrUp
+
+COPY ./native/resMgrUpAppl.exe .
+
+#CMD ["echo "Starting resMgrUp" && (__APPNAME=resMgrUp ${RUN_PATH}/resMgrUpAppl.exe >${RUN_PATH}/resMgrUpAppl.log 2>&1 &)"]
+
+FROM base AS e1sctpUp
+
+COPY ./native/e1sctpUpAppl.exe .
+
+#CMD ["echo "Starting e1sctpUp" && (__APPNAME=e1sctpUp ${RUN_PATH}/e1sctpUpAppl.exe  --own 127.0.0.2 --cucp 127.0.0.1 --pub 127.0.0.2 >${RUN_PATH}/e1sctpUp.log 2>&1 &)"]
+
+FROM base AS cuUp
+
+COPY ./native/cuUpAppl.exe .
+
+#CMD ["echo "Starting cuUp" && (__APPNAME=cuUp ${RUN_PATH}/cuUpAppl.exe  --own 127.0.0.2 --pub 127.0.0.2 >${RUN_PATH}/cuUp.log 2>&1 &)"]
+
+FROM base AS pmController
+ 
+COPY ./native/pmControllerAppl.exe .
+
+#CMD ["echo "Starting pmController" && (__APPNAME=pmController ${RUN_PATH}/pmControllerAppl.exe >${RUN_PATH}/pmController.log 2>&1 &)"]
+
+FROM base AS tester5g
+
+COPY ./native/testerAppl.exe .
+
+#CMD ["sleep 1 && echo "Starting testerAppl" && ${RUN_PATH}/./testerAppl.exe --own 127.0.0.5 --cucp 127.0.0.1 --numLoops 3"]
+

@@ -17,7 +17,8 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "__APPNAME=e1cp ./e1CpAppl.exe"
+# cmd: "__APPNAME=e1cp ./e1CpAppl.exe"
+cmd: "sleep 3600"
 
 args: []
 #  - name: "--own"
@@ -26,7 +27,7 @@ args: []
 # NATS Settings
 nats:
   # URL of NATS
-  url: 10.55.2.2
+  url: 10.55.1.2
 
   # Port of NAST
   port: 31000

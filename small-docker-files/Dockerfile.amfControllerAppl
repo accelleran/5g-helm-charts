@@ -1,9 +1,6 @@
 FROM ubuntu:bionic-20181112 AS base
 MAINTAINER Accelleran
 
-RUN   apt-get update \
-  &&  apt-get install -y iputils-ping vim
-
 ENV 	DEBIAN_FRONTEND noninteractive
 
 RUN 	echo 'deb [trusted=yes] http://jenkins.ant.accelleran.com/packages/local-bionic /' > /etc/apt/sources.list
@@ -53,6 +50,9 @@ COPY ./native/lib/ ./lib/
 
 COPY ./native/redis-cli .
 COPY ./native/redis-server .
+
+COPY zlog_printf.conf .
+COPY zlog_syslog.conf .
 
 FROM base AS amfController
 
