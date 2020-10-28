@@ -24,21 +24,21 @@ acc-fiveg-amf-tester:
 acc-fiveg-du-tester:
   enabled: true
 
-    # NATS Settings
-    nats:
-      # URL of NATS
-      url: "{{ .Values.global.natsUrl }}"
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
 
-      # Port of NAST
-      port: "{{ .Values.global.natsPort }}"
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
 
-    args:
-      - name: "--cucp"
-        value: 127.0.0.1
-      - name: "--own"
-        value: 127.0.0.7
-      - name: "--numLoops"
-        value: 3
+  args:
+    - name: "--cucp"
+      value: 127.0.0.1
+    - name: "--own"
+      value: 127.0.0.7
+    - name: "--numLoops"
+      value: 3
 
 acc-fiveg-amf-controller:
   enabled: true
