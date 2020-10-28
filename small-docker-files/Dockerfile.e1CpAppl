@@ -24,34 +24,12 @@ RUN		groupadd --gid 1000 accelleran \
 
 WORKDIR /home/accelleran/5G
 
-# RUN mkdir -p ./lib
-
-#COPY  ./native/monAppl.exe .
-
-#COPY ./native/redis-cli .
-#COPY ./native/redis-server .
-
-#COPY zlog_printf.conf .
-#COPY zlog_syslog.conf .
-
 COPY ./lib/ ./lib/
-
-#WORKDIR /home/accelleran/5G/temp-lib
-
-#RUN tar cf - *.so* | tar xvf - -C /home/accelleran/5G/lib
-
-#WORKDIR /home/accelleran/5G
-
-#RUN rm -rf ./temp-lib
 
 USER accelleran
 ENV HOME /home/accelleran
 ENV PATH $PATH:/opt/klocwork/bin/:/usr/local/go/bin
-WORKDIR /home/accelleran/5G
-
-ENV   NATS_SERVICE_URL=nats://127.0.0.1:4222
 ENV   LD_LIBRARY_PATH=/home/accelleran/5G/lib
-ENV   ZLOG_CONF_PATH=/home/accelleran/5G/zlog_printf.conf
 
 FROM base AS e1cp
 

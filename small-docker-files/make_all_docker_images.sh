@@ -4,7 +4,7 @@
 declare -a arr=("amfControllerAppl" "duControllerAppl" "gnbControllerAppl" "resMgrAppl" "testerAppl" "cuUpAppl" "e1CpAppl" "resMgrUpAppl" "cuUpControllerAppl" "e1sctpUpAppl" "ngapAppl" "rrCtrlAppl" "dsCtrlAppl" "f1apIntfAppl" "pmControllerAppl" "sctpCpAppl")
 
 mkdir lib
-cd native/lib && tar cf - *.so* | tar xvf - -C ../../lib
+cd native/lib && tar cf - *so* | tar xvf - -C ../../lib
 cd ../../
 ls
 
