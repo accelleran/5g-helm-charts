@@ -8,10 +8,14 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+    - port: 38462
+      targetPort:
+      protocol: SCTP
+      name: e1
+    - port: 38472
+      targetPort:
+      protocol: SCTP
+      name: f1
   selector:
     {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
 {{- end -}}
