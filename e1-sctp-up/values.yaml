@@ -20,12 +20,12 @@ fullnameOverride: ""
 cmd: "__APPNAME=e1sctpUp ./e1sctpUpAppl.exe"
 
 args:
-  - name: "--own"
-    value: 127.0.0.2
+#  - name: "--own"
+#    value: 127.0.0.2
   - name: "--cucp"
     value: 127.0.0.1
-  - name: "--pub"
-    value: 127.0.0.2
+#  - name: "--pub"
+#    value: 127.0.0.2
 
 # NATS Settings
 nats:

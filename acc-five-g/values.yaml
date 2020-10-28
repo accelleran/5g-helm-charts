@@ -4,6 +4,42 @@ global:
   natsUrl: "10.55.2.2"
   natsPort: "31000"
 
+acc-fiveg-amf-tester:
+  enabled: true
+
+  # NATS Settings
+  nats:
+    # URL of NATS
+    url: "{{ .Values.global.natsUrl }}"
+
+    # Port of NAST
+    port: "{{ .Values.global.natsPort }}"
+
+  args:
+    - name: "--own"
+      value: 127.0.0.5
+    - name: "--numLoops"
+      value: 3
+
+acc-fiveg-du-tester:
+  enabled: true
+
+    # NATS Settings
+    nats:
+      # URL of NATS
+      url: "{{ .Values.global.natsUrl }}"
+
+      # Port of NAST
+      port: "{{ .Values.global.natsPort }}"
+
+    args:
+      - name: "--cucp"
+        value: 127.0.0.1
+      - name: "--own"
+        value: 127.0.0.7
+      - name: "--numLoops"
+        value: 3
+
 acc-fiveg-amf-controller:
   enabled: true
 
@@ -92,12 +128,9 @@ acc-fiveg-e1-sctp-up:
     port: "{{ .Values.global.natsPort }}"
 
   args:
-    - name: "--own"
-      value: 127.0.0.2
     - name: "--cucp"
       value: 127.0.0.1
-    - name: "--pub"
-      value: 127.0.0.2
+
 
 acc-fiveg-f1-ap:
   enabled: true
@@ -109,10 +142,6 @@ acc-fiveg-f1-ap:
 
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
-
-  args:
-    - name: "--f1ap_id"
-      value: "du_1"
 
 acc-fiveg-gnb-cotroller:
   enabled: true
@@ -191,8 +220,3 @@ acc-fiveg-sctp:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
-  args:
-    - name: "--own"
-      value: 127.0.0.1
-    - name: "--ng"
-      value: 127.0.0.5

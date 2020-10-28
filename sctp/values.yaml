@@ -19,11 +19,11 @@ fullnameOverride: ""
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
 cmd: "__APPNAME=sctpCp ./sctpCpAppl.exe"
 
-args:
-  - name: "--own"
-    value: 127.0.0.1
-  - name: "--ng"
-    value: 127.0.0.5
+args: []
+#  - name: "--own"
+#    value: 127.0.0.1
+#  - name: "--ng"
+#    value: 127.0.0.5
 
 # NATS Settings
 nats:

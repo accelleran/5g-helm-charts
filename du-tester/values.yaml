@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: f1apintfappl
+  repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -17,11 +17,15 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "__APPNAME=f1pap ./f1apIntfAppl.exe"
+cmd: "__APPNAME=duTester ./duTesterAppl.exe"
 
-args: []
-#  - name: "--f1ap_id"
-#    value: "du_1"
+args:
+  - name: "--cucp"
+    value: 127.0.0.1
+  - name: "--own"
+    value: 127.0.0.7
+  - name: "--numLoops"
+    value: 3
 
 # NATS Settings
 nats:
