@@ -31,7 +31,7 @@ initConfig:
 
 args:
   - name: "--own"
-    value: "${GTP_IP}"
+    value: "$POD_IP"
   - name: "--numLoops"
     value: 3
 
