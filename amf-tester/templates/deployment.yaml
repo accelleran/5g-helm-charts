@@ -42,22 +42,29 @@ spec:
 
               #!/bin/bash
 
-              namespace="{{ .Release.Namespace }}"
-
-              declare -a arr=("{{ include "five-g-appl.fullname" . }}-gtp")
+#              namespace="{{ .Release.Namespace }}"
+#
+#              declare -a arr=("{{ include "five-g-appl.fullname" . }}-gtp")
               echo "" > /env-vars/env.env
 
-              for i in "${arr[@]}"
-              do
-                echo "Searching for $i..."
+              {{ range .Values.init.ips }}
 
-                name_temp="${i^^}-IP"
-                name="${name_temp//-/_}"
-                ip=$(nslookup ${i}.${namespace}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
+              ip=$(nslookup '{{ tpl .url $ }}'.{{ .Release.Namespace }}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
+              echo "'{{ .name }}'=$ip" >> /env-vars/env.env
 
-                echo "$name=$ip" >> /env-vars/env.env
+              {{ end }}
 
-              done
+#              for i in "${arr[@]}"
+#              do
+#                echo "Searching for $i..."
+#
+#                name_temp="${i^^}-IP"
+#                name="${name_temp//-/_}"
+#                ip=$(nslookup ${i}.${namespace}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
+#
+#                echo "$name=$ip" >> /env-vars/env.env
+#
+#              done
 
               EOF
       containers:
@@ -74,7 +81,7 @@ spec:
               #!/bin/bash
               export $(xargs < /env-vars/env.env)
 
-              echo ${AMF_TESTER_TEST_ACC_FIVEG_AMF_TESTER_GTP_IP} > /env-vars/test.txt
+              echo {{ .Values.testing.value }} > /env-vars/test.txt
 
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
 

@@ -23,6 +23,12 @@ cmd: "sleep 3600"
 testing:
   value: "${GTP_IP}"
 
+# name filed has to be CAPITALIZED
+init:
+  ips:
+    - url: "{{ include "five-g-appl.fullname" . }}-gtp"
+      name: GTP_IP
+
 args: []
 #  - name: "--own"
 #    value: 127.0.0.5
