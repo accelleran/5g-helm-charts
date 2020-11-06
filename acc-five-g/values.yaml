@@ -45,9 +45,9 @@ acc-fiveg-du-tester:
 
   args:
     - name: "--cucp"
-      value: "${F1_IP}"
+      value: "$F1_IP"
     - name: "--own"
-      value: "${GTP_IP}"
+      value: "$POD_IP"
     - name: "--numLoops"
       value: 3
 
@@ -84,7 +84,7 @@ acc-fiveg-cu-up:
 
   args:
     - name: "--own"
-      value: "${GTP_IP}"
+      value: "$POD_IP"
     - name: "--pub"
       value: "{{ .Values.global.kubeIp }}"
 
