@@ -43,28 +43,15 @@ spec:
               #!/bin/bash
 
               namespace="{{ .Release.Namespace }}"
-#
-#              declare -a arr=("{{ include "five-g-appl.fullname" . }}-gtp")
+
               echo "" > /env-vars/env.env
 
-              {{ range .Values.init-config.ips }}
+              {{ range .Values.initConfig.ips }}
 
               ip=$(nslookup '{{ tpl .url $ }}'.${namespace}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
               echo "'{{ .name }}'=$ip" >> /env-vars/env.env
 
               {{ end }}
-
-#              for i in "${arr[@]}"
-#              do
-#                echo "Searching for $i..."
-#
-#                name_temp="${i^^}-IP"
-#                name="${name_temp//-/_}"
-#                ip=$(nslookup ${i}.${namespace}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
-#
-#                echo "$name=$ip" >> /env-vars/env.env
-#
-#              done
 
               EOF
       containers:

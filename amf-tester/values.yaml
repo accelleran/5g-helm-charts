@@ -24,9 +24,9 @@ testing:
   value: "${GTP_IP}"
 
 # name filed has to be CAPITALIZED
-init-config:
+initConfig:
   ips:
-    - url: "{{ include "five-g-appl.fullname" . }}-gtp"
+    - url: '{{ include "five-g-appl.fullname" . }}-gtp'
       name: "GTP_IP"
 
 args: []
