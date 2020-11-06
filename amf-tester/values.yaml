@@ -17,18 +17,20 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "__APPNAME=amfTesterAppl ./amfTesterAppl.exe"
+#cmd: "__APPNAME=amfTesterAppl ./amfTesterAppl.exe"
+cmd: "sleep 3600"
 
 args:
   - name: "--own"
-    value: 127.0.0.5
+#    value: 127.0.0.5
+    value: "${GTP_IP}"
   - name: "--numLoops"
     value: 3
 
 # NATS Settings
 nats:
   # URL of NATS
-  url: 10.55.2.2
+  url: 10.55.1.2
 
   # Port of NAST
   port: 31000
