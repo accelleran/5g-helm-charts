@@ -179,7 +179,7 @@ acc-fiveg-f1-ap:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
-acc-fiveg-gnb-cotroller:
+acc-fiveg-gnb-controller:
   enabled: true
 
   # NATS Settings
