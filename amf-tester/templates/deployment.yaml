@@ -47,7 +47,7 @@ spec:
 #              declare -a arr=("{{ include "five-g-appl.fullname" . }}-gtp")
               echo "" > /env-vars/env.env
 
-              {{ range .Values.init.ips }}
+              {{ range .Values.init-config.ips }}
 
               ip=$(nslookup '{{ tpl .url $ }}'.${namespace}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
               echo "'{{ .name }}'=$ip" >> /env-vars/env.env
