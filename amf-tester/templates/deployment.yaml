@@ -42,14 +42,14 @@ spec:
 
               #!/bin/bash
 
-#              namespace="{{ .Release.Namespace }}"
+              namespace="{{ .Release.Namespace }}"
 #
 #              declare -a arr=("{{ include "five-g-appl.fullname" . }}-gtp")
               echo "" > /env-vars/env.env
 
               {{ range .Values.init.ips }}
 
-              ip=$(nslookup '{{ tpl .url $ }}'.{{ .Release.Namespace }}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
+              ip=$(nslookup '{{ tpl .url $ }}'.${namespace}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
               echo "'{{ .name }}'=$ip" >> /env-vars/env.env
 
               {{ end }}
