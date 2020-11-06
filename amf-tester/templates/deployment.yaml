@@ -38,7 +38,7 @@ spec:
             - sh
             - "-c"
             - |
-              /bin/sh <<'EOF'
+              /bin/bash <<'EOF'
 
               #!/bin/bash
 
@@ -70,9 +70,14 @@ spec:
             - sh
             - "-c"
             - |
-              /bin/sh <<'EOF'
+              /bin/bash <<'EOF'
+              #!/bin/bash
               export $(xargs < /env-vars/env.env)
+
+              echo ${AMF_TESTER_TEST_ACC_FIVEG_AMF_TESTER_GTP_IP} > /env-vars/test.txt
+
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+
               EOF
           env: 
             - name: NATS_SERVICE_URL

@@ -8,7 +8,7 @@ image:
   repository: amftesterappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -20,12 +20,15 @@ fullnameOverride: ""
 #cmd: "__APPNAME=amfTesterAppl ./amfTesterAppl.exe"
 cmd: "sleep 3600"
 
-args:
-  - name: "--own"
+testing:
+  value: "${GTP_IP}"
+
+args: []
+#  - name: "--own"
 #    value: 127.0.0.5
-    value: "${GTP_IP}"
-  - name: "--numLoops"
-    value: 3
+#    value: "${GTP_IP}"
+#  - name: "--numLoops"
+#    value: 3
 
 # NATS Settings
 nats:
