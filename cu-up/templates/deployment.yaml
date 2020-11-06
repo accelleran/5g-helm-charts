@@ -27,6 +27,33 @@ spec:
       serviceAccountName: {{ include "five-g-appl.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: {{ .Chart.Name }}-get-ips
+          image: accelleran/acc-generic-img:0.2.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: init-volume
+              mountPath: /env-vars/
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/bash <<'EOF'
+
+              #!/bin/bash
+
+              namespace="{{ .Release.Namespace }}"
+
+              echo "" > /env-vars/env.env
+
+              {{ range .Values.initConfig.ips }}
+
+              ip=$(nslookup '{{ tpl .url $ }}'.${namespace}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
+              echo "'{{ .name }}'=$ip" >> /env-vars/env.env
+
+              {{ end }}
+
+              EOF
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -37,8 +64,14 @@ spec:
             - sh
             - "-c"
             - |
-              /bin/sh <<'EOF'
+              /bin/bash <<'EOF'
+              #!/bin/bash
+              export $(xargs < /env-vars/env.env)
+
+              echo {{ .Values.testing.value }} > /env-vars/test.txt
+
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+
               EOF
           env: 
             - name: NATS_SERVICE_URL
@@ -64,6 +97,8 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
               mountPath: /5G/zlog.conf
               subPath: "zlog.conf"
+            - name: init-volume
+              mountPath: /env-vars/
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -79,6 +114,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        - name: init-volume
+          emptyDir: {}
         - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+

@@ -28,7 +28,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-        - name: get-ips
+        - name: {{ .Chart.Name }}-get-ips
           image: accelleran/acc-generic-img:0.2.0
           imagePullPolicy: IfNotPresent
           volumeMounts:

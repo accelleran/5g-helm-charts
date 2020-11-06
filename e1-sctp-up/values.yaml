@@ -19,13 +19,18 @@ fullnameOverride: ""
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
 cmd: "__APPNAME=e1sctpUp ./e1sctpUpAppl.exe"
 
+testing:
+  value: "${F1_IP}"
+
+# name filed has to be CAPITALIZED
+initConfig:
+  ips:
+    - url: 'f1-dns_name'
+      name: "F1_IP"
+
 args:
-#  - name: "--own"
-#    value: 127.0.0.2
   - name: "--cucp"
-    value: 127.0.0.1
-#  - name: "--pub"
-#    value: 127.0.0.2
+    value: "${F1_IP}"
 
 # NATS Settings
 nats:

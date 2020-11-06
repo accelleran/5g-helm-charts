@@ -15,11 +15,14 @@ acc-fiveg-amf-tester:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
-  args:
-    - name: "--own"
-      value: 127.0.0.5
-    - name: "--numLoops"
-      value: 3
+  gtpService:
+    enabled: true
+    type: ClusterIP
+    protocol: UDP
+    gtpCPort: 2123
+    # gtpCNodePort:
+    gtpUPort: 2152
+    # gtpUNodePort:
 
 acc-fiveg-du-tester:
   enabled: true
@@ -32,13 +35,30 @@ acc-fiveg-du-tester:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
+  # name filed has to be CAPITALIZED
+  initConfig:
+    ips:
+      - url: '{{ include "five-g-appl.fullname" . }}-gtp'
+        name: "GTP_IP"
+      - url: '{{ .Release.Name }}-acc-fiveg-sctp-f1'
+        name: 'F1_IP'
+
   args:
     - name: "--cucp"
-      value: 127.0.0.1
+      value: "${F1_IP}"
     - name: "--own"
-      value: 127.0.0.7
+      value: "${GTP_IP}"
     - name: "--numLoops"
       value: 3
+
+  gtpService:
+    enabled: true
+    type: ClusterIP
+    protocol: UDP
+    gtpCPort: 2123
+    # gtpCNodePort:
+    gtpUPort: 2152
+    # gtpUNodePort:
 
 acc-fiveg-amf-controller:
   enabled: true
@@ -64,9 +84,18 @@ acc-fiveg-cu-up:
 
   args:
     - name: "--own"
-      value: 127.0.0.2
+      value: "${GTP_IP}"
     - name: "--pub"
-      value: 127.0.0.2
+      value: "{{ .Values.global.kubeIp }}"
+
+  gtpService:
+    enabled: true
+    type: NodePort
+    protocol: UDP
+    gtpCPort: 2123
+    gtpCNodePort: 32123
+    gtpUPort: 2152
+    gtpUNodePort: 32152
 
 acc-fiveg-cu-up-controller:
   enabled: true
@@ -127,9 +156,15 @@ acc-fiveg-e1-sctp-up:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
+  # name filed has to be CAPITALIZED
+  initConfig:
+    ips:
+      - url: '{{ .Release.Name }}-acc-fiveg-sctp-f1'
+        name: "F1_IP"
+
   args:
     - name: "--cucp"
-      value: 127.0.0.1
+      value: "${F1_IP}"
 
 
 acc-fiveg-f1-ap:
@@ -219,4 +254,18 @@ acc-fiveg-sctp:
 
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
+
+  f1Service:
+    enabled: true
+    type: ClusterIP
+    protocol: SCTP
+    f1Port: 38472
+    # f1NodePort:
+
+  e1Service:
+    enabled: true
+    type: ClusterIP
+    protocol: SCTP
+    e1Port: 38462
+    # e1NodePort:
 

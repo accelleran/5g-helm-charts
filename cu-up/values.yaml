@@ -19,9 +19,18 @@ fullnameOverride: ""
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
 cmd: "__APPNAME=cuUp ./cuUpAppl.exe"
 
+testing:
+  value: "${GTP_IP}"
+
+# name filed has to be CAPITALIZED
+initConfig:
+  ips:
+    - url: '{{ include "five-g-appl.fullname" . }}-gtp'
+      name: "GTP_IP"
+
 args:
   - name: "--own"
-    value: 127.0.0.2
+    value: "${GTP_IP}"
   - name: "--pub"
     value: 127.0.0.2
 

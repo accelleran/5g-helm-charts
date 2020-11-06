@@ -17,8 +17,8 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-#cmd: "__APPNAME=amfTesterAppl ./amfTesterAppl.exe"
-cmd: "sleep 3600"
+cmd: "__APPNAME=amfTesterAppl ./amfTesterAppl.exe"
+#cmd: "sleep 3600"
 
 testing:
   value: "${GTP_IP}"
@@ -29,12 +29,11 @@ initConfig:
     - url: '{{ include "five-g-appl.fullname" . }}-gtp'
       name: "GTP_IP"
 
-args: []
-#  - name: "--own"
-#    value: 127.0.0.5
-#    value: "${GTP_IP}"
-#  - name: "--numLoops"
-#    value: 3
+args:
+  - name: "--own"
+    value: "${GTP_IP}"
+  - name: "--numLoops"
+    value: 3
 
 # NATS Settings
 nats:
