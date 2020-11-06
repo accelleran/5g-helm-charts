@@ -67,6 +67,15 @@ service:
   type: ClusterIP
   port: 80
 
+gtpService:
+  enabled: true
+  type: NodePort
+  protocol: UDP
+  gtpCPort: 2123
+  gtpCNodePort: 32123
+  gtpUPort: 2152
+  gtpUNodePort: 32152
+
 ingress:
   enabled: false
   annotations: {}

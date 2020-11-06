@@ -67,6 +67,20 @@ service:
   type: ClusterIP
   port: 80
 
+f1Service:
+  enabled: true
+  type: ClusterIP
+  protocol: SCTP
+  f1Port: 38472
+  # f1NodePort:
+
+e1Service:
+  enabled: true
+  type: ClusterIP
+  protocol: SCTP
+  e1Port: 38462
+  # e1NodePort:
+
 ingress:
   enabled: false
   annotations: {}
