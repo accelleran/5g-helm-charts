@@ -30,7 +30,7 @@ initConfig:
 
 args:
   - name: "--own"
-    value: "${GTP_IP}"
+    value: "$POD_IP"
   - name: "--pub"
     value: 127.0.0.2
 

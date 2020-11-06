@@ -74,6 +74,10 @@ spec:
 
               EOF
           env: 
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
             - name: NATS_SERVICE_URL
               value: nats://{{ .Values.nats.url }}:{{ .Values.nats.port}}
             - name: ZLOG_CONF_PATH
