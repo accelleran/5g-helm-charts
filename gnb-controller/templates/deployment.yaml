@@ -42,7 +42,7 @@ spec:
               EOF
           env: 
             - name: NATS_SERVICE_URL
-              value: nats://{{ .Values.nats.url }}:{{ .Values.nats.port}}
+              value: nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}
             - name: ZLOG_CONF_PATH
               value: /5G/zlog.conf
             {{- if .Values.extraEnvs }}
