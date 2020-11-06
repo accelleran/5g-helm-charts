@@ -86,7 +86,8 @@ acc-fiveg-cu-up:
     - name: "--own"
       value: "$POD_IP"
     - name: "--pub"
-      value: "{{ .Values.global.kubeIp }}"
+#      value: "{{ .Values.global.kubeIp }}"
+      value: "$POD_IP"
 
   gtpService:
     enabled: true
