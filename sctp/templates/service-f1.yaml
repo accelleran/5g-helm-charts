@@ -9,7 +9,7 @@ spec:
   type: {{ .Values.f1Service.type }}
   ports:
     - port: {{ .Values.f1Service.f1Port}}
-        protocol: {{ .Values.f1Service.protocol }}
+      protocol: {{ .Values.f1Service.protocol }}
       name: f1
       {{ if .Values.f1Service.f1NodePort }}
       nodePort: {{ .Values.f1NodePort }}
