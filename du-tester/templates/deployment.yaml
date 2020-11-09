@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "five-g-appl.selectorLabels" . | nindent 8 }}
+        {{- include "five-g-appl.labels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -69,6 +69,8 @@ spec:
               export $(xargs < /env-vars/env.env)
 
               echo {{ .Values.testing.value }} > /env-vars/test.txt
+
+              sleep 20
 
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
 

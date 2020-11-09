@@ -40,6 +40,10 @@ helm.sh/chart: {{ include "five-g-appl.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+drax/role: 5g
+drax/name: 5g
+drax/component-name: {{ .Chart.Name }}
+drax/component-version: {{ .Chart.Version }}
 {{- end }}
 
 {{/*
