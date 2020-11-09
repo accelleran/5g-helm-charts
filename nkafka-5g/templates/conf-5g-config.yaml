@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conf-5g-config
+data:
+  5GConfig.toml: |-
+    protobuf_file="messages_5g.pb"
+
+    [options]
+    topic="5gmessages"
+    rewrite_timestamp="never"
+    max_len=1048756
+    timeout=1000
+    mask=false
+    seq_mapper="one"
+    threads=1
+    invert_service=false
+    replicate_messages=false
+    compact=true
+    offset="auto"

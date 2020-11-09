@@ -4,6 +4,16 @@ global:
   natsUrl: "10.55.1.2"
   natsPort: "31000"
 
+nkafka-5g:
+  kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
+  natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
+
+  logLevel: info
+
+  initConfigs:
+    natsService: "nats-service.{{ .Release.Namespace }}:4222"
+    kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
+
 acc-fiveg-amf-tester:
   enabled: true
 
