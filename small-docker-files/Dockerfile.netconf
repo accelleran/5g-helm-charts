@@ -1,0 +1,44 @@
+FROM ubuntu:bionic-20181112 AS base
+MAINTAINER Accelleran
+
+ENV 	DEBIAN_FRONTEND noninteractive
+
+RUN 	echo 'deb [trusted=yes] http://jenkins.ant.accelleran.com/packages/local-bionic /' > /etc/apt/sources.list
+
+RUN 	apt-get update \
+	&&	apt-get install -y python3 python3-yaml python3-pip
+
+COPY	install-mini-packages.py mini-packages.yml /tmp/
+RUN 	/tmp/install-mini-packages.py ap
+
+CMD 	["/bin/bash"]
+
+RUN		groupadd --gid 1000 accelleran \
+	&&	useradd -m \
+			--home-dir /home/accelleran \
+			--shell /bin/bash \
+			--gid accelleran \
+			--uid 1000 \
+			accelleran \
+	&&  echo 'accelleran ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+WORKDIR /home/accelleran/5G
+
+USER accelleran
+ENV HOME /home/accelleran
+ENV PATH $PATH:/opt/klocwork/bin/:/usr/local/go/bin
+
+FROM base AS netconf
+
+ENV LD_LIBRARY_PATH=/home/accelleran/5G/lib
+ENV NETCONF_HOST_KEY_PATH=/home/accelleran/5G/nc-testkey 
+ENV NETCONF_MODEL_PATH=/home/accelleran/5G/models
+ENV NETCONF_LIBRARY_PATH=/home/accelleran/5G/slib
+ENV LIBYANG_SEARCH_DIR=/home/accelleran/5G/models
+
+COPY ./GNB/product/framework/netconf/entry/nc-testkey .
+COPY ./GNB/product/do/APPL-TCC/production/native/ncclient .
+COPY ./GNB/product/do/APPL-TCC/production/native/ncserver .
+COPY ./GNB/product/do/APPL-TCC/production/native/netconf/models ./models
+COPY ./GNB/product/do/APPL-TCC/production/native/netconf/slib ./slib
+COPY ./GNB/product/do/APPL-TCC/production/lib ./lib
