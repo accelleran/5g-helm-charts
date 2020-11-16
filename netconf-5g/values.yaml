@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: five-g-netconf
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -16,31 +16,23 @@ nameOverride: ""
 fullnameOverride: ""
 
 # Application Settings
-# cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "__APPNAME=cuUp ./cuUpAppl.exe"
+cmd: "./ncserver"
 
-testing:
-  value: "${GTP_IP}"
+# testing:
+  # value: "${GTP_IP}"
 
 # name filed has to be CAPITALIZED
 initConfig:
+  enabled: false
   ips:
     - url: '{{ include "five-g-appl.fullname" . }}-gtp'
       name: "GTP_IP"
 
-args:
-  - name: "--own"
-    value: 127.0.0.2
-  - name: "--pub"
-    value: 127.0.0.2
-
-# NATS Settings
-nats:
-  # URL of NATS
-  url: 10.55.2.2
-
-  # Port of NAST
-  port: 31000
+args: []
+#  - name: "--own"
+#    value: 127.0.0.2
+#  - name: "--pub"
+#    value: 127.0.0.2
 
 extraEnvs: []
 #  - name: example_env_name

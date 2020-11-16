@@ -24,6 +24,7 @@ testing:
 
 # name filed has to be CAPITALIZED
 initConfig:
+  enabled: true
   ips:
     - url: '{{ include "five-g-appl.fullname" . }}-gtp'
       name: "GTP_IP"
