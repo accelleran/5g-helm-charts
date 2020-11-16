@@ -68,7 +68,10 @@ spec:
             - |
               /bin/bash <<'EOF'
               #!/bin/bash
+
+              {{ if .Values.initConfig.enabled }}
               export $(xargs < /env-vars/env.env)
+              {{ end }}
 
               {{ if .Values.testing }}
               echo {{ .Values.testing.value }} > /env-vars/test.txt
@@ -84,6 +87,10 @@ spec:
                   fieldPath: status.podIP
             - name: ZLOG_CONF_PATH
               value: /5G/zlog.conf
+            - name: BOOTSTRAP_INSTANCE_ID 
+              value: {{ tpl .Values.bootstrapId . }}
+            - name: BOOTSTRAP_FILENAME
+              value: {{ .Values.bootstrapFile }}
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
@@ -101,8 +108,14 @@ spec:
 #              port: http
           volumeMounts:
             - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
-              mountPath: /5G/zlog.conf
+              mountPath: /home/accelleran/5G/zlog.conf
               subPath: "zlog.conf"
+            - name: {{ include "five-g-appl.fullname" . }}-ncstart
+              mountPath: /home/accelleran/5G/ncstart
+              subPath: "ncstart"
+            - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+              mountPath: {{ .Values.bootstrapFile }}
+              subPath: "bootstrap.txt"
             - name: init-volume
               mountPath: /env-vars/
           resources:
@@ -125,4 +138,12 @@ spec:
         - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+        - name: {{ include "five-g-appl.fullname" . }}-ncstart
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-ncstart
+            defaultMode: 0777
+        - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-bootstrap
+
 

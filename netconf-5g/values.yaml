@@ -8,7 +8,7 @@ image:
   repository: five-g-netconf
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -16,7 +16,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 # Application Settings
-cmd: "./ncserver"
+cmd: "./ncstart"
+#cmd: "sleep 3600"
 
 # testing:
   # value: "${GTP_IP}"
@@ -35,10 +36,15 @@ args: []
 #    value: 127.0.0.2
 
 extraEnvs: []
-#  - name: example_env_name
-#    value: example_env_value
-#  - name: ex1
-#    value: ex1
+#  - name: BOOTSTRAP_FILENAME
+#    value: /home/accelleran/5G/bootstrap.txt
+
+redis:
+  hostname: 10.55.1.2
+  port: 32000
+
+bootstrapId: "cuup_1"
+bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 serviceAccount:
   # Specifies whether a service account should be created

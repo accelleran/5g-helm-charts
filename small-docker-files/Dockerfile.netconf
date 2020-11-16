@@ -35,6 +35,8 @@ ENV NETCONF_HOST_KEY_PATH=/home/accelleran/5G/nc-testkey
 ENV NETCONF_MODEL_PATH=/home/accelleran/5G/models
 ENV NETCONF_LIBRARY_PATH=/home/accelleran/5G/slib
 ENV LIBYANG_SEARCH_DIR=/home/accelleran/5G/models
+ENV LIBYANG_USER_TYPES_PLUGINS_DIR=/home/accelleran/5G/lib/libyang/user_types
+ENV LIBYANG_EXTENSIONS_PLUGINS_DIR=/home/accelleran/5G/lib/libyang/extensions
 
 COPY ./GNB/product/framework/netconf/entry/nc-testkey .
 COPY ./GNB/product/do/APPL-TCC/production/native/ncclient .
