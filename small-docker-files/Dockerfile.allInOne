@@ -1,0 +1,56 @@
+FROM ubuntu:bionic-20181112
+MAINTAINER Accelleran
+
+ENV 	DEBIAN_FRONTEND noninteractive
+
+RUN 	echo 'deb [trusted=yes] http://jenkins.ant.accelleran.com/packages/local-bionic /' > /etc/apt/sources.list
+
+RUN 	apt-get update \
+	&&	apt-get install -y python3 python3-yaml python3-pip
+
+COPY	install-mini-packages.py mini-packages.yml /tmp/
+RUN 	/tmp/install-mini-packages.py ap
+
+CMD 	["/bin/bash"]
+
+RUN		groupadd --gid 1000 accelleran \
+	&&	useradd -m \
+			--home-dir /home/accelleran \
+			--shell /bin/bash \
+			--gid accelleran \
+			--uid 1000 \
+			accelleran \
+	&&  echo 'accelleran ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+WORKDIR /home/accelleran/5G
+
+COPY ./lib/ ./lib/
+
+USER accelleran
+ENV HOME /home/accelleran
+ENV PATH $PATH:/opt/klocwork/bin/:/usr/local/go/bin
+ENV LD_LIBRARY_PATH=/home/accelleran/5G/lib
+
+COPY ./native/amfControllerAppl.exe .
+COPY ./native/amfTesterAppl.exe .
+COPY ./native/cuUpAppl.exe .
+COPY ./native/cuUpControllerAppl.exe .
+COPY ./native/dsCtrlAppl.exe .
+COPY ./native/duControllerAppl.exe .
+COPY ./native/duTesterAppl.exe .
+COPY ./native/e1CpAppl.exe .
+COPY ./native/e1sctpUpAppl.exe .
+COPY ./native/f1apIntfAppl.exe .
+COPY ./native/gnbControllerAppl.exe .
+COPY ./native/ngapAppl.exe .
+COPY ./native/pmControllerAppl.exe .
+COPY ./native/resMgrAppl.exe .
+COPY ./native/resMgrUpAppl.exe .
+COPY ./native/rrCtrlAppl.exe .
+COPY ./native/sctpCpAppl.exe .
+
+COPY zlog_printf.conf .
+COPY zlog_syslog.conf .
+COPY run-test .
+
+CMD "/bin/bash"

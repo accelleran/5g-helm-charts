@@ -1,16 +1,12 @@
 #!/bin/bash
 
 # Declare list of images names
-declare -a arr=("amfTesterAppl" "amfControllerAppl" "duControllerAppl" "gnbControllerAppl" "resMgrAppl" "duTesterAppl" "cuUpAppl" "e1CpAppl" "resMgrUpAppl" "cuUpControllerAppl" "e1sctpUpAppl" "ngapAppl" "rrCtrlAppl" "dsCtrlAppl" "f1apIntfAppl" "pmControllerAppl" "sctpCpAppl")
+declare -a arr=("accFiveGBase" "amfTesterAppl" "amfControllerAppl" "duControllerAppl" "gnbControllerAppl" "resMgrAppl" "duTesterAppl" "cuUpAppl" "e1CpAppl" "resMgrUpAppl" "cuUpControllerAppl" "e1sctpUpAppl" "ngapAppl" "rrCtrlAppl" "dsCtrlAppl" "f1apIntfAppl" "pmControllerAppl" "sctpCpAppl")
 
-mkdir lib
-cd native/lib && tar cf - *so* | tar xvf - -C ../../lib
-cd ../../
-ls
+# Run the create lib folder script to take only needed libs
+create_lib_folder.sh
 
-
-
-# Convert Docker name to lowercase because docker onlty accept this using ${i,,}
+# Convert Docker name to lowercase because docker only accept this using ${i,,}
 for i in "${arr[@]}"
 do
    echo "Building $i..."
