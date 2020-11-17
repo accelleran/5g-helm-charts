@@ -1,7 +1,3 @@
 FROM accfivefbase AS gnbController
 
 COPY ./native/gnbControllerAppl.exe .
-
-#CMD ["echo "Starting gnbController" && (__APPNAME=gnbController ${RUN_PATH}/gnbControllerAppl.exe >${RUN_PATH}/gnbController.log 2>&1 &)"]
-
-

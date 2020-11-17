@@ -1,5 +1,3 @@
 FROM accfivefbase AS cuUp
 
 COPY ./native/cuUpAppl.exe .
-
-#CMD ["echo "Starting cuUp" && (__APPNAME=cuUp ${RUN_PATH}/cuUpAppl.exe  --own 127.0.0.2 --pub 127.0.0.2 >${RUN_PATH}/cuUp.log 2>&1 &)"]

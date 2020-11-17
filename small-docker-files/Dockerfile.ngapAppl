@@ -1,6 +1,3 @@
 FROM accfivefbase AS ngapAppl
 
 COPY ./native/ngapAppl.exe .
-
-#CMD ["echo "Starting ngap" && (__APPNAME=ngap ${RUN_PATH}/ngapAppl.exe  >${RUN_PATH}/ngap.log 2>&1 &)"]
-

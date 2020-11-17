@@ -1,7 +1,3 @@
 FROM accfivefbase AS resMgrUp
 
 COPY ./native/resMgrUpAppl.exe .
-
-#CMD ["echo "Starting resMgrUp" && (__APPNAME=resMgrUp ${RUN_PATH}/resMgrUpAppl.exe >${RUN_PATH}/resMgrUpAppl.log 2>&1 &)"]
-
-

@@ -1,6 +1,3 @@
 FROM accfivefbase AS pmController
  
 COPY ./native/pmControllerAppl.exe .
-
-#CMD ["echo "Starting pmController" && (__APPNAME=pmController ${RUN_PATH}/pmControllerAppl.exe >${RUN_PATH}/pmController.log 2>&1 &)"]
-

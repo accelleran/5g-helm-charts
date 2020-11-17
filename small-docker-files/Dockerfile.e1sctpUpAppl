@@ -1,6 +1,3 @@
 FROM accfivefbase AS e1sctpUp
 
 COPY ./native/e1sctpUpAppl.exe .
-
-#CMD ["echo "Starting e1sctpUp" && (__APPNAME=e1sctpUp ${RUN_PATH}/e1sctpUpAppl.exe  --own 127.0.0.2 --cucp 127.0.0.1 --pub 127.0.0.2 >${RUN_PATH}/e1sctpUp.log 2>&1 &)"]
-

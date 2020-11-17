@@ -1,5 +1,3 @@
 FROM accfivefbase AS cuUpController
 
 COPY ./native/cuUpControllerAppl.exe .
-
-#CMD ["echo "Starting cuUpController" && (__APPNAME=cuUpController ${RUN_PATH}/cuUpControllerAppl.exe >${RUN_PATH}/cuUpController.log 2>&1 &)"]

@@ -1,7 +1,3 @@
 FROM accfivefbase AS f1apIntfAppl
 
 COPY ./native/f1apIntfAppl.exe .
-
-#CMD ["echo "Starting f1ap" && (__APPNAME=f1pap ${RUN_PATH}/f1apIntfAppl.exe --f1ap_id du_1 >${RUN_PATH}/f1ap.log 2>&1 &)"]
-
-

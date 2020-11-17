@@ -1,7 +1,3 @@
 FROM accfivefbase AS duControllerAppl
 
 COPY ./native/duControllerAppl.exe .
-
-#CMD ["echo "Starting duController" && (__APPNAME=duController ${RUN_PATH}/duControllerAppl.exe  >${RUN_PATH}/duController.log 2>&1 &)"]
-
-

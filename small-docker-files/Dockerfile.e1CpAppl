@@ -1,6 +1,3 @@
 FROM accfivefbase AS e1cp
 
 COPY	./native/e1CpAppl.exe .
-
-#CMD		["echo "Starting e1cp" && (__APPNAME=e1cp e1CpAppl.exe > e1Cp.log 2>&1 &)"]
-

@@ -1,7 +1,3 @@
 FROM accfivefbase AS rrCtrl
 
 COPY ./native/rrCtrlAppl.exe .
-
-#CMD ["echo "Starting rrCtrl" && (__APPNAME=rrCtrl ${RUN_PATH}/rrCtrlAppl.exe >${RUN_PATH}/rrCtrl.log 2>&1 &)"]
-
-

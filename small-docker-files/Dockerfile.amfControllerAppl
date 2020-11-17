@@ -1,6 +1,3 @@
 FROM accfivefbase AS amfController
 
 COPY ./native/amfControllerAppl.exe .
-
-#CMD ["echo "Starting amfController" && (__APPNAME=amfController ${RUN_PATH}/amfControllerAppl.exe >${RUN_PATH}/amfController.log 2>&1 &)"]
-

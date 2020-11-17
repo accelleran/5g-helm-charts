@@ -1,7 +1,3 @@
 FROM accfivefbase AS dsCtrl
 
 COPY ./native/dsCtrlAppl.exe .
-
-#CMD ["echo "Starting dsCtrl" && (__APPNAME=dsCtrl ${RUN_PATH}/dsCtrlAppl.exe --rel_msec 500 >${RUN_PATH}/dsCtrl.log 2>&1 &)"]
-
-

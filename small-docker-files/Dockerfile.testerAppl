@@ -1,6 +1,3 @@
 FROM accfivefbase AS tester5g
 
 COPY ./native/testerAppl.exe .
-
-#CMD ["sleep 1 && echo "Starting testerAppl" && ${RUN_PATH}/./testerAppl.exe --own 127.0.0.5 --cucp 127.0.0.1 --numLoops 3"]
-

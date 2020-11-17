@@ -1,7 +1,3 @@
 FROM accfivefbase AS sctpCpAppl
 
 COPY ./native/sctpCpAppl.exe .
-
-#CMD ["echo "Starting sctp" && (__APPNAME=sctpCp ${RUN_PATH}/sctpCpAppl.exe  --own 127.0.0.1 --ng 127.0.0.5 >${RUN_PATH}/sctp.log 2>&1 &)"]
-
-
