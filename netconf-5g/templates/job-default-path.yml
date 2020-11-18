@@ -25,7 +25,7 @@ spec:
 
               python3 cucp-rpc.py
 
-              {{ else if .Values.initNetconfDefaultPath.componentType "cuup" }}
+              {{ else if eq .Values.initNetconfDefaultPath.componentType "cuup" }}
 
               echo "CUUP"
 
