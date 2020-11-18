@@ -1,0 +1,16 @@
+{{- if .Values.netconfService.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "five-g-appl.fullname" . }}-netconf
+  labels:
+    {{- include "five-g-appl.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.netconfService.type }}
+  ports:
+    - port: {{ .Values.netconfService.port }}
+      protocol: {{ .Values.netconfService.protocol }}
+      name: {{ .Values.netconfService.name }}
+  selector:
+    {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
+{{- end -}}

@@ -29,6 +29,9 @@ initConfig:
     - url: '{{ include "five-g-appl.fullname" . }}-gtp'
       name: "GTP_IP"
 
+initNetconf:
+  enabled: true
+
 args: []
 #  - name: "--own"
 #    value: 127.0.0.2
@@ -73,6 +76,13 @@ service:
   enabled: false
   type: ClusterIP
   port: 80
+
+netconfService:
+  enabled: true
+  type: NodePort
+  port: 830
+  name: netconf
+  protocol: TCP
 
 ingress:
   enabled: false

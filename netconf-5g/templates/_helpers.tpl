@@ -42,6 +42,7 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 drax/role: 5g
 drax/name: 5g
+drax/technology: 5g
 drax/component-name: {{ .Chart.Name }}
 drax/component-version: {{ .Chart.Version }}
 {{- end }}

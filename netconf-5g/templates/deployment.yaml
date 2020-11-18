@@ -56,6 +56,43 @@ spec:
 
               EOF
         {{ end }}
+        {{ .Values.initNetconf.enabled }}
+        - name: {{ .Chart.Name }}-config-netconf
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: {{ .Values.netconfService.name }}
+              containerPort: {{ .Values.netconfService.port }}
+              protocol: {{ .Values.netconfService.protocol }}
+          volumeMounts:
+            - name: {{ include "five-g-appl.fullname" . }}-rpc-model
+              mountPath: /home/accelleran/5G/rpcs/model-rpc.py
+              subPath: "model-rpc.py"
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/bash <<'EOF'
+
+              #!/bin/bash
+
+              # Start netconf in the background
+              ncstart &
+
+              # make sure that netconf is running
+              until nc -z -v -w1 127.0.0.1:830; do echo $(date) [CHECK-NETCONF] Waiting for NetConf; sleep 1; done
+
+              # Install netconf python lib
+              pip3 install netconf-client==1.7.1
+
+              # Run model-rpc.py script
+              python3 /rpcs/model-rpc.py
+
+              EOF
+        {{ end }}
+
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -95,9 +132,9 @@ spec:
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            - name: {{ .Values.netconfService.name }}
+              containerPort: {{ .Values.netconfService.port }}
+              protocol: {{ .Values.netconfService.protocol }}
 #          livenessProbe:
 #            httpGet:
 #              path: /
@@ -145,5 +182,11 @@ spec:
         - name: {{ include "five-g-appl.fullname" . }}-bootstrap
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-bootstrap
+
+        - name: {{ include "five-g-appl.fullname" . }}-rpc-model
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-rpc-model
+
+
 
 
