@@ -172,7 +172,7 @@ spec:
 #            httpGet:
 #              path: /
 #              port: http
-          {{ .Values.initNetconfDefaultPath.enabled }}
+          {{ if .Values.initNetconfDefaultPath.enabled }}
           lifecycle:
             postStart:
               exec:
