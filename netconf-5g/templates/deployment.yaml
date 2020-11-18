@@ -187,13 +187,13 @@ spec:
 
                     {{ if eq .Values.initNetconfDefaultPath.componentType "cucp" }}
 
-                    echo "CUCP"
+                    echo "CUCP" > rpc/rpc-log.txt
 
                     python3 rpcs/cucp-rpc.py
 
                     {{ else if eq .Values.initNetconfDefaultPath.componentType "cuup" }}
 
-                    echo "CUUP"
+                    echo "CUUP" > rpc/rpc-log.txt
 
                     python3 rpcs/cuup-rpc.py
 
