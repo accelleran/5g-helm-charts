@@ -1,4 +1,4 @@
-FROM accfivefbase AS netconf
+FROM accfivegbase AS netconf
 
 ENV LD_LIBRARY_PATH=/home/accelleran/5G/lib
 ENV NETCONF_HOST_KEY_PATH=/home/accelleran/5G/nc-testkey 

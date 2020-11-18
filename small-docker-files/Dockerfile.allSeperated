@@ -1,4 +1,4 @@
-FROM ubuntu:bionic-20181112 AS accfivefbase
+FROM ubuntu:bionic-20181112 AS accfivegbase
 MAINTAINER Accelleran
 
 ENV 	DEBIAN_FRONTEND noninteractive
@@ -31,91 +31,91 @@ ENV HOME /home/accelleran
 ENV PATH $PATH:/opt/klocwork/bin/:/usr/local/go/bin
 ENV   LD_LIBRARY_PATH=/home/accelleran/5G/lib
 
-FROM accfivefbase AS e1cp
+FROM accfivegbase AS e1cp
 
 COPY	./native/e1CpAppl.exe .
 
 #CMD		["echo "Starting e1cp" && (__APPNAME=e1cp e1CpAppl.exe > e1Cp.log 2>&1 &)"]
 
-FROM accfivefbase AS f1apIntfAppl
+FROM accfivegbase AS f1apIntfAppl
 
 COPY ./native/f1apIntfAppl.exe .
 
 #CMD ["echo "Starting f1ap" && (__APPNAME=f1pap ${RUN_PATH}/f1apIntfAppl.exe --f1ap_id du_1 >${RUN_PATH}/f1ap.log 2>&1 &)"]
 
-FROM accfivefbase AS sctpCpAppl
+FROM accfivegbase AS sctpCpAppl
 
 COPY ./native/sctpCpAppl.exe .
 
 #CMD ["echo "Starting sctp" && (__APPNAME=sctpCp ${RUN_PATH}/sctpCpAppl.exe  --own 127.0.0.1 --ng 127.0.0.5 >${RUN_PATH}/sctp.log 2>&1 &)"]
 
-FROM accfivefbase AS ngapAppl
+FROM accfivegbase AS ngapAppl
 
 COPY ./native/ngapAppl.exe .
 
 #CMD ["echo "Starting ngap" && (__APPNAME=ngap ${RUN_PATH}/ngapAppl.exe  >${RUN_PATH}/ngap.log 2>&1 &)"]
 
-FROM accfivefbase AS duControllerAppl
+FROM accfivegbase AS duControllerAppl
 
 COPY ./native/duControllerAppl.exe .
 
 #CMD ["echo "Starting duController" && (__APPNAME=duController ${RUN_PATH}/duControllerAppl.exe  >${RUN_PATH}/duController.log 2>&1 &)"]
 
-FROM accfivefbase AS cuUpController
+FROM accfivegbase AS cuUpController
 
 COPY ./native/cuUpControllerAppl.exe .
 
 #CMD ["echo "Starting cuUpController" && (__APPNAME=cuUpController ${RUN_PATH}/cuUpControllerAppl.exe >${RUN_PATH}/cuUpController.log 2>&1 &)"]
 
-FROM accfivefbase AS amfController
+FROM accfivegbase AS amfController
 
 COPY ./native/amfControllerAppl.exe .
 
 #CMD ["echo "Starting amfController" && (__APPNAME=amfController ${RUN_PATH}/amfControllerAppl.exe >${RUN_PATH}/amfController.log 2>&1 &)"]
 
-FROM accfivefbase AS gnbController
+FROM accfivegbase AS gnbController
 
 COPY ./native/gnbControllerAppl.exe .
 
 #CMD ["echo "Starting gnbController" && (__APPNAME=gnbController ${RUN_PATH}/gnbControllerAppl.exe >${RUN_PATH}/gnbController.log 2>&1 &)"]
 
-FROM accfivefbase AS rrCtrl
+FROM accfivegbase AS rrCtrl
 
 COPY ./native/rrCtrlAppl.exe .
 
 #CMD ["echo "Starting rrCtrl" && (__APPNAME=rrCtrl ${RUN_PATH}/rrCtrlAppl.exe >${RUN_PATH}/rrCtrl.log 2>&1 &)"]
 
-FROM accfivefbase AS dsCtrl
+FROM accfivegbase AS dsCtrl
 
 COPY ./native/dsCtrlAppl.exe .
 
 #CMD ["echo "Starting dsCtrl" && (__APPNAME=dsCtrl ${RUN_PATH}/dsCtrlAppl.exe --rel_msec 500 >${RUN_PATH}/dsCtrl.log 2>&1 &)"]
 
-FROM accfivefbase AS resMgr
+FROM accfivegbase AS resMgr
 
 COPY ./native/resMgrAppl.exe .
 
 #CMD ["echo "Starting resMgr" && (__APPNAME=resMgr ${RUN_PATH}/resMgrAppl.exe >${RUN_PATH}/resMgrAppl.log 2>&1 &)"]
 
-FROM accfivefbase AS resMgrUp
+FROM accfivegbase AS resMgrUp
 
 COPY ./native/resMgrUpAppl.exe .
 
 #CMD ["echo "Starting resMgrUp" && (__APPNAME=resMgrUp ${RUN_PATH}/resMgrUpAppl.exe >${RUN_PATH}/resMgrUpAppl.log 2>&1 &)"]
 
-FROM accfivefbase AS e1sctpUp
+FROM accfivegbase AS e1sctpUp
 
 COPY ./native/e1sctpUpAppl.exe .
 
 #CMD ["echo "Starting e1sctpUp" && (__APPNAME=e1sctpUp ${RUN_PATH}/e1sctpUpAppl.exe  --own 127.0.0.2 --cucp 127.0.0.1 --pub 127.0.0.2 >${RUN_PATH}/e1sctpUp.log 2>&1 &)"]
 
-FROM accfivefbase AS cuUp
+FROM accfivegbase AS cuUp
 
 COPY ./native/cuUpAppl.exe .
 
 #CMD ["echo "Starting cuUp" && (__APPNAME=cuUp ${RUN_PATH}/cuUpAppl.exe  --own 127.0.0.2 --pub 127.0.0.2 >${RUN_PATH}/cuUp.log 2>&1 &)"]
 
-FROM accfivefbase AS pmController
+FROM accfivegbase AS pmController
  
 COPY ./native/pmControllerAppl.exe .
 

@@ -1,3 +1,3 @@
-FROM accfivefbase AS ngapAppl
+FROM accfivegbase AS ngapAppl
 
 COPY ./native/ngapAppl.exe .

@@ -1,4 +1,4 @@
-FROM accfivefbase AS amfTester
+FROM accfivegbase AS amfTester
 
 COPY ./native/amfTesterAppl.exe .
 
