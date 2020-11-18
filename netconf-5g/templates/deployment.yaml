@@ -62,6 +62,20 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: ZLOG_CONF_PATH
+              value: /5G/zlog.conf
+            - name: BOOTSTRAP_INSTANCE_ID
+              value: {{ tpl .Values.bootstrapId . }}
+            - name: BOOTSTRAP_FILENAME
+              value: {{ .Values.bootstrapFile }}
+            {{- if .Values.extraEnvs }}
+            {{ toYaml .Values.extraEnvs | nindent 12 }}
+            {{- end }}
           ports:
             - name: {{ .Values.netconfService.name }}
               containerPort: {{ .Values.netconfService.port }}
@@ -70,6 +84,15 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-rpc-model
               mountPath: /home/accelleran/5G/rpcs/model-rpc.py
               subPath: "model-rpc.py"
+            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+              mountPath: /home/accelleran/5G/zlog.conf
+              subPath: "zlog.conf"
+            - name: {{ include "five-g-appl.fullname" . }}-ncstart
+              mountPath: /home/accelleran/5G/ncstart
+              subPath: "ncstart"
+            - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+              mountPath: {{ .Values.bootstrapFile }}
+              subPath: "bootstrap.txt"
           command:
             - sh
             - "-c"
