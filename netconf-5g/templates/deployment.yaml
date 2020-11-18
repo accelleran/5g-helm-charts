@@ -172,6 +172,34 @@ spec:
 #            httpGet:
 #              path: /
 #              port: http
+          {{ .Values.initNetconfDefaultPath.enabled }}
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - "-c"
+                  - |
+                    /bin/sh <<'EOF'
+
+                    pip3 install netconf-client==1.7.1
+
+                    {{ if eq .Values.initNetconfDefaultPath.componentType "cucp" }}
+
+                    echo "CUCP"
+
+                    python3 cucp-rpc.py
+
+                    {{ else if eq .Values.initNetconfDefaultPath.componentType "cuup" }}
+
+                    echo "CUUP"
+
+                    python3 cuup-rpc.py
+
+                    {{ end }}
+
+                    EOF
+          {{ end }}
           volumeMounts:
             - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
               mountPath: /home/accelleran/5G/zlog.conf
@@ -184,6 +212,12 @@ spec:
               subPath: "bootstrap.txt"
             - name: init-volume
               mountPath: /env-vars/
+            - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+              mountPath: /home/accelleran/5G/rpcs/cucp-rpc.py
+              subPath: "cucp-rpc.py"
+            - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+              mountPath: /home/accelleran/5G/rpcs/cuup-rpc.py
+              subPath: "cuup-rpc.py"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -204,6 +238,7 @@ spec:
         - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+
         - name: {{ include "five-g-appl.fullname" . }}-ncstart
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-ncstart
@@ -215,6 +250,14 @@ spec:
         - name: {{ include "five-g-appl.fullname" . }}-rpc-model
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-rpc-model
+
+        - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+
+        - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
 
 
 

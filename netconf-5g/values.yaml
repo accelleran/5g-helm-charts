@@ -34,11 +34,11 @@ initNetconf:
 
 initNetconfDefaultPath:
   enabled: true
-  repository: accelleran/acc-generic-img
-  version: 0.3.0
-  securityContext:
-    runAsUser: 0
-  pullPolicy: IfNotPresent
+  #repository: accelleran/acc-generic-img
+  #version: 0.3.0
+  #securityContext:
+  #  runAsUser: 0
+  #pullPolicy: IfNotPresent
   host: '{{ include "five-g-appl.fullname" . }}-netconf'
   componentType: cuup
 
