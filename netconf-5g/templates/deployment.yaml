@@ -172,7 +172,6 @@ spec:
 #            httpGet:
 #              path: /
 #              port: http
-          {{ if .Values.initNetconfDefaultPath.enabled }}
           lifecycle:
             postStart:
               exec:
@@ -184,22 +183,27 @@ spec:
 
                     pip3 install netconf-client==1.7.1
 
+                    {{ if .Values.initNetconfDefaultPath.enabled }}
+
                     {{ if eq .Values.initNetconfDefaultPath.componentType "cucp" }}
 
                     echo "CUCP"
 
-                    python3 cucp-rpc.py
+                    python3 rpcs/cucp-rpc.py
 
                     {{ else if eq .Values.initNetconfDefaultPath.componentType "cuup" }}
 
                     echo "CUUP"
 
-                    python3 cuup-rpc.py
+                    python3 rpcs/cuup-rpc.py
 
                     {{ end }}
 
+                    {{ end }}
+
+                    echo "[POST-START-SCRIPT] Finished NetConf Default Path initialization!"
+
                     EOF
-          {{ end }}
           volumeMounts:
             - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
               mountPath: /home/accelleran/5G/zlog.conf
