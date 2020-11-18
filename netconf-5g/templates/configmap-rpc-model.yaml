@@ -10,7 +10,7 @@ data:
     from netconf_client.ncclient import Manager
 
     HOST = "localhost"
-    PORT = "830"
+    PORT = 830
 
     session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
     mgr = Manager(session, timeout=120)

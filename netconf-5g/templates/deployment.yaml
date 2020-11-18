@@ -56,7 +56,7 @@ spec:
 
               EOF
         {{ end }}
-        {{ .Values.initNetconf.enabled }}
+        {{ if .Values.initNetconf.enabled }}
         - name: {{ .Chart.Name }}-config-netconf
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -78,17 +78,21 @@ spec:
 
               #!/bin/bash
 
+              ls
+
               # Start netconf in the background
-              ncstart &
+              {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }} &
+              
+              sleep 5
 
               # make sure that netconf is running
-              until nc -z -v -w1 127.0.0.1:830; do echo $(date) [CHECK-NETCONF] Waiting for NetConf; sleep 1; done
+              #until nc -z -v -w1 127.0.0.1:830; do echo $(date) [CHECK-NETCONF] Waiting for NetConf; sleep 1; done
 
               # Install netconf python lib
               pip3 install netconf-client==1.7.1
 
               # Run model-rpc.py script
-              python3 /rpcs/model-rpc.py
+              python3 rpcs/model-rpc.py
 
               EOF
         {{ end }}
