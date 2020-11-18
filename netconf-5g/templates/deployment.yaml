@@ -117,6 +117,8 @@ spec:
               # Run model-rpc.py script
               python3 rpcs/model-rpc.py
 
+              exit 0
+
               EOF
         {{ end }}
 

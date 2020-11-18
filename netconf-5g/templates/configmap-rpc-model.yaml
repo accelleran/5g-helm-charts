@@ -34,5 +34,5 @@ data:
             </netconf-config>
             </config>"""
 
-    print(mgr.edit_config(config=models,target='running', default_operation=None).data_xml)
+    print(mgr.edit_config(config=models,target='running', default_operation=None))
 

@@ -46,7 +46,7 @@ redis:
   hostname: 10.55.1.2
   port: 32000
 
-bootstrapId: "cuup_1"
+bootstrapId: "cuup_2"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 serviceAccount:
