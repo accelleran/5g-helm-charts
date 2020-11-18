@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "five-g-appl.fullname" . }}
+  labels:
+    {{- include "five-g-appl.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-default-path
+          securityContext:
+            {{- toYaml .Values.initNetconfDefaultPath.securityContext | nindent 12 }}
+          image: "{{ .Values.initNetconfDefaultPath.repository }}:{{ .Values.initNetconfDefaultPath.version }}"
+          imagePullPolicy: {{ .Values.initNetconfDefaultPath.pullPolicy }}
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/sh <<'EOF'
+
+              {{ if eq .Values.initNetconfDefaultPath.componentType "cucp" }}
+
+              echo "CUCP"
+
+              python3 cucp-rpc.py
+
+              {{ else if .Values.initNetconfDefaultPath.componentType "cuup" }}
+
+              echo "CUUP"
+
+              python3 cuup-rpc.py
+
+              {{ end }}
+
+              EOF
+          volumeMounts:
+            - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+              mountPath: /cucp-rpc.py
+              subPath: "cucp-rpc.py"
+            - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+              mountPath: /cuup-rpc.py
+              subPath: "cuup-rpc.py"
+      restartPolicy: Never
+      volumes:
+        - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+
+        - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-rpc-cuup

@@ -32,6 +32,17 @@ initConfig:
 initNetconf:
   enabled: true
 
+initNetconfDefaultPath:
+  enabled: true
+  repository: accelleran/acc-generic-img
+  version: 0.2.0
+  securityContext:
+    runAsUser: 0
+  pullPolicy: IfNotPresent
+  host: '{{ include "five-g-appl.fullname" . }}-netconf'
+  componentType: cuup
+
+
 args: []
 #  - name: "--own"
 #    value: 127.0.0.2
@@ -46,7 +57,8 @@ redis:
   hostname: 10.55.1.2
   port: 32000
 
-bootstrapId: "cuup_2"
+
+bootstrapId: "cuup_1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 serviceAccount:
