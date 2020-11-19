@@ -1,0 +1,176 @@
+# Default values for five-g-appl.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+### TEMPORARY NEW REDIS TO TEST
+redis:
+  # To enable or disable the installation of redis
+  enabled: false
+
+  # The version of the Docker image to use
+  version: "redis20190206"
+
+  # The External IP of where NATS is installed
+  natsIp: 10.55.1.2
+
+  # The port NATS is using, check in the above settings of NATS
+  natsPort: 31000
+
+  # Backup the redis db when the pod is terminated
+  backup:
+    # Enabled or disable this feature
+    enabled: true
+
+    # Choose after how many days should the backed up DBs be deleted
+    deleteAfterDay: 7
+
+  service:
+    type: NodePort
+    port: 6379
+    nodePort: 32200
+    name: "redisport"
+    serviceName: redis-service-5g
+
+  persistence:
+    accessModes:
+      - ReadWriteMany
+    enabled: true
+    size: 10Gi
+    storageClassName: acc-redis-5g
+    type: pvc
+    ### TESTING
+    #hostPath: /opt/pods/acc-redis
+    ### Production
+    hostPath: /opt/pods/redis-storage-5g
+
+replicaCount: 1
+
+image:
+  repository: five-g-netconf
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets:
+  - name: accelleran-secret
+nameOverride: ""
+fullnameOverride: ""
+
+# Application Settings
+cmd: "./ncstart"
+#cmd: "sleep 3600"
+
+# testing:
+  # value: "${GTP_IP}"
+
+# name filed has to be CAPITALIZED
+initConfig:
+  enabled: false
+  ips:
+    - url: '{{ include "five-g-appl.fullname" . }}-gtp'
+      name: "GTP_IP"
+
+initNetconf:
+  enabled: true
+
+initNetconfDefaultPath:
+  enabled: true
+  #repository: accelleran/acc-generic-img
+  #version: 0.3.0
+  #securityContext:
+  #  runAsUser: 0
+  #pullPolicy: IfNotPresent
+  host: 'localhost'
+  componentType: cucp
+
+
+args: []
+#  - name: "--own"
+#    value: 127.0.0.2
+#  - name: "--pub"
+#    value: 127.0.0.2
+
+extraEnvs: []
+#  - name: BOOTSTRAP_FILENAME
+#    value: /home/accelleran/5G/bootstrap.txt
+
+redisConfig:
+  hostname: 10.55.1.2
+  port: 32200
+
+
+bootstrapId: "cucp_1"
+bootstrapFile: /home/accelleran/5G/bootstrap.txt
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: 
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  runAsUser: 0
+  privileged: true
+
+service:
+  enabled: false
+  type: ClusterIP
+  port: 80
+
+netconfService:
+  enabled: true
+  type: NodePort
+  port: 830
+  name: netconf
+  protocol: TCP
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
