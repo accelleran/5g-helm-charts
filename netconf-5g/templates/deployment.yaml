@@ -39,7 +39,7 @@ spec:
 
               #!/bin/bash
 
-              until [ $(redis-cli -h {{ .Values.redisConfig.hostname }} -p {{ .Values.redisConfig.port }} ping) == "PONG" ]; do sleep 1; done;
+              until [ "$(redis-cli -h {{ .Values.redisConfig.hostname }} -p {{ .Values.redisConfig.port }} ping)" == "PONG" ]; do sleep 1; done;
               echo "$(date) Redis ready"
 
               EOF
