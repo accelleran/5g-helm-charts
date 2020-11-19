@@ -100,8 +100,8 @@ redisConfig:
   port: 32200
 
 
-bootstrapId: "cuup-1"
-gnbId: "gnb-1"
+bootstrapId: "cuup1"
+gnbId: "gnb1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 serviceAccount:
