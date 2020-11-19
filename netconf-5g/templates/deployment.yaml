@@ -126,11 +126,11 @@ spec:
               
               sleep 5
 
-              # make sure that netconf is running
-              python3 rpcs/check-netconf.py
-
               # Install netconf python lib
               pip3 install netconf-client==1.7.1
+
+              # make sure that netconf is running
+              python3 rpcs/check-netconf.py
 
               # Run model-rpc.py script
               python3 rpcs/model-rpc.py
