@@ -31,6 +31,18 @@ redis:
     name: "redisport"
     serviceName: redis-service-5g
 
+  persistence:
+    accessModes:
+      - ReadWriteMany
+    enabled: true
+    size: 10Gi
+    storageClassName: acc-redis-5g
+    type: pvc
+    ### TESTING
+    #hostPath: /opt/pods/acc-redis
+    ### Production
+    hostPath: /opt/pods/redis-storage-5g
+
 replicaCount: 1
 
 image:
