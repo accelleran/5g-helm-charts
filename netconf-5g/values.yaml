@@ -80,6 +80,7 @@ initNetconfDefaultPath:
   #securityContext:
   #  runAsUser: 0
   #pullPolicy: IfNotPresent
+  # Carfull when putting this to service url, as the service might not be up when this is used
   host: 'localhost'
   componentType: cuup
 
@@ -99,7 +100,8 @@ redisConfig:
   port: 32200
 
 
-bootstrapId: "cuup_1"
+bootstrapId: "cuup-1"
+gnbId: "gnb-1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 serviceAccount:
