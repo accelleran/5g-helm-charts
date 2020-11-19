@@ -200,17 +200,19 @@ spec:
 
                     {{ if .Values.initNetconfDefaultPath.enabled }}
 
+                    echo "Starting..." > rpcs/rpc-log.txt
+
                     {{ if eq .Values.initNetconfDefaultPath.componentType "cucp" }}
 
-                    echo "CUCP" > rpc/rpc-log.txt
+                    echo "CUCP" >> rpcs/rpc-log.txt
 
-                    python3 rpcs/cucp-rpc.py
+                    python3 rpcs/cucp-rpc.py >> rpcs/rpc-log.txt
 
                     {{ else if eq .Values.initNetconfDefaultPath.componentType "cuup" }}
 
-                    echo "CUUP" > rpc/rpc-log.txt
+                    echo "CUUP" >> rpcs/rpc-log.txt
 
-                    python3 rpcs/cuup-rpc.py
+                    python3 rpcs/cuup-rpc.py >> rpcs/rpc-log.txt
 
                     {{ end }}
 
