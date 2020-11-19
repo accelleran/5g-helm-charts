@@ -28,6 +28,21 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
+        - name: {{ .Chart.Name }}-check-redis
+          image: accelleran/acc-generic-img:0.3.0
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/bash <<'EOF'
+
+              #!/bin/bash
+
+              until [ $(redis-cli -h {{ .Values.redisConfig.hostname }} -p {{ .Values.redisConfig.port }} ping) == "PONG" ]; do sleep 1; done;
+              echo "$(date) Redis ready"
+
+              EOF
         {{ if .Values.initConfig.enabled }}
         - name: {{ .Chart.Name }}-get-ips
           image: accelleran/acc-generic-img:0.2.0
