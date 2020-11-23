@@ -27,10 +27,8 @@ acc-fiveg-amf-tester:
 
   gtpService:
     enabled: true
-    type: ClusterIP
+    type: LoadBalancer
     protocol: UDP
-    gtpCPort: 2123
-    # gtpCNodePort:
     gtpUPort: 2152
     # gtpUNodePort:
 
@@ -63,10 +61,8 @@ acc-fiveg-du-tester:
 
   gtpService:
     enabled: true
-    type: ClusterIP
+    type: LoadBalancer
     protocol: UDP
-    gtpCPort: 2123
-    # gtpCNodePort:
     gtpUPort: 2152
     # gtpUNodePort:
 
@@ -101,12 +97,9 @@ acc-fiveg-cu-up:
 
   gtpService:
     enabled: true
-    type: NodePort
+    type: LoadBalancer
     protocol: UDP
-    gtpCPort: 2123
-    gtpCNodePort: 32123
     gtpUPort: 2152
-    gtpUNodePort: 32152
 
 acc-fiveg-cu-up-controller:
   enabled: true
@@ -268,15 +261,14 @@ acc-fiveg-sctp:
 
   f1Service:
     enabled: true
-    type: ClusterIP
+    type: LoadBalancer
     protocol: SCTP
     f1Port: 38472
     # f1NodePort:
 
   e1Service:
     enabled: true
-    type: ClusterIP
+    type: LoadBalancer
     protocol: SCTP
     e1Port: 38462
     # e1NodePort:
-

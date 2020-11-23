@@ -69,14 +69,14 @@ service:
 
 f1Service:
   enabled: true
-  type: ClusterIP
+  type: LoadBalancer
   protocol: SCTP
   f1Port: 38472
   # f1NodePort:
 
 e1Service:
   enabled: true
-  type: ClusterIP
+  type: LoadBalancer
   protocol: SCTP
   e1Port: 38462
   # e1NodePort:

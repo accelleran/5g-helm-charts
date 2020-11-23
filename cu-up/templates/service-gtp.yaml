@@ -8,12 +8,6 @@ metadata:
 spec:
   type: {{ .Values.gtpService.type }}
   ports:
-    - port: {{ .Values.gtpService.gtpCPort }}
-      protocol: {{ .Values.protocol }}
-      name: gtpc
-      {{ if .Values.gtpService.gtpCNodePort }}
-      nodePort: {{ .Values.gtpCNodePort }}
-      {{ end }}
     - port: {{ .Values.gtpService.gtpUPort }}
       protocol: {{ .Values.protocol }}
       name: gtpu

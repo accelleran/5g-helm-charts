@@ -78,12 +78,10 @@ service:
 
 gtpService:
   enabled: true
-  type: NodePort
+  type: LoadBalancer
   protocol: UDP
-  gtpCPort: 2123
-  gtpCNodePort: 32123
   gtpUPort: 2152
-  gtpUNodePort: 32152
+  # gtpUNodePort:
 
 ingress:
   enabled: false

@@ -82,10 +82,8 @@ service:
 
 gtpService:
   enabled: true
-  type: ClusterIP
+  type: LoadBalancer
   protocol: UDP
-  gtpCPort: 2123
-  # gtpCNodePort:
   gtpUPort: 2152
   # gtpUNodePort:
 

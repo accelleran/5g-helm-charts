@@ -8,9 +8,9 @@ ENV LIBYANG_SEARCH_DIR=/home/accelleran/5G/models
 ENV LIBYANG_USER_TYPES_PLUGINS_DIR=/home/accelleran/5G/lib/libyang/user_types
 ENV LIBYANG_EXTENSIONS_PLUGINS_DIR=/home/accelleran/5G/lib/libyang/extensions
 
-COPY ./GNB/product/framework/netconf/entry/nc-testkey .
-COPY ./GNB/product/do/APPL-TCC/production/native/ncclient .
-COPY ./GNB/product/do/APPL-TCC/production/native/ncserver .
-COPY ./GNB/product/do/APPL-TCC/production/native/netconf/models ./models
-COPY ./GNB/product/do/APPL-TCC/production/native/netconf/slib ./slib
-COPY ./GNB/product/do/APPL-TCC/production/lib ./lib
+COPY ./nc-testkey .
+COPY ./native/ncclient .
+COPY ./native/ncserver .
+COPY ./native/netconf/models ./models
+COPY ./native/netconf/slib ./slib
+COPY ./lib ./lib
