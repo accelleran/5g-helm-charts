@@ -82,7 +82,7 @@ gtpService:
   type: LoadBalancer
   protocol: UDP
   gtpUPort: 2152
-  loadBalancerIP: 10.55.1.45
+  # loadBalancerIP: 10.55.1.45
   # gtpUNodePort:
 
 ingress:

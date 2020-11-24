@@ -32,7 +32,7 @@ args:
   - name: "--own"
     value: "$POD_IP"
   - name: "--pub"
-    value: 127.0.0.2
+    value: "127.0.0.2"
 
 # NATS Settings
 nats:

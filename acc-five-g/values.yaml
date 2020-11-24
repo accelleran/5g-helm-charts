@@ -3,6 +3,12 @@ global:
   kubeIp: "10.55.1.2"
   natsUrl: "10.55.1.2"
   natsPort: "31000"
+  tag: "1b2e2a9"
+  cuUpGtpIp: "10.55.1.30"
+  sctpE1Ip: "10.55.1.31"
+  sctpF1Ip: "10.55.1.32"
+  amfTesterGtpIp: "10.55.1.40"
+  duTesterGtpIp: "10.55.1.41"
 
 nkafka-5g:
   kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
@@ -17,6 +23,9 @@ nkafka-5g:
 acc-fiveg-amf-tester:
   enabled: true
 
+  image:
+    tag: "{{ .Values.global.tag }}"
+
   # NATS Settings
   nats:
     # URL of NATS
@@ -25,16 +34,25 @@ acc-fiveg-amf-tester:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
+  args:
+    - name: "--own"
+      value: "$POD_IP"
+    - name: "--numLoops"
+      value: 3
+
   gtpService:
     enabled: true
     type: LoadBalancer
     protocol: UDP
     gtpUPort: 2152
-    # loadBalancerIP:
+    loadBalancerIP: "{{ .Values.global.amfTesterGtpIp }}"
     # gtpUNodePort:
 
 acc-fiveg-du-tester:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -54,7 +72,7 @@ acc-fiveg-du-tester:
 
   args:
     - name: "--cucp"
-      value: "$F1_IP"
+      value: "{{ .Values.global.sctpF1Ip }}"
     - name: "--own"
       value: "$POD_IP"
     - name: "--numLoops"
@@ -65,11 +83,14 @@ acc-fiveg-du-tester:
     type: LoadBalancer
     protocol: UDP
     gtpUPort: 2152
-    # loadBalancerIP:
+    loadBalancerIP: "{{ .Values.global.duTesterGtpIp }}"
     # gtpUNodePort:
 
 acc-fiveg-amf-controller:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -79,8 +100,15 @@ acc-fiveg-amf-controller:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
+  extraEnvs:
+    - name: BOOTSTRAP_INSTANCE_ID
+      value: cucp
+
 acc-fiveg-cu-up:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -94,18 +122,20 @@ acc-fiveg-cu-up:
     - name: "--own"
       value: "$POD_IP"
     - name: "--pub"
-#      value: "{{ .Values.global.kubeIp }}"
-      value: "$POD_IP"
+      value: "{{ .Values.global.cuUpGtpIp }}"
 
   gtpService:
     enabled: true
     type: LoadBalancer
     protocol: UDP
     gtpUPort: 2152
-    # loadBalancerIP:
+    loadBalancerIP: "{{ .Values.global.cuUpGtpIp }}"
 
 acc-fiveg-cu-up-controller:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -117,6 +147,9 @@ acc-fiveg-cu-up-controller:
 
 acc-fiveg-ds-ctrl:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -133,6 +166,9 @@ acc-fiveg-ds-ctrl:
 acc-fiveg-du-controller:
   enabled: true
 
+  image:
+    tag: "{{ .Values.global.tag }}"
+
   # NATS Settings
   nats:
     # URL of NATS
@@ -141,8 +177,15 @@ acc-fiveg-du-controller:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
+  extraEnvs:
+    - name: BOOTSTRAP_INSTANCE_ID
+      value: cucp
+
 acc-fiveg-e1-cp:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -154,6 +197,9 @@ acc-fiveg-e1-cp:
 
 acc-fiveg-e1-sctp-up:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -173,9 +219,15 @@ acc-fiveg-e1-sctp-up:
     - name: "--cucp"
       value: "${F1_IP}"
 
+  extraEnvs:
+    - name: BOOTSTRAP_INSTANCE_ID
+      value: cuup1
 
 acc-fiveg-f1-ap:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -188,6 +240,9 @@ acc-fiveg-f1-ap:
 acc-fiveg-gnb-controller:
   enabled: true
 
+  image:
+    tag: "{{ .Values.global.tag }}"
+
   # NATS Settings
   nats:
     # URL of NATS
@@ -198,6 +253,9 @@ acc-fiveg-gnb-controller:
 
 acc-fiveg-ng-ap:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -210,6 +268,9 @@ acc-fiveg-ng-ap:
 acc-fiveg-pm-controller:
   enabled: true
 
+  image:
+    tag: "{{ .Values.global.tag }}"
+
   # NATS Settings
   nats:
     # URL of NATS
@@ -220,6 +281,9 @@ acc-fiveg-pm-controller:
 
 acc-fiveg-res-mgr:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -232,6 +296,9 @@ acc-fiveg-res-mgr:
 acc-fiveg-res-mgr-up:
   enabled: true
 
+  image:
+    tag: "{{ .Values.global.tag }}"
+
   # NATS Settings
   nats:
     # URL of NATS
@@ -240,8 +307,15 @@ acc-fiveg-res-mgr-up:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
+  extraEnvs:
+    - name: BOOTSTRAP_INSTANCE_ID
+      value: cuup1
+
 acc-fiveg-rr-ctrl:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -253,6 +327,9 @@ acc-fiveg-rr-ctrl:
 
 acc-fiveg-sctp:
   enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
 
   # NATS Settings
   nats:
@@ -267,7 +344,7 @@ acc-fiveg-sctp:
     type: LoadBalancer
     protocol: SCTP
     f1Port: 38472
-    # loadBalancerIP:
+    loadBalancerIP: "{{ .Values.global.sctpF1Ip }}"
     # f1NodePort:
 
   e1Service:
@@ -275,5 +352,5 @@ acc-fiveg-sctp:
     type: LoadBalancer
     protocol: SCTP
     e1Port: 38462
-    # loadBalancerIP:
+    loadBalancerIP: "{{ .Values.global.sctpE1Ip }}"
     # e1NodePort:

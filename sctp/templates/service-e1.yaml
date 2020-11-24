@@ -11,11 +11,11 @@ spec:
     - port: {{ .Values.e1Service.e1Port}}
       protocol: {{ .Values.e1Service.protocol }}
       name: e1
-      {{ if .Values.e1Service.e1NodePort }}
+      {{ if contains "NodePort" .Values.e1Service.type }}
       nodePort: {{ .Values.e1NodePort }}
       {{ end }}
   {{ if .Values.e1Service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.e1Service.loadBalancerIP }}
+  loadBalancerIP: {{ tpl .Values.e1Service.loadBalancerIP . }}
   {{ end }}
   selector:
     {{- include "five-g-appl.selectorLabels" . | nindent 4 }}

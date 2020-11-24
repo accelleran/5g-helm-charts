@@ -23,6 +23,7 @@ args: []
 #  - name: "--own"
 #    value: 127.0.0.2
 
+
 # NATS Settings
 nats:
   # URL of NATS
@@ -31,9 +32,9 @@ nats:
   # Port of NAST
   port: 31000
 
-extraEnvs: []
-#  - name: example_env_name
-#    value: example_env_value
+extraEnvs:
+  - name: BOOTSTRAP_INSTANCE_ID
+    value: cuup1
 #  - name: ex1
 #    value: ex1
 

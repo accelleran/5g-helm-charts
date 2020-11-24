@@ -32,8 +32,6 @@ nats:
   port: 31000
 
 extraEnvs: []
-#  - name: example_env_name
-#    value: example_env_value
 #  - name: ex1
 #    value: ex1
 

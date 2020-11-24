@@ -28,9 +28,9 @@ initConfig:
     - url: 'f1-dns_name'
       name: "F1_IP"
 
-args:
-  - name: "--cucp"
-    value: "${F1_IP}"
+args: []
+#  - name: "--cucp"
+#    value: "${F1_IP}"
 
 # NATS Settings
 nats:
@@ -40,9 +40,9 @@ nats:
   # Port of NAST
   port: 31000
 
-extraEnvs: []
-#  - name: example_env_name
-#    value: example_env_value
+extraEnvs:
+  - name: BOOTSTRAP_INSTANCE_ID
+    value: cuup1
 #  - name: ex1
 #    value: ex1
 

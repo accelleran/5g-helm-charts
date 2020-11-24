@@ -31,9 +31,9 @@ nats:
   # Port of NAST
   port: 31000
 
-extraEnvs: []
-#  - name: example_env_name
-#    value: example_env_value
+extraEnvs:
+  - name: BOOTSTRAP_INSTANCE_ID
+    value: cucp
 #  - name: ex1
 #    value: ex1
 
