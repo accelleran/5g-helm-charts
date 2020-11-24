@@ -21,7 +21,7 @@ cmd: "__APPNAME=dsCtrl ./dsCtrlAppl.exe"
 
 args:
   - name: "--rel_msec"
-    value: 500
+    value: "500"
 
 # NATS Settings
 nats:

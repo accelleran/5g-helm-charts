@@ -33,7 +33,7 @@ args:
   - name: "--own"
     value: "$POD_IP"
   - name: "--numLoops"
-    value: 3
+    value: "3"
 
 # NATS Settings
 nats:

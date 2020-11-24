@@ -38,7 +38,7 @@ acc-fiveg-amf-tester:
     - name: "--own"
       value: "$POD_IP"
     - name: "--numLoops"
-      value: 3
+      value: "3"
 
   gtpService:
     enabled: true
@@ -76,7 +76,7 @@ acc-fiveg-du-tester:
     - name: "--own"
       value: "$POD_IP"
     - name: "--numLoops"
-      value: 3
+      value: "3"
 
   gtpService:
     enabled: true
@@ -161,7 +161,7 @@ acc-fiveg-ds-ctrl:
 
   args: 
     - name: "--rel_msec"
-      value: 500
+      value: "500"
 
 acc-fiveg-du-controller:
   enabled: true
