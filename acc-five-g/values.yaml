@@ -118,9 +118,9 @@ acc-fiveg-cu-up:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
-  args:
-    - name: "--own"
-      value: "$POD_IP"
+#  args:
+#    - name: "--own"
+#      value: "$POD_IP"
 #    - name: "--pub"
 #      value: "{{ .Values.gtpService.loadBalancerIP }}"
 
