@@ -67,8 +67,8 @@ acc-fiveg-du-tester:
     ips:
       - url: '{{ include "five-g-appl.fullname" . }}-gtp'
         name: "GTP_IP"
-      - url: '{{ .Release.Name }}-acc-fiveg-sctp-f1'
-        name: 'F1_IP'
+#      - url: '{{ .Release.Name }}-acc-fiveg-sctp-f1'
+#        name: 'F1_IP'
 
   args:
     - name: "--cucp"
