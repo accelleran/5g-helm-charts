@@ -68,7 +68,7 @@ spec:
               #!/bin/bash
               export $(xargs < /env-vars/env.env)
 
-              {{ if .Values.testing.value }}
+              {{ if .Values.testing }}
               echo {{ .Values.testing.value }} > /env-vars/test.txt
               {{ end }}
 
