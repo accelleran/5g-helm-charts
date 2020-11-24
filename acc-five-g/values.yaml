@@ -11,6 +11,10 @@ global:
   duTesterGtpIp: "10.55.1.41"
 
 nkafka-5g:
+  enabled: true
+
+  version: "{{ .Values.global.tag }}"
+
   kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
   natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
 
