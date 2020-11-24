@@ -19,14 +19,14 @@ fullnameOverride: ""
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
 cmd: "__APPNAME=e1sctpUp ./e1sctpUpAppl.exe"
 
-testing:
-  value: "${F1_IP}"
+#testing:
+#  value: "${F1_IP}"
 
 # name filed has to be CAPITALIZED
 initConfig:
-  ips:
-    - url: 'f1-dns_name'
-      name: "F1_IP"
+  ips: []
+#    - url: 'f1-dns_name'
+#      name: "F1_IP"
 
 args: []
 #  - name: "--cucp"

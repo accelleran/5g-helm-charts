@@ -209,16 +209,6 @@ acc-fiveg-e1-sctp-up:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
-  # name filed has to be CAPITALIZED
-  initConfig:
-    ips:
-      - url: '{{ .Release.Name }}-acc-fiveg-sctp-f1'
-        name: "F1_IP"
-
-  args:
-    - name: "--cucp"
-      value: "${F1_IP}"
-
   extraEnvs:
     - name: BOOTSTRAP_INSTANCE_ID
       value: cuup1
