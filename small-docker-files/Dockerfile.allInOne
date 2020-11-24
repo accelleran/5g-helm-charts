@@ -53,4 +53,9 @@ COPY zlog_printf.conf .
 COPY zlog_syslog.conf .
 COPY run-test .
 
+ENV ZLOG_PATH=/home/accelleran/5G/zlog_printf.conf
+ENV NATS_URL=nats://10.55.1.2:31000
+ENV NATS_SERVICE_URL=nats://10.55.1.2:31000
+ENV ZLOG_CONF_PATH=/home/accelleran/5G/zlog_printf.conf
+
 CMD "/bin/bash"
