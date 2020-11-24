@@ -14,9 +14,9 @@ spec:
       {{ if .Values.e1Service.e1NodePort }}
       nodePort: {{ .Values.e1NodePort }}
       {{ end }}
-      {{ if .Values.e1Service.loadBalancerIP }}
-      loadBalancerIP: {{ .Values.e1Service.loadBalancerIP }}
-      {{ end }}
+  {{ if .Values.e1Service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.e1Service.loadBalancerIP }}
+  {{ end }}
   selector:
     {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
 {{- end -}}
