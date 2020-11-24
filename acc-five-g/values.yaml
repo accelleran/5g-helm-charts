@@ -122,7 +122,7 @@ acc-fiveg-cu-up:
     - name: "--own"
       value: "$POD_IP"
     - name: "--pub"
-      value: "{{ .Values.global.cuUpGtpIp }}"
+      value: "{{ .Values.gtpService.loadBalancerIP }}"
 
   gtpService:
     enabled: true
