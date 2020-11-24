@@ -49,9 +49,12 @@ spec:
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            - name: e1
+              containerPort: {{ .Values.e1Service.e1Port}}
+              protocol: {{ .Values.e1Service.protocol }}
+            - name: f1
+              containerPort: {{ .Values.f1Service.f1Port}}
+              protocol: {{ .Values.f1Service.protocol }}
 #          livenessProbe:
 #            httpGet:
 #              path: /
