@@ -30,6 +30,7 @@ acc-fiveg-amf-tester:
     type: LoadBalancer
     protocol: UDP
     gtpUPort: 2152
+    # loadBalancerIP:
     # gtpUNodePort:
 
 acc-fiveg-du-tester:
@@ -64,6 +65,7 @@ acc-fiveg-du-tester:
     type: LoadBalancer
     protocol: UDP
     gtpUPort: 2152
+    # loadBalancerIP:
     # gtpUNodePort:
 
 acc-fiveg-amf-controller:
@@ -100,6 +102,7 @@ acc-fiveg-cu-up:
     type: LoadBalancer
     protocol: UDP
     gtpUPort: 2152
+    # loadBalancerIP:
 
 acc-fiveg-cu-up-controller:
   enabled: true
@@ -264,6 +267,7 @@ acc-fiveg-sctp:
     type: LoadBalancer
     protocol: SCTP
     f1Port: 38472
+    # loadBalancerIP:
     # f1NodePort:
 
   e1Service:
@@ -271,4 +275,5 @@ acc-fiveg-sctp:
     type: LoadBalancer
     protocol: SCTP
     e1Port: 38462
+    # loadBalancerIP:
     # e1NodePort:

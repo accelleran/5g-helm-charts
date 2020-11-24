@@ -72,6 +72,7 @@ f1Service:
   type: LoadBalancer
   protocol: SCTP
   f1Port: 38472
+  # loadBalancerIP:
   # f1NodePort:
 
 e1Service:
@@ -79,6 +80,7 @@ e1Service:
   type: LoadBalancer
   protocol: SCTP
   e1Port: 38462
+  # loadBalancerIP:
   # e1NodePort:
 
 ingress:

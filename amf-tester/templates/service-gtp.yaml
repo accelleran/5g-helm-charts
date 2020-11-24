@@ -9,10 +9,13 @@ spec:
   type: {{ .Values.gtpService.type }}
   ports:
     - port: {{ .Values.gtpService.gtpUPort }}
-      protocol: {{ .Values.protocol }}
+      protocol: {{ .Values.gtpService.protocol }}
       name: gtpu
       {{ if .Values.gtpService.gtpUNodePort }}
-      nodePort: {{ .Values.gtpUNodePort }}
+      nodePort: {{ .Values.gtpService.gtpUNodePort }}
+      {{ end }}
+      {{ if .Values.gtpService.loadBalancerIP }}
+      loadBalancerIP: {{ .Values.gtpService.loadBalancerIP }}
       {{ end }}
   selector:
     {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
