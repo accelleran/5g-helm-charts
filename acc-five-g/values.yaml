@@ -13,7 +13,7 @@ global:
 nkafka-5g:
   enabled: true
 
-  version: "latest"
+  version: "alpha.ee3534d_proto.f7a9898"
 
   kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
   natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"

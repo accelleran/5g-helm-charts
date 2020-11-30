@@ -26,7 +26,7 @@ appVersion: 0.1.0
 dependencies:
   - name: nkafka-5g
     condition: nkafka-5g.enabled
-    version: 0.2.0
+    version: 0.1.0
     repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
   - name: acc-fiveg-amf-controller
     condition: acc-fiveg-amf-controller.enabled

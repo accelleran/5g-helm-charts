@@ -47,7 +47,7 @@ spec:
               mountPath: /5GConfig.toml
               subPath: "5GConfig.toml"
           command: ["/nkafka"]
-          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "five-g", "--nats", "{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml", "-f", "/5GTopics.toml"]
+          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "five-g", "--nats", "{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml"]
 #          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "helm-demo", "--nats", "{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml", "producer"]
 #            - name: http
 #              containerPort: 80
