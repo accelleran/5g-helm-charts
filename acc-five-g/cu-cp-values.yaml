@@ -5,8 +5,8 @@ global:
   natsPort: "31000"
   tag: "d77c501"
   cuUpGtpIp: "10.55.1.30"
-  sctpE1Ip: "10.55.1.31"
-  sctpF1Ip: "10.55.1.32"
+  sctpE1Ip: "10.55.1.35"
+  sctpF1Ip: "10.55.1.36"
   amfTesterGtpIp: "10.55.1.40"
   duTesterGtpIp: "10.55.1.41"
 
