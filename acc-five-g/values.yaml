@@ -3,7 +3,7 @@ global:
   kubeIp: "10.55.1.2"
   natsUrl: "10.55.1.2"
   natsPort: "31000"
-  tag: "1b2e2a9"
+  tag: "d77c501"
   cuUpGtpIp: "10.55.1.30"
   sctpE1Ip: "10.55.1.31"
   sctpF1Ip: "10.55.1.32"
@@ -11,9 +11,9 @@ global:
   duTesterGtpIp: "10.55.1.41"
 
 nkafka-5g:
-  enabled: true
+  enabled: false
 
-  version: "alpha.ee3534d_proto.f7a9898"
+  version: "alpha.ee3534d_proto.d77c501"
 
   kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
   natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
@@ -37,6 +37,11 @@ acc-fiveg-amf-tester:
 
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
+
+  initConfig:
+    ips:
+      - url: '{{ include "five-g-appl.fullname" . }}-gtp'
+        name: "GTP_IP"
 
   args:
     - name: "--own"

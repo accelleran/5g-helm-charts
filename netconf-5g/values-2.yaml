@@ -46,10 +46,10 @@ redis:
 replicaCount: 1
 
 image:
-  repository: five-g-netconf
+  repository: accelleran/netconf
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "77a9261"
 
 imagePullSecrets:
   - name: accelleran-secret

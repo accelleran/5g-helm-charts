@@ -5,6 +5,7 @@
 replicaCount: 1
 
 version: "{{ .Chart.AppVersion }}"
+#version: "alpha.ee3534d_proto.d77c501"
 
 image:
   repository: accelleran/nkafka_5g
@@ -20,7 +21,7 @@ natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
 #druidOverlordUrl: "overlord.{{ .Release.Namespace }}:8081"
 #args: ["producer", "--kafka", "acc-dash-kafka:9092", "--pb", "/messages.pb", "--group", "helm-demo", "--rewrite-time", "insert", "--seq-to-map", "--nats", "nats://nats-service:4222", "--invert", "--replicate", "--threads", "1"]
 
-logLevel: info
+logLevel: debug
 
 initConfigs:
   natsService: "nats-service.{{ .Release.Namespace }}:4222"
