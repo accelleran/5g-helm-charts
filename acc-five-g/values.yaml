@@ -111,7 +111,7 @@ acc-fiveg-amf-controller:
 
   extraEnvs:
     - name: BOOTSTRAP_INSTANCE_ID
-      value: cucp
+      value: cucp1
 
 acc-fiveg-cu-up:
   enabled: true
@@ -188,7 +188,7 @@ acc-fiveg-du-controller:
 
   extraEnvs:
     - name: BOOTSTRAP_INSTANCE_ID
-      value: cucp
+      value: cucp1
 
 acc-fiveg-e1-cp:
   enabled: true
