@@ -40,9 +40,16 @@ nats:
   # Port of NAST
   port: 31000
 
+redisConfig:
+  hostname: 10.55.1.2
+  port: 32200
+
+bootstrapId: "cuup1"
+bootstrapFile: /home/accelleran/5G/bootstrap.txt
+
 extraEnvs:
-  - name: BOOTSTRAP_INSTANCE_ID
-    value: cuup1
+#  - name: BOOTSTRAP_INSTANCE_ID
+#    value: cuup1
 #  - name: ex1
 #    value: ex1
 

@@ -11,6 +11,8 @@ global:
   amfTester1GtpIp: "10.55.1.40"
   amfTester2GtpIp: "10.55.1.41"
   duTesterGtpIp: "10.55.1.45"
+  redisHostname: "10.55.1.2"
+  redisPort: "32200"
 
 nkafka-5g:
   enabled: false
@@ -111,9 +113,11 @@ acc-fiveg-amf-controller:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
-  extraEnvs:
-    - name: BOOTSTRAP_INSTANCE_ID
-      value: cucp
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  bootstrapId: "cucp1"
 
 acc-fiveg-cu-up:
   enabled: true
@@ -188,9 +192,11 @@ acc-fiveg-du-controller:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
-  extraEnvs:
-    - name: BOOTSTRAP_INSTANCE_ID
-      value: cucp
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  bootstrapId: "cucp1"
 
 acc-fiveg-e1-cp:
   enabled: false
@@ -220,9 +226,11 @@ acc-fiveg-e1-sctp-up:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
-  extraEnvs:
-    - name: BOOTSTRAP_INSTANCE_ID
-      value: cuup1
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  bootstrapId: "cuup1"
 
 acc-fiveg-f1-ap:
   enabled: false
@@ -308,9 +316,11 @@ acc-fiveg-res-mgr-up:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
-  extraEnvs:
-    - name: BOOTSTRAP_INSTANCE_ID
-      value: cuup1
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  bootstrapId: "cuup1"
 
 acc-fiveg-rr-ctrl:
   enabled: false
