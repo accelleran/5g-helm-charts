@@ -98,7 +98,7 @@ acc-fiveg-du-tester:
     # gtpUNodePort:
 
 acc-fiveg-amf-controller:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -145,7 +145,7 @@ acc-fiveg-cu-up:
     loadBalancerIP: "{{ .Values.global.cuUpGtpIp }}"
 
 acc-fiveg-cu-up-controller:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -159,7 +159,7 @@ acc-fiveg-cu-up-controller:
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-ds-ctrl:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -177,7 +177,7 @@ acc-fiveg-ds-ctrl:
       value: "500"
 
 acc-fiveg-du-controller:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -197,7 +197,7 @@ acc-fiveg-du-controller:
   bootstrapId: "cucp1"
 
 acc-fiveg-e1-cp:
-  enabled: false
+  enabled: true
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -231,7 +231,7 @@ acc-fiveg-e1-sctp-up:
   bootstrapId: "cuup1"
 
 acc-fiveg-f1-ap:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -245,7 +245,7 @@ acc-fiveg-f1-ap:
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-gnb-controller:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -259,7 +259,7 @@ acc-fiveg-gnb-controller:
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-ng-ap:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -273,7 +273,7 @@ acc-fiveg-ng-ap:
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-pm-controller:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -287,7 +287,7 @@ acc-fiveg-pm-controller:
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-res-mgr:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -321,7 +321,7 @@ acc-fiveg-res-mgr-up:
   bootstrapId: "cuup1"
 
 acc-fiveg-rr-ctrl:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -335,7 +335,7 @@ acc-fiveg-rr-ctrl:
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-sctp:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
