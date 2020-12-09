@@ -3,7 +3,7 @@ global:
   kubeIp: "10.55.1.2"
   natsUrl: "10.55.1.2"
   natsPort: "31000"
-  tag: "d77c501"
+  tag: "263b3e1"
   cuUp1GtpIp: "10.55.1.30"
   cuUp2GtpIp: "10.55.1.31"
   sctpE1Ip: "10.55.1.35"
