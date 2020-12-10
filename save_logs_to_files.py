@@ -32,19 +32,19 @@ for line in pods.splitlines():
         pod = line.split(" ")[0]
         print("Pod: [{pod}]".format(pod=pod))
 
-        words = line.split(" ")[0].split('-')
+        # words = line.split(" ")[0].split('-')
+        #
+        # filename = "log"
+        # for word in words:
+        #     if word == "fg":
+        #         continue
+        #     if word == "acc":
+        #         break
+        #     filename = filename + "-" + word
+        #
+        # print("Saving log to [{f}]".format(f=filename))
 
-        filename = "log"
-        for word in words:
-            if word == "fg":
-                continue
-            if word == "acc":
-                break
-            filename = filename + "-" + word
-
-        print("Saving log to [{f}]".format(f=filename))
-
-        cmd = "kubectl logs {pod} > logs/{file}".format(pod=pod, file=filename)
+        cmd = "kubectl logs {pod} > logs/{file}".format(pod=pod, file=pod)
 
         cmd_exec = subprocess.run(cmd, shell=True)
 
