@@ -46,7 +46,7 @@ for line in pods.splitlines():
 
         cmd = "kubectl logs {pod} > logs/{file}".format(pod=pod, file=filename)
 
-        cmd_exec = subprocess.run(cmd)
+        cmd_exec = subprocess.run(cmd, shell=True)
 
         print("Command exit code: {c}".format(c=cmd_exec.returncode))
 
