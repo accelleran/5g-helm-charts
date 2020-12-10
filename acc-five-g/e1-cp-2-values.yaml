@@ -176,6 +176,12 @@ acc-fiveg-ds-ctrl:
     - name: "--rel_msec"
       value: "500"
 
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  bootstrapId: "cucp1"
+
 acc-fiveg-du-controller:
   enabled: false
 
@@ -209,6 +215,12 @@ acc-fiveg-e1-cp:
 
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
+
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  bootstrapId: "cucp1"
 
 acc-fiveg-e1-sctp-up:
   enabled: false
@@ -244,6 +256,12 @@ acc-fiveg-f1-ap:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  bootstrapId: "cucp1"
+
 acc-fiveg-gnb-controller:
   enabled: false
 
@@ -258,6 +276,12 @@ acc-fiveg-gnb-controller:
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  bootstrapId: "cucp1"
+
 acc-fiveg-ng-ap:
   enabled: false
 
@@ -271,6 +295,12 @@ acc-fiveg-ng-ap:
 
     # Port of NAST
     port: "{{ .Values.global.natsPort }}"
+
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  bootstrapId: "cucp1"
 
 acc-fiveg-pm-controller:
   enabled: false
