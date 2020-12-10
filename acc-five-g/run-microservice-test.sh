@@ -13,6 +13,9 @@ echo "Starting e1-sctp-ups..."
 helm install fg-e1-up-1 . --values e1-sctp-up-1-values.yaml 
 helm install fg-e1-up-2 . --values e1-sctp-up-2-values.yaml 
 sleep $waiting_period
+echo "Starting E1Cps..."
+helm install fg-e1-cp-1 . --values e1-cp-1-values.yaml
+helm install fg-e1-cp-2 . --values e1-cp-2-values.yaml
 echo "Starting CuCp..."
 helm install fg-cu-cp . --values cu-cp-values.yaml 
 sleep $waiting_period
