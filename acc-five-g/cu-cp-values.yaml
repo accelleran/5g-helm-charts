@@ -283,7 +283,7 @@ acc-fiveg-gnb-controller:
   bootstrapId: "cucp1"
 
 acc-fiveg-ng-ap:
-  enabled: true
+  enabled: false
 
   image:
     tag: "{{ .Values.global.tag }}"
