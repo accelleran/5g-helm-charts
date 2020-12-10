@@ -49,7 +49,7 @@ image:
   repository: five-g-netconf
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "c3e9be8"
 
 imagePullSecrets:
   - name: accelleran-secret
