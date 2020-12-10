@@ -44,7 +44,7 @@ for line in pods.splitlines():
 
         print("Saving log to [{f}]".format(f=filename))
 
-        cmd = "kubectl logs {pod} > {file}".format(pod=pod, file=filename)
+        cmd = "kubectl logs {pod} > logs/{file}".format(pod=pod, file=filename)
 
         cmd_exec = subprocess.run(cmd)
 
