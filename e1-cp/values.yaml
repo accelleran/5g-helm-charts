@@ -16,9 +16,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 # Application Settings
-# cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-# cmd: "__APPNAME=e1cp ./e1CpAppl.exe"
-cmd: "sleep 3600"
+cmd: "__APPNAME=e1cp ./e1CpAppl.exe"
+#cmd: "sleep 3600"
 
 args: []
 #  - name: "--own"
