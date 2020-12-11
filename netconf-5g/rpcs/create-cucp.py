@@ -2,7 +2,7 @@ from netconf_client.connect import connect_ssh
 from netconf_client.ncclient import Manager
 
 HOST = "10.55.1.2"
-PORT = 30721
+PORT = 32418
 
 session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
 mgr = Manager(session, timeout=120)
@@ -39,11 +39,11 @@ defPathCuCp = """<config>
 		</ng-c-link-policy>
 		
 		<ng-c-link xc:operation="create">
-			<dest-ip-address>10.55.1.40</dest-ip-address>
+			<dest-ip-address>10.55.1.41</dest-ip-address>
 		</ng-c-link>
 
                 <ng-c-link xc:operation="create">
-                        <dest-ip-address>10.55.1.41</dest-ip-address>
+                        <dest-ip-address>10.55.1.44</dest-ip-address>
                 </ng-c-link>
 		
 	</operator>
