@@ -1,18 +1,3 @@
-global:
-  # Kubernetes Advertise Address, used as External address for services
-  kubeIp: "10.55.1.2"
-  natsUrl: "10.55.1.2"
-  natsPort: "31000"
-  tag: "c3e9be8"
-  cuUpGtpIp: "10.55.1.30"
-  sctpE1Ip: "10.55.1.31"
-  sctpF1Ip: "10.55.1.32"
-  amfTesterGtpIp: "10.55.1.40"
-  amfTesterNgControlIp: "10.55.1.41"
-  duTesterGtpIp: "10.55.1.41"
-  redisHostname: "10.55.1.2"
-  redisPort: "32200"
-
 nkafka-5g:
   enabled: false
 
