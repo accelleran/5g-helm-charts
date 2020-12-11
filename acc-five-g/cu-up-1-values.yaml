@@ -9,8 +9,10 @@ global:
   sctpE1Ip: "10.55.1.35"
   sctpF1Ip: "10.55.1.36"
   amfTester1GtpIp: "10.55.1.40"
-  amfTester2GtpIp: "10.55.1.41"
-  duTesterGtpIp: "10.55.1.45"
+  amfTester1NgControlIp: "10.55.1.41"
+  amfTester2GtpIp: "10.55.1.43"
+  amfTester2NgControlIp: "10.55.1.44"
+  duTesterGtpIp: "10.55.1.50"
   redisHostname: "10.55.1.2"
   redisPort: "32200"
 
@@ -60,6 +62,14 @@ acc-fiveg-amf-tester:
     gtpUPort: 2152
     loadBalancerIP: "{{ .Values.global.amfTester2GtpIp }}"
     # gtpUNodePort:
+
+  ngControlService:
+    enabled: true
+    type: LoadBalancer
+    protocol: SCTP
+    port: 38412
+    loadBalancerIP: "{{ .Values.global.amfTester2NgControlIp }}"
+    # nodePort:
 
 acc-fiveg-du-tester:
   enabled: false

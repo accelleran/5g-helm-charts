@@ -85,6 +85,14 @@ gtpService:
   # loadBalancerIP: 10.55.1.45
   # gtpUNodePort:
 
+ngControlService:
+  enabled: true
+  type: LoadBalancer
+  protocol: SCTP
+  port: 38412
+  # loadBalancerIP:
+  # nodePort:
+
 ingress:
   enabled: false
   annotations: {}

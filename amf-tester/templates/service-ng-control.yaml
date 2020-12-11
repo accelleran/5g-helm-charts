@@ -1,0 +1,22 @@
+{{- if .Values.ngControlService.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "five-g-appl.fullname" . }}-e1
+  labels:
+    {{- include "five-g-appl.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.ngControlService.type }}
+  ports:
+    - port: {{ .Values.ngControlService.port}}
+      protocol: {{ .Values.ngControlService.protocol }}
+      name: ng-control
+      {{ if contains "NodePort" .Values.ngControlService.type }}
+      nodePort: {{ .Values.nodePort }}
+      {{ end }}
+  {{ if .Values.ngControlService.loadBalancerIP }}
+  loadBalancerIP: {{ tpl .Values.ngControlService.loadBalancerIP . }}
+  {{ end }}
+  selector:
+    {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
+{{- end -}}
