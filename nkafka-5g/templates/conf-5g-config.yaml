@@ -18,3 +18,4 @@ data:
     replicate_messages=false
     compact=true
     offset="auto"
+    subject="Subject"
