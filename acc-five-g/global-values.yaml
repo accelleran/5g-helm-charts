@@ -12,3 +12,4 @@ global:
   duTesterGtpIp: "10.55.1.41"
   redisHostname: "10.55.1.2"
   redisPort: "32200"
+  draxNodeSelectorName: "main"

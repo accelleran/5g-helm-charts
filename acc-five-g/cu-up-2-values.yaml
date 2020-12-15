@@ -114,6 +114,9 @@ acc-fiveg-amf-controller:
 acc-fiveg-cu-up:
   enabled: true
 
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+
   image:
     tag: "{{ .Values.global.tag }}"
 
@@ -326,6 +329,9 @@ acc-fiveg-res-mgr:
 
 acc-fiveg-res-mgr-up:
   enabled: true
+
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"

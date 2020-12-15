@@ -219,6 +219,9 @@ acc-fiveg-e1-cp:
 acc-fiveg-e1-sctp-up:
   enabled: true
 
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+
   image:
     tag: "{{ .Values.global.tag }}"
 

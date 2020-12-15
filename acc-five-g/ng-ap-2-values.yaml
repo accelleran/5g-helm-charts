@@ -279,6 +279,9 @@ acc-fiveg-gnb-controller:
 acc-fiveg-ng-ap:
   enabled: true
 
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+
   image:
     tag: "{{ .Values.global.tag }}"
 

@@ -199,6 +199,9 @@ acc-fiveg-du-controller:
 acc-fiveg-e1-cp:
   enabled: true
 
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+
   image:
     tag: "{{ .Values.global.tag }}"
 

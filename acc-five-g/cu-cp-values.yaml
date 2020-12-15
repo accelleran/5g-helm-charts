@@ -94,6 +94,9 @@ acc-fiveg-du-tester:
 acc-fiveg-amf-controller:
   enabled: true
 
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+
   image:
     tag: "{{ .Values.global.tag }}"
 
@@ -141,6 +144,9 @@ acc-fiveg-cu-up:
 acc-fiveg-cu-up-controller:
   enabled: true
 
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+
   image:
     tag: "{{ .Values.global.tag }}"
 
@@ -154,6 +160,9 @@ acc-fiveg-cu-up-controller:
 
 acc-fiveg-ds-ctrl:
   enabled: true
+
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -178,6 +187,9 @@ acc-fiveg-ds-ctrl:
 
 acc-fiveg-du-controller:
   enabled: true
+
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -239,6 +251,9 @@ acc-fiveg-e1-sctp-up:
 acc-fiveg-f1-ap:
   enabled: true
 
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+
   image:
     tag: "{{ .Values.global.tag }}"
 
@@ -258,6 +273,9 @@ acc-fiveg-f1-ap:
 
 acc-fiveg-gnb-controller:
   enabled: true
+
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -299,6 +317,9 @@ acc-fiveg-ng-ap:
 acc-fiveg-pm-controller:
   enabled: true
 
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+
   image:
     tag: "{{ .Values.global.tag }}"
 
@@ -312,6 +333,9 @@ acc-fiveg-pm-controller:
 
 acc-fiveg-res-mgr:
   enabled: true
+
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -347,6 +371,9 @@ acc-fiveg-res-mgr-up:
 acc-fiveg-rr-ctrl:
   enabled: true
 
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+
   image:
     tag: "{{ .Values.global.tag }}"
 
@@ -360,6 +387,9 @@ acc-fiveg-rr-ctrl:
 
 acc-fiveg-sctp:
   enabled: true
+
+  nodeSelector:
+    draxName: "{{ .Values.global.draxNodeSelectorName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
