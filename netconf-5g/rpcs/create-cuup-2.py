@@ -2,7 +2,7 @@ from netconf_client.connect import connect_ssh
 from netconf_client.ncclient import Manager
 
 HOST = "10.55.1.2"
-PORT = 30730
+PORT = 31831
 
 session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
 mgr = Manager(session, timeout=120)
@@ -21,7 +21,7 @@ defPathCuUp = """<config>
         </e1-link-policy>
         
         <e1-link xc:operation="create">
-                <dest-ip-address>10.55.1.35</dest-ip-address>
+                <dest-ip-address>10.55.1.20</dest-ip-address>
         </e1-link>
         <supported-plmn-slices xc:operation="create">
                 <plmn-id>00101</plmn-id>

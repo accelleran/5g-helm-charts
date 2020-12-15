@@ -11,6 +11,9 @@ spec:
     - port: {{ .Values.netconfService.port }}
       protocol: {{ .Values.netconfService.protocol }}
       name: {{ .Values.netconfService.name }}
+      {{ if contains "NodePort" .Values.netconfService.type }}
+      nodePort: {{ .Values.netconfService.nodePort }}
+      {{ end }}
   selector:
     {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
 {{- end -}}

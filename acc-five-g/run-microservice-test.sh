@@ -1,5 +1,5 @@
 #!/bin/bash
-waiting_period=10
+waiting_period=25
 
 echo "Starting AMF TESTERS..."
 helm install fg-amf-tester-1 . --values amf-tester-1-values.yaml --values order-global-values.yaml

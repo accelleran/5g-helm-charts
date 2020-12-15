@@ -137,6 +137,7 @@ netconfService:
   port: 830
   name: netconf
   protocol: TCP
+  nodePort: 31832
 
 ingress:
   enabled: false
