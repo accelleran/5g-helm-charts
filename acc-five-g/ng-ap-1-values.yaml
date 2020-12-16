@@ -297,7 +297,7 @@ acc-fiveg-ng-ap:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cucp1"
+  bootstrapId: "cucp_1"
 
 acc-fiveg-pm-controller:
   enabled: false

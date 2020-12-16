@@ -348,7 +348,7 @@ acc-fiveg-res-mgr-up:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cuup2"
+  bootstrapId: "cuup_2"
 
 acc-fiveg-rr-ctrl:
   enabled: false

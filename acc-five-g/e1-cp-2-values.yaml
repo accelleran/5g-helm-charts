@@ -217,7 +217,7 @@ acc-fiveg-e1-cp:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cucp1"
+  bootstrapId: "cucp_1"
 
 acc-fiveg-e1-sctp-up:
   enabled: false

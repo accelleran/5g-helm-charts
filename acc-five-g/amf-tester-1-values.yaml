@@ -177,7 +177,7 @@ acc-fiveg-ds-ctrl:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cucp1"
+  bootstrapId: "cuup_1"
 
 acc-fiveg-du-controller:
   enabled: false
@@ -197,7 +197,7 @@ acc-fiveg-du-controller:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cucp1"
+  bootstrapId: "cuup_1"
 
 acc-fiveg-e1-cp:
   enabled: false
@@ -217,7 +217,7 @@ acc-fiveg-e1-cp:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cucp1"
+  bootstrapId: "cuup_1"
 
 acc-fiveg-e1-sctp-up:
   enabled: false
@@ -257,7 +257,7 @@ acc-fiveg-f1-ap:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cucp1"
+  bootstrapId: "cuup_1"
 
 acc-fiveg-gnb-controller:
   enabled: false
@@ -277,7 +277,7 @@ acc-fiveg-gnb-controller:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cucp1"
+  bootstrapId: "cuup_1"
 
 acc-fiveg-ng-ap:
   enabled: false
@@ -297,7 +297,7 @@ acc-fiveg-ng-ap:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cucp1"
+  bootstrapId: "cuup_1"
 
 acc-fiveg-pm-controller:
   enabled: false
