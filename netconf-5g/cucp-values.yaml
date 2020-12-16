@@ -49,7 +49,7 @@ image:
   repository: accelleran/netconf
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "c3e9be8"
+  tag: "9f54953"
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -98,8 +98,8 @@ redisConfig:
   hostname: 10.55.1.2
   port: 32200
 
-
-bootstrapId: "cucp1"
+netconfServicebootstrapId: "cucp1"
+bootstrapId: "cucp_1"
 gnbId: "gnb1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 

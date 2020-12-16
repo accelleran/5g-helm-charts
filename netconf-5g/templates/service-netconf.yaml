@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: netconf-{{ .Values.gnbId }}-{{ .Values.bootstrapId }}
+  name: netconf-{{ .Values.gnbId }}-{{ .Values.netconfServicebootstrapId }}
   labels:
     {{- include "five-g-appl.labels" . | nindent 4 }}
 spec:
