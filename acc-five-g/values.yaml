@@ -41,7 +41,7 @@ acc-fiveg-amf-tester:
     - name: "--own"
       value: "$POD_IP"
     - name: "--numLoops"
-      value: "3"
+      value: "1"
 
   gtpService:
     enabled: true
@@ -90,7 +90,7 @@ acc-fiveg-du-tester:
     - name: "--own"
       value: "$POD_IP"
     - name: "--numLoops"
-      value: "3"
+      value: "1"
 
   gtpService:
     enabled: true

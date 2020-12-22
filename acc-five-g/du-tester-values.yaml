@@ -84,7 +84,7 @@ acc-fiveg-du-tester:
     - name: "--own"
       value: "$POD_IP"
     - name: "--numLoops"
-      value: "0"
+      value: "1"
 
   gtpService:
     enabled: true
