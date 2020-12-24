@@ -4,8 +4,10 @@ nkafka-5g:
 acc-fiveg-amf-tester:
   enabled: true
 
-  nodeSelector:
-    draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
