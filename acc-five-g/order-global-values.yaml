@@ -24,11 +24,13 @@ global:
 
 
   ## Version of the 5G applications
-  ##   Description: This is the version of the 5G application
+  ##   Description: This is the version of the 5G applications
   ##                in DockerHub.
+  ##                NOTE: NKafka-5G has a different version syntax
   ##   Value type: string
   ##
   tag: "165d9f5"
+  nkafka5gTag: "alpha.626eace_proto.165d9f5"
 
 
   ## CU-UP GTP IP address

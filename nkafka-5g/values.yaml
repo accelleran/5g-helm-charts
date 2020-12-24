@@ -4,12 +4,10 @@
 
 replicaCount: 1
 
-version: "{{ .Chart.AppVersion }}"
-#version: "alpha.ee3534d_proto.d77c501"
-
 image:
   repository: accelleran/nkafka_5g
   pullPolicy: IfNotPresent
+  tag: ""
 
 imagePullSecrets: 
   - name: accelleran-secret
@@ -77,8 +75,12 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-nodeSelector:
-  draxName: main
+nodeSelector: {}
+
+draxNodeSelectorEnabled: "false"
+
+draxNodeSelector:
+  draxName: "main"
 
 tolerations: []
 

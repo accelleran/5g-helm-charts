@@ -1,10 +1,13 @@
 nkafka-5g:
   enabled: false
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
-  version: "alpha.ee3534d_proto.d77c501"
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
+
+  image:
+    tag: "{{ .Values.global.nkafka5gTag }}"
 
   kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
   natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
@@ -18,8 +21,10 @@ nkafka-5g:
 acc-fiveg-amf-tester:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -62,8 +67,10 @@ acc-fiveg-amf-tester:
 acc-fiveg-du-tester:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -103,8 +110,10 @@ acc-fiveg-du-tester:
 acc-fiveg-amf-controller:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -126,8 +135,10 @@ acc-fiveg-amf-controller:
 acc-fiveg-cu-up:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -156,8 +167,10 @@ acc-fiveg-cu-up:
 acc-fiveg-cu-up-controller:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -173,8 +186,10 @@ acc-fiveg-cu-up-controller:
 acc-fiveg-ds-ctrl:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -200,8 +215,10 @@ acc-fiveg-ds-ctrl:
 acc-fiveg-du-controller:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -223,8 +240,10 @@ acc-fiveg-du-controller:
 acc-fiveg-e1-cp:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -246,8 +265,10 @@ acc-fiveg-e1-cp:
 acc-fiveg-e1-sctp-up:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -269,8 +290,10 @@ acc-fiveg-e1-sctp-up:
 acc-fiveg-f1-ap:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -292,8 +315,10 @@ acc-fiveg-f1-ap:
 acc-fiveg-gnb-controller:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -315,8 +340,10 @@ acc-fiveg-gnb-controller:
 acc-fiveg-ng-ap:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -338,8 +365,10 @@ acc-fiveg-ng-ap:
 acc-fiveg-pm-controller:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -355,8 +384,10 @@ acc-fiveg-pm-controller:
 acc-fiveg-res-mgr:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -372,8 +403,10 @@ acc-fiveg-res-mgr:
 acc-fiveg-res-mgr-up:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -395,8 +428,10 @@ acc-fiveg-res-mgr-up:
 acc-fiveg-rr-ctrl:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"
@@ -412,8 +447,10 @@ acc-fiveg-rr-ctrl:
 acc-fiveg-sctp:
   enabled: true
 
-  nodeSelector: {}
-  #  draxName: "{{ .Values.global.draxNodeSelectorName }}"
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
   image:
     tag: "{{ .Values.global.tag }}"

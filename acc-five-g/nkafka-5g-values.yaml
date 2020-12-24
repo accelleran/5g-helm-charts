@@ -1,5 +1,20 @@
 nkafka-5g:
-  enabled: false
+  enabled: true
+
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
+
+  image:
+    tag: "{{ .Values.global.nkafka5gTag }}"
+
+  kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
+  natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
+
+  initConfigs:
+    natsService: "nats-service.{{ .Release.Namespace }}:4222"
+    kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
 
 acc-fiveg-amf-tester:
   enabled: false
@@ -26,29 +41,7 @@ acc-fiveg-e1-cp:
   enabled: false
 
 acc-fiveg-e1-sctp-up:
-  enabled: true
-
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
-
-  draxNodeSelector:
-    draxName: "{{ .Values.global.draxName }}"
-
-  image:
-    tag: "{{ .Values.global.tag }}"
-
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
-
-    # Port of NAST
-    port: "{{ .Values.global.natsPort }}"
-
-  redisConfig:
-    hostname: "{{ .Values.global.redisHostname }}"
-    port: "{{ .Values.global.redisPort }}"
-
-  bootstrapId: "cuup_1"
+  enabled: false
 
 acc-fiveg-f1-ap:
   enabled: false
@@ -73,3 +66,4 @@ acc-fiveg-rr-ctrl:
 
 acc-fiveg-sctp:
   enabled: false
+

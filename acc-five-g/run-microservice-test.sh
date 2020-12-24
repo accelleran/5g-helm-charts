@@ -21,9 +21,14 @@
 #               exchange. If you are using a real AMF and/or a real
 #               DU, comment out the amfTester and/or duTester
 #               sections of the script.
+#               You can also choose whether you install NKafka-5G
+#               here, or install it manually.
 ###################################################################
 
 waiting_period=20
+
+echo "Starting NKafka-5G..."
+helm install fg-nkafka-5g . --values nkafka-5g-values.yaml --values order-global-values.yaml
 
 echo "Starting AMF TESTERS..."
 helm install fg-amf-tester-1 . --values amf-tester-1-values.yaml --values order-global-values.yaml
