@@ -1,4 +1,28 @@
 #!/bin/bash
+
+###################################################################
+# Title:        Running Accelleran 5G applications in order
+# Author:       Ensar Zeljkovic
+# E-mail:       ensar.zeljkovic@accelleran.com
+# Args:         /
+# Description:  This script installs Accelleran 5G applications
+#               in a pre-defined order. It uses helm as the
+#               deployment tool. Each application uses two values
+#               files. The order-global-values.yaml is used to
+#               define shared values among all helm charts. The
+#               second values file is a per-helm chart, specific
+#               values file. After each helm install command is
+#               executed, there is a waiting period defined in the
+#               "waiting_period" variable, to allow for the
+#               application to get deployed and run.
+#               By default, this script will run both the amfTester
+#               and duTester applications as well, to test the
+#               complete end-to-end connectivity and message
+#               exchange. If you are using a real AMF and/or a real
+#               DU, comment out the amfTester and/or duTester
+#               sections of the script.
+###################################################################
+
 waiting_period=20
 
 echo "Starting AMF TESTERS..."
