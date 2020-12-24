@@ -49,7 +49,7 @@ image:
   repository: accelleran/netconf
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "9f54953"
+  tag: ""
 
 imagePullSecrets:
   - name: accelleran-secret
