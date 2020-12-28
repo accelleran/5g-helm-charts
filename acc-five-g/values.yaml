@@ -7,7 +7,7 @@ nkafka-5g:
   # Enable or disable installation of component
   #   Value type: boolean
   #
-  enabled: false
+  enabled: true
 
 
   # Special dRAX NodeSelector
