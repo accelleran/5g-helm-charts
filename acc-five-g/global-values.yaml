@@ -1,15 +1,104 @@
 global:
-  # Kubernetes Advertise Address, used as External address for services
+
+  # Kubernetes Advertise Address
+  #   Description: Used as External address for services
+  #   Value type: string
+  #
   kubeIp: "10.55.1.2"
+
+
+  # NATS URL and PORT
+  #   Description: Used to configure the application to talk
+  #                to NATS
+  #   Value type: string
+  #
   natsUrl: "10.55.1.2"
   natsPort: "31000"
+
+
+  # Version of the 5G applications
+  #   Description: This is the version of the 5G applications
+  #                in DockerHub.
+  #                NOTE: NKafka-5G has a different version syntax
+  #   Value type: string
+  #
   tag: "165d9f5"
+
+
+  # CU-UP GTP IP address
+  #   Description: This IP address is given out to the CU-UP.
+  #                It is created as a LoadBalancer service,
+  #                hence the IP needs to be in the IP pool
+  #                that the LoadBalancer is configured for.
+  #   Value type: string
+  #
   cuUpGtpIp: "10.55.1.30"
+
+
+  # SCTP E1 and F1 interface IPs
+  #   Description: These IPs are given to the SCTP application
+  #                to use for the E1 and F1 interfaces. The
+  #                service type is LoadBalancer, hence the IPs
+  #                need to be in the IP pool that the
+  #                LoadBalancer is configured for.
+  #   Value type: string
+  #   Example:
+  #
   sctpE1Ip: "10.55.1.20"
   sctpF1Ip: "10.55.1.21"
+
+
+  # AMF Tester settings
+  #   Description: The AMF-Tester application has two services,
+  #                the GTP and NG-Control. Both need to have an
+  #                IP assigned to them. Both services are of
+  #                type LoadBalancer, hence the IPs need to be
+  #                in the IP pool that the LoadBalancer is
+  #                configured for.
+  #   Value type: string
+  #   Example:
+  #
   amfTesterGtpIp: "10.55.1.40"
   amfTesterNgControlIp: "10.55.1.41"
+
+
+  # DU Tester settings
+  #   Description: The DU-Tester applications has the GTP service.
+  #                The service is of LoadBalancer type, hence the
+  #                IPs need to be in the IP pool that the
+  #                LoadBalancer is configured for.
+  #   Value type: string
+  #   Example:
+  #
   duTesterGtpIp: "10.55.1.41"
+
+
+  # Redis settings
+  #   Description: Certain application need to be able to reach
+  #                Redis. Here we configure the Redis hostname
+  #                and port.
+  #   Value type: string
+  #   Example:
+  #
   redisHostname: "10.55.1.2"
   redisPort: "32200"
+
+
+  # dRAX Specific Node Selector
+  #   Description: This is a special nodeSelector field implemented for the
+  #                Accelleran 5G Helm charts. You need to first label your
+  #                node in Kubernetes with a label "draxName" and give it a
+  #                <value>. For example for node <node_name>, you can use the
+  #                following command to label it:
+  #                kubectl label node <node_name> draxName=<value>.
+  #                You can then enabled this feature by setting
+  #                "draxNodeSelectorEnabled" to "true" (as a string with quotes!).
+  #                The in "draxName" set the value of the label you chose for
+  #                the node. This will in effect install all the 5G Application
+  #                on that node, without the need to edit all individual helm
+  #                charts. In case you want to add other nodeSelector options,
+  #                you have to add them to the helm chart specific values files.
+  #   Value type: string
+  #   Example:
+  #
   draxNodeSelectorName: "main"

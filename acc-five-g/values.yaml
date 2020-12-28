@@ -1,96 +1,365 @@
+##############################################################
+#
+##############################################################
+
 nkafka-5g:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: false
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.nkafka5gTag }}"
+  #
   image:
     tag: "{{ .Values.global.nkafka5gTag }}"
 
+
+  # Kafka URL
+  #   Description:  The full URL, including the PORT at the end, to Kafka.
+  #                 Used by NKafka to connect and publish data to Kafka.
+  #   Value type:   string
+  #   Example:
+  #
+  # kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
+  #
   kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
+
+
+  # NATS URL
+  #   Description:  The full URL, including the PORT at the end, to NATS.
+  #                 Used by NKafka to connect and subscribe to NATS.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats://nats-service.default:4222
+  #
   natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
 
-  logLevel: info
 
+  # Initialization configurtaion
+  #   Description:  For NKafka to run properly, it needs to connects to Kafka and NATS.
+  #                 Therefore, before starting the NKafka pod, there are two initContainer: i) to
+  #                 check whether Kafka is up and running, and ii) to check whether NATS is up
+  #                 and running. Therefore, the Kafka and NATS URLs have to be supplied to the
+  #                 initContainers. The URLs also contain the PORT number.
+  #   Value type:   string
+  #   Example:
+  #
+  # initConfigs:
+  #   natsService: "nats-service.{{ .Release.Namespace }}:4222"
+  #   kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
+  #
   initConfigs:
     natsService: "nats-service.{{ .Release.Namespace }}:4222"
     kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
 
 acc-fiveg-amf-tester:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # InitContainer settings
+  #   Description:  This Helm Chart has an initContainer that can on deployment time discover IP
+  #                 addresses of other services in Kubernetes. In the 'ips', specify a list of
+  #                 IPs that should be discovered. When discovered, the IPs will be saved as
+  #                 environmental variables in the main container. The list item is a map of two
+  #                 elements:
+  #                 i) url - which is the url to the services
+  #                 ii) name- the name of the env variable where the IP will be saved. Because
+  #                           its an environmental variable, the name filed has to be a
+  #                           CAPITALIZED string
+  #   Value type:   string
+  #   Example:
+  #
+  #
+  # initConfig:
+  #   ips:
+  #     - url: '{{ include "five-g-appl.fullname" . }}-gtp'
+  #       name: "GTP_IP"
+  #
   initConfig:
     ips:
       - url: '{{ include "five-g-appl.fullname" . }}-gtp'
         name: "GTP_IP"
 
+
+  # Arguments for the 5G application
+  #   Description:  The arguments for the 5G application run command are specified here. The
+  #                 field args is a list. Each list items is a map of 2 fields:
+  #                 i) name - the name of the argument
+  #                 ii) values - the value of the argument
+  #   Value type:   string
+  #   Example:
+  #
+  # args:
+  #   - name: "--own"
+  #     value: "$POD_IP"
+  #   - name: "--numLoops"
+  #     value: "1"
+  #
   args:
     - name: "--own"
       value: "$POD_IP"
     - name: "--numLoops"
       value: "1"
 
+
+  # GTP Service Settings
+  #   Description:  The settings of the GTP service exposed for this component. the
+  #                 'gtpService' field is a map consisting of the following:
+  #                 i) enabled - The service can be enabled or disabled using this boolean
+  #                 ii) type - This is the Kubernetes Service Type (NodePort, LoadBalancer...)
+  #                 iii) protocol - Kubernetes Service protocol (UDP, TCP, SCTP...)
+  #                 iv) gtpUPort - Port number of the GTP User traffic port (default=2152)
+  #                 v) loadBalancerIp - If the type is set to LoadBalancer, an explicit
+  #                                     definition of the IP to be used can be set here. NOTE: It
+  #                                     needs to be in the LoadBalancer IP range.
+  #                 vi) gtpUNodePort - If the type is set to NodePort, an explicit definition of
+  #                                    the PORT on which the service will be exposed can be set
+  #                                    here. NOTE: Since NodePort is used, only ports defined for
+  #                                    the Kubernetes NodePort can be used (default 30000-32999)
+  #
+  # gtpService:
+  #   enabled: true
+  #   type: LoadBalancer
+  #   protocol: UDP
+  #   gtpUPort: 2152
+  #   loadBalancerIP: "{{ .Values.global.amfTesterGtpIp }}"
+  #   gtpUNodePort: 31999
+  #
   gtpService:
     enabled: true
     type: LoadBalancer
     protocol: UDP
     gtpUPort: 2152
     loadBalancerIP: "{{ .Values.global.amfTesterGtpIp }}"
-    # gtpUNodePort:
 
+
+  # NG Control Service Settings
+  #   Description:  The settings of the NG Control service exposed for this component. the
+  #                 'ngControlService' field is a map consisting of the following:
+  #                 i) enabled - The service can be enabled or disabled using this boolean
+  #                 ii) type - This is the Kubernetes Service Type (NodePort, LoadBalancer...)
+  #                 iii) protocol - Kubernetes Service protocol (UDP, TCP, SCTP...)
+  #                 iv) port - Port number of the service
+  #                 v) loadBalancerIp - If the type is set to LoadBalancer, an explicit
+  #                                     definition of the IP to be used can be set here. NOTE: It
+  #                                     needs to be in the LoadBalancer IP range.
+  #                 vi) nodePort - If the type is set to NodePort, an explicit definition of
+  #                                    the PORT on which the service will be exposed can be set
+  #                                    here. NOTE: Since NodePort is used, only ports defined for
+  #                                    the Kubernetes NodePort can be used (default 30000-32999)
+  #
+  # ngControlService:
+  #   enabled: true
+  #   type: LoadBalancer
+  #   protocol: SCTP
+  #   port: 38412
+  #   loadBalancerIP: "{{ .Values.global.amfTesterNgControlIp }}"
+  #   nodePort: 31998
+  #
   ngControlService:
     enabled: true
     type: LoadBalancer
     protocol: SCTP
     port: 38412
     loadBalancerIP: "{{ .Values.global.amfTesterNgControlIp }}"
-    # nodePort:
 
 acc-fiveg-du-tester:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-  # name filed has to be CAPITALIZED
+
+  # InitContainer settings
+  #   Description:  This Helm Chart has an initContainer that can on deployment time discover IP
+  #                 addresses of other services in Kubernetes. In the 'ips', specify a list of
+  #                 IPs that should be discovered. When discovered, the IPs will be saved as
+  #                 environmental variables in the main container. The list item is a map of two
+  #                 elements:
+  #                 i) url - which is the url to the services
+  #                 ii) name- the name of the env variable where the IP will be saved. Because
+  #                           its an environmental variable, the name filed has to be a
+  #                           CAPITALIZED string
+  #   Value type:   string
+  #   Example:
+  #
+  #
+  # initConfig:
+  #   ips:
+  #     - url: '{{ include "five-g-appl.fullname" . }}-gtp'
+  #       name: "GTP_IP"
+  #
   initConfig:
     ips:
       - url: '{{ include "five-g-appl.fullname" . }}-gtp'
         name: "GTP_IP"
-#      - url: '{{ .Release.Name }}-acc-fiveg-sctp-f1'
-#        name: 'F1_IP'
 
+
+  # Arguments for the 5G application
+  #   Description:  The arguments for the 5G application run command are specified here. The
+  #                 field args is a list. Each list items is a map of 2 fields:
+  #                 i) name - the name of the argument
+  #                 ii) values - the value of the argument
+  #   Value type:   string
+  #   Example:
+  #
+  # args:
+  #   - name: "--cucp"
+  #     value: "{{ .Values.global.sctpF1Ip }}"
+  #   - name: "--own"
+  #     value: "$POD_IP"
+  #   - name: "--numLoops"
+  #     value: "1"
+  #
   args:
     - name: "--cucp"
       value: "{{ .Values.global.sctpF1Ip }}"
@@ -99,64 +368,230 @@ acc-fiveg-du-tester:
     - name: "--numLoops"
       value: "1"
 
+
+  # GTP Service Settings
+  #   Description:  The settings of the GTP service exposed for this component. the
+  #                 'gtpService' field is a map consisting of the following:
+  #                 i) enabled - The service can be enabled or disabled using this boolean
+  #                 ii) type - This is the Kubernetes Service Type (NodePort, LoadBalancer...)
+  #                 iii) protocol - Kubernetes Service protocol (UDP, TCP, SCTP...)
+  #                 iv) gtpUPort - Port number of the GTP User traffic port (default=2152)
+  #                 v) loadBalancerIp - If the type is set to LoadBalancer, an explicit
+  #                                     definition of the IP to be used can be set here. NOTE: It
+  #                                     needs to be in the LoadBalancer IP range.
+  #                 vi) gtpUNodePort - If the type is set to NodePort, an explicit definition of
+  #                                    the PORT on which the service will be exposed can be set
+  #                                    here. NOTE: Since NodePort is used, only ports defined for
+  #                                    the Kubernetes NodePort can be used (default 30000-32999)
+  #
+  # gtpService:
+  #   enabled: true
+  #   type: LoadBalancer
+  #   protocol: UDP
+  #   gtpUPort: 2152
+  #   loadBalancerIP: "{{ .Values.global.duTesterGtpIp }}"
+  #   gtpUNodePort: 31999
+  #
   gtpService:
     enabled: true
     type: LoadBalancer
     protocol: UDP
     gtpUPort: 2152
     loadBalancerIP: "{{ .Values.global.duTesterGtpIp }}"
-    # gtpUNodePort:
 
 acc-fiveg-amf-controller:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
+
   # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
   nats:
-    # URL of NATS
     url: "{{ .Values.global.natsUrl }}"
- 
-    # Port of NAST
     port: "{{ .Values.global.natsPort }}"
 
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
   bootstrapId: "cucp1"
 
 acc-fiveg-cu-up:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # Arguments for the 5G application
+  #   Description:  The arguments for the 5G application run command are specified here. The
+  #                 field args is a list. Each list items is a map of 2 fields:
+  #                 i) name - the name of the argument
+  #                 ii) values - the value of the argument
+  #   Value type:   string
+  #   Example:
+  #
+  # args:
+  #   - name: "--own"
+  #     value: "$POD_IP"
+  #   - name: "--pub"
+  #     value: "{{ .Values.global.cuUpGtpIp }}"
+  #
   args:
     - name: "--own"
       value: "$POD_IP"
     - name: "--pub"
       value: "{{ .Values.global.cuUpGtpIp }}"
 
+
+  # GTP Service Settings
+  #   Description:  The settings of the GTP service exposed for this component. the
+  #                 'gtpService' field is a map consisting of the following:
+  #                 i) enabled - The service can be enabled or disabled using this boolean
+  #                 ii) type - This is the Kubernetes Service Type (NodePort, LoadBalancer...)
+  #                 iii) protocol - Kubernetes Service protocol (UDP, TCP, SCTP...)
+  #                 iv) gtpUPort - Port number of the GTP User traffic port (default=2152)
+  #                 v) loadBalancerIp - If the type is set to LoadBalancer, an explicit
+  #                                     definition of the IP to be used can be set here. NOTE: It
+  #                                     needs to be in the LoadBalancer IP range.
+  #                 vi) gtpUNodePort - If the type is set to NodePort, an explicit definition of
+  #                                    the PORT on which the service will be exposed can be set
+  #                                    here. NOTE: Since NodePort is used, only ports defined for
+  #                                    the Kubernetes NodePort can be used (default 30000-32999)
+  #
+  # gtpService:
+  #   enabled: true
+  #   type: LoadBalancer
+  #   protocol: UDP
+  #   gtpUPort: 2152
+  #   loadBalancerIP: "{{ .Values.global.cuUpGtpIp }}"
+  #   gtpUNodePort: 31999
+  #
   gtpService:
     enabled: true
     type: LoadBalancer
@@ -165,316 +600,1080 @@ acc-fiveg-cu-up:
     loadBalancerIP: "{{ .Values.global.cuUpGtpIp }}"
 
 acc-fiveg-cu-up-controller:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-ds-ctrl:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # Arguments for the 5G application
+  #   Description:  The arguments for the 5G application run command are specified here. The
+  #                 field args is a list. Each list items is a map of 2 fields:
+  #                 i) name - the name of the argument
+  #                 ii) values - the value of the argument
+  #   Value type:   string
+  #   Example:
+  #
+  # args:
+  #   - name: "--rel_msec"
+  #     value: "500"
+  #
   args: 
     - name: "--rel_msec"
       value: "500"
 
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
   bootstrapId: "cucp1"
 
 acc-fiveg-du-controller:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
   bootstrapId: "cucp1"
 
 acc-fiveg-e1-cp:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
   bootstrapId: "cucp1"
 
 acc-fiveg-e1-sctp-up:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cuup1"
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cuup_1"
+  #
+  bootstrapId: "cuup_1"
 
 acc-fiveg-f1-ap:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
   bootstrapId: "cucp1"
 
 acc-fiveg-gnb-controller:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
   bootstrapId: "cucp1"
 
 acc-fiveg-ng-ap:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cucp1"
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
+  bootstrapId: "cucp_1"
 
 acc-fiveg-pm-controller:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-res-mgr:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-res-mgr-up:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
 
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-  bootstrapId: "cuup1"
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cuup_1"
+  #
+  bootstrapId: "cuup_1"
 
 acc-fiveg-rr-ctrl:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
 acc-fiveg-sctp:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
   image:
     tag: "{{ .Values.global.tag }}"
 
-  # NATS Settings
-  nats:
-    # URL of NATS
-    url: "{{ .Values.global.natsUrl }}"
 
-    # Port of NAST
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # F1 Service Settings
+  #   Description:  The settings of the F1 service exposed for this component. the
+  #                 'f1Service' field is a map consisting of the following:
+  #                 i) enabled - The service can be enabled or disabled using this boolean
+  #                 ii) type - This is the Kubernetes Service Type (NodePort, LoadBalancer...)
+  #                 iii) protocol - Kubernetes Service protocol (UDP, TCP, SCTP...)
+  #                 iv) f1Port - Port number of the GTP User traffic port (default=2152)
+  #                 v) loadBalancerIp - If the type is set to LoadBalancer, an explicit
+  #                                     definition of the IP to be used can be set here. NOTE: It
+  #                                     needs to be in the LoadBalancer IP range.
+  #                 vi) f1NodePort - If the type is set to NodePort, an explicit definition of
+  #                                    the PORT on which the service will be exposed can be set
+  #                                    here. NOTE: Since NodePort is used, only ports defined for
+  #                                    the Kubernetes NodePort can be used (default 30000-32999)
+  #
+  # f1Service:
+  #   enabled: true
+  #   type: LoadBalancer
+  #   protocol: UDP
+  #   f1Port: 2152
+  #   loadBalancerIP: "{{ .Values.global.sctpF1Ip }}"
+  #   f1NodePort: 31999
+  #
   f1Service:
     enabled: true
     type: LoadBalancer
     protocol: SCTP
     f1Port: 38472
     loadBalancerIP: "{{ .Values.global.sctpF1Ip }}"
-    # f1NodePort:
 
+
+  # E1 Service Settings
+  #   Description:  The settings of the E1 service exposed for this component. the
+  #                 'e1Service' field is a map consisting of the following:
+  #                 i) enabled - The service can be enabled or disabled using this boolean
+  #                 ii) type - This is the Kubernetes Service Type (NodePort, LoadBalancer...)
+  #                 iii) protocol - Kubernetes Service protocol (UDP, TCP, SCTP...)
+  #                 iv) e1Port - Port number of the GTP User traffic port (default=2152)
+  #                 v) loadBalancerIp - If the type is set to LoadBalancer, an explicit
+  #                                     definition of the IP to be used can be set here. NOTE: It
+  #                                     needs to be in the LoadBalancer IP range.
+  #                 vi) e1NodePort - If the type is set to NodePort, an explicit definition of
+  #                                    the PORT on which the service will be exposed can be set
+  #                                    here. NOTE: Since NodePort is used, only ports defined for
+  #                                    the Kubernetes NodePort can be used (default 30000-32999)
+  #
+  # e1Service:
+  #   enabled: true
+  #   type: LoadBalancer
+  #   protocol: UDP
+  #   f1Port: 2152
+  #   loadBalancerIP: "{{ .Values.global.sctpE1Ip }}"
+  #   e1NodePort: 31999
+  #
   e1Service:
     enabled: true
     type: LoadBalancer
     protocol: SCTP
     e1Port: 38462
     loadBalancerIP: "{{ .Values.global.sctpE1Ip }}"
-    # e1NodePort:

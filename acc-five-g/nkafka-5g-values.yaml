@@ -1,17 +1,85 @@
 nkafka-5g:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.nkafka5gTag }}"
+  #
   image:
     tag: "{{ .Values.global.nkafka5gTag }}"
 
+
+  # Kafka URL
+  #   Description:  The full URL, including the PORT at the end, to Kafka.
+  #                 Used by NKafka to connect and publish data to Kafka.
+  #   Value type:   string
+  #   Example:
+  #
+  # kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
+  #
   kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
+
+
+  # NATS URL
+  #   Description:  The full URL, including the PORT at the end, to NATS.
+  #                 Used by NKafka to connect and subscribe to NATS.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats://nats-service.default:4222
+  #
   natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
 
+
+  # Initialization configurtaion
+  #   Description:  For NKafka to run properly, it needs to connects to Kafka and NATS.
+  #                 Therefore, before starting the NKafka pod, there are two initContainer: i) to
+  #                 check whether Kafka is up and running, and ii) to check whether NATS is up
+  #                 and running. Therefore, the Kafka and NATS URLs have to be supplied to the
+  #                 initContainers. The URLs also contain the PORT number.
+  #   Value type:   string
+  #   Example:
+  #
+  # initConfigs:
+  #   natsService: "nats-service.{{ .Release.Namespace }}:4222"
+  #   kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
+  #
   initConfigs:
     natsService: "nats-service.{{ .Release.Namespace }}:4222"
     kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
