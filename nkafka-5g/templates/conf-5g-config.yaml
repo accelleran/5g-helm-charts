@@ -7,15 +7,23 @@ data:
     protobuf_file="messages_5g.pb"
 
     [options]
-    topic="5gmessages"
-    rewrite_timestamp="never"
-    max_len=1048756
-    timeout=1000
-    mask=false
-    seq_mapper="one"
-    threads=1
-    invert_service=false
-    replicate_messages=false
-    compact=true
-    offset="auto"
-    subject="Subject"
+#    topic="5gmessages"
+#    rewrite_timestamp="never"
+#    max_len=1048756
+#    timeout=1000
+#    mask=false
+#    seq_mapper="one"
+#    threads=1
+#    invert_service=false
+#    replicate_messages=false
+#    compact=true
+#    offset="auto"
+#    subject="Subject"
+
+    {{ range .Values.options }}
+    {{ if eq .type "non-string" }}
+    {{ .name }}={{ .value }}
+    {{ else }}
+    {{ .name }}="{{ tpl .value $ }}"
+    {{ end }}
+    {{ end }}
