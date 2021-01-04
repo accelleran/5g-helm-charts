@@ -22,8 +22,8 @@ global:
   #                NOTE: NKafka-5G has a different version syntax
   #   Value type: string
   #
-  tag: "bfe289b"
-  nkafka5gTag: "alpha.626eace_proto.165d9f5"
+  tag: "7d4046b"
+  nkafka5gTag: "alpha.626eace_proto.c2c7736"
 
 
   # CU-UP GTP IP address
