@@ -31,37 +31,37 @@ options:
     value: 5gmessages
   - name: rewrite_timestamp
     type: string
-    values: never
+    value: never
   - name: max_len
     type: non-string
-    values: 1048756
+    value: '1048756'
   - name: timeout
     type: non-string
-    values: 1000
+    value: 1000
   - name: mask
     type: non-string
-    values: false
+    value: false
   - name: seq_mapper
     type: string
-    values: one
+    value: one
   - name: threads
     type: non-string
-    values: 1
+    value: 1
   - name: invert_service
     type: non-string
-    values: false
+    value: false
   - name: replicate_messages
     type: non-string
-    values: false
+    value: false
   - name: compact
     type: non-string
-    values: true
+    value: true
   - name: offset
-    type: non-string
-    values: auto
+    type: string
+    value: auto
   - name: subject
     type: string
-    values: Subject
+    value: Subject
 
 serviceAccount:
   # Specifies whether a service account should be created
