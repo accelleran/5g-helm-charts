@@ -88,6 +88,55 @@ nkafka-5g:
     natsService: "nats-service.{{ .Release.Namespace }}:4222"
     kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
 
+  # NKafka-5G Specific Options
+  #   Description:  Specific NKafka-5G Application options
+  #                 TBD
+  #   Value type: map (dictionary), with 3 fields:
+  #               name - the name of the option
+  #               type - can be non-string or string, on which depends whether there will be quotes ("")
+  #                       for the specific value in the config .toml file
+  #               value - the value of the option (can use quotes here for a literal copy to toml, an example,
+  #                        if its a large number Helm can translate it to a format the application does not recognize,
+  #                        like for the max_len option. Without the quotes it would be copied to .toml as 1.048756e06)
+  #
+  options:
+    - name: topic
+      type: string
+      value: 5gmessages
+    - name: rewrite_timestamp
+      type: string
+      value: never
+    - name: max_len
+      type: non-string
+      value: '1048756'
+    - name: timeout
+      type: non-string
+      value: 1000
+    - name: mask
+      type: non-string
+      value: false
+    - name: seq_mapper
+      type: string
+      value: one
+    - name: threads
+      type: non-string
+      value: 1
+    - name: invert_service
+      type: non-string
+      value: false
+    - name: replicate_messages
+      type: non-string
+      value: false
+    - name: compact
+      type: non-string
+      value: true
+    - name: offset
+      type: string
+      value: auto
+    - name: subject
+      type: string
+      value: Subject
+
 acc-fiveg-amf-tester:
 
   # Enable or disable installation of component
