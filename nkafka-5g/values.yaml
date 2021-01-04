@@ -28,40 +28,40 @@ initConfigs:
 options:
   - name: topic
     type: string
-    value: '5gmessages'
-#  - name: rewrite_timestamp
-#    type: string
-#    values: never
-#  - name: max_len
-#    type: non-string
-#    values: 1048756
-#  - name: timeout
-#    type: non-string
-#    values: 1000
-#  - name: mask
-#    type: non-string
-#    values: false
-#  - name: seq_mapper
-#    type: string
-#    values: one
-#  - name: threads
-#    type: non-string
-#    values: 1
-#  - name: invert_service
-#    type: non-string
-#    values: false
-#  - name: replicate_messages
-#    type: non-string
-#    values: false
-#  - name: compact
-#    type: non-string
-#    values: true
-#  - name: offset
-#    type: non-string
-#    values: auto
-#  - name: subject
-#    type: string
-#    values: Subject
+    value: 5gmessages
+  - name: rewrite_timestamp
+    type: string
+    values: never
+  - name: max_len
+    type: non-string
+    values: 1048756
+  - name: timeout
+    type: non-string
+    values: 1000
+  - name: mask
+    type: non-string
+    values: false
+  - name: seq_mapper
+    type: string
+    values: one
+  - name: threads
+    type: non-string
+    values: 1
+  - name: invert_service
+    type: non-string
+    values: false
+  - name: replicate_messages
+    type: non-string
+    values: false
+  - name: compact
+    type: non-string
+    values: true
+  - name: offset
+    type: non-string
+    values: auto
+  - name: subject
+    type: string
+    values: Subject
 
 serviceAccount:
   # Specifies whether a service account should be created

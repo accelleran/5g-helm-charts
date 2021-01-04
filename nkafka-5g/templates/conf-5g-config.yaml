@@ -7,12 +7,10 @@ data:
     protobuf_file="messages_5g.pb"
 
     [options]
-
-
     {{ range .Values.options }}
     {{ if eq .type "non-string" }}
     {{ .name }}={{ .value }}
     {{ else }}
-    {{ .name }}="{{ tpl .value $ }}"
+    {{ .name }}="{{ .value }}"
     {{ end }}
     {{ end }}
