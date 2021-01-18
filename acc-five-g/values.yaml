@@ -117,7 +117,7 @@ nkafka-5g:
       value: false
     - name: seq_mapper
       type: string
-      value: one
+      value: none
     - name: threads
       type: non-string
       value: 1
@@ -606,16 +606,20 @@ acc-fiveg-cu-up:
   #   Example:
   #
   # args:
-  #   - name: "--own"
-  #     value: "$POD_IP"
-  #   - name: "--pub"
+  #   - name: "--downlink"
   #     value: "{{ .Values.global.cuUpGtpIp }}"
+  #   - name: "--uplink"
+  #     value: "{{ .Values.global.cuUpGtpIp }}"
+  #   - name: "--bind"
+  #     value: "$POD_IP"
   #
   args:
-    - name: "--own"
-      value: "$POD_IP"
-    - name: "--pub"
+    - name: "--downlink"
       value: "{{ .Values.global.cuUpGtpIp }}"
+    - name: "--uplink"
+      value: "{{ .Values.global.cuUpGtpIp }}"
+    - name: "--bind"
+      value: "$POD_IP"
 
 
   # GTP Service Settings
@@ -647,6 +651,7 @@ acc-fiveg-cu-up:
     protocol: UDP
     gtpUPort: 2152
     loadBalancerIP: "{{ .Values.global.cuUpGtpIp }}"
+    externalTrafficPolicy: "{{ .Values.global.cuUpGtpExternalTrafficPolicy }}"
 
 acc-fiveg-cu-up-controller:
 

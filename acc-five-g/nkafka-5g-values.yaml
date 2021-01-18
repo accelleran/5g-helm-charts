@@ -113,7 +113,7 @@ nkafka-5g:
       value: false
     - name: seq_mapper
       type: string
-      value: one
+      value: none
     - name: threads
       type: non-string
       value: 1
