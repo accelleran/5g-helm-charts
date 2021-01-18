@@ -7,6 +7,9 @@ metadata:
     {{- include "five-g-appl.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.gtpService.type }}
+  {{ if .Values.gtpService.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ tpl .Values.gtpService.externalTrafficPolicy . }}
+  {{ end }}
   ports:
     - port: {{ .Values.gtpService.gtpUPort }}
       protocol: {{ .Values.gtpService.protocol }}

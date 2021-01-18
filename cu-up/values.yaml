@@ -83,6 +83,7 @@ gtpService:
   gtpUPort: 2152
   # loadBalancerIP:
   # gtpUNodePort:
+  # externalTrafficPolicy: "Cluster"
 
 ingress:
   enabled: false

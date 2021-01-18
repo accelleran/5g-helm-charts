@@ -87,10 +87,12 @@ acc-fiveg-cu-up:
   #     value: "{{ .Values.global.cuUpGtpIp }}"
   #
   args:
-    - name: "--own"
-      value: "$POD_IP"
-    - name: "--pub"
+    - name: "--downlink"
       value: "{{ .Values.global.cuUp1GtpIp }}"
+    - name: "--uplink"
+      value: "{{ .Values.global.cuUp1GtpIp }}"
+    - name: "--bind"
+      value: "$POD_IP"
 
 
   # GTP Service Settings
@@ -122,6 +124,7 @@ acc-fiveg-cu-up:
     protocol: UDP
     gtpUPort: 2152
     loadBalancerIP: "{{ .Values.global.cuUp1GtpIp }}"
+    externalTrafficPolicy: "{{ .Values.global.cuUpGtpExternalTrafficPolicy }}"
 
 acc-fiveg-cu-up-controller:
   enabled: false

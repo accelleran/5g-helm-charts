@@ -22,8 +22,8 @@ global:
   #                NOTE: NKafka-5G has a different version syntax
   #   Value type: string
   #
-  tag: "7d4046b"
-  nkafka5gTag: "alpha.626eace_proto.c2c7736"
+  tag: "aa19a29"
+  nkafka5gTag: "alpha.626eace_proto.5bf25a4"
 
 
   # CU-UP GTP IP address
@@ -34,6 +34,7 @@ global:
   #   Value type: string
   #
   cuUpGtpIp: "10.55.1.30"
+  cuUpGtpExternalTrafficPolicy: "Local"
 
 
   # SCTP E1 and F1 interface IPs
@@ -103,3 +104,4 @@ global:
   #   Example:
   #
   draxNodeSelectorName: "main"
+
