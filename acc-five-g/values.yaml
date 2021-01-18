@@ -714,6 +714,31 @@ acc-fiveg-cu-up-controller:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
+  bootstrapId: "cucp_1"
+
 acc-fiveg-ds-ctrl:
 
   # Enable or disable installation of component
