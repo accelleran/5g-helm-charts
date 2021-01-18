@@ -33,11 +33,14 @@ global:
   nkafka5gTag: "alpha.626eace_proto.5bf25a4"
 
 
-  # CU-UP GTP IP address
+  # CU-UP GTP service
   #   Description: This IP address is given out to the CU-UP.
   #                It is created as a LoadBalancer service,
   #                hence the IP needs to be in the IP pool
   #                that the LoadBalancer is configured for.
+  #                You can also set the external traffic policy
+  #                for the service: Cluster or Local
+  #                More info here: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
   #   Value type: string
   #
   cuUp1GtpIp: "10.55.1.30"
