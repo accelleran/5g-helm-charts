@@ -9,6 +9,11 @@ image:
   pullPolicy: IfNotPresent
   tag: ""
 
+initImage:
+  repository: accelleran/acc-generic-img
+  pullPolicy: IfNotPresent
+  tag: "0.5.1"
+
 imagePullSecrets: 
   - name: accelleran-secret
 nameOverride: ""

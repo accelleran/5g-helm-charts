@@ -57,7 +57,7 @@ nkafka-5g:
   #
   # kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
   #
-  kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
+  kafkaUrl: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
 
 
   # NATS URL
@@ -86,7 +86,7 @@ nkafka-5g:
   #
   initConfigs:
     natsService: "nats-service.{{ .Release.Namespace }}:4222"
-    kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
+    kafkaService: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
 
   # NKafka-5G Specific Options
   #   Description:  Specific NKafka-5G Application options
