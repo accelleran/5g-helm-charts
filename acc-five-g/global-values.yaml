@@ -22,7 +22,7 @@ global:
   #                NOTE: NKafka-5G has a different version syntax
   #   Value type: string
   #
-  tag: "19127f8"
+  tag: "471bfc90"
   nkafka5gTag: "alpha.ad68103_proto.365d2042"
 
 
@@ -106,5 +106,6 @@ global:
   #   Value type: string
   #   Example:
   #
-  draxNodeSelectorName: "main"
+  draxNodeSelectorEnabled: "false"
+  draxName: "main"
 

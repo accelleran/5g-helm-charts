@@ -29,8 +29,8 @@ global:
   #                NOTE: NKafka-5G has a different version syntax
   #   Value type: string
   #
-  tag: "aa19a29"
-  nkafka5gTag: "alpha.626eace_proto.5bf25a4"
+  tag: "471bfc90"
+  nkafka5gTag: "alpha.ad68103_proto.365d2042"
 
 
   # CU-UP GTP service
@@ -116,7 +116,7 @@ global:
   #   Value type: string
   #   Example:
   #
-  draxNodeSelectorEnabled: "true"
+  draxNodeSelectorEnabled: "false"
   draxName: "main"
 
 
