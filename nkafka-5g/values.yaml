@@ -19,7 +19,7 @@ imagePullSecrets:
 nameOverride: ""
 fullnameOverride: ""
 
-kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
+kafkaUrl: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
 natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
 #druidOverlordUrl: "overlord.{{ .Release.Namespace }}:8081"
 #args: ["producer", "--kafka", "acc-dash-kafka:9092", "--pb", "/messages.pb", "--group", "helm-demo", "--rewrite-time", "insert", "--seq-to-map", "--nats", "nats://nats-service:4222", "--invert", "--replicate", "--threads", "1"]
@@ -28,7 +28,7 @@ logLevel: debug
 
 initConfigs:
   natsService: "nats-service.{{ .Release.Namespace }}:4222"
-  kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
+  kafkaService: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
 
 options:
   - name: topic
