@@ -23,7 +23,7 @@ global:
   #   Value type: string
   #
   tag: "471bfc90"
-  nkafka5gTag: "alpha.878ad1a_proto.471bfc90"
+  nkafka5gTag: "alpha.6a438bf_proto.2f07a26a"
 
 
   # CU-UP GTP service

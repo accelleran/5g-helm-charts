@@ -173,7 +173,7 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector:
-  draxName: main
+  draxName: edge
 
 tolerations: []
 

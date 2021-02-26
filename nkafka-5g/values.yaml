@@ -12,7 +12,12 @@ image:
 initImage:
   repository: accelleran/acc-generic-img
   pullPolicy: IfNotPresent
-  tag: "0.5.1"
+  tag: "latest"
+
+# For mounting the accelleran license
+accelleranLicense:
+  enabled: false
+  licenseSecretName: accelleran-license
 
 imagePullSecrets: 
   - name: accelleran-secret
@@ -20,53 +25,33 @@ nameOverride: ""
 fullnameOverride: ""
 
 kafkaUrl: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
-natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
-#druidOverlordUrl: "overlord.{{ .Release.Namespace }}:8081"
-#args: ["producer", "--kafka", "acc-dash-kafka:9092", "--pb", "/messages.pb", "--group", "helm-demo", "--rewrite-time", "insert", "--seq-to-map", "--nats", "nats://nats-service:4222", "--invert", "--replicate", "--threads", "1"]
-
-logLevel: debug
-
-initConfigs:
-  natsService: "nats-service.{{ .Release.Namespace }}:4222"
-  kafkaService: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
+natsUrl: "nats-service.{{ .Release.Namespace }}:4222"
 
 options:
-  - name: topic
-    type: string
-    value: 5gmessages
-  - name: rewrite_timestamp
-    type: string
-    value: never
-  - name: max_len
-    type: non-string
-    value: '1048756'
-  - name: timeout
-    type: non-string
-    value: 1000
-  - name: mask
-    type: non-string
-    value: false
-  - name: seq_mapper
-    type: string
-    value: one
-  - name: threads
-    type: non-string
-    value: 1
-  - name: invert_service
-    type: non-string
-    value: false
-  - name: replicate_messages
-    type: non-string
-    value: false
-  - name: compact
-    type: non-string
-    value: true
-  - name: offset
-    type: string
-    value: auto
-  - name: subject
-    type: string
-    value: Subject
+  - name: "topic"
+    value: "5gmessages"
+  - name: "rewrite_timestamp"
+    value: "never"
+  - name: "max_len"
+    value: "1048756"
+  - name: "timeout"
+    value: "1000"
+  - name: "mask"
+    value: "false"
+  - name: "seq_mapper"
+    value: "one"
+  - name: "threads"
+    value: "1"
+  - name: "invert_service"
+    value: "false"
+  - name: "replicate_messages"
+    value: "false"
+  - name: "compact"
+    value: "true"
+  - name: "offset"
+    value: "auto"
+  - name: "subject"
+    value: "topic"
 
 serviceAccount:
   # Specifies whether a service account should be created

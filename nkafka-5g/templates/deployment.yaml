@@ -25,30 +25,36 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-        - name: check-nats
-          image: gcr.io/kubernetes-e2e-test-images/dnsutils:1.3
-          imagePullPolicy: IfNotPresent
-          command: ['sh', '-c', 'until nc -z -v -w1 {{ tpl .Values.initConfigs.natsService . }}; do echo $(date) [CHECK-SERVICES] Waiting for NATS at {{ tpl .Values.initConfigs.natsService . }}; sleep 2; done']
+        - name: {{ .Chart.Name }}-check-nats
+          image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          command: ['sh', '-c', 'until nc -z -v -w1 {{ tpl .Values.natsUrl . }}; do echo $(date) [CHECK-SERVICES] Waiting for NATS at {{ tpl .Values.natsUrl . }}; sleep 2; done']
         - name: {{ .Chart.Name }}-check-kafka
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
-          command: ['sh', '-c', 'echo "KAFKA_URL=\"{{ tpl .Values.initConfigs.kafkaService . }}\"" > kafka_url.py && python3 kafka-test.py']
+          command: ['sh', '-c', 'echo "KAFKA_URL=\"{{ tpl .Values.kafkaUrl . }}\"" > kafka_url.py && python3 kafka-test.py']
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
-          env:
-            - name: RUST_LOG
-              value: {{ .Values.logLevel }}
+          {{ if .Values.accelleranLicense.enabled }}
+          image: "{{ .Values.image.repository }}-license:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          {{ else }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          {{ end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - name: conf-5g-config
               mountPath: /5GConfig.toml
               subPath: "5GConfig.toml"
+            {{ if .Values.accelleranLicense.enabled }}
+            - mountPath: "/etc/license/license.crt"
+              subPath: "license.crt"
+              name: accelleran-license
+              readOnly: true
+            {{ end }}
           command: ["./nkafka"]
-          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "five-g", "--nats", "{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml","-f", "/5GTopics.toml", "-v"]
-#          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "helm-demo", "--nats", "{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml", "producer"]
+          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "five-g", "--nats", "nats://{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml","-f", "/5GTopics.toml", "-v", {{ if .Values.configs.logLevel }}{{ if eq .Values.configs.logLevel "info" }}"-v"{{ end }}{{ if eq .Values.configs.logLevel "debug" }}"-vv"{{ end }}{{ end }}]
 #            - name: http
 #              containerPort: 80
 #              protocol: TCP
@@ -83,3 +89,8 @@ spec:
         - name: conf-5g-config
           configMap:
             name: conf-5g-config
+        {{ if .Values.accelleranLicense.enabled }}
+        - name: accelleran-license
+          secret:
+            secretName: {{ .Values.accelleranLicense.licenseSecretName}}
+        {{ end }}

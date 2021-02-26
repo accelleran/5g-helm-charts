@@ -34,6 +34,24 @@ nkafka-5g:
     draxName: "{{ .Values.global.draxName }}"
 
 
+  # Accelleran license configuration
+  #   Description:  Accelleran software uses licenses. here you can configure those options.
+  #                 enabled: can be set to true if the license is used, or false to use the
+  #                 unlicensed version (FOR INTERNAL ACCELLERAN USE ONLY)
+  #                 licenseSecretName: th elicense is stored as a Kubernetes secret. Here
+  #                 you can specify the secret name where the license is located.
+  #   Value type: string
+  #   Example:
+  #
+  # accelleranLicense:
+  #   enabled: false
+  #   licenseSecretName: accelleran-license
+  #
+  accelleranLicense:
+    enabled: false
+    licenseSecretName: accelleran-license
+
+
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -55,7 +73,7 @@ nkafka-5g:
   #   Value type:   string
   #   Example:
   #
-  # kafkaUrl: "ric-kafka.{{ .Release.Namespace }}:9092"
+  # kafkaUrl: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
   #
   kafkaUrl: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
 
@@ -68,74 +86,43 @@ nkafka-5g:
   #
   # nats://nats-service.default:4222
   #
-  natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
+  natsUrl: "nats-service.{{ .Release.Namespace }}:4222"
 
-
-  # Initialization configurtaion
-  #   Description:  For NKafka to run properly, it needs to connects to Kafka and NATS.
-  #                 Therefore, before starting the NKafka pod, there are two initContainer: i) to
-  #                 check whether Kafka is up and running, and ii) to check whether NATS is up
-  #                 and running. Therefore, the Kafka and NATS URLs have to be supplied to the
-  #                 initContainers. The URLs also contain the PORT number.
-  #   Value type:   string
-  #   Example:
-  #
-  # initConfigs:
-  #   natsService: "nats-service.{{ .Release.Namespace }}:4222"
-  #   kafkaService: "ric-kafka.{{ .Release.Namespace }}:9092"
-  #
-  initConfigs:
-    natsService: "nats-service.{{ .Release.Namespace }}:4222"
-    kafkaService: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
 
   # NKafka-5G Specific Options
   #   Description:  Specific NKafka-5G Application options
   #                 TBD
   #   Value type: map (dictionary), with 3 fields:
   #               name - the name of the option
-  #               type - can be non-string or string, on which depends whether there will be quotes ("")
-  #                       for the specific value in the config .toml file
-  #               value - the value of the option (can use quotes here for a literal copy to toml, an example,
+  #               value - the value of the option (use quotes here for a literal copy to toml, an example,
   #                        if its a large number Helm can translate it to a format the application does not recognize,
   #                        like for the max_len option. Without the quotes it would be copied to .toml as 1.048756e06)
   #
   options:
-    - name: topic
-      type: string
-      value: 5gmessages
-    - name: rewrite_timestamp
-      type: string
-      value: never
-    - name: max_len
-      type: non-string
-      value: '1048756'
-    - name: timeout
-      type: non-string
-      value: 1000
-    - name: mask
-      type: non-string
-      value: false
-    - name: seq_mapper
-      type: string
-      value: none
-    - name: threads
-      type: non-string
-      value: 1
-    - name: invert_service
-      type: non-string
-      value: false
-    - name: replicate_messages
-      type: non-string
-      value: false
-    - name: compact
-      type: non-string
-      value: true
-    - name: offset
-      type: string
-      value: auto
-    - name: subject
-      type: string
-      value: Subject
+    - name: "topic"
+      value: "5gmessages"
+    - name: "rewrite_timestamp"
+      value: "never"
+    - name: "max_len"
+      value: "1048756"
+    - name: "timeout"
+      value: "1000"
+    - name: "mask"
+      value: "false"
+    - name: "seq_mapper"
+      value: "one"
+    - name: "threads"
+      value: "1"
+    - name: "invert_service"
+      value: "false"
+    - name: "replicate_messages"
+      value: "false"
+    - name: "compact"
+      value: "true"
+    - name: "offset"
+      value: "auto"
+    - name: "subject"
+      value: "topic"
 
 acc-fiveg-amf-tester:
 

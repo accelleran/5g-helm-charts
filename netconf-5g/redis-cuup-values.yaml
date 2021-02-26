@@ -8,7 +8,7 @@ redis:
   enabled: true
 
   nodeSelector:
-    draxName: main
+    draxName: edge
 
 
   # The version of the Docker image to use
@@ -177,7 +177,7 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector:
-  draxName: main
+  draxName: edge
 
 tolerations: []
 
