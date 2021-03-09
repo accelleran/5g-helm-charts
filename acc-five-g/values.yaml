@@ -89,6 +89,11 @@ nkafka-5g:
   natsUrl: "nats-service.{{ .Release.Namespace }}:4222"
 
 
+  # Configuration option
+  configs:
+    logLevel: info
+
+
   # NKafka-5G Specific Options
   #   Description:  Specific NKafka-5G Application options
   #                 TBD

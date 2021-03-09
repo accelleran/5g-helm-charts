@@ -38,9 +38,9 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           {{ if .Values.accelleranLicense.enabled }}
-          image: "{{ .Values.image.repository }}-license:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}-license:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
           {{ else }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
           {{ end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:

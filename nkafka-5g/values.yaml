@@ -27,6 +27,9 @@ fullnameOverride: ""
 kafkaUrl: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
 natsUrl: "nats-service.{{ .Release.Namespace }}:4222"
 
+configs:
+  logLevel: info
+
 options:
   - name: "topic"
     value: "5gmessages"
