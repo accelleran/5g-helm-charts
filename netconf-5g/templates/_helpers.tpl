@@ -40,12 +40,15 @@ helm.sh/chart: {{ include "five-g-appl.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-drax/test: test1
-drax/role: 5g
-drax/name: 5g
+drax/role: drax-core
+drax/name: {{ .Chart.Name }}
 drax/technology: 5g
+drax/instanceId: {{ .Values.bootstrapId }}
+drax/5g-component-type: {{ .Values.initNetconfDefaultPath.componentType }}
 drax/component-name: {{ .Chart.Name }}
 drax/component-version: {{ .Chart.Version }}
+drax/redis-url: "{{ .Values.redisConfig.hostname }}"
+drax/redis-port: "{{ .Values.redisConfig.port }}"
 {{- end }}
 
 {{/*
