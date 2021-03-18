@@ -8,9 +8,5 @@ data:
 
     [options]
     {{ range .Values.options }}
-    {{ if eq .type "non-string" }}
-    {{ .name }}={{ .value }}
-    {{ else }}
     {{ .name }}="{{ .value }}"
-    {{ end }}
     {{ end }}
