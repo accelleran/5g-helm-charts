@@ -116,7 +116,7 @@ nkafka-5g:
     - name: "mask"
       value: "false"
     - name: "seq_mapper"
-      value: "one"
+      value: "none"
     - name: "threads"
       value: "1"
     - name: "invert_service"
