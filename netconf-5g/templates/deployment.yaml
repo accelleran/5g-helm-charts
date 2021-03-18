@@ -202,6 +202,9 @@ spec:
                   - |
                     /bin/sh <<'EOF'
 
+                    # upgrade pip
+                    python3 -m pip install -U pip
+
                     pip3 install netconf-client==1.7.1
 
                     {{ if .Values.initNetconfDefaultPath.enabled }}
