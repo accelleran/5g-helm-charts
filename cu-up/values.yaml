@@ -29,10 +29,14 @@ initConfig:
       name: "GTP_IP"
 
 args:
-  - name: "--own"
+  - name: "--downlink"
+    value: "{{ .Values.global.cuUp1GtpIp }}"
+  - name: "--uplink"
+    value: "{{ .Values.global.cuUp1GtpIp }}"
+  - name: "--bind"
     value: "$POD_IP"
-  - name: "--pub"
-    value: "{{ .Values.gtpService.loadBalancerIP }}"
+
+    
 
 # NATS Settings
 nats:
@@ -41,6 +45,13 @@ nats:
 
   # Port of NAST
   port: 31000
+
+redisConfig:
+  hostname: 10.55.1.2
+  port: 32200
+
+bootstrapId: "cuup1"
+bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 extraEnvs: []
 #  - name: example_env_name
