@@ -44,6 +44,20 @@ nkafka-5g:
   image:
     tag: "{{ .Values.global.nkafka5gTag }}"
 
+  # Accelleran license
+  #   Description:  To use the dRAX Components, you need to have an Accelleran
+  #                 License which is set as a Kubernetes secret. Refer to the
+  #                 Installation guide for details. Set the usage of such a
+  #                 license here and the name of the license secret in Kubernetes.
+  #   Example:
+  #
+  #  accelleranLicense:
+  #    enabled: false
+  #    licenseSecretName: accelleran-license
+  #
+  accelleranLicense:
+    enabled: false
+    licenseSecretName: accelleran-license
 
   # Kafka URL
   #   Description:  The full URL, including the PORT at the end, to Kafka.
@@ -62,27 +76,22 @@ nkafka-5g:
   #   Value type:   string
   #   Example:
   #
-  # nats://nats-service.default:4222
+  # nats-service.default:4222
   #
-  natsUrl: "nats://nats-service.{{ .Release.Namespace }}:4222"
+  natsUrl: "nats-service.{{ .Release.Namespace }}:4222"
 
 
-  # Initialization configurtaion
-  #   Description:  For NKafka to run properly, it needs to connects to Kafka and NATS.
-  #                 Therefore, before starting the NKafka pod, there are two initContainer: i) to
-  #                 check whether Kafka is up and running, and ii) to check whether NATS is up
-  #                 and running. Therefore, the Kafka and NATS URLs have to be supplied to the
-  #                 initContainers. The URLs also contain the PORT number.
-  #   Value type:   string
+  # NKafka general configuration
+  #   Description:  The general NKafka application parameters.
+  #
   #   Example:
   #
-  # initConfigs:
-  #   natsService: "nats-service.{{ .Release.Namespace }}:4222"
-  #   kafkaService: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
+  #  configs:
+  #    logLevel: info
   #
-  initConfigs:
-    natsService: "nats-service.{{ .Release.Namespace }}:4222"
-    kafkaService: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
+  configs:
+    logLevel: info
+
 
   # NKafka-5G Specific Options
   #   Description:  Specific NKafka-5G Application options
@@ -96,42 +105,30 @@ nkafka-5g:
   #                        like for the max_len option. Without the quotes it would be copied to .toml as 1.048756e06)
   #
   options:
-    - name: topic
-      type: string
-      value: 5gmessages
-    - name: rewrite_timestamp
-      type: string
-      value: never
-    - name: max_len
-      type: non-string
-      value: '1048756'
-    - name: timeout
-      type: non-string
-      value: 1000
-    - name: mask
-      type: non-string
-      value: false
-    - name: seq_mapper
-      type: string
-      value: none
-    - name: threads
-      type: non-string
-      value: 1
-    - name: invert_service
-      type: non-string
-      value: false
-    - name: replicate_messages
-      type: non-string
-      value: false
-    - name: compact
-      type: non-string
-      value: true
-    - name: offset
-      type: string
-      value: auto
-    - name: subject
-      type: string
-      value: Subject
+    - name: "topic"
+      value: "5gmessages"
+    - name: "rewrite_timestamp"
+      value: "never"
+    - name: "max_len"
+      value: "1048756"
+    - name: "timeout"
+      value: "1000"
+    - name: "mask"
+      value: "false"
+    - name: "seq_mapper"
+      value: "one"
+    - name: "threads"
+      value: "1"
+    - name: "invert_service"
+      value: "false"
+    - name: "replicate_messages"
+      value: "false"
+    - name: "compact"
+      value: "true"
+    - name: "offset"
+      value: "auto"
+    - name: "subject"
+      value: "topic"
 
 acc-fiveg-amf-tester:
   enabled: false
