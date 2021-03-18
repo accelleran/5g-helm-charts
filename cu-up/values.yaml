@@ -36,8 +36,6 @@ args:
   - name: "--bind"
     value: "$POD_IP"
 
-    
-
 # NATS Settings
 nats:
   # URL of NATS

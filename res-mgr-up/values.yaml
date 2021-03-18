@@ -39,7 +39,7 @@ redisConfig:
 bootstrapId: "cuup1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
-extraEnvs:
+extraEnvs: []
 #  - name: BOOTSTRAP_INSTANCE_ID
 #    value: cuup1
 #  - name: ex1

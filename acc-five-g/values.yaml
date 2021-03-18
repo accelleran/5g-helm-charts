@@ -597,6 +597,32 @@ acc-fiveg-cu-up:
     port: "{{ .Values.global.natsPort }}"
 
 
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cuup_1"
+  #
+  bootstrapId: "cuup_1"
+
+
   # Arguments for the 5G application
   #   Description:  The arguments for the 5G application run command are specified here. The
   #                 field args is a list. Each list items is a map of 2 fields:
@@ -1425,6 +1451,32 @@ acc-fiveg-pm-controller:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
+  bootstrapId: "cucp_1"
+
 acc-fiveg-res-mgr:
 
   # Enable or disable installation of component
@@ -1485,6 +1537,32 @@ acc-fiveg-res-mgr:
   nats:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
+
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cuup_1"
+  #
+  bootstrapId: "cuup_1"
 
 acc-fiveg-res-mgr-up:
 
@@ -1634,6 +1712,32 @@ acc-fiveg-rr-ctrl:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
+  bootstrapId: "cucp_1"
+
 acc-fiveg-sctp:
 
   # Enable or disable installation of component
@@ -1694,6 +1798,32 @@ acc-fiveg-sctp:
   nats:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
+
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
+  bootstrapId: "cucp_1"
 
 
   # F1 Service Settings
