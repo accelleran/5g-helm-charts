@@ -22,8 +22,8 @@ global:
   #                NOTE: NKafka-5G has a different version syntax
   #   Value type: string
   #
-  tag: "471bfc90"
-  nkafka5gTag: "alpha.878ad1a_proto.471bfc90"
+  tag: "fead1268"
+  nkafka5gTag: "alpha.6a438bf_proto.fead1268"
 
 
   # CU-UP GTP service
