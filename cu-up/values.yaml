@@ -22,17 +22,25 @@ cmd: "__APPNAME=cuUp ./cuUpAppl.exe"
 testing:
   value: "${GTP_IP}"
 
-# name filed has to be CAPITALIZED
-initConfig:
-  ips:
-    - url: '{{ include "five-g-appl.fullname" . }}-gtp'
-      name: "GTP_IP"
+initGetConfigImage:
+  repository: accelleran/acc-generic-img
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+initGetConfig:
+  - resourceType: 'service'
+    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    # Environmental variable have to be ALL CAPS
+    envName: "GTP_IP"
 
 args:
   - name: "--downlink"
-    value: "{{ .Values.global.cuUp1GtpIp }}"
+    value: "$GTP_IP"
   - name: "--uplink"
-    value: "{{ .Values.global.cuUp1GtpIp }}"
+    value: "$GTP_IP"
   - name: "--bind"
     value: "$POD_IP"
 

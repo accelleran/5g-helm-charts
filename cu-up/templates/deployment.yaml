@@ -28,12 +28,12 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-        - name: {{ .Chart.Name }}-get-ips
-          image: accelleran/acc-generic-img:0.2.0
-          imagePullPolicy: IfNotPresent
+        - name: {{ .Chart.Name }}-get-init-configs
+          image: "{{ .Values.initGetConfigImage.repository }}:{{ tpl .Values.initGetConfigImage.tag . }}"
+          imagePullPolicy: {{ .Values.initGetConfigImage.pullPolicy }}
           volumeMounts:
             - name: init-volume
-              mountPath: /env-vars/
+              mountPath: /init-configs/
           command:
             - sh
             - "-c"
@@ -42,14 +42,15 @@ spec:
 
               #!/bin/bash
 
-              namespace="{{ .Release.Namespace }}"
+              {{ if .Values.initGetConfig }}
 
-              echo "" > /env-vars/env.env
+              {{ range .Values.initGetConfig }}
 
-              {{ range .Values.initConfig.ips }}
+              value=$(kubectl get '{{ .resourceType }}' '{{ tpl .resourceName $ }}' -n {{ tpl .resourceNamespace $ }} -o json | jq "'{{ .field }}'")
+              
+              echo "'{{ .envName }}'=$value" >> /init-configs/env.env
 
-              ip=$(nslookup '{{ tpl .url $ }}'.${namespace}.svc.cluster.local | grep Address | tail -1 | awk '{ print $2 }')
-              echo "'{{ .name }}'=$ip" >> /env-vars/env.env
+              {{ end }}
 
               {{ end }}
 
@@ -65,10 +66,16 @@ spec:
             - "-c"
             - |
               /bin/bash <<'EOF'
-              #!/bin/bash
-              export $(xargs < /env-vars/env.env)
 
-              echo {{ .Values.testing.value }} > /env-vars/test.txt
+              #!/bin/bash
+
+              {{ if .Values.initGetConfig }}
+
+              export $(xargs < /init-configs/env.env)
+
+              echo {{ .Values.testing.value }} > /init-configs/test.txt
+
+              {{ end }}
 
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
 
@@ -104,7 +111,7 @@ spec:
               mountPath: /5G/zlog.conf
               subPath: "zlog.conf"
             - name: init-volume
-              mountPath: /env-vars/
+              mountPath: /init-configs/
             - name: {{ include "five-g-appl.fullname" . }}-bootstrap
               mountPath: {{ .Values.bootstrapFile }}
               subPath: "bootstrap.txt"
