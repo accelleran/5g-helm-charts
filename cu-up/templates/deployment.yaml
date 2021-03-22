@@ -46,9 +46,9 @@ spec:
 
               {{ range .Values.initGetConfig }}
 
-              value=$(kubectl get '{{ .resourceType }}' '{{ tpl .resourceName $ }}' -n {{ tpl .resourceNamespace $ }} -o json | jq "'{{ .field }}'")
+              value=$(kubectl get {{ .resourceType }} {{ tpl .resourceName $ }} -n {{ tpl .resourceNamespace $ }} -o json | jq "{{ .field }}")
               
-              echo "'{{ .envName }}'=$value" >> /init-configs/env.env
+              echo "{{ .envName }}=$value" >> /init-configs/env.env
 
               {{ end }}
 
