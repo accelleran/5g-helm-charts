@@ -6,7 +6,7 @@ metadata:
     {{- include "five-g-appl.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.numOfDus }}
+  replicas: {{ tpl .Values.numOfDus . }}
 {{- end }}
   selector:
     matchLabels:

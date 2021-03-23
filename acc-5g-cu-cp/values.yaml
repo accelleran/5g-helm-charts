@@ -16,6 +16,20 @@ global:
   #
   instanceId: "cucp_1"
 
+  # Number of supported components
+  #   Description:  You have to specify the amount of different components that should be supported.
+  #                 Therefore, you have to specify:
+  #                 - the number of AMFs that will be used
+  #                 - the number of CU-UPs that will be used
+  #                 - the number of DUs that will be used
+  #                 - the number of CELLSs that will be used
+  #                   i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
+  #                 - the number of UEs that will be used
+  numOfAmfs: 2
+  numfOfCuUps: 2
+  numOfDus: 1
+  numOfCells: 1
+  numOfUes: 5
 
   # NATS URL and PORT
   #   Description: Used to configure the application to talk
@@ -328,6 +342,10 @@ acc-fiveg-ds-ctrl:
   enabled: true
 
 
+  # Number of UEs supported
+  numOfUes: "{{ .Values.global.numOfUes }}"
+
+
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
   #                 there is a special dRAX NodeSelector. This can be shared
@@ -518,6 +536,9 @@ acc-fiveg-e1-cp:
   #
   enabled: true
 
+  # Number of CU-UPs that should be supported
+  numOfCuUps: "{{ .Values.global.numOfCuUps }}"
+
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -605,6 +626,8 @@ acc-fiveg-f1-ap:
   #
   enabled: true
 
+  # Number of DUs to be supported
+  numOfDus: "{{ .Values.global.numOfDus }}"
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -779,6 +802,8 @@ acc-fiveg-ng-ap:
   #
   enabled: true
 
+  # The number of AMFs that should be supported
+  numOfAmfs: "{{ .Values.global.numOfAmfs }}"
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -1039,6 +1064,11 @@ acc-fiveg-rr-ctrl:
   #   Value type: boolean
   #
   enabled: true
+
+
+  # Total number of cells to be supported
+  # i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
+  numOfCells: "{{ .Values.global.numOfCells }}"
 
 
   # Special dRAX NodeSelector
