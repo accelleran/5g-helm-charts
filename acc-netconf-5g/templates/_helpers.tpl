@@ -44,11 +44,11 @@ drax/role: drax-core
 drax/name: {{ .Chart.Name }}
 drax/technology: 5g
 drax/instanceId: {{ tpl .Values.bootstrapId . }}
-drax/5g-component-type: {{ .Values.initNetconfDefaultPath.componentType }}
+drax/5g-component-type: {{ tpl .Values.initNetconfDefaultPath.componentType . }}
 drax/component-name: {{ .Chart.Name }}
 drax/component-version: {{ .Chart.Version }}
-drax/redis-url: "{{ .Values.redisConfig.hostname }}"
-drax/redis-port: "{{ .Values.redisConfig.port }}"
+drax/redis-url: "{{ tpl .Values.redisConfig.hostname . }}"
+drax/redis-port: "{{ tpl .Values.redisConfig.port . }}"
 {{- end }}
 
 {{/*
