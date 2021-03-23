@@ -1,0 +1,37 @@
+nodeSelector:
+  draxName: edge
+
+# The version of the Docker image to use
+version: "redis20190206"
+
+# The External IP of where NATS is installed
+natsIp: 10.55.1.2
+
+# The port NATS is using, check in the above settings of NATS
+natsPort: 31000
+
+# Backup the redis db when the pod is terminated
+backup:
+  # Enabled or disable this feature
+  enabled: true
+  # Choose after how many days should the backed up DBs be deleted
+  deleteAfterDay: 7
+
+service:
+  type: NodePort
+  port: 6379
+  nodePort: 32200
+  name: "redisport"
+  serviceName: redis-service-5g
+
+persistence:
+  accessModes:
+    - ReadWriteMany
+  enabled: true
+  size: 10Gi
+  storageClassName: acc-redis-5g
+  type: pvc
+  ### TESTING
+  #hostPath: /opt/pods/acc-redis
+  ### Production
+  hostPath: /opt/pods/redis-storage-5g

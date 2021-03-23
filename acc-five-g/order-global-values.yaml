@@ -116,8 +116,8 @@ global:
   #   Value type: string
   #   Example:
   #
-  draxNodeSelectorEnabled: "false"
-  draxName: "main"
+  draxNodeSelectorEnabled: "true"
+  draxName: "edge"
 
 
 

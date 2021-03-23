@@ -48,7 +48,7 @@ initNetconfDefaultPath:
   #pullPolicy: IfNotPresent
   # Carfull when putting this to service url, as the service might not be up when this is used
   host: 'localhost'
-  componentType: cuup
+  componentType: 'cuup'
 
 
 args: []
