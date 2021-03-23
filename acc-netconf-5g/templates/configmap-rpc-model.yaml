@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "five-g-appl.fullname" . }}-rpc-model
+  labels:
+    {{- include "five-g-appl.labels" . | nindent 4 }}
+data:
+  model-rpc.py: |
+    from netconf_client.connect import connect_ssh
+    from netconf_client.ncclient import Manager
+
+    HOST = "localhost"
+    PORT = 830
+
+    session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
+    mgr = Manager(session, timeout=120)
+    models = """<config><netconf-config xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config"
+                xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
+                <idle-session-timeout>300</idle-session-timeout>
+                <supported-models xc:operation="create">
+                    <model-namespace>http://accelleran.com/ns/yang/accelleran-gnb-cu-cp</model-namespace>
+                    <model-name>accelleran-gnb-cu-cp</model-name>
+                    <model-revision>2020-09-01</model-revision>
+                    <model-file-name>accelleran-gnb-cu-cp.yang</model-file-name>
+                    <library-name>libgnbCUCPCrudLib.so</library-name>
+                </supported-models>
+                <supported-models xc:operation="create">
+                    <model-namespace>http://accelleran.com/ns/yang/accelleran-gnb-cu-up</model-namespace>
+                    <model-name>accelleran-gnb-cu-up</model-name>
+                    <model-revision>2020-09-02</model-revision>
+                    <model-file-name>accelleran-gnb-cu-up.yang</model-file-name>
+                    <library-name>libgnbCUUPCrudLib.so</library-name>
+                </supported-models>
+            </netconf-config>
+            </config>"""
+
+    print(mgr.edit_config(config=models,target='running', default_operation=None))
+

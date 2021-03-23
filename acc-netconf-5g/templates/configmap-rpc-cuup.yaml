@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+  labels:
+    {{- include "five-g-appl.labels" . | nindent 4 }}
+data:
+  cuup-rpc.py: |
+    from netconf_client.connect import connect_ssh
+    from netconf_client.ncclient import Manager
+
+    HOST = "{{ tpl .Values.initNetconfDefaultPath.host . }}"
+    PORT = 830
+
+    session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
+    mgr = Manager(session, timeout=120)
+
+    defPathCuUp = """<config>
+    <netconf-config xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
+        <default-path>/accelleran-gnb-cu-up:gnb-cu-up</default-path>
+    </netconf-config> </config>"""
+
+    print(mgr.edit_config(config=defPathCuUp,target='running', default_operation=None))
+
+

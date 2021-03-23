@@ -22,11 +22,13 @@ cmd: "__APPNAME=e1sctpUp ./e1sctpUpAppl.exe"
 #testing:
 #  value: "${F1_IP}"
 
-# name filed has to be CAPITALIZED
-initConfig:
-  ips: []
-#    - url: 'f1-dns_name'
-#      name: "F1_IP"
+initGetConfigImage:
+  repository: accelleran/acc-generic-img
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+initGetConfig: []
 
 args: []
 #  - name: "--cucp"
@@ -35,19 +37,19 @@ args: []
 # NATS Settings
 nats:
   # URL of NATS
-  url: 10.55.2.2
+  url: "10.55.2.2"
 
   # Port of NAST
-  port: 31000
+  port: "31000"
 
 redisConfig:
-  hostname: 10.55.1.2
-  port: 32200
+  hostname: "10.55.2.2"
+  port: "32200"
 
 bootstrapId: "cuup1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
-extraEnvs:
+extraEnvs: []
 #  - name: BOOTSTRAP_INSTANCE_ID
 #    value: cuup1
 #  - name: ex1
