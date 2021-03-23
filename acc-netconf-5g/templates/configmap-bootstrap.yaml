@@ -7,5 +7,5 @@ metadata:
 data:
   bootstrap.txt: |
     redis.hostname:{{ tpl .Values.redisConfig.hostname . }}
-    redis.port:{{ .Values.redisConfig.port }}
-    instance.filter:{{ .Values.bootstrapId }}
+    redis.port:{{ tpl .Values.redisConfig.port . }}
+    instance.filter:{{ tpl .Values.bootstrapId . }}

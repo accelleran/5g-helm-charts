@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: netconf-{{ .Values.netconfServicebootstrapId }}
+  name: netconf-{{ tpl .Values.bootstrapId . | replace "_" "-" }}
   labels:
     {{- include "five-g-appl.labels" . | nindent 4 }}
 spec:

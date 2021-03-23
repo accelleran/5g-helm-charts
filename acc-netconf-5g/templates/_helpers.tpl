@@ -43,7 +43,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 drax/role: drax-core
 drax/name: {{ .Chart.Name }}
 drax/technology: 5g
-drax/instanceId: {{ .Values.bootstrapId }}
+drax/instanceId: {{ tpl .Values.bootstrapId . }}
 drax/5g-component-type: {{ .Values.initNetconfDefaultPath.componentType }}
 drax/component-name: {{ .Chart.Name }}
 drax/component-version: {{ .Chart.Version }}

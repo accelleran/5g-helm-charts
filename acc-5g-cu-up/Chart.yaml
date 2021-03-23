@@ -1,6 +1,6 @@
 apiVersion: v2
 name: acc-5g-cu-up
-description: A Helm chart for Kubernetes
+description: Accelleran 5G CU UP Components
 
 # A chart can be either an 'application' or a 'library' chart.
 #
