@@ -1,0 +1,25 @@
+{{- if .Values.gtpService.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "five-g-appl.fullname" . }}-gtp
+  labels:
+    {{- include "five-g-appl.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.gtpService.type }}
+  {{ if .Values.gtpService.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ tpl .Values.gtpService.externalTrafficPolicy . }}
+  {{ end }}
+  ports:
+    - port: {{ .Values.gtpService.gtpUPort }}
+      protocol: {{ .Values.gtpService.protocol }}
+      name: gtpu
+      {{ if contains "NodePort" .Values.gtpService.type }}
+      nodePort: {{ .Values.gtpService.gtpUNodePort }}
+      {{ end }}
+  {{ if .Values.gtpService.loadBalancerIP }}
+  loadBalancerIP: {{ tpl .Values.gtpService.loadBalancerIP . }}
+  {{ end }}
+  selector:
+    {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
+{{- end -}}

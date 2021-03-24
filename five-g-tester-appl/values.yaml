@@ -19,21 +19,38 @@ fullnameOverride: ""
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
 cmd: "./testerAppl.exe"
 
+testing:
+  value: "${F1_IP}"
+
+initGetConfigImage:
+  repository: accelleran/acc-generic-img
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+initGetConfig:
+  - resourceType: 'service'
+    resourceName: 'acc-5g-cu-cp-1-acc-fiveg-sctp-f1'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    # Environmental variable have to be ALL CAPS
+    envName: "F1_IP"
+
 args:
   - name: "--own"
-    value: 127.0.0.5
+    value: "$POD_IP"
   - name: "--cucp"
-    value: 127.0.0.1
+    value: "$F1_IP"
   - name: "--numLoops"
     value: 3
 
 # NATS Settings
 nats:
   # URL of NATS
-  url: 10.55.2.2
+  url: "10.55.1.2"
 
   # Port of NAST
-  port: 31000
+  port: "31000"
 
 extraEnvs: []
 #  - name: example_env_name
@@ -43,7 +60,7 @@ extraEnvs: []
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -68,6 +85,24 @@ service:
   enabled: false
   type: ClusterIP
   port: 80
+
+gtpService:
+  enabled: true
+  type: LoadBalancer
+  protocol: UDP
+  gtpUPort: 2152
+  # loadBalancerIP:
+  # gtpUNodePort:
+  externalTrafficPolicy: "Local"
+
+ngControlService:
+  enabled: true
+  type: LoadBalancer
+  protocol: SCTP
+  port: 38412
+  # loadBalancerIP:
+  # nodePort:
+  externalTrafficPolicy: "Local"
 
 ingress:
   enabled: false
@@ -102,6 +137,11 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
+
+draxNodeSelectorEnabled: "false"
+
+draxNodeSelector:
+  draxName: "main"
 
 tolerations: []
 
