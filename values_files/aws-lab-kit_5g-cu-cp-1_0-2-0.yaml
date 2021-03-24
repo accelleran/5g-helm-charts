@@ -79,4 +79,6 @@ global:
   draxNodeSelectorEnabled: "true"
   draxName: "edge"
 
-
+acc-fiveg-sctp:
+  e1Service:
+    loadBalancerIP: "10.55.1.32"

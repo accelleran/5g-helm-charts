@@ -42,7 +42,7 @@ args:
   - name: "--cucp"
     value: "$F1_IP"
   - name: "--numLoops"
-    value: 3
+    value: "3"
 
 # NATS Settings
 nats:
@@ -100,7 +100,7 @@ ngControlService:
   type: LoadBalancer
   protocol: SCTP
   port: 38412
-  # loadBalancerIP:
+  loadBalancerIP: "10.55.1.41"
   # nodePort:
   externalTrafficPolicy: "Local"
 
