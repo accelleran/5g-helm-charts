@@ -89,6 +89,8 @@ spec:
               value: nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}
             - name: ZLOG_CONF_PATH
               value: /5G/zlog.conf
+            - name: BOOTSTRAP_FILENAME
+              value: {{ .Values.bootstrapFile }}
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
@@ -113,6 +115,9 @@ spec:
               subPath: "zlog.conf"
             - name: init-volume
               mountPath: /init-configs/
+            - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+              mountPath: {{ .Values.bootstrapFile }}
+              subPath: "bootstrap.txt"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
@@ -139,3 +144,6 @@ spec:
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-zlog-conf
 
+        - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-bootstrap
