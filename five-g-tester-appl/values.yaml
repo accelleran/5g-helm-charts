@@ -8,7 +8,7 @@ image:
   repository: accelleran/testerappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "d653758"
+  tag: "d6537588"
 
 imagePullSecrets:
   - name: accelleran-secret
