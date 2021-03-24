@@ -26,7 +26,7 @@ global:
   #                   i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
   #                 - the number of UEs that will be used
   numOfAmfs: 2
-  numfOfCuUps: 2
+  numOfCuUps: 2
   numOfDus: 1
   numOfCells: 1
   numOfUes: 5
