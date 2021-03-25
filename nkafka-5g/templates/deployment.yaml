@@ -54,7 +54,7 @@ spec:
               readOnly: true
             {{ end }}
           command: ["./nkafka"]
-          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "five-g", "--nats", "nats://{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml","-f", "/5GTopics.toml", "-v", {{ if .Values.configs.logLevel }}{{ if eq .Values.configs.logLevel "info" }}"-v"{{ end }}{{ if eq .Values.configs.logLevel "debug" }}"-vv"{{ end }}{{ end }}]
+          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "five-g", "--nats", "nats://{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml","-f", "/5GTopics.toml", {{ if .Values.configs.logLevel }}{{ if eq .Values.configs.logLevel "info" }}"-v"{{ end }}{{ if eq .Values.configs.logLevel "debug" }}"-vv"{{ end }}{{ end }}]
 #            - name: http
 #              containerPort: 80
 #              protocol: TCP

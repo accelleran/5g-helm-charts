@@ -51,5 +51,28 @@ for line in str(pods).splitlines():
 
             cmd_exec = subprocess.run(cmd, shell=True)
 
-            print("Command exit code: {c}".format(c=cmd_exec.returncode))
+            if cmd_exec.returncode == 0:
+                print("Save sucessfull!")
 
+#            print("Command exit code: {c}".format(c=cmd_exec.returncode))
+
+# ZIP logs
+print("Trying to ZIP logs...")
+try:
+    subprocess.run(
+        "zip -r logs/{folder}.zip logs/{folder}".format(folder=time),
+        shell=True
+        )
+    print("ZIPed succesfully!")
+except:
+    print("Failed to ZIP!")
+    print("Trying to tar logs...")
+    try:
+        subprocess.run(
+        "tar -czvf logs/{folder}.zip logs/{folder}".format(folder=time),
+        shell=True
+        )
+        print("TARed succesfully!")
+    except:
+        print("Failed to TAR logs!")
+        print("Failed to compress logs!")
