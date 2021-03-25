@@ -25,11 +25,11 @@ global:
   #                 - the number of CELLSs that will be used
   #                   i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
   #                 - the number of UEs that will be used
-  numOfAmfs: 2
+  numOfAmfs: 1
   numOfCuUps: 2
   numOfDus: 1
   numOfCells: 1
-  numOfUes: 5
+  numOfUes: 1
 
   # NATS URL and PORT
   #   Description: Used to configure the application to talk
@@ -81,4 +81,8 @@ global:
 
 acc-fiveg-sctp:
   e1Service:
-    loadBalancerIP: "10.55.1.32"
+    loadBalancerIP: "10.55.1.50"
+
+acc-fiveg-netconf:
+  netconfService:
+    nodePort: 31832

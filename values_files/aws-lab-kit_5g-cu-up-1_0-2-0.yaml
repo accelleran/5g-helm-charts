@@ -64,3 +64,8 @@ global:
   #
   draxNodeSelectorEnabled: "true"
   draxName: "edge"
+
+
+acc-fiveg-netconf:
+  netconfService:
+    nodePort: 31830

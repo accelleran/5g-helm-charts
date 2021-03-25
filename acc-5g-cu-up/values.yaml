@@ -416,3 +416,14 @@ acc-fiveg-netconf:
   initNetconfDefaultPath:
     componentType: cuup
 
+  # NodePort for the NetConf service
+  #   Description:  You can select a specific port for each CU-CP instance, or leave it
+  #                 to the LoadBalancer to randomly select a free NodePort.
+  #   Example:
+  #
+  # netconfService:
+  #   nodePort: 31832
+  #
+  
+  # netconfService:
+  #   nodePort: 31832

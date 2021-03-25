@@ -35,6 +35,12 @@ initGetConfig:
     field: '.status.loadBalancer.ingress[0].ip'
     # Environmental variable have to be ALL CAPS
     envName: "F1_IP"
+  - resourceType: 'service'
+    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    # Environmental variable have to be ALL CAPS
+    envName: "GTP_IP"
 
 args:
   - name: "--own"
@@ -42,7 +48,7 @@ args:
   - name: "--cucp"
     value: "$F1_IP"
   - name: "--numLoops"
-    value: "3"
+    value: "1"
 
 # NATS Settings
 nats:
@@ -109,7 +115,7 @@ ngControlService:
   port: 38412
   loadBalancerIP: "10.55.1.41"
   # nodePort:
-  externalTrafficPolicy: "Local"
+  # externalTrafficPolicy: "Local"
 
 ingress:
   enabled: false
