@@ -62,8 +62,8 @@ extraEnvs: []
 #    value: /home/accelleran/5G/bootstrap.txt
 
 redisConfig:
-  hostname: 10.55.1.2
-  port: 32200
+  hostname: "10.55.1.2"
+  port: "32200"
 
 
 bootstrapId: "cuup1"

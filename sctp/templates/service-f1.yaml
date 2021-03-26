@@ -5,6 +5,7 @@ metadata:
   name: {{ include "five-g-appl.fullname" . }}-f1
   labels:
     {{- include "five-g-appl.labels" . | nindent 4 }}
+    drax/service-name: {{ .Chart.Name }}-f1
 spec:
   type: {{ .Values.f1Service.type }}
   ports:

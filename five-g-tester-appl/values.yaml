@@ -151,10 +151,10 @@ autoscaling:
 
 nodeSelector: {}
 
-draxNodeSelectorEnabled: "false"
+draxNodeSelectorEnabled: "true"
 
 draxNodeSelector:
-  draxName: "main"
+  draxName: "edge"
 
 tolerations: []
 

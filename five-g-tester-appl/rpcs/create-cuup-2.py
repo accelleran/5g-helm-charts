@@ -29,11 +29,21 @@ defPathCuUp = """<config>
                 	<sst>embb</sst>
                 	<sd>16777215</sd>
                 </s-nssai>
-                
+                <s-nssai xc:operation="create">
+                	<sst>urllc</sst>
+                	<sd>16777215</sd>
+                </s-nssai>
+                <s-nssai xc:operation="create">
+                	<sst>miot</sst>
+                	<sd>16777215</sd>
+                </s-nssai>
+                <s-nssai xc:operation="create">
+                	<sst>v2x</sst>
+                	<sd>16777215</sd>
+                </s-nssai>
                 
                 
         </supported-plmn-slices>
-
         
 </gnb-cu-up>
 

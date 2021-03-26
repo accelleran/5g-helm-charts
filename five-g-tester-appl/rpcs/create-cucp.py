@@ -15,6 +15,13 @@ defPathCuCp = """<config>
 	<gnb-cu-cp-name>accelleran-gnb</gnb-cu-cp-name>
 	<admin-state>unlocked</admin-state>
 	
+
+	<allowed-ciphering-algorithm xc:operation="create">128-nea1</allowed-ciphering-algorithm>
+	<allowed-ciphering-algorithm xc:operation="create">nea0</allowed-ciphering-algorithm>	
+	
+	<allowed-integrity-algorithm xc:operation="create">128-nia1</allowed-integrity-algorithm>
+	<allowed-integrity-algorithm xc:operation="create">nia0</allowed-integrity-algorithm>	
+	
 	<e1-link-policy xc:operation="create">
 		<sctp-policy xc:operation="create">
 			<in-streams>1</in-streams>
@@ -43,6 +50,8 @@ defPathCuCp = """<config>
 		</ng-c-link>
 		
 	</operator>
+	
+	
 	
 	
 </gnb-cu-cp>

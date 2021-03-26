@@ -40,16 +40,26 @@ helm.sh/chart: {{ include "five-g-appl.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+
+{{/*
+dRAX NetConf labels
+*/}}
+{{- define "five-g-appl.draxNetconfLabels" -}}
 drax/role: drax-core
 drax/name: {{ .Chart.Name }}
-drax/technology: 5g
-drax/instanceId: {{ tpl .Values.bootstrapId . }}
-drax/5g-component-type: {{ tpl .Values.initNetconfDefaultPath.componentType . }}
 drax/component-name: {{ .Chart.Name }}
-drax/component-version: {{ .Chart.Version }}
+drax/component-helm-version: {{ .Chart.Version }}
+drax/technology: 5g
+drax/instanceId: "{{ tpl .Values.bootstrapId . }}"
+drax/5g-component-type: "{{ tpl .Values.initNetconfDefaultPath.componentType . }}"
 drax/redis-url: "{{ tpl .Values.redisConfig.hostname . }}"
 drax/redis-port: "{{ tpl .Values.redisConfig.port . }}"
+drax/component-app-version: "{{ tpl .Values.image.tag . }}"
 {{- end }}
+
+
 
 {{/*
 Selector labels

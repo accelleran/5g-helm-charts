@@ -8,6 +8,7 @@ session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
 mgr = Manager(session, timeout=120)
 
 defPathCuUp = """<config>
+
 <gnb-cu-up xmlns="http://accelleran.com/ns/yang/accelleran-gnb-cu-up" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
         <gnb-cu-up-name>accelleran-cu-up-1</gnb-cu-up-name>
         <gnb-cu-up-id>1</gnb-cu-up-id>
@@ -29,7 +30,10 @@ defPathCuUp = """<config>
                 	<sst>embb</sst>
                 	<sd>16777215</sd>
                 </s-nssai>
-
+                <s-nssai xc:operation="create">
+                	<sst>urllc</sst>
+                	<sd>16777215</sd>
+                </s-nssai>
         </supported-plmn-slices>
 
         

@@ -29,7 +29,7 @@ global:
   numOfCuUps: 2
   numOfDus: 1
   numOfCells: 1
-  numOfUes: 1
+  numOfUes: 10
 
   # NATS URL and PORT
   #   Description: Used to configure the application to talk
@@ -82,6 +82,8 @@ global:
 acc-fiveg-sctp:
   e1Service:
     loadBalancerIP: "10.55.1.50"
+  f1Service:
+    loadBalancerIP: "10.55.1.49"
 
 acc-fiveg-netconf:
   netconfService:

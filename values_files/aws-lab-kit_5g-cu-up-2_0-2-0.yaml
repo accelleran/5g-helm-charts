@@ -14,7 +14,7 @@ global:
   #   Example:
   # instanceId: "cuup_1"
   #
-  instanceId: "cuup_2"
+  instanceId: "cuup_3"
 
 
   # NATS URL and PORT
