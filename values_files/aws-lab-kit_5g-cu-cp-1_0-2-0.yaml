@@ -29,7 +29,7 @@ global:
   numOfCuUps: 2
   numOfDus: 1
   numOfCells: 1
-  numOfUes: 10
+  numOfUes: 1
 
   # NATS URL and PORT
   #   Description: Used to configure the application to talk
