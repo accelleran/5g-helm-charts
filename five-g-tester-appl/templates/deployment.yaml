@@ -27,6 +27,34 @@ spec:
       serviceAccountName: {{ include "five-g-appl.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: {{ .Chart.Name }}-get-init-configs
+          image: "{{ .Values.initGetConfigImage.repository }}:{{ tpl .Values.initGetConfigImage.tag . }}"
+          imagePullPolicy: {{ .Values.initGetConfigImage.pullPolicy }}
+          volumeMounts:
+            - name: init-volume
+              mountPath: /init-configs/
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/bash <<'EOF'
+
+              #!/bin/bash
+
+              {{ if .Values.initGetConfig }}
+
+              {{ range .Values.initGetConfig }}
+
+              value=$(kubectl get {{ .resourceType }} {{ tpl .resourceName $ }} -n {{ tpl .resourceNamespace $ }} -o json | jq "{{ .field }}")
+
+              echo "{{ .envName }}=$value" >> /init-configs/env.env
+
+              {{ end }}
+
+              {{ end }}
+
+              EOF
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -37,21 +65,42 @@ spec:
             - sh
             - "-c"
             - |
-              /bin/sh <<'EOF'
-              {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+              /bin/bash <<'EOF'
+
+              #!/bin/bash
+
+              {{ if .Values.initGetConfig }}
+
+              export $(xargs < /init-configs/env.env)
+
+              echo {{ .Values.testing.value }} > /init-configs/test.txt
+
+              {{ end }}
+
+              {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
+
               EOF
           env: 
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
             - name: NATS_SERVICE_URL
-              value: nats://{{ .Values.nats.url }}:{{ .Values.nats.port}}
+              value: nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}
             - name: ZLOG_CONF_PATH
               value: /5G/zlog.conf
+            - name: BOOTSTRAP_FILENAME
+              value: {{ .Values.bootstrapFile }}
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            - name: gtpu
+              containerPort: {{ .Values.gtpService.gtpUPort }}
+              protocol: {{ .Values.gtpService.protocol }}
+            - name: ng
+              containerPort: {{ .Values.ngControlService.port }}
+              protocol: {{ .Values.ngControlService.protocol }}
 #          livenessProbe:
 #            httpGet:
 #              path: /
@@ -64,11 +113,21 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
               mountPath: /5G/zlog.conf
               subPath: "zlog.conf"
+            - name: init-volume
+              mountPath: /init-configs/
+            - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+              mountPath: {{ .Values.bootstrapFile }}
+              subPath: "bootstrap.txt"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
+      {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
+        {{ if .Values.nodeSelector }}
+          {{- toYaml .Values.nodeSelector | nindent 8 }}
+        {{ end }}
+        {{ if eq (tpl .Values.draxNodeSelectorEnabled .) "true" }}
+          {{- tpl (toYaml .Values.draxNodeSelector) $ | nindent 8 }}
+        {{ end }}
       {{- end }}
       {{- with .Values.affinity }}
       affinity:
@@ -79,6 +138,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        - name: init-volume
+          emptyDir: {}
         - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+
+        - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-bootstrap

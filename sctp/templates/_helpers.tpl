@@ -44,6 +44,10 @@ drax/role: 5g
 drax/name: 5g
 drax/component-name: {{ .Chart.Name }}
 drax/component-version: {{ .Chart.Version }}
+drax/technology: 5g
+drax/instanceId: "{{ tpl .Values.bootstrapId . }}"
+drax/redis-url: "{{ tpl .Values.redisConfig.hostname . }}"
+drax/redis-port: "{{ tpl .Values.redisConfig.port . }}"
 {{- end }}
 
 {{/*

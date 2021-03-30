@@ -1,0 +1,17 @@
+#############################################################################
+
+Deployed Accelleran CU-UP component with the following details:
+
+Tag: {{ tpl .Values.global.tag . }}
+
+Instance ID: {{ tpl .Values.global.instanceId . }}
+
+Redis Configuration: {{ tpl .Values.global.redisHostname . }}:{{ tpl .Values.global.redisPort . }}
+
+Nats Configuration: {{ tpl .Values.global.natsUrl . }}:{{ tpl .Values.global.natsPort . }}
+
+{{ if eq (tpl .Values.global.draxNodeSelectorEnabled .) "true" }}
+The CU-UP component is installed on the Kubernetes node with the following dRAX Node Selector Name: {{ tpl .Values.global.draxName . }}
+{{ end }}
+
+#############################################################################

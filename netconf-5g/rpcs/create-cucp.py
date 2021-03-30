@@ -41,10 +41,6 @@ defPathCuCp = """<config>
 		<ng-c-link xc:operation="create">
 			<dest-ip-address>10.55.1.41</dest-ip-address>
 		</ng-c-link>
-
-                <ng-c-link xc:operation="create">
-                        <dest-ip-address>10.55.1.44</dest-ip-address>
-                </ng-c-link>
 		
 	</operator>
 	

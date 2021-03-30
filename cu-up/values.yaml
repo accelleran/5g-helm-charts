@@ -22,31 +22,39 @@ cmd: "__APPNAME=cuUp ./cuUpAppl.exe"
 testing:
   value: "${GTP_IP}"
 
-# name filed has to be CAPITALIZED
-initConfig:
-  ips:
-    - url: '{{ include "five-g-appl.fullname" . }}-gtp'
-      name: "GTP_IP"
+initGetConfigImage:
+  repository: accelleran/acc-generic-img
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+initGetConfig:
+  - resourceType: 'service'
+    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    # Environmental variable have to be ALL CAPS
+    envName: "GTP_IP"
 
 args:
   - name: "--downlink"
-    value: "{{ .Values.global.cuUp1GtpIp }}"
+    value: "$GTP_IP" 
   - name: "--uplink"
-    value: "{{ .Values.global.cuUp1GtpIp }}"
+    value: "$GTP_IP"
   - name: "--bind"
     value: "$POD_IP"
 
 # NATS Settings
 nats:
   # URL of NATS
-  url: 10.55.2.2
+  url: "10.55.2.2"
 
   # Port of NAST
-  port: 31000
+  port: "31000"
 
 redisConfig:
-  hostname: 10.55.1.2
-  port: 32200
+  hostname: "10.55.2.2"
+  port: "32200"
 
 bootstrapId: "cuup1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
@@ -92,7 +100,7 @@ gtpService:
   gtpUPort: 2152
   # loadBalancerIP:
   # gtpUNodePort:
-  # externalTrafficPolicy: "Cluster"
+  externalTrafficPolicy: "Local"
 
 ingress:
   enabled: false

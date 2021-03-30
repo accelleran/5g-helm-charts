@@ -1,0 +1,6 @@
+dependencies:
+- name: redis
+  repository: https://accelleran.github.io/helm-charts/
+  version: 0.5.2
+digest: sha256:4ca1ae261ef6ed4faecdf841b0f9f581a36b034bebce7eba497dab24222e934c
+generated: "2020-11-19T11:05:12.012156535Z"

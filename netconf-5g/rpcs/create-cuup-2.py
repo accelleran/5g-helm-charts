@@ -21,26 +21,15 @@ defPathCuUp = """<config>
         </e1-link-policy>
         
         <e1-link xc:operation="create">
-                <dest-ip-address>10.55.1.20</dest-ip-address>
+                <dest-ip-address>10.55.1.50</dest-ip-address>
         </e1-link>
         <supported-plmn-slices xc:operation="create">
                 <plmn-id>00202</plmn-id>
                 <s-nssai xc:operation="create">
                 	<sst>embb</sst>
-                	<sd>1</sd>
+                	<sd>16777215</sd>
                 </s-nssai>
-                <s-nssai xc:operation="create">
-                	<sst>urllc</sst>
-                	<sd>1</sd>
-                </s-nssai>
-                <s-nssai xc:operation="create">
-                	<sst>miot</sst>
-                	<sd>1</sd>
-                </s-nssai>
-                <s-nssai xc:operation="create">
-                	<sst>v2x</sst>
-                	<sd>1</sd>
-                </s-nssai>
+                
                 
                 
         </supported-plmn-slices>

@@ -1,0 +1,20 @@
+{{- if .Values.netconfService.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: netconf-{{ tpl .Values.bootstrapId . | replace "_" "" }}
+  labels:
+    {{- include "five-g-appl.labels" . | nindent 4 }}
+    {{- include "five-g-appl.draxNetconfLabels" . | nindent 4 }}
+spec:
+  type: {{ .Values.netconfService.type }}
+  ports:
+    - port: {{ .Values.netconfService.port }}
+      protocol: {{ .Values.netconfService.protocol }}
+      name: {{ .Values.netconfService.name }}
+      {{ if contains "NodePort" .Values.netconfService.type }}
+      nodePort: {{ .Values.netconfService.nodePort }}
+      {{ end }}
+  selector:
+    {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
+{{- end -}}
