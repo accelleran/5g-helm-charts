@@ -32,7 +32,7 @@ spec:
         - name: {{ .Chart.Name }}-check-kafka
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
-          command: ['sh', '-c', 'echo "KAFKA_URL=\"{{ tpl .Values.kafkaUrl . }}\"" > kafka_url.py && python3 kafka-test.py']
+          command: ['sh', '-c', 'echo "KAFKA_URL=\"{{ tpl .Values.kafkaUrl . }}\"" > kafka_url.py && python3 kafka-test.py {{ tpl .Values.initConfig.kafkaTopicsCheck . }}']
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -47,6 +47,9 @@ spec:
             - name: conf-5g-config
               mountPath: /5GConfig.toml
               subPath: "5GConfig.toml"
+            - name: conf-5g-topics
+              mountPath: /5GTopics.toml 
+              subPath: "5GTopics.toml"  
             {{ if .Values.accelleranLicense.enabled }}
             - mountPath: "/etc/license/license.crt"
               subPath: "license.crt"
@@ -89,6 +92,9 @@ spec:
         - name: conf-5g-config
           configMap:
             name: conf-5g-config
+        - name: conf-5g-topics
+          configMap:
+            name: conf-5g-topics
         {{ if .Values.accelleranLicense.enabled }}
         - name: accelleran-license
           secret:

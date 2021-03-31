@@ -30,7 +30,7 @@ global:
   #   Value type: string
   #
   tag: "fead1268"
-  nkafka5gTag: "alpha.6a438bf_proto.fead1268"
+  nkafka5gTag: "alpha.dbde98f_proto.c5a3189b4"
 
 
   # CU-UP GTP service
@@ -116,7 +116,7 @@ global:
   #   Value type: string
   #   Example:
   #
-  draxNodeSelectorEnabled: "true"
+  draxNodeSelectorEnabled: "false"
   draxName: "edge"
 
 

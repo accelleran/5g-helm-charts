@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conf-5g-topics
+data:
+  5GTopics.toml: |-
+    [[translate]]
+    nats_topic="5G_BEACON_INFO"
+    protobuf_def=".PBGnbCtrlPB.BeaconsPublisherPubData"
+    kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
+
+    [[translate]]
+    nats_topic="5G_MEAS_INFO.ENB=*.DU=*.CELL=*.UE=*"
+    protobuf_def=".PBRrCtrlPB.MeasInfoPublisherPubData"
+    kafka_topic="accelleran.drax.5g.ric.raw.ue_measurements"
+
+    [[translate]]
+    nats_topic="PM-REPORT-COUNTERS"
+    protobuf_def=".PBFPmCnts.PmReportCounterPublisherPubData"
+    kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
+
+    [[translate]]
+    nats_topic="5G_COUNTERS_INFO"
+    protobuf_def=".PBPmCtrlPB.CounterPublisherPubData"
+    kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
