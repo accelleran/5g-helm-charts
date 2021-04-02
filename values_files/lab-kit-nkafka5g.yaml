@@ -33,7 +33,7 @@ initConfig:
   kafkaTopicsCheck: "accelleran.drax.5g.ric.raw.messages,accelleran.drax.5g.ric.raw.pm_counters,accelleran.drax.5g.ric.raw.ue_measurements,accelleran.drax.5g.ric.raw.cu_state"
 
 configs:
-  logLevel: info
+  logLevel: debug
 
 options:
   - name: "rewrite_timestamp"

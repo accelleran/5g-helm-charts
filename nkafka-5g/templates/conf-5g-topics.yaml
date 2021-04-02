@@ -5,9 +5,25 @@ metadata:
 data:
   5GTopics.toml: |-
     [[translate]]
-    nats_topic="5G_BEACON_INFO"
+    nats_topic="*.5G_CUUP_BEACON_INFO"
     protobuf_def=".PBGnbCtrlPB.BeaconsPublisherPubData"
     kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
+
+    [[translate]]
+    nats_topic="*.5G_CUUP_BEACON_INFO_UPDATED"
+    protobuf_def=".PBGnbCtrlPB.BeaconsPublisherPubData"
+    kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
+
+    [[translate]]
+    nats_topic="*.5G_AMF_BEACON_INFO"
+    protobuf_def=".PBGnbCtrlPB.BeaconsPublisherPubData"
+    kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
+
+    [[translate]]
+    nats_topic="*.5G_DU_BEACON_INFO"
+    protobuf_def=".PBGnbCtrlPB.BeaconsPublisherPubData"
+    kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
+
 
     [[translate]]
     nats_topic="5G_MEAS_INFO.ENB=*.DU=*.CELL=*.UE=*"
@@ -23,3 +39,6 @@ data:
     nats_topic="5G_COUNTERS_INFO"
     protobuf_def=".PBPmCtrlPB.CounterPublisherPubData"
     kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
+
+    [[translate]]
+    nats_topic=">"
