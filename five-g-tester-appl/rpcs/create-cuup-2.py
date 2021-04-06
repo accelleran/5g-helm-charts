@@ -11,6 +11,7 @@ defPathCuUp = """<config>
 <gnb-cu-up xmlns="http://accelleran.com/ns/yang/accelleran-gnb-cu-up" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
         <gnb-cu-up-name>accelleran-cu-up-2</gnb-cu-up-name>
         <gnb-cu-up-id>2</gnb-cu-up-id>
+        <admin-state>unlocked</admin-state>
 
 
         <e1-link-policy xc:operation="create">
