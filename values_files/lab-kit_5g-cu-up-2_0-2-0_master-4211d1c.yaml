@@ -12,9 +12,9 @@ global:
   #                 will be used in the bootstrap file.
   #
   #   Example:
-  # instanceId: "cuup_1"
+  # instanceId: "cuup-1"
   #
-  instanceId: "cuup_2"
+  instanceId: "cuup-2"
 
 
   # NATS URL and PORT

@@ -12,9 +12,9 @@ global:
   #                 will be used in the bootstrap file.
   #
   #   Example:
-  # instanceId: "cucp_1"
+  # instanceId: "cucp-1"
   #
-  instanceId: "cucp_1"
+  instanceId: "cucp-1"
 
   # Number of supported components
   #   Description:  You have to specify the amount of different components that should be supported.
