@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: accelleran/nkafka_5g
   pullPolicy: IfNotPresent
-  tag: ""
+  tag: "alpha.8bb326c_proto.c5a3189b4"
 
 initImage:
   repository: accelleran/acc-generic-img
@@ -32,7 +32,7 @@ initConfig:
   kafkaTopicsCheck: "accelleran.drax.5g.ric.raw.messages,accelleran.drax.5g.ric.raw.pm_counters,accelleran.drax.5g.ric.raw.ue_measurements,accelleran.drax.5g.ric.raw.cu_state"
 
 configs:
-  logLevel: logLevel
+  logLevel: debug
 
 options:
   - name: "topic"

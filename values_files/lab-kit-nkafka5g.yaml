@@ -29,14 +29,13 @@ kafkaUrl: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
 natsUrl: "nats-service.{{ .Release.Namespace }}:4222"
 
 initConfig:
+  kafkaUrl: "{{ .Release.Name }}-acc-kafka.{{ .Release.Namespace }}:9092"
   kafkaTopicsCheck: "accelleran.drax.5g.ric.raw.messages,accelleran.drax.5g.ric.raw.pm_counters,accelleran.drax.5g.ric.raw.ue_measurements,accelleran.drax.5g.ric.raw.cu_state"
 
 configs:
-  logLevel: logLevel
+  logLevel: debug
 
 options:
-  - name: "topic"
-    value: "accelleran.drax.5g.ric.raw.messages"
   - name: "rewrite_timestamp"
     value: "insert"
   - name: "max_len"
@@ -46,7 +45,7 @@ options:
   - name: "mask"
     value: "true"
   - name: "seq_mapper"
-    value: "none"
+    value: "one"
   - name: "threads"
     value: "1"
   - name: "invert_service"

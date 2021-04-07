@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: accelleran/testerappl
+  repository: accelleran/netconf
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "master-d1e0415"
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -16,60 +16,59 @@ nameOverride: ""
 fullnameOverride: ""
 
 # Application Settings
-# cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "./testerAppl.exe"
+cmd: "./ncstart"
+#cmd: "sleep 3600"
 
-testing:
-  value: "${F1_IP}"
+# testing:
+  # value: "${GTP_IP}"
 
-initGetConfigImage:
+initImage:
   repository: accelleran/acc-generic-img
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-initGetConfig:
-  - resourceType: 'service'
-    resourceName: 'acc-5g-cu-cp-1-acc-fiveg-sctp-f1'
-    resourceNamespace: '{{ .Release.Namespace }}'
-    field: '.status.loadBalancer.ingress[0].ip'
-    # Environmental variable have to be ALL CAPS
-    envName: "F1_IP"
-  - resourceType: 'service'
-    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
-    resourceNamespace: '{{ .Release.Namespace }}'
-    field: '.status.loadBalancer.ingress[0].ip'
-    # Environmental variable have to be ALL CAPS
-    envName: "GTP_IP"
+initGetConfig: []
+#  - resourceType: 'service'
+#    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
+#    resourceNamespace: '{{ .Release.Namespace }}'
+#    field: '.status.loadBalancer.ingress[0].ip'
+#    # Environmental variable have to be ALL CAPS
+#    envName: "GTP_IP"
 
-args:
-  - name: "--own"
-    value: "$POD_IP"
-  - name: "--cucp"
-    value: "$F1_IP"
-  - name: "--numLoops"
-    value: "1"
+initNetconfModel:
+  enabled: true
 
-# NATS Settings
-nats:
-  # URL of NATS
-  url: "10.55.1.2"
+initNetconfDefaultPath:
+  enabled: true
+  #repository: accelleran/acc-generic-img
+  #version: 0.3.0
+  #securityContext:
+  #  runAsUser: 0
+  #pullPolicy: IfNotPresent
+  # Carfull when putting this to service url, as the service might not be up when this is used
+  host: 'localhost'
+  componentType: 'cucp'
 
-  # Port of NAST
-  port: "31000"
+
+args: []
+#  - name: "--own"
+#    value: 127.0.0.2
+#  - name: "--pub"
+#    value: 127.0.0.2
+
+extraEnvs: []
+#  - name: BOOTSTRAP_FILENAME
+#    value: /home/accelleran/5G/bootstrap.txt
 
 redisConfig:
   hostname: "10.55.1.2"
   port: "32200"
 
-bootstrapId: "cucp_1"
-bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
-extraEnvs: []
-#  - name: example_env_name
-#    value: example_env_value
-#  - name: ex1
-#    value: ex1
+bootstrapId: "testcucp1"
+gnbId: "gnb1"
+bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -94,28 +93,13 @@ securityContext:
   runAsUser: 0
   privileged: true
 
-service:
-  enabled: false
-  type: ClusterIP
-  port: 80
-
-gtpService:
+netconfService:
   enabled: true
-  type: LoadBalancer
-  protocol: UDP
-  gtpUPort: 2152
-  # loadBalancerIP:
-  # gtpUNodePort:
-  externalTrafficPolicy: "Local"
-
-ngControlService:
-  enabled: true
-  type: LoadBalancer
-  protocol: SCTP
-  port: 38412
-  loadBalancerIP: "10.55.1.41"
-  # nodePort:
-  # externalTrafficPolicy: "Local"
+  type: NodePort
+  port: 830
+  name: netconf
+  protocol: TCP
+  nodePort: 31841
 
 ingress:
   enabled: false
@@ -154,7 +138,7 @@ nodeSelector: {}
 draxNodeSelectorEnabled: "false"
 
 draxNodeSelector:
-  draxName: "edge"
+  draxName: "main"
 
 tolerations: []
 

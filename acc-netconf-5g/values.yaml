@@ -66,6 +66,7 @@ redisConfig:
   port: "32200"
 
 
+# The boostrap id should contain only lower case aplhanumeric characters and/or '-', start with an alphabetic character, and end with an alphanumeric character
 bootstrapId: "cuup1"
 gnbId: "gnb1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt

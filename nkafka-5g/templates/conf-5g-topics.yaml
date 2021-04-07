@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conf-5g-topics
+data:
+  5GKafkaTopics.toml: |-
+    [[translate]]
+    nats_topic="5G_CUUP_BEACON_INFO"
+    kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
+
+    [[translate]]
+    nats_topic="5G_CUUP_BEACON_INFO_UPDATED"
+    kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
+
+    [[translate]]
+    nats_topic="5G_AMF_BEACON_INFO"
+    kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
+
+    [[translate]]
+    nats_topic="5G_DU_BEACON_INFO"
+    kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
+
+    [[translate]]
+    nats_topic="5G_MEAS_INFO.*.*.*.*"
+    kafka_topic="accelleran.drax.5g.ric.raw.ue_measurements"
+
+    [[translate]]
+    nats_topic="PM-REPORT-COUNTERS"
+    kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
+
+    [[translate]]
+    nats_topic="5G_COUNTERS_INFO"
+    kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
