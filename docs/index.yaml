@@ -3,62 +3,62 @@ entries:
   acc-5g-cu-cp:
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-04-07T17:37:26.865297272+02:00"
+    created: "2021-04-07T17:39:26.46951418+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.3.0
     - condition: acc-fiveg-amf-controller.enabled
       name: acc-fiveg-amf-controller
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.1.0
     - condition: acc-fiveg-cu-up-controller.enabled
       name: acc-fiveg-cu-up-controller
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.1.0
     - condition: acc-fiveg-ds-ctrl.enabled
       name: acc-fiveg-ds-ctrl
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.2.0
     - condition: acc-fiveg-du-controller.enabled
       name: acc-fiveg-du-controller
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.1.0
     - condition: acc-fiveg-e1-cp.enabled
       name: acc-fiveg-e1-cp
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.2.0
     - condition: acc-fiveg-f1-ap.enabled
       name: acc-fiveg-f1-ap
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.2.0
     - condition: acc-fiveg-gnb-controller.enabled
       name: acc-fiveg-gnb-controller
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.1.0
     - condition: acc-fiveg-ng-ap.enabled
       name: acc-fiveg-ng-ap
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.2.0
     - condition: acc-fiveg-pm-controller.enabled
       name: acc-fiveg-pm-controller
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.1.0
     - condition: acc-fiveg-res-mgr.enabled
       name: acc-fiveg-res-mgr
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.1.0
     - condition: acc-fiveg-rr-ctrl.enabled
       name: acc-fiveg-rr-ctrl
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.2.0
     - condition: acc-fiveg-sctp.enabled
       name: acc-fiveg-sctp
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.1.0
     description: Accelleran 5G CU CP Components
-    digest: 2487f7d4442148ca48654808f4d6786bb0dbb498a2cda481d48b25736f64856c
+    digest: 9bc4f0f99c5166e02dd12e18f29150eb892fe0cb2d3674a728ecdeec3ff63c77
     name: acc-5g-cu-cp
     type: application
     urls:
@@ -67,29 +67,29 @@ entries:
   acc-5g-cu-up:
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-04-07T17:37:26.868699426+02:00"
+    created: "2021-04-07T17:39:26.472621811+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.3.0
     - condition: acc-fiveg-e1-sctp-up.enabled
       name: acc-fiveg-e1-sctp-up
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.2.0
     - condition: acc-fiveg-res-mgr-up.enabled
       name: acc-fiveg-res-mgr-up
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.2.0
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
-      repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+      repository: https://accelleran.github.io/5g-helm-charts/
       version: 0.2.0
     description: Accelleran 5G CU UP Components
-    digest: 752bf5e68e9ba2cb174dcb0d62c1c61de6f17611f9a84776e592f78ea29f163c
+    digest: f4848f293925e900411cb6d20ff514ab337be3af01c72d2459d8b3617940535a
     name: acc-5g-cu-up
     type: application
     urls:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-0.3.0.tgz
     version: 0.3.0
-generated: "2021-04-07T17:37:26.858400307+02:00"
+generated: "2021-04-07T17:39:26.462197146+02:00"
