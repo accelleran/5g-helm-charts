@@ -3,7 +3,7 @@ entries:
   acc-5g-cu-cp:
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-04-07T16:13:49.225045071Z"
+    created: "2021-04-07T16:16:00.194746638Z"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -67,7 +67,7 @@ entries:
   acc-5g-cu-up:
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-04-07T16:13:49.230401845Z"
+    created: "2021-04-07T16:16:00.200813542Z"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -92,4 +92,4 @@ entries:
     urls:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-0.3.0.tgz
     version: 0.3.0
-generated: "2021-04-07T16:13:49.206113998Z"
+generated: "2021-04-07T16:16:00.17515318Z"
