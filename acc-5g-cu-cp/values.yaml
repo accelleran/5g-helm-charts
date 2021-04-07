@@ -10,11 +10,15 @@ global:
   # CU-CP Instance ID
   #   Description:  The Instance ID of the CU-CP component that
   #                 will be used in the bootstrap file.
+  #                 The Instance ID must consist of lower case alphanumeric characters
+  #                 or '-', start with an alphabetic character, and end with an alphanumeric
+  #                 character (e.g. 'my-name',  or 'abc-123', regex used for validation is
+  #                 '^[a-z0-9-]+$'). The Instance ID also cannot be longer than 54 alphanumeric characters!
   #
   #   Example:
-  # instanceId: "cucp_1"
+  # instanceId: "cucp-1"
   #
-  instanceId: "cucp_1"
+  instanceId: "cucp-1"
 
   # Number of supported components
   #   Description:  You have to specify the amount of different components that should be supported.
@@ -25,11 +29,11 @@ global:
   #                 - the number of CELLSs that will be used
   #                   i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
   #                 - the number of UEs that will be used
-  numOfAmfs: 2
+  numOfAmfs: 1
   numOfCuUps: 2
   numOfDus: 1
   numOfCells: 1
-  numOfUes: 5
+  numOfUes: 1
 
   # NATS URL and PORT
   #   Description: Used to configure the application to talk
@@ -45,7 +49,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "fead1268"
+  tag: "master-4211d1c"
 
 
   # Redis settings

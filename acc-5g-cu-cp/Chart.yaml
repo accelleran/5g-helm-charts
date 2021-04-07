@@ -21,59 +21,59 @@ version: 0.3.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "0.3.0"
+appVersion: "master-4211d1c"
 
 # Dependencies
 dependencies:
   - name: acc-fiveg-netconf
     condition: acc-fiveg-netconf.enabled
     version: 0.3.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-amf-controller
     condition: acc-fiveg-amf-controller.enabled
     version: 0.1.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-cu-up-controller
     condition: acc-fiveg-cu-up-controller.enabled
     version: 0.1.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-ds-ctrl
     condition: acc-fiveg-ds-ctrl.enabled
     version: 0.2.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-du-controller
     condition: acc-fiveg-du-controller.enabled
     version: 0.1.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-e1-cp
     condition: acc-fiveg-e1-cp.enabled
     version: 0.2.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-f1-ap
     condition: acc-fiveg-f1-ap.enabled
     version: 0.2.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-gnb-controller
     condition: acc-fiveg-gnb-controller.enabled
     version: 0.1.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-ng-ap
     condition: acc-fiveg-ng-ap.enabled
     version: 0.2.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-pm-controller
     condition: acc-fiveg-pm-controller.enabled
     version: 0.1.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-res-mgr
     condition: acc-fiveg-res-mgr.enabled
     version: 0.1.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-rr-ctrl
     condition: acc-fiveg-rr-ctrl.enabled
     version: 0.2.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-sctp
     condition: acc-fiveg-sctp.enabled
     version: 0.1.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/

@@ -21,23 +21,23 @@ version: 0.3.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "0.3.0"
+appVersion: "master-4211d1c"
 
 # Dependencies
 dependencies:
   - name: acc-fiveg-cu-up
     condition: acc-fiveg-cu-up.enabled
     version: 0.3.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-e1-sctp-up
     condition: acc-fiveg-e1-sctp-up.enabled
     version: 0.2.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-res-mgr-up
     condition: acc-fiveg-res-mgr-up.enabled
     version: 0.2.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-netconf
     condition: acc-fiveg-netconf.enabled
     version: 0.2.0
-    repository: https://raw.githubusercontent.com/accelleran/5g-helm-charts/master
+    repository: https://accelleran.github.io/5g-helm-charts/
