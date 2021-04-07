@@ -35,6 +35,8 @@ configs:
   logLevel: logLevel
 
 options:
+  - name: "topic"
+    value: "accelleran.drax.5g.ric.raw.messages"
   - name: "rewrite_timestamp"
     value: "insert"
   - name: "max_len"
@@ -44,7 +46,7 @@ options:
   - name: "mask"
     value: "true"
   - name: "seq_mapper"
-    value: "one"
+    value: "none"
   - name: "threads"
     value: "1"
   - name: "invert_service"

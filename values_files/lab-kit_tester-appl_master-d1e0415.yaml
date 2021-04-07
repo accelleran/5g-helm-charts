@@ -8,7 +8,7 @@ image:
   repository: accelleran/testerappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "master-d1e0415"
+  tag: "c5a3189b4"
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -30,7 +30,7 @@ initGetConfigImage:
 
 initGetConfig:
   - resourceType: 'service'
-    resourceName: 'acc-5g-cu-cp-1-acc-fiveg-sctp-f1'
+    resourceName: 'acc-5g-cucp-1-acc-fiveg-sctp-f1'
     resourceNamespace: '{{ .Release.Namespace }}'
     field: '.status.loadBalancer.ingress[0].ip'
     # Environmental variable have to be ALL CAPS

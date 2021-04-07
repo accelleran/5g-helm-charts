@@ -7,29 +7,15 @@ global:
   kubeIp: "10.55.1.2"
 
 
-  # CU-CP Instance ID
-  #   Description:  The Instance ID of the CU-CP component that
+  # CU-UP Instance ID
+  #   Description:  The Instance ID of the CU-UP component that
   #                 will be used in the bootstrap file.
   #
   #   Example:
-  # instanceId: "cucp_1"
+  # instanceId: "cuup_1"
   #
-  instanceId: "cucp_1"
+  instanceId: "cuup_2"
 
-  # Number of supported components
-  #   Description:  You have to specify the amount of different components that should be supported.
-  #                 Therefore, you have to specify:
-  #                 - the number of AMFs that will be used
-  #                 - the number of CU-UPs that will be used
-  #                 - the number of DUs that will be used
-  #                 - the number of CELLSs that will be used
-  #                   i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
-  #                 - the number of UEs that will be used
-  numOfAmfs: 1
-  numOfCuUps: 2
-  numOfDus: 1
-  numOfCells: 1
-  numOfUes: 1
 
   # NATS URL and PORT
   #   Description: Used to configure the application to talk
@@ -45,7 +31,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "c5a3189b4"
+  tag: "master-4211d1c"
 
 
   # Redis settings
@@ -79,12 +65,6 @@ global:
   draxNodeSelectorEnabled: "false"
   draxName: "edge"
 
-acc-fiveg-sctp:
-  e1Service:
-    loadBalancerIP: "10.55.1.50"
-  f1Service:
-    loadBalancerIP: "10.55.1.49"
-
 acc-fiveg-netconf:
   netconfService:
-    nodePort: 31832
+    nodePort: 31831

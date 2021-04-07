@@ -14,6 +14,8 @@ spec:
       {{- include "nkafka-helm.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
       labels:
         {{- include "nkafka-helm.labels" . | nindent 8 }}
     spec:
@@ -48,8 +50,8 @@ spec:
               mountPath: /5GConfig.toml
               subPath: "5GConfig.toml"
             - name: conf-5g-topics
-              mountPath: /5GTopics.toml 
-              subPath: "5GTopics.toml"  
+              mountPath: /5GKafkaTopics.toml 
+              subPath: "5GKafkaTopics.toml"  
             {{ if .Values.accelleranLicense.enabled }}
             - mountPath: "/etc/license/license.crt"
               subPath: "license.crt"
@@ -57,7 +59,7 @@ spec:
               readOnly: true
             {{ end }}
           command: ["./nkafka"]
-          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "five-g", "--nats", "nats://{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml","-f", "/5GTopics.toml", {{ if .Values.configs.logLevel }}{{ if eq .Values.configs.logLevel "info" }}"-v"{{ end }}{{ if eq .Values.configs.logLevel "debug" }}"-vv"{{ end }}{{ end }}]
+          args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "five-g", "--nats", "nats://{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml","-f", "/5GTopics.toml", "-f", "/5GKafkaTopics.toml", {{ if .Values.configs.logLevel }}{{ if eq .Values.configs.logLevel "info" }}"-v"{{ end }}{{ if eq .Values.configs.logLevel "debug" }}"-vv"{{ end }}{{ end }}]
 #            - name: http
 #              containerPort: 80
 #              protocol: TCP

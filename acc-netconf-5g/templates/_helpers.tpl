@@ -79,3 +79,17 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+NetConf Service name and Instance ID checks
+# {{- if mustRegexMatch "[a-z]([-a-z0-9]*[a-z0-9])?" $netconfName }}
+# {{- if mustRegexMatch "^[a-zA-Z0-9-]+$" $netconfName }}
+*/}}
+{{- define "netconf.serviceName" -}}
+{{- $netconfName := tpl .Values.bootstrapId . }}
+{{- if mustRegexMatch "^[a-z0-9-]+$" $netconfName }}
+{{- required "A valid netconf service entry required!" $netconfName | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- required "The Instance ID you have chosen is invalid! The Instance ID must consist of lower case alphanumeric characters or '-', start with an alphabetic character, and end with an alphanumeric character (e.g. 'my-name',  or 'abc-123', regex used for validation is '^[a-z0-9-]+$'). The Instance ID also cannot be longer than 54 alphanumeric characters!" nil }}
+{{- end }}
+{{- end }}

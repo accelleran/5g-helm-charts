@@ -3,42 +3,31 @@ kind: ConfigMap
 metadata:
   name: conf-5g-topics
 data:
-  5GTopics.toml: |-
+  5GKafkaTopics.toml: |-
     [[translate]]
-    nats_topic="*.5G_CUUP_BEACON_INFO"
-    protobuf_def=".PBGnbCtrlPB.BeaconsPublisherPubData"
+    nats_topic="5G_CUUP_BEACON_INFO"
     kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
 
     [[translate]]
-    nats_topic="*.5G_CUUP_BEACON_INFO_UPDATED"
-    protobuf_def=".PBGnbCtrlPB.BeaconsPublisherPubData"
+    nats_topic="5G_CUUP_BEACON_INFO_UPDATED"
     kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
 
     [[translate]]
-    nats_topic="*.5G_AMF_BEACON_INFO"
-    protobuf_def=".PBGnbCtrlPB.BeaconsPublisherPubData"
+    nats_topic="5G_AMF_BEACON_INFO"
     kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
 
     [[translate]]
-    nats_topic="*.5G_DU_BEACON_INFO"
-    protobuf_def=".PBGnbCtrlPB.BeaconsPublisherPubData"
+    nats_topic="5G_DU_BEACON_INFO"
     kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
 
-
     [[translate]]
-    nats_topic="5G_MEAS_INFO.ENB=*.DU=*.CELL=*.UE=*"
-    protobuf_def=".PBRrCtrlPB.MeasInfoPublisherPubData"
+    nats_topic="5G_MEAS_INFO.*.*.*.*"
     kafka_topic="accelleran.drax.5g.ric.raw.ue_measurements"
 
     [[translate]]
     nats_topic="PM-REPORT-COUNTERS"
-    protobuf_def=".PBFPmCnts.PmReportCounterPublisherPubData"
     kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
 
     [[translate]]
     nats_topic="5G_COUNTERS_INFO"
-    protobuf_def=".PBPmCtrlPB.CounterPublisherPubData"
     kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
-
-    [[translate]]
-    nats_topic=">"

@@ -14,7 +14,7 @@ global:
   #   Example:
   # instanceId: "cuup_1"
   #
-  instanceId: "cuup_2"
+  instanceId: "cuup_1"
 
 
   # NATS URL and PORT
@@ -31,7 +31,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "c5a3189b4"
+  tag: "master-4211d1c"
 
 
   # Redis settings
@@ -65,6 +65,7 @@ global:
   draxNodeSelectorEnabled: "false"
   draxName: "edge"
 
+
 acc-fiveg-netconf:
   netconfService:
-    nodePort: 31831
+    nodePort: 31830
