@@ -4,7 +4,7 @@ Deployed Accelleran CU-UP component with the following details:
 
 Tag: {{ tpl .Values.global.tag . }}
 
-Instance ID: {{ tpl .Values.global.instanceId . }}
+Instance ID: {{- include "preFlightCheck.instanceId" . }}
 
 Redis Configuration: {{ tpl .Values.global.redisHostname . }}:{{ tpl .Values.global.redisPort . }}
 
