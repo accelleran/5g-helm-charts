@@ -6,6 +6,8 @@ Tag: {{ tpl .Values.global.tag . }}
 
 Instance ID: {{ tpl .Values.global.instanceId . }}
 
+{{- include "preFlightCheck.instanceId" . }}
+
 Supported number of components:
 AMFs: {{ .Values.global.numOfAmfs }}
 CU-UPs: {{ .Values.global.numOfCuUps }}
