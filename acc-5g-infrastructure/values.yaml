@@ -2,6 +2,7 @@ nats:
   enabled: true
 
   service:
+    serviceName: "5g-nats-service-{{ randAlphaNum 5 }}-{{ randAlphaNum 5 }}"
     client:
       name: "natsport"
       port: 4222
