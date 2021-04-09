@@ -1,0 +1,19 @@
+nats:
+  enabled: true
+
+  service:
+    client:
+      name: "natsport"
+      port: 4222
+      # nodePort:
+    cluster:
+      name: "clusterport"
+      port: 6222
+      # nodePort:
+    monitoring:
+      name: "consoleport"
+      port: 8222
+      # nodePort:
+
+redis:
+  enabled: false
