@@ -27,7 +27,7 @@ appVersion: "master-4211d1c"
 dependencies:
   - name: acc-fiveg-netconf
     condition: acc-fiveg-netconf.enabled
-    version: 0.3.0
+    version: 0.3.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-amf-controller
     condition: acc-fiveg-amf-controller.enabled
