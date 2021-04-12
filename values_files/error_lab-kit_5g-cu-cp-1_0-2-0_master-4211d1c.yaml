@@ -14,7 +14,7 @@ global:
   #   Example:
   # instanceId: "cucp-1"
   #
-  instanceId: "hello"
+  instanceId: "hello-"
 
   # Number of supported components
   #   Description:  You have to specify the amount of different components that should be supported.

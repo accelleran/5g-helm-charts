@@ -30,7 +30,7 @@ initGetConfigImage:
 
 initGetConfig:
   - resourceType: 'service'
-    resourceName: 'acc-5g-cu-cp-1-acc-fiveg-sctp-f1'
+    resourceName: 'acc-5g-cu-cp-cucp-1-acc-fiveg-sctp-f1'
     resourceNamespace: '{{ .Release.Namespace }}'
     field: '.status.loadBalancer.ingress[0].ip'
     # Environmental variable have to be ALL CAPS
