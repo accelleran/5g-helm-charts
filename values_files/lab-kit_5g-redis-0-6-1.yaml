@@ -10,7 +10,7 @@ customLabels:
 natsIp: 10.55.1.2
 
 # The port NATS is using, check in the above settings of NATS
-natsPort: 31000
+natsPort: 31100
 
 # Backup the redis db when the pod is terminated
 backup:
@@ -24,7 +24,7 @@ service:
   port: 6379
   nodePort: 32200
   name: "redisport"
-  serviceName: redis-service-5g
+  serviceName: "{{ include "redis.fullname" . }}"
 
 persistence:
   accessModes:
