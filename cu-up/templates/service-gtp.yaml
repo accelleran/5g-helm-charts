@@ -5,6 +5,7 @@ metadata:
   name: {{ include "five-g-appl.fullname" . }}-gtp
   labels:
     {{- include "five-g-appl.labels" . | nindent 4 }}
+    drax/service-name: {{ .Chart.Name }}-gtp
 spec:
   type: {{ .Values.gtpService.type }}
   {{ if .Values.gtpService.externalTrafficPolicy }}
