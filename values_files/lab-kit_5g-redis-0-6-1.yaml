@@ -24,7 +24,7 @@ service:
   port: 6379
   nodePort: 32200
   name: "redisport"
-  serviceName: "{{ include "redis.fullname" . }}"
+  serviceName: '{{ include "redis.fullname" . }}'
 
 persistence:
   accessModes:

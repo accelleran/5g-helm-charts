@@ -2,7 +2,7 @@ customLabels:
   drax/technology: 5g
 
 service:
-  serviceName: "{{ include "nats.fullname" . }}"
+  serviceName: '{{ include "nats.fullname" . }}'
   client:
     name: "natsport"
     port: 4222
