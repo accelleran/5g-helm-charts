@@ -1,9 +1,9 @@
 dependencies:
 - name: nats
   repository: https://accelleran.github.io/helm-charts/
-  version: 0.2.0
+  version: 0.2.2
 - name: redis
   repository: https://accelleran.github.io/helm-charts/
-  version: 0.6.0
-digest: sha256:aa495283bcc812c8ba407c4d2ee68b15840625fbf4dbf0f76ee2f1baa9fd8db0
-generated: "2021-04-09T14:02:20.714155841+02:00"
+  version: 0.6.1
+digest: sha256:a60f7d66807cbd23e55bfef3d59a8650b5e45692395616c73459c3ee94a947e5
+generated: "2021-04-14T12:45:12.890298934+02:00"
