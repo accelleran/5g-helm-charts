@@ -1,0 +1,21 @@
+customLabels:
+  drax/technology: 5g
+
+service:
+  serviceName: '{{ include "nats.fullname" . }}'
+  client:
+    name: "natsport"
+    port: 4222
+    nodePort: 31100
+  cluster:
+    name: "clusterport"
+    port: 6222
+    nodePort: 31101
+  monitoring:
+    name: "consoleport"
+    port: 8222
+    nodePort: 31102
+
+draxNodeSelectorEnabled: "false"
+draxNodeSelector:
+  draxName: "main"
