@@ -33,3 +33,7 @@ dependencies:
     condition: redis.enabled
     version: 0.6.2
     repository: https://accelleran.github.io/helm-charts/
+  - name: metallb
+    condition: metallb.enabled
+    version: 0.9.6
+    repository: https://charts.bitnami.com/bitnami

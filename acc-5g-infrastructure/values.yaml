@@ -68,3 +68,16 @@ redis:
     #hostPath: /opt/pods/acc-redis
     ### Production
     hostPath: /opt/pods/redis-storage-5g
+
+metallb:
+  # This installs the MetalLB LoadBalancer. Please make sure to do the required preparation before enabling the installation:
+  # https://metallb.universe.tf/installation/
+  # If you have your own Load Balancer in Kubernetes, you can skip this installation - set it to false.
+  enabled: false
+
+  configInline:
+    address-pools:
+      - name: default
+        protocol: layer2
+        addresses:
+          - 10.55.1.20-10.55.1.60
