@@ -9,15 +9,15 @@ nats:
     client:
       name: "natsport"
       port: 4222
-#      nodePort: 31100
+      nodePort: 
     cluster:
       name: "clusterport"
       port: 6222
-#      nodePort: 31101
+      nodePort: 
     monitoring:
       name: "consoleport"
       port: 8222
-#      nodePort: 31102
+      nodePort: 
 
   draxNodeSelectorEnabled: "false"
   draxNodeSelector:
@@ -53,7 +53,7 @@ redis:
   service:
     type: NodePort
     port: 6379
-#    nodePort: 32200
+    nodePort: 
     name: "redisport"
     serviceName: '{{ include "redis.fullname" . }}'
 
