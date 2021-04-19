@@ -35,5 +35,5 @@ dependencies:
     repository: https://accelleran.github.io/helm-charts/
   - name: metallb
     condition: metallb.enabled
-    version: 0.9.6
+    version: 2.3.5
     repository: https://charts.bitnami.com/bitnami
