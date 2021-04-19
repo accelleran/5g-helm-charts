@@ -1,12 +1,12 @@
 dependencies:
 - name: nats
   repository: https://accelleran.github.io/helm-charts/
-  version: 0.2.3
+  version: 0.2.4
 - name: redis
   repository: https://accelleran.github.io/helm-charts/
-  version: 0.6.2
+  version: 0.6.3
 - name: metallb
   repository: https://charts.bitnami.com/bitnami
   version: 2.3.5
-digest: sha256:478da4fb75987655ba91d58425d0496c64f8d0f35fed4ff60a4d6ee1ee5ce753
-generated: "2021-04-19T13:19:49.74761155+02:00"
+digest: sha256:e05d323f6aa7a84d316952ba873f9f52e4af632722dc5b852f2b40937cf8ea2a
+generated: "2021-04-19T16:42:11.889099365+02:00"
