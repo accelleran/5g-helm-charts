@@ -74,14 +74,7 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command:
-                  - bash
-                  - "-c"
-                  - |
-                    /bin/bash <<'EOF'
-                    echo "\\\\\\\\\\\\\\\\\\\\\\\ETERED PRE-STOP HOOK\\\\\\\\\\\\\\\\\\\\\\\\"
-                    kill $(pgrep -f -n {{ .Values.stopCmd }})
-                    EOF
+                command: [ "/bin/sh", "-c", "pkill -15 -f -e -x {{ .Values.cmd }}" ]
       {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
       nodeSelector:
         {{ if .Values.nodeSelector }}

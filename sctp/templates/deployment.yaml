@@ -74,6 +74,10 @@ spec:
               subPath: "bootstrap.txt"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "/bin/sh", "-c", "pkill -15 -f -e -x {{ .Values.cmd }}" ]
       {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
       nodeSelector:
         {{ if .Values.nodeSelector }}

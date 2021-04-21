@@ -18,7 +18,7 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "__APPNAME=dsCtrl ./dsCtrlAppl.exe"
+cmd: "./dsCtrlAppl.exe"
 
 args:
   - name: "--rel_msec"
@@ -27,21 +27,21 @@ args:
 # NATS Settings
 nats:
   # URL of NATS
-  url: 10.55.2.2
+  url: "10.55.2.2"
 
   # Port of NAST
-  port: 31000
+  port: "31000"
 
 redisConfig:
-  hostname: 10.55.1.2
-  port: 32200
+  hostname: "10.55.1.2"
+  port: "32200"
 
 bootstrapId: "cucp1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
-extraEnvs: []
-#  - name: example_env_name
-#    value: example_env_value
+extraEnvs:
+  - name: __APPNAME
+    value: dsCtrl
 #  - name: ex1
 #    value: ex1
 

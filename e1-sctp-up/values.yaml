@@ -17,7 +17,7 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "__APPNAME=e1sctpUp ./e1sctpUpAppl.exe"
+cmd: "./e1sctpUpAppl.exe"
 
 #testing:
 #  value: "${F1_IP}"
@@ -49,9 +49,9 @@ redisConfig:
 bootstrapId: "cuup1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
-extraEnvs: []
-#  - name: BOOTSTRAP_INSTANCE_ID
-#    value: cuup1
+extraEnvs:
+  - name: __APPNAME
+    value: e1sctpUp
 #  - name: ex1
 #    value: ex1
 

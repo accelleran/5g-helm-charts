@@ -65,9 +65,9 @@ redisConfig:
 bootstrapId: "cucp_1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
-extraEnvs: []
-#  - name: example_env_name
-#    value: example_env_value
+extraEnvs:
+  - name: __APPNAME
+    value: testerappl
 #  - name: ex1
 #    value: ex1
 
