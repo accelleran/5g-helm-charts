@@ -17,7 +17,7 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "__APPNAME=sctpCp ./sctpCpAppl.exe"
+cmd: "./sctpCpAppl.exe"
 
 args: []
 #  - name: "--own"
@@ -40,9 +40,9 @@ redisConfig:
 bootstrapId: "cucp1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
-extraEnvs: []
-#  - name: example_env_name
-#    value: example_env_value
+extraEnvs:
+  - name: __APPNAME
+    value: sctpCp
 #  - name: ex1
 #    value: ex1
 

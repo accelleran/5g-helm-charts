@@ -195,6 +195,9 @@ spec:
 #              path: /
 #              port: http
           lifecycle:
+            preStop:
+              exec:
+                command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
             postStart:
               exec:
                 command:

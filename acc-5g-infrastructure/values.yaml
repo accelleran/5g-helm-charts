@@ -1,6 +1,8 @@
 nats:
   enabled: true
 
+  nameOverride: "nats-5g"
+
   customLabels:
     drax/technology: 5g
 
@@ -25,6 +27,8 @@ nats:
 
 redis:
   enabled: true
+
+  nameOverride: "redis-5g"
 
   draxNodeSelectorEnabled: "false"
   draxNodeSelector:

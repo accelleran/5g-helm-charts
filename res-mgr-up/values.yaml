@@ -17,7 +17,7 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "__APPNAME=resMgrUp ./resMgrUpAppl.exe"
+cmd: "./resMgrUpAppl.exe"
 
 initGetConfigImage:
   repository: accelleran/acc-generic-img
@@ -44,9 +44,9 @@ redisConfig:
 bootstrapId: "cuup1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
-extraEnvs: []
-#  - name: BOOTSTRAP_INSTANCE_ID
-#    value: cuup1
+extraEnvs:
+  - name: __APPNAME
+    value: resMgrUp
 #  - name: ex1
 #    value: ex1
 

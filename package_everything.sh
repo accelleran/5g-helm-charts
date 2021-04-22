@@ -6,5 +6,5 @@ helm package cu-up-controller ds-ctrl e1-cp res-mgr-up amf-controller du-control
 # done' sh {} +
 
 
-mv *.tgz acc-five-g/charts/
+#mv *.tgz acc-five-g/charts/
 
