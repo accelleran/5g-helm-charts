@@ -77,7 +77,7 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: [ "/bin/sh", "-c", "pkill -15 -f -e -x {{ .Values.cmd }}" ]
+                command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trunc 15  }}' ]
       {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
       nodeSelector:
         {{ if .Values.nodeSelector }}

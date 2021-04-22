@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.4.0
+version: 0.4.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -27,17 +27,17 @@ appVersion: "master-f6f3260"
 dependencies:
   - name: acc-fiveg-cu-up
     condition: acc-fiveg-cu-up.enabled
-    version: 0.3.0
+    version: 0.3.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-e1-sctp-up
     condition: acc-fiveg-e1-sctp-up.enabled
-    version: 0.3.0
+    version: 0.3.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-res-mgr-up
     condition: acc-fiveg-res-mgr-up.enabled
-    version: 0.3.0
+    version: 0.3.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: acc-fiveg-netconf
     condition: acc-fiveg-netconf.enabled
-    version: 0.4.0
+    version: 0.4.1
     repository: https://accelleran.github.io/5g-helm-charts/
