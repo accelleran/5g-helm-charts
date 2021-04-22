@@ -426,11 +426,11 @@ acc-fiveg-ds-ctrl:
   #
   # args:
   #   - name: "--rel_msec"
-  #     value: "500"
+  #     value: "0"
   #
   args:
     - name: "--rel_msec"
-      value: "500"
+      value: "0"
 
 
   # REDIS Settings
