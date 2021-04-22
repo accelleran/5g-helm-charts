@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 # The number of AMFs that should be supported
-numOfAmfs: 1
+numOfAmfs: "1"
 
 image:
   repository: accelleran/ngapappl
