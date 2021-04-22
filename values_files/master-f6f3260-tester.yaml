@@ -56,13 +56,13 @@ nats:
   url: "10.55.1.2"
 
   # Port of NAST
-  port: "31000"
+  port: "30447"
 
 redisConfig:
   hostname: "10.55.1.2"
-  port: "32200"
+  port: "30762"
 
-bootstrapId: "cucp_1"
+bootstrapId: "cucp-1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 extraEnvs:
