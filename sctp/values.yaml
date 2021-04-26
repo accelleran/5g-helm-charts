@@ -81,6 +81,7 @@ f1Service:
   f1Port: 38472
   # loadBalancerIP:
   # f1NodePort:
+  externalTrafficPolicy: "Local"
 
 e1Service:
   enabled: true
@@ -89,6 +90,7 @@ e1Service:
   e1Port: 38462
   # loadBalancerIP:
   # e1NodePort:
+  externalTrafficPolicy: "Local"
 
 ingress:
   enabled: false

@@ -115,7 +115,7 @@ ngControlService:
   port: 38412
   loadBalancerIP: "10.55.1.41"
   # nodePort:
-  # externalTrafficPolicy: "Local"
+  externalTrafficPolicy: "Local"
 
 ingress:
   enabled: false
