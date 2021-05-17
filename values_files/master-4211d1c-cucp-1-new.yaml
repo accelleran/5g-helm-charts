@@ -1,0 +1,90 @@
+global:
+
+  # Kubernetes Advertise Address
+  #   Description: Used as External address for services
+  #   Value type: string
+  #
+  kubeIp: "10.55.1.2"
+
+
+  # CU-CP Instance ID
+  #   Description:  The Instance ID of the CU-CP component that
+  #                 will be used in the bootstrap file.
+  #
+  #   Example:
+  # instanceId: "cucp-1"
+  #
+  instanceId: "cucp-1"
+
+  # Number of supported components
+  #   Description:  You have to specify the amount of different components that should be supported.
+  #                 Therefore, you have to specify:
+  #                 - the number of AMFs that will be used
+  #                 - the number of CU-UPs that will be used
+  #                 - the number of DUs that will be used
+  #                 - the number of CELLSs that will be used
+  #                   i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
+  #                 - the number of UEs that will be used
+  numOfAmfs: 1
+  numOfCuUps: 2
+  numOfDus: 1
+  numOfCells: 1
+  numOfUes: 1
+
+  # NATS URL and PORT
+  #   Description: Used to configure the application to talk
+  #                to NATS
+  #   Value type: string
+  #
+  natsUrl: "10.55.1.2"
+  natsPort: "30447"
+
+
+  # Version of the 5G applications
+  #   Description: This is the version of the 5G applications
+  #                in DockerHub.
+  #   Value type: string
+  #
+  tag: "master-4211d1c"
+
+
+  # Redis settings
+  #   Description: Certain application need to be able to reach
+  #                Redis. Here we configure the Redis hostname
+  #                and port.
+  #   Value type: string
+  #   Example:
+  #
+  redisHostname: "10.55.1.2"
+  redisPort: "30762"
+
+
+  # dRAX Specific Node Selector
+  #   Description: This is a special nodeSelector field implemented for the
+  #                Accelleran 5G Helm charts. You need to first label your
+  #                node in Kubernetes with a label "draxName" and give it a
+  #                <value>. For example for node <node_name>, you can use the
+  #                following command to label it:
+  #                kubectl label node <node_name> draxName=<value>.
+  #                You can then enabled this feature by setting
+  #                "draxNodeSelectorEnabled" to "true" (as a string with quotes!).
+  #                The in "draxName" set the value of the label you chose for
+  #                the node. This will in effect install all the 5G Application
+  #                on that node, without the need to edit all individual helm
+  #                charts. In case you want to add other nodeSelector options,
+  #                you have to add them to the helm chart specific values files.
+  #   Value type: string
+  #   Example:
+  #
+  draxNodeSelectorEnabled: "false"
+  draxName: "edge"
+
+acc-fiveg-sctp:
+  e1Service:
+    loadBalancerIP: "10.55.1.50"
+  f1Service:
+    loadBalancerIP: "10.55.1.49"
+
+acc-fiveg-netconf:
+  netconfService:
+    nodePort: 31832
