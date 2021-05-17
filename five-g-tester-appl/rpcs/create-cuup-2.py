@@ -12,6 +12,8 @@ defPathCuUp = """<config>
         <gnb-cu-up-name>accelleran-cu-up-2</gnb-cu-up-name>
         <gnb-cu-up-id>2</gnb-cu-up-id>
         <admin-state>unlocked</admin-state>
+        <up-integrity-protection-enabled>false</up-integrity-protection-enabled>
+        <up-ciphering-enabled>true</up-ciphering-enabled>
 
 
         <e1-link-policy xc:operation="create">

@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: accelleran/testerappl
+  repository: accelleran/pmcontrollerupappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -17,43 +17,16 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "./testerAppl.exe"
+cmd: "./pmControllerUpAppl.exe"
 
-testing:
-  value: "${F1_IP}"
-
-initGetConfigImage:
-  repository: accelleran/acc-generic-img
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
-
-initGetConfig:
-  - resourceType: 'service'
-    resourceName: 'acc-5g-cu-cp-cucp-1-acc-fiveg-sctp-f1'
-    resourceNamespace: '{{ .Release.Namespace }}'
-    field: '.status.loadBalancer.ingress[0].ip'
-    # Environmental variable have to be ALL CAPS
-    envName: "F1_IP"
-  - resourceType: 'service'
-    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
-    resourceNamespace: '{{ .Release.Namespace }}'
-    field: '.status.loadBalancer.ingress[0].ip'
-    # Environmental variable have to be ALL CAPS
-    envName: "GTP_IP"
-
-args:
-  - name: "--own"
-    value: "$POD_IP"
-  - name: "--cucp"
-    value: "$F1_IP"
-  - name: "--numLoops"
-    value: "1"
+args: []
+#  - name: "--own"
+#    value: 127.0.0.2
 
 # NATS Settings
 nats:
   # URL of NATS
-  url: "10.55.1.2"
+  url: "10.55.2.2"
 
   # Port of NAST
   port: "31000"
@@ -62,18 +35,14 @@ redisConfig:
   hostname: "10.55.1.2"
   port: "32200"
 
-bootstrapId: "cucp-1"
+bootstrapId: "cuup-1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 extraEnvs:
   - name: __APPNAME
-    value: "controllerTester"
-  - name: TESTER_CUCP_INSTANCE_ID
-    value: "cucp-1"
-  - name: TESTER_CUUP_1_INSTANCE_ID
-    value: "cuup-1"
-  - name: TESTER_CUUP_2_INSTANCE_ID
-    value: "cuup-2"
+    value: pmControllerUp
+#  - name: ex1
+#    value: ex1
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -102,24 +71,6 @@ service:
   enabled: false
   type: ClusterIP
   port: 80
-
-gtpService:
-  enabled: true
-  type: LoadBalancer
-  protocol: UDP
-  gtpUPort: 2152
-  # loadBalancerIP:
-  # gtpUNodePort:
-  externalTrafficPolicy: "Local"
-
-ngControlService:
-  enabled: true
-  type: LoadBalancer
-  protocol: SCTP
-  port: 38412
-  loadBalancerIP: "10.55.1.41"
-  # nodePort:
-  externalTrafficPolicy: "Local"
 
 ingress:
   enabled: false
@@ -158,7 +109,7 @@ nodeSelector: {}
 draxNodeSelectorEnabled: "false"
 
 draxNodeSelector:
-  draxName: "edge"
+  draxName: "main"
 
 tolerations: []
 
