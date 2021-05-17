@@ -27,7 +27,7 @@ global:
   #   Value type: string
   #
   natsUrl: "10.55.1.2"
-  natsPort: "31000"
+  natsPort: "31100"
 
 
   # Version of the 5G applications
@@ -429,5 +429,5 @@ acc-fiveg-netconf:
   #   nodePort: 31832
   #
   
-  # netconfService:
-  #   nodePort: 31832
+  netconfService:
+    nodePort: 31830

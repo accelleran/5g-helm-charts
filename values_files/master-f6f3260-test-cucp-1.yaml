@@ -41,7 +41,7 @@ global:
   #   Value type: string
   #
   natsUrl: "10.55.1.2"
-  natsPort: "31000"
+  natsPort: "31100"
 
 
   # Version of the 5G applications
@@ -173,8 +173,8 @@ acc-fiveg-netconf:
   #   nodePort: 31832
   #
   
-  # netconfService:
-  #   nodePort: 31832
+  netconfService:
+    nodePort: 31832
 
 acc-fiveg-amf-controller:
 
@@ -430,7 +430,7 @@ acc-fiveg-ds-ctrl:
   #
   args:
     - name: "--rel_msec"
-      value: "0"
+      value: "500"
 
 
   # REDIS Settings
@@ -1276,8 +1276,8 @@ acc-fiveg-sctp:
   # e1Service:
   #   loadBalancerIP: "10.55.1.32"
   #
-#  e1Service:
-#    loadBalancerIP: "10.55.1.32"
+  e1Service:
+    loadBalancerIP: "10.55.1.50"
 
 
 
