@@ -8,6 +8,9 @@ metadata:
     drax/service-name: {{ .Chart.Name }}-e1
 spec:
   type: {{ .Values.e1Service.type }}
+  {{ if .Values.e1Service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ tpl .Values.e1Service.externalTrafficPolicy . }}
+  {{ end }}
   ports:
     - port: {{ .Values.e1Service.e1Port}}
       protocol: {{ .Values.e1Service.protocol }}

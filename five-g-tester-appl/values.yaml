@@ -30,7 +30,7 @@ initGetConfigImage:
 
 initGetConfig:
   - resourceType: 'service'
-    resourceName: 'acc-5g-cu-cp-1-acc-fiveg-sctp-f1'
+    resourceName: 'acc-5g-cu-cp-cucp-1-acc-fiveg-sctp-f1'
     resourceNamespace: '{{ .Release.Namespace }}'
     field: '.status.loadBalancer.ingress[0].ip'
     # Environmental variable have to be ALL CAPS
@@ -62,7 +62,7 @@ redisConfig:
   hostname: "10.55.1.2"
   port: "32200"
 
-bootstrapId: "cucp_1"
+bootstrapId: "cucp-1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 extraEnvs:
@@ -115,7 +115,7 @@ ngControlService:
   port: 38412
   loadBalancerIP: "10.55.1.41"
   # nodePort:
-  # externalTrafficPolicy: "Local"
+  externalTrafficPolicy: "Local"
 
 ingress:
   enabled: false
