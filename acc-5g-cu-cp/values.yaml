@@ -49,7 +49,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "master-5360974"
+  tag: "master-a9ace0a"
 
 
   # Redis settings
