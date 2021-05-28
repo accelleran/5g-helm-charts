@@ -31,3 +31,11 @@ data:
     [[translate]]
     nats_topic="5G_COUNTERS_INFO"
     kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
+
+    [[translate]]
+    nats_topic="CUUP_COUNTERS_INFO"
+    kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
+
+    [[translate]]
+    nats_topic="CUCP_COUNTERS_INFO"
+    kafka_topic="accelleran.drax.5g.ric.raw.pm_counters"
