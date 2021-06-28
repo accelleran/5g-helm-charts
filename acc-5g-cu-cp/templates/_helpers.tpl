@@ -74,3 +74,17 @@ Pre-Flight Instance ID Check
 {{- required "The Instance ID you have chosen is invalid! The Instance ID must consist of lower case alphanumeric characters or '-', start with an alphabetic character, and end with an alphanumeric character (e.g. 'my-name',  or 'abc-123', regex used for validation is '^[a-z]([a-z0-9-]*[a-z0-9])?$'). The Instance ID also cannot be longer than 54 alphanumeric characters!" nil }}
 {{- end }}
 {{- end }}
+
+
+{{/*
+Pre-Flight Instance ID Check
+*/}}
+{{- define "preFlightCheck.instanceIdLength" -}}
+{{- $instanceId := tpl .Values.global.instanceId . }}
+{{- $fullReleaseName := printf "%s-%s-%s" .Release.Name .Chart.Name $instanceId -}}
+{{- if mustRegexMatch "^[a-z0-9-]{1,52}$" $fullReleaseName }}
+{{- required "Length of full release name is OK!" $fullReleaseName | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- required "The Release Name you have chosen is invalid! The Release Name cannot be longer than 52 alphanumeric characters!" nil }}
+{{- end }}
+{{- end }}
