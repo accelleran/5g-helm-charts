@@ -1,6 +1,6 @@
 #############################################################################
 
-Deployed Accelleran CU-UP component with the following details:
+Deployed Accelleran CU-UP component {{- include "preFlightCheck.instanceIdLength" . }} with the following details:
 
 Tag: {{ tpl .Values.global.tag . }}
 

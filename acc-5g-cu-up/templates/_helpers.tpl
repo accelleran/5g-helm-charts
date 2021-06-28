@@ -75,3 +75,14 @@ Pre-Flight Instance ID Check
 {{- end }}
 {{- end }}
 
+{{/*
+Pre-Flight Instance ID Length Check
+*/}}
+{{- define "preFlightCheck.instanceIdLength" -}}
+{{- $instanceId := tpl .Values.global.instanceId . }}
+{{- if mustRegexMatch "^[a-z0-9-]{1,7}$" $instanceId }}
+{{- required "Length of Instance ID is OK!" $instanceId | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- required "The Instance ID you have chosen is invalid! The Instance ID cannot be longer than 7 alphanumeric characters!" nil }}
+{{- end }}
+{{- end }}
