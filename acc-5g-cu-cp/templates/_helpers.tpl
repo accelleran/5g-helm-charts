@@ -82,9 +82,9 @@ Pre-Flight Instance ID Check
 {{- define "preFlightCheck.instanceIdLength" -}}
 {{- $instanceId := tpl .Values.global.instanceId . }}
 {{- $fullReleaseName := printf "%s-%s-%s" .Release.Name .Chart.Name $instanceId -}}
-{{- if mustRegexMatch "^[a-z0-9-]{1,52}$" $fullReleaseName }}
+{{- if mustRegexMatch "^[a-z0-9-]{1,45}$" $fullReleaseName }}
 {{- required "Length of full release name is OK!" $fullReleaseName | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- required "The Release Name you have chosen is invalid! The Release Name cannot be longer than 52 alphanumeric characters!" nil }}
+{{- required "The Release Name you have chosen is invalid! The Release Name cannot be longer than 45 alphanumeric characters!" nil }}
 {{- end }}
 {{- end }}
