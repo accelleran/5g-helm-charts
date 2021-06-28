@@ -5,6 +5,7 @@ Deployed Accelleran CU-CP component with the following details:
 Tag: {{ tpl .Values.global.tag . }}
 
 Instance ID: {{- include "preFlightCheck.instanceId" . }}
+{{- include "preFlightCheck.instanceIdLength" . }}
 
 Supported number of components:
 AMFs: {{ .Values.global.numOfAmfs }}
