@@ -83,8 +83,7 @@ global:
   draxNodeSelectorEnabled: "false"
   draxName: "main"
 
-
-acc-fiveg-netconf:
+netconf:
   # Enable or disable installation of component
   #   Value type: boolean
   #
@@ -176,7 +175,7 @@ acc-fiveg-netconf:
   # netconfService:
   #   nodePort: 31832
 
-acc-fiveg-amf-controller:
+amf-controller:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -263,7 +262,7 @@ acc-fiveg-amf-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-cu-up-controller:
+cu-up-controller:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -350,7 +349,7 @@ acc-fiveg-cu-up-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-ds-ctrl:
+ds-ctrl:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -458,7 +457,7 @@ acc-fiveg-ds-ctrl:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-du-controller:
+du-controller:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -545,7 +544,7 @@ acc-fiveg-du-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-e1-cp:
+e1-cp:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -635,7 +634,7 @@ acc-fiveg-e1-cp:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-f1-ap:
+f1-ap:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -724,7 +723,7 @@ acc-fiveg-f1-ap:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-gnb-controller:
+gnb-controller:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -811,7 +810,7 @@ acc-fiveg-gnb-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-ng-ap:
+ng-ap:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -900,7 +899,7 @@ acc-fiveg-ng-ap:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-pm-controller:
+pm-controller:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -987,7 +986,7 @@ acc-fiveg-pm-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-res-mgr:
+res-mgr:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -1074,7 +1073,7 @@ acc-fiveg-res-mgr:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-rr-ctrl:
+rr-ctrl:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -1166,7 +1165,7 @@ acc-fiveg-rr-ctrl:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-sctp:
+sctp:
 
   # Enable or disable installation of component
   #   Value type: boolean
