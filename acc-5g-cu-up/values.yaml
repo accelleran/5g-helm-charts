@@ -69,7 +69,7 @@ global:
   draxNodeSelectorEnabled: "false"
   draxName: "main"
 
-acc-fiveg-cu-up:
+cu-up:
   # Enable or disable installation of component
   #   Value type: boolean
   #
@@ -166,7 +166,7 @@ acc-fiveg-cu-up:
   #  gtpService:
   #    loadBalancerIP: "10.55.1.20"
 
-acc-fiveg-e1-sctp-up:
+e1-sctp-up:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -253,7 +253,7 @@ acc-fiveg-e1-sctp-up:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-res-mgr-up:
+res-mgr-up:
 
   # Enable or disable installation of component
   #   Value type: boolean
@@ -340,7 +340,7 @@ acc-fiveg-res-mgr-up:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-acc-fiveg-netconf:
+netconf:
   # Enable or disable installation of component
   #   Value type: boolean
   #
@@ -432,7 +432,7 @@ acc-fiveg-netconf:
   # netconfService:
   #   nodePort: 31832
 
-acc-fiveg-pm-controller-up:
+pm-controller-up:
 
   # Enable or disable installation of component
   #   Value type: boolean
