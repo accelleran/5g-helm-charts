@@ -5,7 +5,7 @@ metadata:
   name: {{ include "five-g-appl.fullname" . }}-e1
   labels:
     {{- include "five-g-appl.labels" . | nindent 4 }}
-    drax/service-name: {{ .Chart.Name }}-e1
+    drax/service-name: acc-fiveg-{{ .Chart.Name }}-e1
 spec:
   type: {{ .Values.e1Service.type }}
   {{ if .Values.e1Service.externalTrafficPolicy }}

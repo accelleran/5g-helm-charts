@@ -44,8 +44,8 @@ dRAX NetConf labels
 */}}
 {{- define "five-g-appl.draxNetconfLabels" -}}
 drax/role: drax-core
-drax/name: {{ .Chart.Name }}
-drax/component-name: {{ .Chart.Name }}
+drax/name: acc-fiveg-{{ .Chart.Name }}
+drax/component-name: acc-fiveg-{{ .Chart.Name }}
 drax/component-helm-version: {{ .Chart.Version }}
 drax/technology: 5g
 drax/instanceId: "{{ tpl .Values.bootstrapId . }}"
