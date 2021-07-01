@@ -77,7 +77,7 @@ metallb:
   # This installs the MetalLB LoadBalancer. Please make sure to do the required preparation before enabling the installation:
   # https://metallb.universe.tf/installation/
   # If you have your own Load Balancer in Kubernetes, you can skip this installation - set it to false.
-  enabled: false
+  enabled: true
 
   configInline:
     address-pools:
