@@ -10,11 +10,11 @@
 
 ## 2021-07-08
 ### Changed
-- acc-5g-cu-cp [1.0.0-beta.1]:
+- acc-5g-cu-cp [1.0.0]:
   - Names of Helm charts changed! Please update the values files used!
   - Instance ID can now be 16 characters long!
   - Setting default NATS port to 31100  
-- acc-5g-cu-up [1.0.0-beta.1]: 
+- acc-5g-cu-up [1.0.0]: 
   - Names of Helm charts changed! Please update the values files used!
   - Instance ID can now be 16 characters long!
   - Setting default NATS port to 31100  
