@@ -18,7 +18,13 @@ time = "{y}-{M}-{d}-{h}-{m}-{s}".format(
                 s=datetime.datetime.now().second
             )
 
-# Create a folder with current date and tim ein the logs folder
+# Create the logs folder
+subprocess.run(
+    "mkdir logs",
+    shell=True
+    )
+
+# Create a folder with current date and time in the logs folder
 subprocess.run(
     "mkdir logs/{folder}".format(folder=time),
     shell=True
@@ -52,7 +58,7 @@ for line in str(pods).splitlines():
             cmd_exec = subprocess.run(cmd, shell=True)
 
             if cmd_exec.returncode == 0:
-                print("Save sucessfull!")
+                print("Saved successfully!")
 
 #            print("Command exit code: {c}".format(c=cmd_exec.returncode))
 

@@ -12,10 +12,12 @@
 ### Changed
 - acc-5g-cu-cp [1.0.0]:
   - Names of Helm charts changed! Please update the values files used!
+  - If you wish to use the previous version of the values files, the change is that each subchart has changed its name. The names of the subcharts (which are root keys in the values files) used to have a prefix “acc-fiveg-”, which is now removed. You can find-and-replace the “acc-fiveg-” string to delete it. For example, the “acc-fiveg-sctp” key should now be “sctp”.
   - Instance ID can now be 16 characters long!
   - Setting default NATS port to 31100  
 - acc-5g-cu-up [1.0.0]: 
   - Names of Helm charts changed! Please update the values files used!
+  - If you wish to use the previous version of the values files, the change is that each subchart has changed its name. The names of the subcharts (which are root keys in the values files) used to have a prefix “acc-fiveg-”, which is now removed. You can find-and-replace the “acc-fiveg-” string to delete it. For example, the “acc-fiveg-cu-up” key should now be “cu-up”.
   - Instance ID can now be 16 characters long!
   - Setting default NATS port to 31100  
 
