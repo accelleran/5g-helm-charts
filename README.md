@@ -5,8 +5,15 @@
 |---|---|---|---|
 | acc-5g-helm/acc-5g-cu-cp       |         1.0.0   |        master-a9ace0a        |          Accelleran 5G CU CP Components                     |
 | acc-5g-helm/acc-5g-cu-up        |        1.0.0      |     master-a9ace0a         |         Accelleran 5G CU UP Components                     |
-| acc-5g-helm/acc-5g-infrastructure    |   0.1.1      |       0.1.1                      |        The infrastructure for the Accelleran 5G CU Components |
+| acc-5g-helm/acc-5g-infrastructure    |   0.2.0      |       0.2.0                      |        The infrastructure for the Accelleran 5G CU Components |
 | acc-5g-helm/nkafka-5g           |        0.2.1     |      alpha.6756d8d_proto.a9ace0a72 |  The NKafka-5G                        |
+
+## 2021-07-23
+### Changed
+- acc-5g-infrastructure [0.2.0]
+  - Updating Redis to use official Redis Docker image, version 6.2.4
+  - Updating Nats to use official Redis Docker image, version 2.3.2
+  - Setting default NodePorts: NATS to 31100; Redis to 32200  
 
 ## 2021-07-08
 ### Changed
