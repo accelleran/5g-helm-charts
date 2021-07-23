@@ -3,23 +3,14 @@ nats:
 
   nameOverride: "nats-5g"
 
-  customLabels:
+  commonLabels:
     drax/technology: 5g
 
   service:
     serviceName: '{{ include "nats.fullname" . }}'
+    type: NodePort
     client:
-      name: "natsport"
-      port: 4222
-#      nodePort:
-    cluster:
-      name: "clusterport"
-      port: 6222
-#      nodePort:
-    monitoring:
-      name: "consoleport"
-      port: 8222
-#      nodePort:
+      nodePort: 31100
 
   draxNodeSelectorEnabled: "false"
   draxNodeSelector:
@@ -33,9 +24,6 @@ redis:
   draxNodeSelectorEnabled: "false"
   draxNodeSelector:
     draxName: "main"
-
-  # The version of the Docker image to use
-  version: "redis20190206"
 
   # Custom labels for the deployment
   customLabels:
@@ -57,7 +45,7 @@ redis:
   service:
     type: NodePort
     port: 6379
-#    nodePort:
+    nodePort: 32200
     name: "redisport"
     serviceName: '{{ include "redis.fullname" . }}'
 
