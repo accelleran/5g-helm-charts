@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: accelleran/netconf
+  repository: accelleran/testerappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -16,64 +16,64 @@ nameOverride: ""
 fullnameOverride: ""
 
 # Application Settings
-cmd: "./ncstart"
-#cmd: "sleep 3600"
+# cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
+cmd: "./testerAppl.exe"
 
-# testing:
-  # value: "${GTP_IP}"
+testing:
+  value: "${F1_IP}"
 
-initImage:
+initGetConfigImage:
   repository: accelleran/acc-generic-img
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-initGetConfig: []
-#  - resourceType: 'service'
-#    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
-#    resourceNamespace: '{{ .Release.Namespace }}'
-#    field: '.status.loadBalancer.ingress[0].ip'
-#    # Environmental variable have to be ALL CAPS
-#    envName: "GTP_IP"
+initGetConfig:
+  - resourceType: 'service'
+    resourceName: 'acc-5g-cu-cp-cucp-1-sctp-f1'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    # Environmental variable have to be ALL CAPS
+    envName: "F1_IP"
+  - resourceType: 'service'
+    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    # Environmental variable have to be ALL CAPS
+    envName: "GTP_IP"
 
-initNetconfModel:
-  enabled: true
+args:
+  - name: "--own"
+    value: "$POD_IP"
+  - name: "--cucp"
+    value: "$F1_IP"
+  - name: "--numLoops"
+    value: "1"
 
-initNetconfDefaultPath:
-  enabled: true
-  #repository: accelleran/acc-generic-img
-  #version: 0.3.0
-  #securityContext:
-  #  runAsUser: 0
-  #pullPolicy: IfNotPresent
-  # Carfull when putting this to service url, as the service might not be up when this is used
-  host: 'localhost'
-  componentType: 'cuup'
-
-
-args: []
-#  - name: "--own"
-#    value: 127.0.0.2
-#  - name: "--pub"
-#    value: 127.0.0.2
-
-extraEnvs: []
-#  - name: BOOTSTRAP_FILENAME
-#    value: /home/accelleran/5G/bootstrap.txt
-
-redisConfig:
-  hostname: "10.55.1.2"
-  port: "32200"
-
+# NATS Settings
 nats:
-  url: "10.55.1.2"
+  # URL of NATS
+  url: "172.31.36.102"
+
+  # Port of NAST
   port: "31100"
 
+redisConfig:
+  hostname: "172.31.36.102"
+  port: "32200"
 
-# The boostrap id should contain only lower case aplhanumeric characters and/or '-', start with an alphabetic character, and end with an alphanumeric character
-bootstrapId: "cuup1"
-gnbId: "gnb1"
+bootstrapId: "cucp-1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
+
+extraEnvs:
+  - name: __APPNAME
+    value: "controllerTester"
+  - name: TESTER_CUCP_INSTANCE_ID
+    value: "cucp-1"
+  - name: TESTER_CUUP_1_INSTANCE_ID
+    value: "cuup-1"
+  - name: TESTER_CUUP_2_INSTANCE_ID
+    value: "cuup-2"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -98,12 +98,28 @@ securityContext:
   runAsUser: 0
   privileged: true
 
-netconfService:
+service:
+  enabled: false
+  type: ClusterIP
+  port: 80
+
+gtpService:
   enabled: true
-  type: NodePort
-  port: 830
-  name: netconf
-  protocol: TCP
+  type: LoadBalancer
+  protocol: UDP
+  gtpUPort: 2152
+  # loadBalancerIP:
+  # gtpUNodePort:
+  externalTrafficPolicy: "Local"
+
+ngControlService:
+  enabled: true
+  type: LoadBalancer
+  protocol: SCTP
+  port: 38412
+  loadBalancerIP: "10.55.1.41"
+  # nodePort:
+  externalTrafficPolicy: "Local"
 
 ingress:
   enabled: false
@@ -142,7 +158,7 @@ nodeSelector: {}
 draxNodeSelectorEnabled: "false"
 
 draxNodeSelector:
-  draxName: "main"
+  draxName: "edge"
 
 tolerations: []
 

@@ -49,7 +49,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "master-a9ace0a"
+  tag: "release-2.2-chimay-16fb940"
 
 
   # Redis settings
@@ -142,6 +142,21 @@ netconf:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
+
+
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
+    port: "{{ .Values.global.natsPort }}"
 
 
   # Bootstrap Instance ID
@@ -427,9 +442,6 @@ ds-ctrl:
   #   - name: "--rel_msec"
   #     value: "0"
   #
-  args:
-    - name: "--rel_msec"
-      value: "0"
 
 
   # REDIS Settings

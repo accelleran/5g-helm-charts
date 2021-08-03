@@ -2,6 +2,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+
+# For mounting the accelleran license
+accelleranLicense:
+  enabled: "true"
+  licenseSecretName: "accelleran-license"
+
 replicaCount: 1
 
 image:
@@ -15,12 +21,12 @@ initImage:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-# For mounting the accelleran license
-accelleranLicense:
-  enabled: false
-  licenseSecretName: accelleran-license
+initConfig:
+  natsCheckEnabled: true
+  kafkaCheckEnabled: true
+  kafkaTopicsCheck: "accelleran.drax.5g.ric.raw.messages,accelleran.drax.5g.ric.raw.pm_counters,accelleran.drax.5g.ric.raw.ue_measurements,accelleran.drax.5g.ric.raw.cu_state"
 
-imagePullSecrets: 
+imagePullSecrets:
   - name: accelleran-secret
 nameOverride: ""
 fullnameOverride: ""
@@ -28,11 +34,13 @@ fullnameOverride: ""
 kafkaUrl: "ric-acc-kafka.{{ .Release.Namespace }}:9092"
 natsUrl: "nats-service.{{ .Release.Namespace }}:4222"
 
-initConfig:
-  kafkaTopicsCheck: "accelleran.drax.5g.ric.raw.messages,accelleran.drax.5g.ric.raw.pm_counters,accelleran.drax.5g.ric.raw.ue_measurements,accelleran.drax.5g.ric.raw.cu_state"
+# If you want to run the NKafka tool with custom argument, you can override them here. Note all the args need to be strings!
+# For example:
+# overrideArgs: ["--nats", "nats://nats-service.default:4222", "-f", "/4GConfig.toml", "-f", "/4GTopics.toml", "-f", "/allTopics.toml", "-vv"]
+overrideArgs: []
 
 configs:
-  logLevel: logLevel
+  logLevel: info
 
 options:
   - name: "topic"

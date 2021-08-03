@@ -401,6 +401,21 @@ netconf:
     port: "{{ .Values.global.redisPort }}"
 
 
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
+    port: "{{ .Values.global.natsPort }}"
+
+
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
   #                 file. The Instance ID is specified in this filed.
