@@ -35,7 +35,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "release-2.2-chimay-16fb940"
+  tag: "release-2.2-chimay-966d907"
 
 
   # Redis settings

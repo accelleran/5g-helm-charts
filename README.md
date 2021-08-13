@@ -11,20 +11,22 @@
 ## UNRELEASED
 ### Removed
 - acc-5g-cu-cp [2.0.0-rc.1]
-  - Removing DS CTRL parameter rel_mses
+  - Removing DS CTRL parameter rel_msecs
 ### Added
 - acc-5g-cu-cp [2.0.0-rc.1]
-  - Adding NATS_SERVICE_URL as env variable to netconf pod 
+  - Adding NATS_SERVICE_URL as env variable to netconf pod
 - acc-5g-cu-up [2.0.0-rc.1]
   - Adding NATS_SERVICE_URL as env variable to netconf pod
 ### Changed
-- acc-5g-cu-cp [2.0.0-rc.1]
-  - Updating to use "release-2.2-chimay-16fb940" as 5G software 
-- acc-5g-cu-up [2.0.0-rc.1]
-  - Updating to use "release-2.2-chimay-16fb940" as 5G software
+- acc-5g-cu-cp [2.0.0-rc2]
+  - Updating to use "release-2.2-chimay-966d907" as 5G software
+- acc-5g-cu-up [2.0.0-rc2]
+  - Updating to use "release-2.2-chimay-966d907" as 5G software
 - nkafka-5g [0.3.0]
   - Updated to use version "0.6.6_proto.16fb94008"
-  - Updated helm chart for latest version  
+  - Updated helm chart for latest version
+- acc-netconf-5g [0.6.1]
+  - Update to use "release-2.2-chimay-966d907" as 5G software
 
 ## 2021-07-23
 ### Changed
