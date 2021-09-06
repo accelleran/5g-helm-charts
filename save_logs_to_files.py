@@ -33,7 +33,7 @@ subprocess.run(
 for line in str(pods).splitlines():
     if line:
         pod = line.split(" ")[0]
-        if "acc-fiveg-" in pod:
+        if "acc-5g-cu-" in pod:
             print("Saving logs for pod: [{pod}]...".format(pod=pod))
 
             # words = line.split(" ")[0].split('-')
