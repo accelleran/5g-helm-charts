@@ -10,7 +10,7 @@ spec:
   ports:
     - port: {{ .Values.service.port }}
       protocol: UDP
-      name: hoPort
+      name: ho-tester
       {{ if .Values.service.nodePort }}
       nodePort: {{ .Values.service.nodePort }}
       {{ end }}
