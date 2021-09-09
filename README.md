@@ -18,8 +18,14 @@
 - acc-5g-cu-cp [2.0.0-rc.3]
   - Adding Handover Tester application, with default install set to false
   - Exposing Handover Tester port 1337 on nodePort 31337
+- acc-5g-cu-cp [2.0.0-rc.4]
+  - Adding Jaeger agent host configuration as env var
 - acc-5g-cu-up [2.0.0-rc.1]
   - Adding NATS_SERVICE_URL as env variable to netconf pod
+- acc-5g-cu-up [2.0.0-rc.4]
+  - Adding Jaeger agent host configuration as env var
+- acc-5g-infrastructure [0.3.0]
+  - Adding Jaeger 
 ### Changed
 - acc-5g-cu-cp [2.0.0-rc2]
   - Updating to use "release-2.2-chimay-966d907" as 5G software

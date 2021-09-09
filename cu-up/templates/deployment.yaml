@@ -91,6 +91,8 @@ spec:
               value: /5G/zlog.conf
             - name: BOOTSTRAP_FILENAME
               value: {{ .Values.bootstrapFile }}
+            - name: JAEGER_AGENT_HOST
+              value: {{ tpl .Values.jaegerAgentHost . }}
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}

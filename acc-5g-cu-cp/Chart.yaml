@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.0.0-rc3
+version: 2.0.0-rc4
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -31,54 +31,54 @@ dependencies:
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: amf-controller
     condition: amf-controller.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: cu-up-controller
     condition: cu-up-controller.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: ds-ctrl
     condition: ds-ctrl.enabled
-    version: 0.5.0
+    version: 0.6.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: du-controller
     condition: du-controller.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: e1-cp
     condition: e1-cp.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: f1-ap
     condition: f1-ap.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: gnb-controller
     condition: gnb-controller.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: ng-ap
     condition: ng-ap.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: pm-controller
     condition: pm-controller.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: res-mgr
     condition: res-mgr.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: rr-ctrl
     condition: rr-ctrl.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: sctp
     condition: sctp.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: ho-tester
     condition: ho-tester.enabled
-    version: 0.1.0
+    version: 0.2.0
     repository: https://accelleran.github.io/5g-helm-charts/
 

@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.0.0-rc3
+version: 2.0.0-rc4
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -27,15 +27,15 @@ appVersion: "release-2.2-chimay-fb09544"
 dependencies:
   - name: cu-up
     condition: cu-up.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: e1-sctp-up
     condition: e1-sctp-up.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: res-mgr-up
     condition: res-mgr-up.enabled
-    version: 0.4.0
+    version: 0.5.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: netconf
     condition: netconf.enabled
@@ -43,5 +43,5 @@ dependencies:
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: pm-controller-up
     condition: pm-controller-up.enabled
-    version: 0.2.0
+    version: 0.3.0
     repository: https://accelleran.github.io/5g-helm-charts/

@@ -83,6 +83,12 @@ global:
   draxNodeSelectorEnabled: "false"
   draxName: "main"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  #   Example: jaegerAgentHost: "ric-jaeger-agent"
+  jaegerAgentHost: "ric-jaeger-agent"
+
 netconf:
   # Enable or disable installation of component
   #   Value type: boolean
@@ -277,6 +283,11 @@ amf-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 cu-up-controller:
 
   # Enable or disable installation of component
@@ -363,6 +374,11 @@ cu-up-controller:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 ds-ctrl:
 
@@ -469,6 +485,11 @@ ds-ctrl:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 du-controller:
 
   # Enable or disable installation of component
@@ -555,6 +576,11 @@ du-controller:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 e1-cp:
 
@@ -646,6 +672,11 @@ e1-cp:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 f1-ap:
 
   # Enable or disable installation of component
@@ -735,6 +766,11 @@ f1-ap:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 gnb-controller:
 
   # Enable or disable installation of component
@@ -821,6 +857,11 @@ gnb-controller:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 ng-ap:
 
@@ -911,6 +952,11 @@ ng-ap:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 pm-controller:
 
   # Enable or disable installation of component
@@ -998,6 +1044,11 @@ pm-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 res-mgr:
 
   # Enable or disable installation of component
@@ -1084,6 +1135,11 @@ res-mgr:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 rr-ctrl:
 
@@ -1176,6 +1232,11 @@ rr-ctrl:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 sctp:
 
@@ -1290,7 +1351,10 @@ sctp:
 #  e1Service:
 #    loadBalancerIP: "10.55.1.32"
 
-
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 ho-tester:
 
@@ -1378,3 +1442,8 @@ ho-tester:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
