@@ -1,12 +1,15 @@
 dependencies:
 - name: nats
   repository: https://accelleran.github.io/helm-charts/
-  version: 0.2.4
+  version: 0.8.4
 - name: redis
   repository: https://accelleran.github.io/helm-charts/
-  version: 0.6.3
+  version: 0.7.0
 - name: metallb
   repository: https://charts.bitnami.com/bitnami
   version: 2.3.5
-digest: sha256:e05d323f6aa7a84d316952ba873f9f52e4af632722dc5b852f2b40937cf8ea2a
-generated: "2021-04-19T16:42:11.889099365+02:00"
+- name: jaeger
+  repository: https://jaegertracing.github.io/helm-charts
+  version: 0.46.6
+digest: sha256:03f618d73b27907ee1df3552acc51af33063a20f6f185ed5ad075c68221b9ab1
+generated: "2021-09-09T09:37:26.344200302Z"

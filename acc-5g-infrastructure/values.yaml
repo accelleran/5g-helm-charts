@@ -73,3 +73,14 @@ metallb:
         protocol: layer2
         addresses:
           - 10.55.1.20-10.55.1.60
+
+jaeger:
+  enabled: true
+
+  cassandra:
+    config:
+      cluster_size: 2
+
+  query:
+    service:
+      type: NodePort
