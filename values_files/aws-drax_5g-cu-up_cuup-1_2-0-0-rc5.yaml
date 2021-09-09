@@ -4,7 +4,7 @@ global:
   #   Description: Used as External address for services
   #   Value type: string
   #
-  kubeIp: "10.55.1.2"
+  kubeIp: "172.31.36.102"
 
 
   # CU-UP Instance ID
@@ -26,7 +26,7 @@ global:
   #                to NATS
   #   Value type: string
   #
-  natsUrl: "10.55.1.2"
+  natsUrl: "172.31.36.102"
   natsPort: "31100"
 
 
@@ -45,7 +45,7 @@ global:
   #   Value type: string
   #   Example:
   #
-  redisHostname: "10.55.1.2"
+  redisHostname: "172.31.36.102"
   redisPort: "32200"
 
 

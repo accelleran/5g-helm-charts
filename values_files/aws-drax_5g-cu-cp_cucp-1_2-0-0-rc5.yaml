@@ -4,7 +4,7 @@ global:
   #   Description: Used as External address for services
   #   Value type: string
   #
-  kubeIp: "10.55.1.2"
+  kubeIp: "172.31.36.102"
 
 
   # CU-CP Instance ID
@@ -40,7 +40,7 @@ global:
   #                to NATS
   #   Value type: string
   #
-  natsUrl: "10.55.1.2"
+  natsUrl: "172.31.36.102"
   natsPort: "31100"
 
 
@@ -59,7 +59,7 @@ global:
   #   Value type: string
   #   Example:
   #
-  redisHostname: "10.55.1.2"
+  redisHostname: "172.31.36.102"
   redisPort: "32200"
 
 
@@ -1348,8 +1348,8 @@ sctp:
   # e1Service:
   #   loadBalancerIP: "10.55.1.32"
   #
-#  e1Service:
-#    loadBalancerIP: "10.55.1.32"
+  e1Service:
+    loadBalancerIP: "10.55.1.50"
 
   # Jaeger settings
   #   Description:  Sets the DNS hostname where the Jaeger agent is located
@@ -1361,7 +1361,7 @@ ho-tester:
   # Enable or disable installation of component
   #   Value type: boolean
   #
-  enabled: false
+  enabled: true
 
 
   # Special dRAX NodeSelector
