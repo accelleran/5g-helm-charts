@@ -26,40 +26,61 @@ spec:
       serviceAccountName: {{ include "nkafka-helm.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{ if or (.Values.initConfig.natsCheckEnabled) (.Values.initConfig.kafkaCheckEnabled) }}
       initContainers:
+        {{ if .Values.initConfig.natsCheckEnabled }}
         - name: {{ .Chart.Name }}-check-nats
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
           command: ['sh', '-c', 'until nc -z -v -w1 {{ tpl .Values.natsUrl . }}; do echo $(date) [CHECK-SERVICES] Waiting for NATS at {{ tpl .Values.natsUrl . }}; sleep 2; done']
+        {{ end }}
+        {{ if .Values.initConfig.kafkaCheckEnabled }}
         - name: {{ .Chart.Name }}-check-kafka
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
           command: ['sh', '-c', 'echo "KAFKA_URL=\"{{ tpl .Values.kafkaUrl . }}\"" > kafka_url.py && python3 kafka-test.py {{ tpl .Values.initConfig.kafkaTopicsCheck . }}']
+        {{ end }}
+      {{ end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          {{ if .Values.accelleranLicense.enabled }}
-          image: "{{ .Values.image.repository }}-license:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
+          {{ if eq (tpl .Values.accelleranLicense.enabled .) "true" }}
+          image: "{{ .Values.image.repository }}-license:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{ else }}
-          image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           {{ end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: conf-5g-config
+            - name: {{ include "nkafka-helm.fullname" . }}-5g-config
               mountPath: /5GConfig.toml
               subPath: "5GConfig.toml"
-            - name: conf-5g-topics
-              mountPath: /5GKafkaTopics.toml 
-              subPath: "5GKafkaTopics.toml"  
-            {{ if .Values.accelleranLicense.enabled }}
+            - name: {{ include "nkafka-helm.fullname" . }}-5g-topics
+              mountPath: /5GKafkaTopics.toml
+              subPath: "5GKafkaTopics.toml"
+            {{ if .Values.configs.logAllTopics }}
+            - name: {{ include "nkafka-helm.fullname" . }}-all-topics
+              mountPath: /allTopics.toml
+              subPath: "allTopics.toml"
+            {{ end }}
+            {{ if eq (tpl .Values.accelleranLicense.enabled .) "true" }}
             - mountPath: "/etc/license/license.crt"
               subPath: "license.crt"
               name: accelleran-license
               readOnly: true
             {{ end }}
-          command: ["./nkafka"]
+          #command: ["/bin/sh"]
+          #args: ["-c", "sleep 1000"]
+          command: ["/nkafka"]
+          {{ if .Values.overrideArgs }}
+          args:
+            {{  range .Values.overrideArgs }}
+            - {{ tpl . $ }}
+            {{ end }}
+          {{ else }}
           args: ["--kafka", "{{ tpl .Values.kafkaUrl . }}", "--group", "five-g", "--nats", "nats://{{ tpl .Values.natsUrl . }}", "-f", "/5GConfig.toml","-f", "/5GTopics.toml", "-f", "/5GKafkaTopics.toml", {{ if .Values.configs.logLevel }}{{ if eq .Values.configs.logLevel "info" }}"-v"{{ end }}{{ if eq .Values.configs.logLevel "debug" }}"-vv"{{ end }}{{ end }}]
+          {{ end }}
+#          ports:
 #            - name: http
 #              containerPort: 80
 #              protocol: TCP
@@ -91,14 +112,22 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
-        - name: conf-5g-config
+        - name: {{ include "nkafka-helm.fullname" . }}-5g-config
           configMap:
-            name: conf-5g-config
-        - name: conf-5g-topics
+            name: {{ include "nkafka-helm.fullname" . }}-5g-config
+
+        - name: {{ include "nkafka-helm.fullname" . }}-5g-topics
           configMap:
-            name: conf-5g-topics
-        {{ if .Values.accelleranLicense.enabled }}
+            name: {{ include "nkafka-helm.fullname" . }}-5g-topics
+
+        {{ if .Values.configs.logAllTopics }}
+        - name: {{ include "nkafka-helm.fullname" . }}-all-topics
+          configMap:
+            name: {{ include "nkafka-helm.fullname" . }}-all-topics
+        {{ end }}
+
+        {{ if eq (tpl .Values.accelleranLicense.enabled .) "true" }}
         - name: accelleran-license
           secret:
-            secretName: {{ .Values.accelleranLicense.licenseSecretName}}
+            secretName: {{ tpl .Values.accelleranLicense.licenseSecretName . }}
         {{ end }}

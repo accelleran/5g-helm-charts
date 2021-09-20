@@ -39,6 +39,8 @@ redisConfig:
 bootstrapId: "cucp1"
 bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
+jaegerAgentHost: "ric-jaeger-agent"
+
 extraEnvs:
   - name: __APPNAME
     value: f1pap

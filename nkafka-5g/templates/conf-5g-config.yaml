@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: conf-5g-config
+  name: {{ include "nkafka-helm.fullname" . }}-5g-config
 data:
   5GConfig.toml: |-
     protobuf_file="messages_5g.pb"

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: conf-5g-topics
+  name: {{ include "nkafka-helm.fullname" . }}-5g-topics
 data:
   5GKafkaTopics.toml: |-
     [[translate]]
@@ -21,7 +21,7 @@ data:
     kafka_topic="accelleran.drax.5g.ric.raw.cu_state"
 
     [[translate]]
-    nats_topic="5G_MEAS_INFO.*.*.*.*"
+    nats_topic="5G_MEAS_INFO.ENB=*.DU=*.CELL=*.UE=*"
     kafka_topic="accelleran.drax.5g.ric.raw.ue_measurements"
 
     [[translate]]

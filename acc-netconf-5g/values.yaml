@@ -65,6 +65,10 @@ redisConfig:
   hostname: "10.55.1.2"
   port: "32200"
 
+nats:
+  url: "10.55.1.2"
+  port: "31100"
+
 
 # The boostrap id should contain only lower case aplhanumeric characters and/or '-', start with an alphabetic character, and end with an alphanumeric character
 bootstrapId: "cuup1"

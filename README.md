@@ -3,10 +3,43 @@
 ## Helm Chart repository
 |NAME   |CHART VERSION   |APP VERSION   |DESCRIPTION   |
 |---|---|---|---|
-| acc-5g-helm/acc-5g-cu-cp       |         1.0.0   |        master-a9ace0a        |          Accelleran 5G CU CP Components                     |
-| acc-5g-helm/acc-5g-cu-up        |        1.0.0      |     master-a9ace0a         |         Accelleran 5G CU UP Components                     |
+| acc-5g-helm/acc-5g-cu-cp       |         2.0.0   |        release-2.2-chimay-16fb940        |          Accelleran 5G CU CP Components                     |
+| acc-5g-helm/acc-5g-cu-up        |        2.0.0      |     release-2.2-chimay-16fb940         |         Accelleran 5G CU UP Components                     |
 | acc-5g-helm/acc-5g-infrastructure    |   0.2.0      |       0.2.0                      |        The infrastructure for the Accelleran 5G CU Components |
-| acc-5g-helm/nkafka-5g           |        0.2.1     |      alpha.6756d8d_proto.a9ace0a72 |  The NKafka-5G                        |
+| acc-5g-helm/nkafka-5g           |        0.3.0     |      0.6.6_proto.16fb94008 |  The NKafka-5G                        |
+
+## UNRELEASED
+### Removed
+- acc-5g-cu-cp [2.0.0-rc.1]
+  - Removing DS CTRL parameter rel_msecs
+### Added
+- acc-5g-cu-cp [2.0.0-rc.1]
+  - Adding NATS_SERVICE_URL as env variable to netconf pod
+- acc-5g-cu-cp [2.0.0-rc.3]
+  - Adding Handover Tester application, with default install set to false
+  - Exposing Handover Tester port 1337 on nodePort 31337
+- acc-5g-cu-cp [2.0.0-rc.4]
+  - Adding Jaeger agent host configuration as env var
+- acc-5g-cu-up [2.0.0-rc.1]
+  - Adding NATS_SERVICE_URL as env variable to netconf pod
+- acc-5g-cu-up [2.0.0-rc.4]
+  - Adding Jaeger agent host configuration as env var
+- acc-5g-infrastructure [0.3.0]
+  - Adding Jaeger 
+### Changed
+- acc-5g-cu-cp [2.0.0-rc2]
+  - Updating to use "release-2.2-chimay-966d907" as 5G software
+- acc-5g-cu-cp [2.0.0-rc.3]
+  - Updating to use "release-2.2-chimay-fb09544" as 5G software
+- acc-5g-cu-up [2.0.0-rc2]
+  - Updating to use "release-2.2-chimay-966d907" as 5G software
+- acc-5g-cu-up [2.0.0-rc.3]
+  - Updating to use "release-2.2-chimay-fb09544" as 5G software
+- nkafka-5g [0.3.0]
+  - Updated to use version "0.6.6_proto.16fb94008"
+  - Updated helm chart for latest version
+- acc-netconf-5g [0.6.1]
+  - Update to use "release-2.2-chimay-966d907" as 5G software
 
 ## 2021-07-23
 ### Changed

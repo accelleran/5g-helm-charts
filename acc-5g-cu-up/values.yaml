@@ -35,7 +35,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "master-a9ace0a"
+  tag: "release-2.2-chimay-789ed9a"
 
 
   # Redis settings
@@ -68,6 +68,14 @@ global:
   #
   draxNodeSelectorEnabled: "false"
   draxName: "main"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  #   Example:
+  # jaegerAgentHost: "ric-jaeger-agent"
+  jaegerAgentHost: "ric-jaeger-agent"
+
 
 cu-up:
   # Enable or disable installation of component
@@ -166,6 +174,11 @@ cu-up:
   #  gtpService:
   #    loadBalancerIP: "10.55.1.20"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 e1-sctp-up:
 
   # Enable or disable installation of component
@@ -252,6 +265,11 @@ e1-sctp-up:
   # bootstrapId: "{{ .Values.global.instanceId }}"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 res-mgr-up:
 
@@ -340,6 +358,11 @@ res-mgr-up:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 netconf:
   # Enable or disable installation of component
   #   Value type: boolean
@@ -399,6 +422,21 @@ netconf:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
+
+
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
+    port: "{{ .Values.global.natsPort }}"
 
 
   # Bootstrap Instance ID
@@ -518,3 +556,8 @@ pm-controller-up:
   # bootstrapId: "cuup_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"

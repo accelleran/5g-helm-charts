@@ -49,7 +49,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "master-a9ace0a"
+  tag: "release-2.2-chimay-789ed9a"
 
 
   # Redis settings
@@ -82,6 +82,12 @@ global:
   #
   draxNodeSelectorEnabled: "false"
   draxName: "main"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  #   Example: jaegerAgentHost: "ric-jaeger-agent"
+  jaegerAgentHost: "ric-jaeger-agent"
 
 netconf:
   # Enable or disable installation of component
@@ -142,6 +148,21 @@ netconf:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
+
+
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
+    port: "{{ .Values.global.natsPort }}"
 
 
   # Bootstrap Instance ID
@@ -262,6 +283,11 @@ amf-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 cu-up-controller:
 
   # Enable or disable installation of component
@@ -349,6 +375,11 @@ cu-up-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 ds-ctrl:
 
   # Enable or disable installation of component
@@ -427,9 +458,6 @@ ds-ctrl:
   #   - name: "--rel_msec"
   #     value: "0"
   #
-  args:
-    - name: "--rel_msec"
-      value: "0"
 
 
   # REDIS Settings
@@ -456,6 +484,11 @@ ds-ctrl:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 du-controller:
 
@@ -543,6 +576,11 @@ du-controller:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 e1-cp:
 
@@ -634,6 +672,11 @@ e1-cp:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 f1-ap:
 
   # Enable or disable installation of component
@@ -723,6 +766,11 @@ f1-ap:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 gnb-controller:
 
   # Enable or disable installation of component
@@ -809,6 +857,11 @@ gnb-controller:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 ng-ap:
 
@@ -899,6 +952,11 @@ ng-ap:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 pm-controller:
 
   # Enable or disable installation of component
@@ -986,6 +1044,11 @@ pm-controller:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
 res-mgr:
 
   # Enable or disable installation of component
@@ -1072,6 +1135,11 @@ res-mgr:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 rr-ctrl:
 
@@ -1164,6 +1232,11 @@ rr-ctrl:
   # bootstrapId: "cucp_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 sctp:
 
@@ -1278,8 +1351,99 @@ sctp:
 #  e1Service:
 #    loadBalancerIP: "10.55.1.32"
 
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
+ho-tester:
+
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
+  enabled: false
 
 
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
 
 
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
+  image:
+    tag: "{{ .Values.global.tag }}"
 
+
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
+    port: "{{ .Values.global.natsPort }}"
+
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cucp_1"
+  #
+  bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"

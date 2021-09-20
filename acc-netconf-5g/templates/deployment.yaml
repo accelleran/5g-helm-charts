@@ -87,6 +87,8 @@ spec:
               value: {{ tpl .Values.bootstrapId . }}
             - name: BOOTSTRAP_FILENAME
               value: {{ .Values.bootstrapFile }}
+            - name: NATS_SERVICE_URL
+              value: "nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}"
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
@@ -179,6 +181,8 @@ spec:
               value: {{ tpl .Values.bootstrapId . }}
             - name: BOOTSTRAP_FILENAME
               value: {{ .Values.bootstrapFile }}
+            - name: NATS_SERVICE_URL
+              value: "nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}"
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
