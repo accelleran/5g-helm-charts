@@ -1,5 +1,7 @@
 #############################################################################
 
+Accelleran CU-UP {{ .Chart.Version }} using {{ .Values.global.tag }}
+
 Deployed Accelleran CU-CP component [{{- include "preFlightCheck.instanceIdLength" . }}] with the following details:
 
 Tag: {{ tpl .Values.global.tag . }}
@@ -20,5 +22,9 @@ Nats Configuration: {{ tpl .Values.global.natsUrl . }}:{{ tpl .Values.global.nat
 {{ if eq (tpl .Values.global.draxNodeSelectorEnabled .) "true" }}
 The CU-CP component is installed on the Kubernetes node with the following dRAX Node Selector Name: {{ tpl .Values.global.draxName . }}
 {{ end }}
+
+Release notes:
+# Fixed:
+- Fixed 5G CU Jaeger DNS crash
 
 #############################################################################

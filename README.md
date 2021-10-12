@@ -8,32 +8,32 @@
 | acc-5g-helm/acc-5g-infrastructure    |   0.2.0      |       0.2.0                      |        The infrastructure for the Accelleran 5G CU Components |
 | acc-5g-helm/nkafka-5g           |        0.3.0     |      0.6.6_proto.16fb94008 |  The NKafka-5G                        |
 
-## UNRELEASED
+## Unreleased
+### Fixed
+- acc-5g-cu-cp [2.0.1-rc.0]
+  - Fixed Jaeger DNS issue
+- acc-5g-cu-up [2.0.1-rc.0]
+  - Fixed Jaeger DNS issue
+
+## 20.09.2021.
 ### Removed
-- acc-5g-cu-cp [2.0.0-rc.1]
+- acc-5g-cu-cp [2.0.0]
   - Removing DS CTRL parameter rel_msecs
 ### Added
-- acc-5g-cu-cp [2.0.0-rc.1]
+- acc-5g-cu-cp [2.0.0]
   - Adding NATS_SERVICE_URL as env variable to netconf pod
-- acc-5g-cu-cp [2.0.0-rc.3]
   - Adding Handover Tester application, with default install set to false
   - Exposing Handover Tester port 1337 on nodePort 31337
-- acc-5g-cu-cp [2.0.0-rc.4]
   - Adding Jaeger agent host configuration as env var
-- acc-5g-cu-up [2.0.0-rc.1]
+- acc-5g-cu-up [2.0.0]
   - Adding NATS_SERVICE_URL as env variable to netconf pod
-- acc-5g-cu-up [2.0.0-rc.4]
   - Adding Jaeger agent host configuration as env var
 - acc-5g-infrastructure [0.3.0]
   - Adding Jaeger 
 ### Changed
-- acc-5g-cu-cp [2.0.0-rc2]
-  - Updating to use "release-2.2-chimay-966d907" as 5G software
-- acc-5g-cu-cp [2.0.0-rc.3]
+- acc-5g-cu-cp [2.0.0]
   - Updating to use "release-2.2-chimay-fb09544" as 5G software
-- acc-5g-cu-up [2.0.0-rc2]
-  - Updating to use "release-2.2-chimay-966d907" as 5G software
-- acc-5g-cu-up [2.0.0-rc.3]
+- acc-5g-cu-up [2.0.0]
   - Updating to use "release-2.2-chimay-fb09544" as 5G software
 - nkafka-5g [0.3.0]
   - Updated to use version "0.6.6_proto.16fb94008"

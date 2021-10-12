@@ -1,0 +1,36 @@
+initGetConfig:
+  - resourceType: 'service'
+    resourceName: 'acc-5g-cu-cp-cucp-1-sctp-f1'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    # Environmental variable have to be ALL CAPS
+    envName: "F1_IP"
+  - resourceType: 'service'
+    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    # Environmental variable have to be ALL CAPS
+    envName: "GTP_IP"
+
+nats:
+  url: "10.55.1.2"
+  port: "31100"
+
+redisConfig:
+  hostname: "10.55.1.2"
+  port: "32200"
+
+bootstrapId: "cucp-1"
+
+extraEnvs:
+  - name: __APPNAME
+    value: "controllerTester"
+  - name: TESTER_CUCP_INSTANCE_ID
+    value: "cucp-1"
+  - name: TESTER_CUUP_1_INSTANCE_ID
+    value: "cuup-1"
+  - name: TESTER_CUUP_2_INSTANCE_ID
+    value: "cuup-2"
+
+ngControlService:
+  loadBalancerIP: "10.55.1.41"
