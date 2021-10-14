@@ -10,8 +10,8 @@ mgr = Manager(session, timeout=120)
 defPathCuCp = """<config>
 <gnb-cu-cp xmlns="http://accelleran.com/ns/yang/accelleran-gnb-cu-cp" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
 	<plmn-id>00101</plmn-id>
-	<gnb-id>4000000000</gnb-id>
-	<gnb-id-length>32</gnb-id-length>
+	<gnb-id>1</gnb-id>
+	<gnb-id-length>27</gnb-id-length>
 	<gnb-cu-cp-name>accelleran-gnb</gnb-cu-cp-name>
 	<admin-state>unlocked</admin-state>
 	
@@ -45,8 +45,9 @@ defPathCuCp = """<config>
 			</sctp-policy>
 		</ng-c-link-policy>
 		
-		<ng-c-link xc:operation="create">
-			<dest-ip-address>10.55.1.41</dest-ip-address>
+		<ng-c-link xc:operation="create">			
+			<dest-address>acc-5g-tester-ng-control</dest-address>
+			<default-amf>true</default-amf>
 		</ng-c-link>
 		
 	</operator>

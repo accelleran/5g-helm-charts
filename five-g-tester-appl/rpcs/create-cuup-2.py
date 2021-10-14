@@ -15,7 +15,6 @@ defPathCuUp = """<config>
         <up-integrity-protection-enabled>false</up-integrity-protection-enabled>
         <up-ciphering-enabled>true</up-ciphering-enabled>
 
-
         <e1-link-policy xc:operation="create">
                 <sctp-policy xc:operation="create">
                         <in-streams>1</in-streams>
@@ -24,7 +23,7 @@ defPathCuUp = """<config>
         </e1-link-policy>
         
         <e1-link xc:operation="create">
-                <dest-ip-address>10.55.1.50</dest-ip-address>
+                <dest-address>acc-5g-cu-cp-cucp-1-sctp-e1</dest-address>
         </e1-link>
         <supported-plmn-slices xc:operation="create">
                 <plmn-id>00202</plmn-id>
