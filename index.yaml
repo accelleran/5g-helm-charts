@@ -2,8 +2,75 @@ apiVersion: v1
 entries:
   acc-5g-cu-cp:
   - apiVersion: v2
+    appVersion: release-2.3-duvel-ef1b7694
+    created: "2021-10-15T10:24:40.0588305+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.1
+    - condition: amf-controller.enabled
+      name: amf-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: cu-up-controller.enabled
+      name: cu-up-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ds-ctrl.enabled
+      name: ds-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.0
+    - condition: du-controller.enabled
+      name: du-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-cp.enabled
+      name: e1-cp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: f1-ap.enabled
+      name: f1-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: gnb-controller.enabled
+      name: gnb-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ng-ap.enabled
+      name: ng-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller.enabled
+      name: pm-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr.enabled
+      name: res-mgr
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: rr-ctrl.enabled
+      name: rr-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: sctp.enabled
+      name: sctp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ho-tester.enabled
+      name: ho-tester
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.2.0
+    description: Accelleran 5G CU CP Components
+    digest: c932a33bde70ab742b137119eb6fab6e584cb97d24dfef265e2dd3b501a2c7e0
+    name: acc-5g-cu-cp
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-cp-3.0.0-rc1.tgz
+    version: 3.0.0-rc1
+  - apiVersion: v2
     appVersion: release-2.3-duvel-7c32f26b
-    created: "2021-10-14T11:43:26.6658115+02:00"
+    created: "2021-10-15T10:24:40.0498326+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -70,7 +137,7 @@ entries:
     version: 3.0.0-rc0
   - apiVersion: v2
     appVersion: release-2.2-chimay-f87340a
-    created: "2021-10-14T11:43:26.6567853+02:00"
+    created: "2021-10-15T10:24:40.0407835+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -137,7 +204,7 @@ entries:
     version: 2.0.1-rc0
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2021-10-14T11:43:26.6407803+02:00"
+    created: "2021-10-15T10:24:40.0328154+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -204,7 +271,7 @@ entries:
     version: 2.0.0
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2021-10-14T11:43:26.6257805+02:00"
+    created: "2021-10-15T10:24:40.022791+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -271,7 +338,7 @@ entries:
     version: 2.0.0-rc5
   - apiVersion: v2
     appVersion: release-2.2-chimay-fb09544
-    created: "2021-10-14T11:43:26.6157809+02:00"
+    created: "2021-10-15T10:24:40.0146924+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -338,7 +405,7 @@ entries:
     version: 2.0.0-rc4
   - apiVersion: v2
     appVersion: release-2.2-chimay-fb09544
-    created: "2021-10-14T11:43:26.6007804+02:00"
+    created: "2021-10-15T10:24:40.0036594+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -405,7 +472,7 @@ entries:
     version: 2.0.0-rc3
   - apiVersion: v2
     appVersion: release-2.2-chimay-966d907
-    created: "2021-10-14T11:43:26.5877826+02:00"
+    created: "2021-10-15T10:24:39.9906917+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -468,7 +535,7 @@ entries:
     version: 2.0.0-rc2
   - apiVersion: v2
     appVersion: release-2.2-chimay-16fb940
-    created: "2021-10-14T11:43:26.5737827+02:00"
+    created: "2021-10-15T10:24:39.9786914+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -531,7 +598,7 @@ entries:
     version: 2.0.0-rc.1
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-14T11:43:26.5652377+02:00"
+    created: "2021-10-15T10:24:39.9686611+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -594,7 +661,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-14T11:43:26.5561986+02:00"
+    created: "2021-10-15T10:24:39.9606918+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -657,7 +724,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-14T11:43:26.5431973+02:00"
+    created: "2021-10-15T10:24:39.9436593+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -720,7 +787,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: master-5360974
-    created: "2021-10-14T11:43:26.5272371+02:00"
+    created: "2021-10-15T10:24:39.9316577+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -783,7 +850,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: master-5defcff
-    created: "2021-10-14T11:43:26.5152311+02:00"
+    created: "2021-10-15T10:24:39.9186907+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -846,7 +913,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-14T11:43:26.504199+02:00"
+    created: "2021-10-15T10:24:39.9097228+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -909,7 +976,7 @@ entries:
     version: 0.4.2
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-14T11:43:26.4912029+02:00"
+    created: "2021-10-15T10:24:39.8957541+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -972,7 +1039,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-14T11:43:26.4792074+02:00"
+    created: "2021-10-15T10:24:39.881739+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1035,7 +1102,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-14T11:43:26.466204+02:00"
+    created: "2021-10-15T10:24:39.8727185+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1098,7 +1165,7 @@ entries:
     version: 0.3.3
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-14T11:43:26.4531714+02:00"
+    created: "2021-10-15T10:24:39.8618686+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1161,7 +1228,7 @@ entries:
     version: 0.3.2
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-14T11:43:26.4421756+02:00"
+    created: "2021-10-15T10:24:39.8506498+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1224,7 +1291,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-14T11:43:26.4274761+02:00"
+    created: "2021-10-15T10:24:39.8386059+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1287,8 +1354,39 @@ entries:
     version: 0.3.0
   acc-5g-cu-up:
   - apiVersion: v2
+    appVersion: release-2.3-duvel-ef1b7694
+    created: "2021-10-15T10:24:40.1572888+02:00"
+    dependencies:
+    - condition: cu-up.enabled
+      name: cu-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-sctp-up.enabled
+      name: e1-sctp-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr-up.enabled
+      name: res-mgr-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.1
+    - condition: pm-controller-up.enabled
+      name: pm-controller-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.3.0
+    description: Accelleran 5G CU UP Components
+    digest: c18c9ff3c7ad5164de4de42b1b0dc61a4ce889cdff0bcca83c058c6676a241bc
+    name: acc-5g-cu-up
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-3.0.0-rc1.tgz
+    version: 3.0.0-rc1
+  - apiVersion: v2
     appVersion: release-2.3-duvel-7c32f26b
-    created: "2021-10-14T11:43:26.7616231+02:00"
+    created: "2021-10-15T10:24:40.1542925+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1319,7 +1417,7 @@ entries:
     version: 3.0.0-rc0
   - apiVersion: v2
     appVersion: release-2.2-chimay-f87340a
-    created: "2021-10-14T11:43:26.7546506+02:00"
+    created: "2021-10-15T10:24:40.1502888+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1350,7 +1448,7 @@ entries:
     version: 2.0.1-rc0
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2021-10-14T11:43:26.7506508+02:00"
+    created: "2021-10-15T10:24:40.146324+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1381,7 +1479,7 @@ entries:
     version: 2.0.0
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2021-10-14T11:43:26.746684+02:00"
+    created: "2021-10-15T10:24:40.1392855+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1412,7 +1510,7 @@ entries:
     version: 2.0.0-rc5
   - apiVersion: v2
     appVersion: release-2.2-chimay-fb09544
-    created: "2021-10-14T11:43:26.741654+02:00"
+    created: "2021-10-15T10:24:40.1352856+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1443,7 +1541,7 @@ entries:
     version: 2.0.0-rc4
   - apiVersion: v2
     appVersion: release-2.2-chimay-fb09544
-    created: "2021-10-14T11:43:26.7359019+02:00"
+    created: "2021-10-15T10:24:40.1312885+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1474,7 +1572,7 @@ entries:
     version: 2.0.0-rc3
   - apiVersion: v2
     appVersion: release-2.2-chimay-966d907
-    created: "2021-10-14T11:43:26.7314124+02:00"
+    created: "2021-10-15T10:24:40.1263205+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1505,7 +1603,7 @@ entries:
     version: 2.0.0-rc2
   - apiVersion: v2
     appVersion: release-2.2-chimay-16fb940
-    created: "2021-10-14T11:43:26.7262146+02:00"
+    created: "2021-10-15T10:24:40.1203358+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1536,7 +1634,7 @@ entries:
     version: 2.0.0-rc.1
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-14T11:43:26.7217785+02:00"
+    created: "2021-10-15T10:24:40.1163213+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1567,7 +1665,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-14T11:43:26.7167769+02:00"
+    created: "2021-10-15T10:24:40.1133202+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1598,7 +1696,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-14T11:43:26.7127772+02:00"
+    created: "2021-10-15T10:24:40.1062017+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1629,7 +1727,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: master-5360974
-    created: "2021-10-14T11:43:26.7077788+02:00"
+    created: "2021-10-15T10:24:40.101652+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1660,7 +1758,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: master-5defcff
-    created: "2021-10-14T11:43:26.7017769+02:00"
+    created: "2021-10-15T10:24:40.0963876+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1687,7 +1785,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-14T11:43:26.697779+02:00"
+    created: "2021-10-15T10:24:40.091822+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1714,7 +1812,7 @@ entries:
     version: 0.4.2
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-14T11:43:26.69378+02:00"
+    created: "2021-10-15T10:24:40.0872589+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1741,7 +1839,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-14T11:43:26.6887768+02:00"
+    created: "2021-10-15T10:24:40.0824784+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1768,7 +1866,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-14T11:43:26.6847793+02:00"
+    created: "2021-10-15T10:24:40.0790634+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1795,7 +1893,7 @@ entries:
     version: 0.3.3
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-14T11:43:26.6817773+02:00"
+    created: "2021-10-15T10:24:40.0735242+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1822,7 +1920,7 @@ entries:
     version: 0.3.2
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-14T11:43:26.6777823+02:00"
+    created: "2021-10-15T10:24:40.06878+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1849,7 +1947,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-14T11:43:26.6707803+02:00"
+    created: "2021-10-15T10:24:40.0637806+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1876,7 +1974,7 @@ entries:
     version: 0.3.0
   acc-5g-infrastructure:
   - apiVersion: v2
-    created: "2021-10-14T11:43:26.8591655+02:00"
+    created: "2021-10-15T10:24:40.2408956+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1902,7 +2000,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v2
-    created: "2021-10-14T11:43:26.8361385+02:00"
+    created: "2021-10-15T10:24:40.2221573+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1928,7 +2026,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-2.0.0-rc1.tgz
     version: 2.0.0-rc1
   - apiVersion: v2
-    created: "2021-10-14T11:43:26.8151348+02:00"
+    created: "2021-10-15T10:24:40.2011919+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1950,7 +2048,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-1.0.0.tgz
     version: 1.0.0
   - apiVersion: v2
-    created: "2021-10-14T11:43:26.8101372+02:00"
+    created: "2021-10-15T10:24:40.1961638+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1976,7 +2074,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
-    created: "2021-10-14T11:43:26.7856083+02:00"
+    created: "2021-10-15T10:24:40.174163+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1998,7 +2096,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
-    created: "2021-10-14T11:43:26.7769423+02:00"
+    created: "2021-10-15T10:24:40.1688556+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -2020,7 +2118,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
-    created: "2021-10-14T11:43:26.7689433+02:00"
+    created: "2021-10-15T10:24:40.1648571+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -2044,7 +2142,7 @@ entries:
   nkafka-5g:
   - apiVersion: v2
     appVersion: 0.6.10_proto.789ed9a3c
-    created: "2021-10-14T11:43:26.8691422+02:00"
+    created: "2021-10-15T10:24:40.2507878+02:00"
     description: A Helm chart for Kubernetes
     digest: f78b0ed865422ffdaf77bf7263df45ecc009c3d95b68973fc6aff414c1f686cf
     name: nkafka-5g
@@ -2054,7 +2152,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.6.10_proto.789ed9a3c
-    created: "2021-10-14T11:43:26.8681375+02:00"
+    created: "2021-10-15T10:24:40.2497872+02:00"
     description: A Helm chart for Kubernetes
     digest: a1a2f059439b79c840e239c5cfbd43ab741232082a0b15497d526bb53b8ca76e
     name: nkafka-5g
@@ -2064,7 +2162,7 @@ entries:
     version: 0.5.0-rc1
   - apiVersion: v2
     appVersion: 0.6.8_proto.76fab231a
-    created: "2021-10-14T11:43:26.8661384+02:00"
+    created: "2021-10-15T10:24:40.2482603+02:00"
     description: A Helm chart for Kubernetes
     digest: 9e998f03e3f588ad22629e9100948cf84c9d6a073157dc463a5a7560341b5c31
     name: nkafka-5g
@@ -2074,7 +2172,7 @@ entries:
     version: 0.5.0-beta
   - apiVersion: v2
     appVersion: 0.6.6_proto.16fb94008
-    created: "2021-10-14T11:43:26.8651384+02:00"
+    created: "2021-10-15T10:24:40.2458931+02:00"
     description: A Helm chart for Kubernetes
     digest: 36b82c8db3bef94182e681cc432db8b4592d1d37f4cccc074146354f32cecfa9
     name: nkafka-5g
@@ -2084,7 +2182,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: alpha.6756d8d_proto.a9ace0a72
-    created: "2021-10-14T11:43:26.8631689+02:00"
+    created: "2021-10-15T10:24:40.2448921+02:00"
     description: A Helm chart for Kubernetes
     digest: e191f1919542a01a3eedac66404ee12fcb50f7ae9420391eb6367e350b331149
     name: nkafka-5g
@@ -2094,7 +2192,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: alpha.6756d8d_proto.a9ace0a72
-    created: "2021-10-14T11:43:26.8621655+02:00"
+    created: "2021-10-15T10:24:40.2438925+02:00"
     description: A Helm chart for Kubernetes
     digest: 0b7ecc27158115e873a0f565dd3fd9d35d2e95341ad43b08532073c844fedad6
     name: nkafka-5g
@@ -2104,7 +2202,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: alpha.8bb326c_proto.c5a3189b4
-    created: "2021-10-14T11:43:26.8601371+02:00"
+    created: "2021-10-15T10:24:40.2428917+02:00"
     description: A Helm chart for Kubernetes
     digest: 27aafd54cfbe0454506a30e5e12ec812e616128ff4f27b0e151faeea702ff803
     name: nkafka-5g
@@ -2112,4 +2210,4 @@ entries:
     urls:
     - https://accelleran.github.io/5g-helm-charts/nkafka-5g-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-14T11:43:26.415183+02:00"
+generated: "2021-10-15T10:24:39.8276354+02:00"
