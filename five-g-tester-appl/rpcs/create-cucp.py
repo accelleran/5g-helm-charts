@@ -46,7 +46,7 @@ defPathCuCp = """<config>
 		</ng-c-link-policy>
 		
 		<ng-c-link xc:operation="create">			
-			<dest-address>acc-5g-tester-ng-control</dest-address>
+			<dest-address>acc-5g-tester-acc-fiveg-tester-appl-ng-control</dest-address>
 			<default-amf>true</default-amf>
 		</ng-c-link>
 		
