@@ -1,7 +1,7 @@
 from netconf_client.connect import connect_ssh
 from netconf_client.ncclient import Manager
 
-HOST = "10.55.1.2"
+HOST = "172.31.36.102"
 PORT = 31832
 
 session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
