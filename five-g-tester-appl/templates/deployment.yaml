@@ -79,6 +79,8 @@ spec:
 
               echo "{{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}" > start-5g-tester.sh
 
+              chmod +x start-5g-tester.sh
+
               while true; do sleep 30; done;
 
               EOF
