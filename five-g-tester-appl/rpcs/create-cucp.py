@@ -51,6 +51,7 @@ defPathCuCp = """<config>
 		</ng-c-link>
 		<ng-c-link xc:operation="create">
 			<dest-address>10.55.1.42</dest-address>
+			<default-amf>false</default-amf>
 		</ng-c-link>
 		
 	</operator>

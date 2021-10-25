@@ -3,16 +3,35 @@
 ## Helm Chart repository
 |NAME   |CHART VERSION   |APP VERSION   |DESCRIPTION   |
 |---|---|---|---|
-| acc-5g-helm/acc-5g-cu-cp       |         2.0.0   |        release-2.2-chimay-16fb940        |          Accelleran 5G CU CP Components                     |
-| acc-5g-helm/acc-5g-cu-up        |        2.0.0      |     release-2.2-chimay-16fb940         |         Accelleran 5G CU UP Components                     |
-| acc-5g-helm/acc-5g-infrastructure    |   0.2.0      |       0.2.0                      |        The infrastructure for the Accelleran 5G CU Components |
-| acc-5g-helm/nkafka-5g           |        0.3.0     |      0.6.6_proto.16fb94008 |  The NKafka-5G                        |
+| acc-5g-helm/acc-5g-cu-cp       |         3.0.0   |        release-2.3-duvel-f608a008        |          Accelleran 5G CU CP Components                     |
+| acc-5g-helm/acc-5g-cu-up        |        3.0.0      |     release-2.3-duvel-f608a008         |         Accelleran 5G CU UP Components                     |
+| acc-5g-helm/acc-5g-infrastructure    |   3.0.0      |       3.0.0                      |        The infrastructure for the Accelleran 5G CU Components |
+| acc-5g-helm/nkafka-5g           |        3.0.0     |      0.6.10_proto.f608a0084 |  The NKafka-5G                        |
 
-## Unreleased
+## Unreleased [3.0.0-rc2]
+### Added
+  - Intra gNB Intra-Frequency Handover: Completion of inter DU handover - implementation of full user plane handling: nrUpp switch to target ul/dl tnl info
+  - DNS support: Support in CU-CP and CU-UP, allowing addresses to be configured as Fully Qualified Domain Names: REDIS, NATS, NG link addresses and E1 link address towards CU-CP.
+  - E2KPI Service Model: "Support E2SmKpm v1.0 basic scenario's: subscriptions and indications"
+### Updated
+  - Updated 5G Infrastructure to match version 
+  - Updated NKafka-5G to 0.6.10_proto.f608a0084 to match 5G CU version
 ### Fixed
-- acc-5g-cu-cp [2.0.1-rc.0]
+  - CU-CP controller:   UE connection not cleared in AMF at NgErrorIndication cause=semantic_error
+  - CU-CP controller:   Unnecessary error trace at valid race condition - activation attempt of cell and sctp association failure towards the cells DU
+  - CU-CP controller:	RRC Setup Request lost in CU-UP when all dsCtrls busy, no RRC Reject sent to UE 
+  - CU-CP controller:	FQDN resolution failure of all AMF addresses should result in retry 
+  - CU-CP controller:	regular expression issue in fqdn pattern 
+  - CU-CP controller:	ErrorIndication in response to NgUeCtxtReleaseRequest should trigger UE RESET procedure 
+  - CU-CP controller:	AvailablePlmnID list not included in F1 GnbCuConfigUpdate when one or more servedPlmns are not supported 
+### Limitations
+  - Errors detected during execution of UE control procedure will trigger UE release - no support for rollback to previous configuration
+
+## 18.10.2021. [2.0.1]
+### Fixed
+- acc-5g-cu-cp [2.0.1]
   - Fixed Jaeger DNS issue
-- acc-5g-cu-up [2.0.1-rc.0]
+- acc-5g-cu-up [2.0.1]
   - Fixed Jaeger DNS issue
 
 ## 20.09.2021.
