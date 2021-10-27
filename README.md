@@ -8,14 +8,15 @@
 | acc-5g-helm/acc-5g-infrastructure    |   3.0.0      |       3.0.0                      |        The infrastructure for the Accelleran 5G CU Components |
 | acc-5g-helm/nkafka-5g           |        3.0.0     |      0.6.10_proto.f608a0084 |  The NKafka-5G                        |
 
-## Unreleased [3.0.0-rc2]
+## Unreleased [3.0.0-rc5]
 ### Added
   - Intra gNB Intra-Frequency Handover: Completion of inter DU handover - implementation of full user plane handling: nrUpp switch to target ul/dl tnl info
   - DNS support: Support in CU-CP and CU-UP, allowing addresses to be configured as Fully Qualified Domain Names: REDIS, NATS, NG link addresses and E1 link address towards CU-CP.
   - E2KPI Service Model: "Support E2SmKpm v1.0 basic scenario's: subscriptions and indications"
 ### Updated
+  - Updated 5G CU to release-2.3-duvel-2fc276e4
   - Updated 5G Infrastructure to match version 
-  - Updated NKafka-5G to 0.6.10_proto.f608a0084 to match 5G CU version
+  - Updated NKafka-5G to 0.6.10_proto.2fc276e4d to match 5G CU version
 ### Fixed
   - CU-CP controller:   UE connection not cleared in AMF at NgErrorIndication cause=semantic_error
   - CU-CP controller:   Unnecessary error trace at valid race condition - activation attempt of cell and sctp association failure towards the cells DU

@@ -20,4 +20,4 @@ version: 3.0.0-rc4
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: "release-2.3-duvel-f608a008"
+appVersion: "release-2.3-duvel-2fc276e4"
