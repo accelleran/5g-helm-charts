@@ -2,8 +2,410 @@ apiVersion: v1
 entries:
   acc-5g-cu-cp:
   - apiVersion: v2
+    appVersion: release-2.3-duvel-2fc276e4
+    created: "2021-10-28T11:39:30.488053358+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: amf-controller.enabled
+      name: amf-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: cu-up-controller.enabled
+      name: cu-up-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ds-ctrl.enabled
+      name: ds-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.0
+    - condition: du-controller.enabled
+      name: du-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-cp.enabled
+      name: e1-cp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: f1-ap.enabled
+      name: f1-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: gnb-controller.enabled
+      name: gnb-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ng-ap.enabled
+      name: ng-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller.enabled
+      name: pm-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr.enabled
+      name: res-mgr
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: rr-ctrl.enabled
+      name: rr-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: sctp.enabled
+      name: sctp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ho-tester.enabled
+      name: ho-tester
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.2.0
+    description: Accelleran 5G CU CP Components
+    digest: f0b531a6b6a39bcc52e53d150328f392ced580be92e9dd476cd72ed394b24d0d
+    name: acc-5g-cu-cp
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-cp-3.0.0-rc5.tgz
+    version: 3.0.0-rc5
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-f608a008
+    created: "2021-10-28T11:39:30.471528884+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: amf-controller.enabled
+      name: amf-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: cu-up-controller.enabled
+      name: cu-up-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ds-ctrl.enabled
+      name: ds-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.0
+    - condition: du-controller.enabled
+      name: du-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-cp.enabled
+      name: e1-cp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: f1-ap.enabled
+      name: f1-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: gnb-controller.enabled
+      name: gnb-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ng-ap.enabled
+      name: ng-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller.enabled
+      name: pm-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr.enabled
+      name: res-mgr
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: rr-ctrl.enabled
+      name: rr-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: sctp.enabled
+      name: sctp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ho-tester.enabled
+      name: ho-tester
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.2.0
+    description: Accelleran 5G CU CP Components
+    digest: 20ceb6afba9efdb1d9958925c5b3b8f35e550192e05bdc2c516947c7ddf6b031
+    name: acc-5g-cu-cp
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-cp-3.0.0-rc4.tgz
+    version: 3.0.0-rc4
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-dc7795e4
+    created: "2021-10-28T11:39:30.45689162+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: amf-controller.enabled
+      name: amf-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: cu-up-controller.enabled
+      name: cu-up-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ds-ctrl.enabled
+      name: ds-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.0
+    - condition: du-controller.enabled
+      name: du-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-cp.enabled
+      name: e1-cp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: f1-ap.enabled
+      name: f1-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: gnb-controller.enabled
+      name: gnb-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ng-ap.enabled
+      name: ng-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller.enabled
+      name: pm-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr.enabled
+      name: res-mgr
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: rr-ctrl.enabled
+      name: rr-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: sctp.enabled
+      name: sctp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ho-tester.enabled
+      name: ho-tester
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.2.0
+    description: Accelleran 5G CU CP Components
+    digest: 072d25e19531140db6ba512c31a36d53a770b1191d03faa919d52b196759a096
+    name: acc-5g-cu-cp
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-cp-3.0.0-rc3.tgz
+    version: 3.0.0-rc3
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-ef1b7694
+    created: "2021-10-28T11:39:30.442001716+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: amf-controller.enabled
+      name: amf-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: cu-up-controller.enabled
+      name: cu-up-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ds-ctrl.enabled
+      name: ds-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.0
+    - condition: du-controller.enabled
+      name: du-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-cp.enabled
+      name: e1-cp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: f1-ap.enabled
+      name: f1-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: gnb-controller.enabled
+      name: gnb-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ng-ap.enabled
+      name: ng-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller.enabled
+      name: pm-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr.enabled
+      name: res-mgr
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: rr-ctrl.enabled
+      name: rr-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: sctp.enabled
+      name: sctp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ho-tester.enabled
+      name: ho-tester
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.2.0
+    description: Accelleran 5G CU CP Components
+    digest: 0a71ab88f3d8afbdb9028f1feefcfb76a79e19abc0fbd7c9f3e268962b3bb01f
+    name: acc-5g-cu-cp
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-cp-3.0.0-rc2.tgz
+    version: 3.0.0-rc2
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-ef1b7694
+    created: "2021-10-28T11:39:30.430464624+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.1
+    - condition: amf-controller.enabled
+      name: amf-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: cu-up-controller.enabled
+      name: cu-up-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ds-ctrl.enabled
+      name: ds-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.0
+    - condition: du-controller.enabled
+      name: du-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-cp.enabled
+      name: e1-cp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: f1-ap.enabled
+      name: f1-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: gnb-controller.enabled
+      name: gnb-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ng-ap.enabled
+      name: ng-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller.enabled
+      name: pm-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr.enabled
+      name: res-mgr
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: rr-ctrl.enabled
+      name: rr-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: sctp.enabled
+      name: sctp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ho-tester.enabled
+      name: ho-tester
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.2.0
+    description: Accelleran 5G CU CP Components
+    digest: c932a33bde70ab742b137119eb6fab6e584cb97d24dfef265e2dd3b501a2c7e0
+    name: acc-5g-cu-cp
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-cp-3.0.0-rc1.tgz
+    version: 3.0.0-rc1
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-7c32f26b
+    created: "2021-10-28T11:39:30.420052954+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.1
+    - condition: amf-controller.enabled
+      name: amf-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: cu-up-controller.enabled
+      name: cu-up-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ds-ctrl.enabled
+      name: ds-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.0
+    - condition: du-controller.enabled
+      name: du-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-cp.enabled
+      name: e1-cp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: f1-ap.enabled
+      name: f1-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: gnb-controller.enabled
+      name: gnb-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ng-ap.enabled
+      name: ng-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller.enabled
+      name: pm-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr.enabled
+      name: res-mgr
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: rr-ctrl.enabled
+      name: rr-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: sctp.enabled
+      name: sctp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ho-tester.enabled
+      name: ho-tester
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.2.0
+    description: Accelleran 5G CU CP Components
+    digest: 34e80bbef38af7ee49d4b67a1d9b62e775029fc07fd2ffa00527e94894fc2f81
+    name: acc-5g-cu-cp
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-cp-3.0.0-rc0.tgz
+    version: 3.0.0-rc0
+  - apiVersion: v2
     appVersion: release-2.2-chimay-f87340a
-    created: "2021-10-12T14:20:35.3555557+02:00"
+    created: "2021-10-28T11:39:30.407952844+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -70,7 +472,7 @@ entries:
     version: 2.0.1-rc0
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2021-10-12T14:20:35.3465222+02:00"
+    created: "2021-10-28T11:39:30.396274407+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -137,7 +539,7 @@ entries:
     version: 2.0.0
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2021-10-12T14:20:35.3355228+02:00"
+    created: "2021-10-28T11:39:30.385839007+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -204,7 +606,7 @@ entries:
     version: 2.0.0-rc5
   - apiVersion: v2
     appVersion: release-2.2-chimay-fb09544
-    created: "2021-10-12T14:20:35.3225257+02:00"
+    created: "2021-10-28T11:39:30.374129061+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -271,7 +673,7 @@ entries:
     version: 2.0.0-rc4
   - apiVersion: v2
     appVersion: release-2.2-chimay-fb09544
-    created: "2021-10-12T14:20:35.3095222+02:00"
+    created: "2021-10-28T11:39:30.363196656+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -338,7 +740,7 @@ entries:
     version: 2.0.0-rc3
   - apiVersion: v2
     appVersion: release-2.2-chimay-966d907
-    created: "2021-10-12T14:20:35.2965565+02:00"
+    created: "2021-10-28T11:39:30.351943061+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -401,7 +803,7 @@ entries:
     version: 2.0.0-rc2
   - apiVersion: v2
     appVersion: release-2.2-chimay-16fb940
-    created: "2021-10-12T14:20:35.2895584+02:00"
+    created: "2021-10-28T11:39:30.341477854+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -464,7 +866,7 @@ entries:
     version: 2.0.0-rc.1
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-12T14:20:35.2795286+02:00"
+    created: "2021-10-28T11:39:30.332125391+02:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -527,7 +929,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-12T14:20:35.2715801+02:00"
+    created: "2021-10-28T11:39:30.322163077+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -590,7 +992,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-12T14:20:35.2595286+02:00"
+    created: "2021-10-28T11:39:30.308964602+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -653,7 +1055,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: master-5360974
-    created: "2021-10-12T14:20:35.2475711+02:00"
+    created: "2021-10-28T11:39:30.296651961+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -716,7 +1118,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: master-5defcff
-    created: "2021-10-12T14:20:35.2355246+02:00"
+    created: "2021-10-28T11:39:30.281819671+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -779,7 +1181,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-12T14:20:35.2265625+02:00"
+    created: "2021-10-28T11:39:30.270538107+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -842,7 +1244,7 @@ entries:
     version: 0.4.2
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-12T14:20:35.2125797+02:00"
+    created: "2021-10-28T11:39:30.254338582+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -905,7 +1307,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-12T14:20:35.1965277+02:00"
+    created: "2021-10-28T11:39:30.238643387+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -968,7 +1370,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-12T14:20:35.184996+02:00"
+    created: "2021-10-28T11:39:30.225030768+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1031,7 +1433,7 @@ entries:
     version: 0.3.3
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-12T14:20:35.1734558+02:00"
+    created: "2021-10-28T11:39:30.210197665+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1094,7 +1496,7 @@ entries:
     version: 0.3.2
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-12T14:20:35.160993+02:00"
+    created: "2021-10-28T11:39:30.195279829+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1157,7 +1559,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-12T14:20:35.1490004+02:00"
+    created: "2021-10-28T11:39:30.178837148+02:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1220,8 +1622,194 @@ entries:
     version: 0.3.0
   acc-5g-cu-up:
   - apiVersion: v2
+    appVersion: release-2.3-duvel-2fc276e4
+    created: "2021-10-28T11:39:30.627911361+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: cu-up.enabled
+      name: cu-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-sctp-up.enabled
+      name: e1-sctp-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr-up.enabled
+      name: res-mgr-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller-up.enabled
+      name: pm-controller-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.3.0
+    description: Accelleran 5G CU UP Components
+    digest: 13b7742bf391da7e9c8d51be0d214542ba528ad3621612d3bac16d414bf4da05
+    name: acc-5g-cu-up
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-3.0.0-rc5.tgz
+    version: 3.0.0-rc5
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-f608a008
+    created: "2021-10-28T11:39:30.623392274+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: cu-up.enabled
+      name: cu-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-sctp-up.enabled
+      name: e1-sctp-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr-up.enabled
+      name: res-mgr-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller-up.enabled
+      name: pm-controller-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.3.0
+    description: Accelleran 5G CU UP Components
+    digest: d22a95df2db77591b2cbec443a7e62dfcfed30336b1e0b4e711c6c84258e51c7
+    name: acc-5g-cu-up
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-3.0.0-rc4.tgz
+    version: 3.0.0-rc4
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-dc7795e4
+    created: "2021-10-28T11:39:30.617884464+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: cu-up.enabled
+      name: cu-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-sctp-up.enabled
+      name: e1-sctp-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr-up.enabled
+      name: res-mgr-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller-up.enabled
+      name: pm-controller-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.3.0
+    description: Accelleran 5G CU UP Components
+    digest: 9ce13856f0d9738da23ec24cd842e826aa55e02376fa8614a9ea17becac402d2
+    name: acc-5g-cu-up
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-3.0.0-rc3.tgz
+    version: 3.0.0-rc3
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-ef1b7694
+    created: "2021-10-28T11:39:30.613176597+02:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: cu-up.enabled
+      name: cu-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-sctp-up.enabled
+      name: e1-sctp-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr-up.enabled
+      name: res-mgr-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller-up.enabled
+      name: pm-controller-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.3.0
+    description: Accelleran 5G CU UP Components
+    digest: 8701de41d25086cadb01006a29915c121d90773416829b2c08cffec7761b7434
+    name: acc-5g-cu-up
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-3.0.0-rc2.tgz
+    version: 3.0.0-rc2
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-ef1b7694
+    created: "2021-10-28T11:39:30.608475277+02:00"
+    dependencies:
+    - condition: cu-up.enabled
+      name: cu-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-sctp-up.enabled
+      name: e1-sctp-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr-up.enabled
+      name: res-mgr-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.1
+    - condition: pm-controller-up.enabled
+      name: pm-controller-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.3.0
+    description: Accelleran 5G CU UP Components
+    digest: c18c9ff3c7ad5164de4de42b1b0dc61a4ce889cdff0bcca83c058c6676a241bc
+    name: acc-5g-cu-up
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-3.0.0-rc1.tgz
+    version: 3.0.0-rc1
+  - apiVersion: v2
+    appVersion: release-2.3-duvel-7c32f26b
+    created: "2021-10-28T11:39:30.603759811+02:00"
+    dependencies:
+    - condition: cu-up.enabled
+      name: cu-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-sctp-up.enabled
+      name: e1-sctp-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr-up.enabled
+      name: res-mgr-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.1
+    - condition: pm-controller-up.enabled
+      name: pm-controller-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.3.0
+    description: Accelleran 5G CU UP Components
+    digest: af2a585f4ca8d4035542f05b19888779d6e29702edf6b66f09af46cdc188d6f7
+    name: acc-5g-cu-up
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-3.0.0-rc0.tgz
+    version: 3.0.0-rc0
+  - apiVersion: v2
     appVersion: release-2.2-chimay-f87340a
-    created: "2021-10-12T14:20:35.4484723+02:00"
+    created: "2021-10-28T11:39:30.597842991+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1252,7 +1840,7 @@ entries:
     version: 2.0.1-rc0
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2021-10-12T14:20:35.4444379+02:00"
+    created: "2021-10-28T11:39:30.593108327+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1283,7 +1871,7 @@ entries:
     version: 2.0.0
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2021-10-12T14:20:35.4394498+02:00"
+    created: "2021-10-28T11:39:30.588160909+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1314,7 +1902,7 @@ entries:
     version: 2.0.0-rc5
   - apiVersion: v2
     appVersion: release-2.2-chimay-fb09544
-    created: "2021-10-12T14:20:35.4354746+02:00"
+    created: "2021-10-28T11:39:30.58156872+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1345,7 +1933,7 @@ entries:
     version: 2.0.0-rc4
   - apiVersion: v2
     appVersion: release-2.2-chimay-fb09544
-    created: "2021-10-12T14:20:35.43147+02:00"
+    created: "2021-10-28T11:39:30.576624728+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1376,7 +1964,7 @@ entries:
     version: 2.0.0-rc3
   - apiVersion: v2
     appVersion: release-2.2-chimay-966d907
-    created: "2021-10-12T14:20:35.4269194+02:00"
+    created: "2021-10-28T11:39:30.571757651+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1407,7 +1995,7 @@ entries:
     version: 2.0.0-rc2
   - apiVersion: v2
     appVersion: release-2.2-chimay-16fb940
-    created: "2021-10-12T14:20:35.4231651+02:00"
+    created: "2021-10-28T11:39:30.566774552+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1438,7 +2026,7 @@ entries:
     version: 2.0.0-rc.1
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-12T14:20:35.418971+02:00"
+    created: "2021-10-28T11:39:30.560454195+02:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -1469,7 +2057,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-12T14:20:35.4143734+02:00"
+    created: "2021-10-28T11:39:30.555908046+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1500,7 +2088,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2021-10-12T14:20:35.405087+02:00"
+    created: "2021-10-28T11:39:30.549742539+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1531,7 +2119,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: master-5360974
-    created: "2021-10-12T14:20:35.4005758+02:00"
+    created: "2021-10-28T11:39:30.542500382+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1562,7 +2150,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: master-5defcff
-    created: "2021-10-12T14:20:35.3955584+02:00"
+    created: "2021-10-28T11:39:30.536943134+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1589,7 +2177,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-12T14:20:35.3895541+02:00"
+    created: "2021-10-28T11:39:30.533033233+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1616,7 +2204,7 @@ entries:
     version: 0.4.2
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-12T14:20:35.384554+02:00"
+    created: "2021-10-28T11:39:30.526171288+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1643,7 +2231,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2021-10-12T14:20:35.3805263+02:00"
+    created: "2021-10-28T11:39:30.520958953+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1670,7 +2258,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-12T14:20:35.376559+02:00"
+    created: "2021-10-28T11:39:30.516674634+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1697,7 +2285,7 @@ entries:
     version: 0.3.3
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-12T14:20:35.370522+02:00"
+    created: "2021-10-28T11:39:30.511335507+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1724,7 +2312,7 @@ entries:
     version: 0.3.2
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-12T14:20:35.3655602+02:00"
+    created: "2021-10-28T11:39:30.503397117+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1751,7 +2339,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2021-10-12T14:20:35.3605546+02:00"
+    created: "2021-10-28T11:39:30.49398414+02:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -1778,7 +2366,33 @@ entries:
     version: 0.3.0
   acc-5g-infrastructure:
   - apiVersion: v2
-    created: "2021-10-12T14:20:35.5282203+02:00"
+    created: "2021-10-28T11:39:30.799628712+02:00"
+    dependencies:
+    - condition: nats.enabled
+      name: nats
+      repository: https://accelleran.github.io/helm-charts/
+      version: 0.8.4
+    - condition: redis.enabled
+      name: redis
+      repository: https://accelleran.github.io/helm-charts/
+      version: 0.7.0
+    - condition: metallb.enabled
+      name: metallb
+      repository: https://charts.bitnami.com/bitnami
+      version: 2.3.5
+    - condition: jaeger.enabled
+      name: jaeger
+      repository: https://jaegertracing.github.io/helm-charts
+      version: 0.46.6
+    description: The infrastructure for the Accelleran 5G CU Components
+    digest: 0c6d90ff4e9c245570ad250624d3b7fed103ea135ac72c23b2840536334192e8
+    name: acc-5g-infrastructure
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-3.0.0-rc0.tgz
+    version: 3.0.0-rc0
+  - apiVersion: v2
+    created: "2021-10-28T11:39:30.747169384+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1804,7 +2418,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v2
-    created: "2021-10-12T14:20:35.508255+02:00"
+    created: "2021-10-28T11:39:30.707450844+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1830,7 +2444,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-2.0.0-rc1.tgz
     version: 2.0.0-rc1
   - apiVersion: v2
-    created: "2021-10-12T14:20:35.4892198+02:00"
+    created: "2021-10-28T11:39:30.678066205+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1852,7 +2466,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-1.0.0.tgz
     version: 1.0.0
   - apiVersion: v2
-    created: "2021-10-12T14:20:35.4852199+02:00"
+    created: "2021-10-28T11:39:30.671283921+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1878,7 +2492,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
-    created: "2021-10-12T14:20:35.4654888+02:00"
+    created: "2021-10-28T11:39:30.646345171+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1900,7 +2514,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
-    created: "2021-10-12T14:20:35.4584889+02:00"
+    created: "2021-10-28T11:39:30.640119139+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1922,7 +2536,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
-    created: "2021-10-12T14:20:35.4534124+02:00"
+    created: "2021-10-28T11:39:30.633957094+02:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -1945,8 +2559,28 @@ entries:
     version: 0.1.0
   nkafka-5g:
   - apiVersion: v2
+    appVersion: 0.6.10_proto.2fc276e4d
+    created: "2021-10-28T11:39:30.822402257+02:00"
+    description: A Helm chart for Kubernetes
+    digest: 25a425a72b798331e158c92b155711d32ae9145afdd2043baab85408c53b854f
+    name: nkafka-5g
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/nkafka-5g-3.0.0-rc5.tgz
+    version: 3.0.0-rc5
+  - apiVersion: v2
+    appVersion: 0.6.10_proto.f608a0084
+    created: "2021-10-28T11:39:30.819623978+02:00"
+    description: A Helm chart for Kubernetes
+    digest: 0c24441974ec8758a5b13df307b8ca0d6073aa8b32153a3553dbcd3b0e33ba24
+    name: nkafka-5g
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/nkafka-5g-3.0.0-rc4.tgz
+    version: 3.0.0-rc4
+  - apiVersion: v2
     appVersion: 0.6.10_proto.789ed9a3c
-    created: "2021-10-12T14:20:35.5356292+02:00"
+    created: "2021-10-28T11:39:30.816665025+02:00"
     description: A Helm chart for Kubernetes
     digest: f78b0ed865422ffdaf77bf7263df45ecc009c3d95b68973fc6aff414c1f686cf
     name: nkafka-5g
@@ -1956,7 +2590,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.6.10_proto.789ed9a3c
-    created: "2021-10-12T14:20:35.5356292+02:00"
+    created: "2021-10-28T11:39:30.813279279+02:00"
     description: A Helm chart for Kubernetes
     digest: a1a2f059439b79c840e239c5cfbd43ab741232082a0b15497d526bb53b8ca76e
     name: nkafka-5g
@@ -1966,7 +2600,7 @@ entries:
     version: 0.5.0-rc1
   - apiVersion: v2
     appVersion: 0.6.8_proto.76fab231a
-    created: "2021-10-12T14:20:35.5346291+02:00"
+    created: "2021-10-28T11:39:30.810722948+02:00"
     description: A Helm chart for Kubernetes
     digest: 9e998f03e3f588ad22629e9100948cf84c9d6a073157dc463a5a7560341b5c31
     name: nkafka-5g
@@ -1976,7 +2610,7 @@ entries:
     version: 0.5.0-beta
   - apiVersion: v2
     appVersion: 0.6.6_proto.16fb94008
-    created: "2021-10-12T14:20:35.5336302+02:00"
+    created: "2021-10-28T11:39:30.808211315+02:00"
     description: A Helm chart for Kubernetes
     digest: 36b82c8db3bef94182e681cc432db8b4592d1d37f4cccc074146354f32cecfa9
     name: nkafka-5g
@@ -1986,7 +2620,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: alpha.6756d8d_proto.a9ace0a72
-    created: "2021-10-12T14:20:35.5326298+02:00"
+    created: "2021-10-28T11:39:30.805942187+02:00"
     description: A Helm chart for Kubernetes
     digest: e191f1919542a01a3eedac66404ee12fcb50f7ae9420391eb6367e350b331149
     name: nkafka-5g
@@ -1996,7 +2630,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: alpha.6756d8d_proto.a9ace0a72
-    created: "2021-10-12T14:20:35.5306029+02:00"
+    created: "2021-10-28T11:39:30.803888796+02:00"
     description: A Helm chart for Kubernetes
     digest: 0b7ecc27158115e873a0f565dd3fd9d35d2e95341ad43b08532073c844fedad6
     name: nkafka-5g
@@ -2006,7 +2640,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: alpha.8bb326c_proto.c5a3189b4
-    created: "2021-10-12T14:20:35.5292352+02:00"
+    created: "2021-10-28T11:39:30.801928904+02:00"
     description: A Helm chart for Kubernetes
     digest: 27aafd54cfbe0454506a30e5e12ec812e616128ff4f27b0e151faeea702ff803
     name: nkafka-5g
@@ -2014,4 +2648,4 @@ entries:
     urls:
     - https://accelleran.github.io/5g-helm-charts/nkafka-5g-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-12T14:20:35.1379933+02:00"
+generated: "2021-10-28T11:39:30.164508442+02:00"

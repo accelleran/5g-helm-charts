@@ -49,7 +49,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "release-2.3-duvel-dc7795e4"
+  tag: "release-2.3-duvel-2fc276e4"
 
 
   # Redis settings
