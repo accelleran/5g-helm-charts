@@ -22,6 +22,7 @@ Release notes:
   - Intra gNB Intra-Frequency Handover: Completion of inter DU handover - implementation of full user plane handling: nrUpp switch to target ul/dl tnl info
   - DNS support: Support in CU-CP and CU-UP, allowing addresses to be configured as Fully Qualified Domain Names: REDIS, NATS, NG link addresses and E1 link address towards CU-CP.
   - E2KPI Service Model: "Support E2SmKpm v1.0 basic scenario's: subscriptions and indications"
+  - Added more labels for services (GTP) for discovery: drax/technology, drax/instanceId, drax/redis-port, drax/redis-url
 
 # Fixed
   - CU-CP controller:   UE connection not cleared in AMF at NgErrorIndication cause=semantic_error
