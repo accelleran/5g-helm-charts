@@ -110,8 +110,8 @@ gtpService:
   type: LoadBalancer
   protocol: UDP
   gtpUPort: 2152
-#  loadBalancerIP:
-#  gtpUNodePort:
+#  loadBalancerIP: THIS IS CURRENTLY BROKEN!!!! DONT USE!!!!
+#  gtpUNodePort: THIS IS CURRENTLY BROKEN!!!! DONT USE!!!!
   externalTrafficPolicy: "Local"
 
 ingress:

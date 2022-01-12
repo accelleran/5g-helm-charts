@@ -12,94 +12,96 @@ metadata:
     {{- include "five-g-appl.labels" $ | nindent 4 }}
     cu-stack-id: {{ . | quote }}
 spec:
-    {{- with $.Values.imagePullSecrets }}
-    imagePullSecrets:
-      {{- toYaml . | nindent 6 }}
-    {{- end }}
-    serviceAccountName: {{ include "five-g-appl.serviceAccountName" $ }}
-    securityContext:
-      {{- toYaml $.Values.podSecurityContext | nindent 6 }}
-    initContainers:
-      - name: {{ $.Chart.Name }}-get-init-configs-{{ . | quote }}
-        image: "{{ $.Values.initGetConfigImage.repository }}:{{ tpl $.Values.initGetConfigImage.tag $ }}"
-        imagePullPolicy: {{ $.Values.initGetConfigImage.pullPolicy }}
-        volumeMounts:
-          - name: init-volume
-            mountPath: /init-configs/
-        command:
-          - sh
-          - "-c"
-          - |
-            /bin/bash <<'EOF'
+  {{- with $.Values.imagePullSecrets }}
+  imagePullSecrets:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  serviceAccountName: {{ include "five-g-appl.serviceAccountName" $ }}
+  securityContext:
+    {{- toYaml $.Values.podSecurityContext | nindent 4 }}
+  initContainers:
+    - name: {{ $.Chart.Name }}-get-init-configs-{{ . }}
+      image: "{{ $.Values.initGetConfigImage.repository }}:{{ tpl $.Values.initGetConfigImage.tag $ }}"
+      imagePullPolicy: {{ $.Values.initGetConfigImage.pullPolicy }}
+      volumeMounts:
+        - name: init-volume
+          mountPath: /init-configs/
+      command:
+        - sh
+        - "-c"
+        - |
+          /bin/bash <<'EOF'
 
-            #!/bin/bash
-            
-            value=$(kubectl get service test-cu-up-cu-up-gtp-{{ . }} -n {{ $.Release.Namespace }} -o json | jq ".status.loadBalancer.ingress[0].ip")
-          
-            echo "GTP_IP=$value" >> /init-configs/env.env
+          #!/bin/bash
 
-            {{ if $.Values.initGetConfig }}
+          value=$(kubectl get service test-cu-up-cu-up-gtp-{{ . }} -n {{ $.Release.Namespace }} -o json | jq ".status.loadBalancer.ingress[0].ip")
 
-            {{ range $.Values.initGetConfig }}
+          echo "GTP_IP=$value" >> /init-configs/env.env
 
-            value=$(kubectl get {{ .resourceType }} {{ tpl .resourceName $ }} -n {{ tpl .resourceNamespace $ }} -o json | jq "{{ .field }}")
-              
-            echo "{{ .envName }}=$value" >> /init-configs/env.env
+          {{ if $.Values.initGetConfig }}
 
-            {{ end }}
+          {{ range $.Values.initGetConfig }}
 
-            {{ end }}
+          value=$(kubectl get {{ .resourceType }} {{ tpl .resourceName $ }} -n {{ tpl .resourceNamespace $ }} -o json | jq "{{ .field }}")
 
-            EOF
-    containers:
-      - name: {{ $.Chart.Name }}-{{ . | quote }}
-        securityContext:
-          {{- toYaml $.Values.securityContext | nindent 10 }}
-        image: "{{ $.Values.image.repository }}:{{ tpl $.Values.image.tag $ | default $.Chart.AppVersion }}"
-        imagePullPolicy: {{ $.Values.image.pullPolicy }}
-        command:
-          - sh
-          - "-c"
-          - |
-            /bin/bash <<'EOF'
+          echo "{{ .envName }}=$value" >> /init-configs/env.env
 
-            #!/bin/bash
+          {{ end }}
 
+          {{ end }}
 
+          EOF
+  containers:
+    - name: {{ $.Chart.Name }}-{{ . }}
+      securityContext:
+        {{- toYaml $.Values.securityContext | nindent 8 }}
+      image: "{{ $.Values.image.repository }}:{{ tpl $.Values.image.tag $ | default $.Chart.AppVersion }}"
+      imagePullPolicy: {{ $.Values.image.pullPolicy }}
+      command:
+        - sh
+        - "-c"
+        - |
+          /bin/bash <<'EOF'
 
-            export $(xargs < /init-configs/env.env)
-
-            echo {{ $.Values.testing.value }} > /init-configs/test.txt
+          #!/bin/bash
 
 
 
-            {{ $.Values.cmd }} {{- if $.Values.args }}{{ range $.Values.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
+          export $(xargs < /init-configs/env.env)
 
-            EOF
-        env:
-          - name: POD_IP
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP
-          - name: POD_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
-          - name: NATS_SERVICE_URL
-            value: nats://{{ tpl $.Values.nats.url $ }}:{{ tpl $.Values.nats.port $ }}
-          - name: ZLOG_CONF_PATH
-            value: /5G/zlog.conf
-          - name: BOOTSTRAP_FILENAME
-            value: {{ $.Values.bootstrapFile }}
-          - name: JAEGER_AGENT_HOST
-            value: {{ tpl $.Values.jaegerAgentHost $ }}
-          {{- if $.Values.extraEnvs }}
-          {{ toYaml $.Values.extraEnvs | nindent 10 }}
-          {{- end }}
-        ports:
-          - name: gtpu
-            containerPort: {{ $.Values.gtpService.gtpUPort }}
-            protocol: {{ $.Values.gtpService.protocol }}
+          echo {{ $.Values.testing.value }} > /init-configs/test.txt
+
+
+
+          {{ $.Values.cmd }} {{- if $.Values.args }}{{ range $.Values.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
+
+          EOF
+      env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: __APPID
+          value: cu-up-{{ . }}
+        - name: NATS_SERVICE_URL
+          value: nats://{{ tpl $.Values.nats.url $ }}:{{ tpl $.Values.nats.port $ }}
+        - name: ZLOG_CONF_PATH
+          value: /5G/zlog.conf
+        - name: BOOTSTRAP_FILENAME
+          value: {{ $.Values.bootstrapFile }}
+        - name: JAEGER_AGENT_HOST
+          value: {{ tpl $.Values.jaegerAgentHost $ }}
+        {{- if $.Values.extraEnvs }}
+        {{ toYaml $.Values.extraEnvs | nindent 8 }}
+        {{- end }}
+      ports:
+        - name: gtpu
+          containerPort: {{ $.Values.gtpService.gtpUPort }}
+          protocol: {{ $.Values.gtpService.protocol }}
 #          livenessProbe:
 #            httpGet:
 #              path: /
@@ -108,46 +110,47 @@ spec:
 #            httpGet:
 #              path: /
 #              port: http
-        volumeMounts:
-          - name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
-            mountPath: /5G/zlog.conf
-            subPath: "zlog.conf"
-          - name: init-volume
-            mountPath: /init-configs/
-          - name: {{ include "five-g-appl.fullname" $ }}-bootstrap
-            mountPath: {{ $.Values.bootstrapFile }}
-            subPath: "bootstrap.txt"
-        resources:
-          {{- toYaml $.Values.resources | nindent 10 }}
-        lifecycle:
-          preStop:
-            exec:
-              command: [ '/bin/sh', '-c', 'pkill -15 -e {{ $.Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
-    {{- if or ($.Values.nodeSelector) (eq (tpl $.Values.draxNodeSelectorEnabled $) "true") }}
-    nodeSelector:
-      {{ if $.Values.nodeSelector }}
-        {{- toYaml $.Values.nodeSelector | nindent 6 }}
-      {{ end }}
-      {{ if eq (tpl $.Values.draxNodeSelectorEnabled $) "true" }}
-        {{- tpl (toYaml $.Values.draxNodeSelector) $ | nindent 6 }}
-      {{ end }}
-    {{- end }}
-    {{- with $.Values.affinity }}
-    affinity:
-      {{- toYaml . | nindent 6 }}
-    {{- end }}
-    {{- with $.Values.tolerations }}
-    tolerations:
-      {{- toYaml . | nindent 6 }}
-    {{- end }}
-    volumes:
-      - name: init-volume
-        emptyDir: {}
-      - name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
-        configMap:
-          name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
-      - name: {{ include "five-g-appl.fullname" $ }}-bootstrap
-        configMap:
-          name: {{ include "five-g-appl.fullname" $ }}-bootstrap
+      volumeMounts:
+        - name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
+          mountPath: /5G/zlog.conf
+          subPath: "zlog.conf"
+        - name: init-volume
+          mountPath: /init-configs/
+        - name: {{ include "five-g-appl.fullname" $ }}-bootstrap
+          mountPath: {{ $.Values.bootstrapFile }}
+          subPath: "bootstrap.txt"
+      resources:
+        {{- toYaml $.Values.resources | nindent 8 }}
+      lifecycle:
+        preStop:
+          exec:
+            command: [ '/bin/sh', '-c', 'pkill -15 -e {{ $.Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
+  {{- if or ($.Values.nodeSelector) (eq (tpl $.Values.draxNodeSelectorEnabled $) "true") }}
+  nodeSelector:
+    {{ if $.Values.nodeSelector }}
+      {{- toYaml $.Values.nodeSelector | nindent 4 }}
+    {{ end }}
+    {{ if eq (tpl $.Values.draxNodeSelectorEnabled $) "true" }}
+      {{- tpl (toYaml $.Values.draxNodeSelector) $ | nindent 4 }}
+    {{ end }}
+  {{- end }}
+  {{- with $.Values.affinity }}
+  affinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $.Values.tolerations }}
+  tolerations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  volumes:
+    - name: init-volume
+      emptyDir: {}
+    - name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
+      configMap:
+        name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
+
+    - name: {{ include "five-g-appl.fullname" $ }}-bootstrap
+      configMap:
+        name: {{ include "five-g-appl.fullname" $ }}-bootstrap
 ---
 {{- end }}
