@@ -9,7 +9,7 @@ image:
   repository: accelleran/e1cpappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -41,9 +41,9 @@ bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 jaegerAgentHost: "ric-jaeger-agent"
 
-extraEnvs:
-  - name: __APPNAME
-    value: e1cp
+extraEnvs: []
+#  - name: __APPNAME
+#    value: e1cp
 #  - name: ex1
 #    value: ex1
 
@@ -117,3 +117,7 @@ draxNodeSelector:
 tolerations: []
 
 affinity: {}
+
+developerMode:
+  enabled: false
+  hostPath: ""

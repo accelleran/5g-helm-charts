@@ -19,27 +19,31 @@ Redis Configuration: {{ tpl .Values.global.redisHostname . }}:{{ tpl .Values.glo
 
 Nats Configuration: {{ tpl .Values.global.natsUrl . }}:{{ tpl .Values.global.natsPort . }}
 
+Discover the IPs given to the services using the following command and its EXTERNAL-IP column:
+kubectl get service
+
 {{ if eq (tpl .Values.global.draxNodeSelectorEnabled .) "true" }}
 The CU-CP component is installed on the Kubernetes node with the following dRAX Node Selector Name: {{ tpl .Values.global.draxName . }}
 {{ end }}
 
 Release notes:
 # Added
-  - Intra gNB Intra-Frequency Handover: Completion of inter DU handover - implementation of full user plane handling: nrUpp switch to target ul/dl tnl info
-  - DNS support: Support in CU-CP and CU-UP, allowing addresses to be configured as Fully Qualified Domain Names: REDIS, NATS, NG link addresses and E1 link address towards CU-CP.
-  - E2KPI Service Model: "Support E2SmKpm v1.0 basic scenario's: subscriptions and indications"
-  - Added more labels for services (E1 and F1) for discovery: drax/technology, drax/instanceId, drax/redis-port, drax/redis-url
+  - Added __APPID to ds-ctrl, e1-ap, f1-ap, ng-ap and rr-ctrl
+  - Micro Services Failover: Recovery mechanism for a micro service which restarts while in service. 3 CU-CP micro services (f1apIntf, e1cpIntf and ngapIntf) included in this release.
+  - KPI SM Support
+  - NR SIB Information: Support for SIB2, SIB3, SIB4 and SIB5
+  - Ethernet and Unstructured PDU Sessions: Support for additional pdu session types
+  - CU KPIs added
 
 # Fixed
-  - CU-CP controller:   UE connection not cleared in AMF at NgErrorIndication cause=semantic_error
-  - CU-CP controller:   Unnecessary error trace at valid race condition - activation attempt of cell and sctp association failure towards the cells DU
-  - CU-CP controller:	RRC Setup Request lost in CU-UP when all dsCtrls busy, no RRC Reject sent to UE
-  - CU-CP controller:	FQDN resolution failure of all AMF addresses should result in retry
-  - CU-CP controller:	regular expression issue in fqdn pattern
-  - CU-CP controller:	ErrorIndication in response to NgUeCtxtReleaseRequest should trigger UE RESET procedure
-  - CU-CP controller:	AvailablePlmnID list not included in F1 GnbCuConfigUpdate when one or more servedPlmns are not supported
+  - Bug: duController crash when DU configured with 16 cells (issue when > 8)
+  - Improvement: Switch to protobuf 3
+  - Improvement: Moved Span Context Propagation from NATS payload to Protobuf
+
+# Removed:
 
 # Limitations
-  - Errors detected during execution of UE control procedure will trigger UE release - no support for rollback to previous configuration
+  - The published PmReportingCounterList_t has changed slightly - non-backwards compatible
+
 
 #############################################################################

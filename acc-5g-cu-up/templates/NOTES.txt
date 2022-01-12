@@ -12,6 +12,9 @@ Redis Configuration: {{ tpl .Values.global.redisHostname . }}:{{ tpl .Values.glo
 
 Nats Configuration: {{ tpl .Values.global.natsUrl . }}:{{ tpl .Values.global.natsPort . }}
 
+Discover the IPs given to the services using the following command and its EXTERNAL-IP column:
+kubectl get service
+
 {{ if eq (tpl .Values.global.draxNodeSelectorEnabled .) "true" }}
 The CU-UP component is installed on the Kubernetes node with the following dRAX Node Selector Name: {{ tpl .Values.global.draxName . }}
 {{ end }}
@@ -19,21 +22,15 @@ The CU-UP component is installed on the Kubernetes node with the following dRAX 
 Release notes:
 
 # Added
-  - Intra gNB Intra-Frequency Handover: Completion of inter DU handover - implementation of full user plane handling: nrUpp switch to target ul/dl tnl info
-  - DNS support: Support in CU-CP and CU-UP, allowing addresses to be configured as Fully Qualified Domain Names: REDIS, NATS, NG link addresses and E1 link address towards CU-CP.
-  - E2KPI Service Model: "Support E2SmKpm v1.0 basic scenario's: subscriptions and indications"
-  - Added more labels for services (GTP) for discovery: drax/technology, drax/instanceId, drax/redis-port, drax/redis-url
+ - Added __APPID to cu-up
+ - Added service (and loadBalancer issued IP) per replica of cu-up microservice (UP Stack) with unique GTP IPs
+ - Improvement: Multiple User Plane Stacks per CU-UP
 
 # Fixed
-  - CU-CP controller:   UE connection not cleared in AMF at NgErrorIndication cause=semantic_error
-  - CU-CP controller:   Unnecessary error trace at valid race condition - activation attempt of cell and sctp association failure towards the cells DU
-  - CU-CP controller:	RRC Setup Request lost in CU-UP when all dsCtrls busy, no RRC Reject sent to UE
-  - CU-CP controller:	FQDN resolution failure of all AMF addresses should result in retry
-  - CU-CP controller:	regular expression issue in fqdn pattern
-  - CU-CP controller:	ErrorIndication in response to NgUeCtxtReleaseRequest should trigger UE RESET procedure
-  - CU-CP controller:	AvailablePlmnID list not included in F1 GnbCuConfigUpdate when one or more servedPlmns are not supported
+
+# Removed
+  - The ability to specify the IP address of the GTP service (as LoadBalancer service type) is not supported in this version
 
 # Limitations
-  - Errors detected during execution of UE control procedure will trigger UE release - no support for rollback to previous configuration
 
 #############################################################################
