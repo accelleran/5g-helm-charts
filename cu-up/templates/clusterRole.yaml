@@ -1,4 +1,5 @@
-{{- if .Values.initGetConfig }}
+{{- if .Values.serviceAccount.create -}}
+
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -15,4 +16,5 @@ rules:
   - get
   - watch
   - list
+
 {{- end }}
