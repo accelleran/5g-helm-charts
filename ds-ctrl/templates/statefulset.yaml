@@ -40,7 +40,7 @@ spec:
             - "-c"
             - |
               /bin/bash <<'EOF'
-              echo "export __APPID=ds-ctrl-${HOSTNAME##*-}" > /home/accelleran/5G/dev/environment.sh
+              echo "export __APPID=ds_ctrl_${HOSTNAME##*-}" > /home/accelleran/5G/dev/environment.sh
               chmod +x /home/accelleran/5G/dev/environment.sh
               while true; do sleep 30; done;
               EOF
@@ -50,8 +50,8 @@ spec:
             - "-c"
             - |
               /bin/sh <<'EOF'
-              echo ds-ctrl-${HOSTNAME##*-}
-              __APPID=ds-ctrl-${HOSTNAME##*-} {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+              echo ds_ctrl_${HOSTNAME##*-}
+              __APPID=ds_ctrl_${HOSTNAME##*-} {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
               EOF
           {{ end }}
           env:

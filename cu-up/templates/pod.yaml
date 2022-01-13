@@ -86,7 +86,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: __APPID
-          value: cu-up-{{ . }}
+          value: cu_up_{{ . }}
         - name: NATS_SERVICE_URL
           value: nats://{{ tpl $.Values.nats.url $ }}:{{ tpl $.Values.nats.port $ }}
         - name: ZLOG_CONF_PATH

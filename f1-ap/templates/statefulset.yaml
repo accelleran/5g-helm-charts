@@ -40,7 +40,7 @@ spec:
             - "-c"
             - |
               /bin/bash <<'EOF'
-              echo "export __APPID=f1-ap-${HOSTNAME##*-}" > /home/accelleran/5G/dev/environment.sh
+              echo "export __APPID=f1_ap_${HOSTNAME##*-}" > /home/accelleran/5G/dev/environment.sh
               chmod +x /home/accelleran/5G/dev/environment.sh
               while true; do sleep 30; done;
               EOF
@@ -50,8 +50,8 @@ spec:
             - "-c"
             - |
               /bin/sh <<'EOF'
-              echo f1-ap-${HOSTNAME##*-}
-              __APPID=f1-ap-${HOSTNAME##*-} {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+              echo f1_ap_${HOSTNAME##*-}
+              __APPID=f1_ap_${HOSTNAME##*-} {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
               EOF
           {{ end }}
           env:

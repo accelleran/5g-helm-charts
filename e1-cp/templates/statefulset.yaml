@@ -40,7 +40,7 @@ spec:
             - "-c"
             - |
               /bin/bash <<'EOF'
-              echo "export __APPID=e1-cp-${HOSTNAME##*-}" > /home/accelleran/5G/dev/environment.sh
+              echo "export __APPID=e1_cp_${HOSTNAME##*-}" > /home/accelleran/5G/dev/environment.sh
               chmod +x /home/accelleran/5G/dev/environment.sh
               while true; do sleep 30; done;
               EOF
@@ -50,8 +50,8 @@ spec:
             - "-c"
             - |
               /bin/sh <<'EOF'
-              echo e1-cp-${HOSTNAME##*-}
-              __APPID=e1-cp-${HOSTNAME##*-} {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+              echo e1_cp_${HOSTNAME##*-}
+              __APPID=e1_cp_${HOSTNAME##*-} {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
               EOF
           {{ end }}
           env:
