@@ -6,6 +6,12 @@ global:
   #
   kubeIp: "10.55.1.2"
 
+  # Number of supported components
+  #   Description:  You have to specify the amount of different components that should be supported.
+  #                 Therefore, you have to specify:
+  #                 - the number of UP stacks that will be used
+  numberOfCuStacks: 2
+
 
   # CU-UP Instance ID
   #   Description:  The Instance ID of the CU-UP component that
@@ -82,6 +88,10 @@ cu-up:
   #   Value type: boolean
   #
   enabled: true
+
+
+  # Number of UP Stacks supported
+  numberOfCuStacks: "{{ .Values.global.numberOfCuStacks }}"
 
 
   # Special dRAX NodeSelector
