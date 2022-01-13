@@ -34,7 +34,7 @@ spec:
 
           #!/bin/bash
 
-          value=$(kubectl get service test-cu-up-cu-up-gtp-{{ . }} -n {{ $.Release.Namespace }} -o json | jq ".status.loadBalancer.ingress[0].ip")
+          value=$(kubectl get service {{ include "five-g-appl.fullname" $ }}-gtp-{{ . }} -n {{ $.Release.Namespace }} -o json | jq ".status.loadBalancer.ingress[0].ip")
 
           echo "GTP_IP=$value" >> /init-configs/env.env
 
@@ -70,8 +70,6 @@ spec:
           export $(xargs < /init-configs/env.env)
 
           echo {{ $.Values.testing.value }} > /init-configs/test.txt
-
-
 
           {{ $.Values.cmd }} {{- if $.Values.args }}{{ range $.Values.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
 
