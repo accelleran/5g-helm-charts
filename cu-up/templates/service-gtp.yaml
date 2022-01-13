@@ -1,6 +1,6 @@
 {{- if .Values.gtpService.enabled -}}
 
-{{ $count := (.Values.numberOfCuStacks | int) }}
+{{ $count := (tpl .Values.numberOfCuStacks . | int) }}
 {{- range untilStep 0 $count 1 }}
 
 apiVersion: v1
