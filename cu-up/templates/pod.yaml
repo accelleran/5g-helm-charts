@@ -68,13 +68,6 @@ spec:
           export $(xargs < /init-configs/env.env)
 
           echo {{ $.Values.testing.value }} > /init-configs/test.txt
-          
-          # Testing
-          echo $GTP_IP
-          echo $POD_IP
-          echo (kubectl get service {{ include "five-g-appl.fullname" $ }}-gtp-{{ . }} -n {{ $.Release.Namespace }} -o json | jq ".status.loadBalancer.ingress[0].ip")
-          
-          echo {{ $.Values.cmd }} {{- if $.Values.args }}{{ range $.Values.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
 
           {{ $.Values.cmd }} {{- if $.Values.args }}{{ range $.Values.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
 
