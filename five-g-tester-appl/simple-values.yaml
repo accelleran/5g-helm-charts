@@ -1,0 +1,46 @@
+# 5G Tester now has to be manually started. Exec into pod and run the start-5g-tester.sh script!
+
+# CHANGE HERE!
+nats:
+  url: "172.31.36.102"
+  port: "31100"
+
+# CHANGE HERE!
+redisConfig:
+  hostname: "172.31.36.102"
+  port: "32200"
+
+initGetConfig:
+  - resourceType: 'service'
+    # CHANGE HERE!
+    # Check the following! This needs to be the same as the service of F1 you deploy! Its format is: releaseName-component-bootstrapId-microservice-service
+    # Hence make sure that after you deploy the 5g tester, you use the correct release name and bootstrapId when deploying the 5G CU components!
+    # In this example install the CUCP with bootstrap set to cucp-1, and then use acc-5g-cu-cp as release name: helm install acc-5g-cu-cp acc-5g-helm/acc-5g-cu-cp --values custom-values.yaml
+    resourceName: 'acc-5g-cu-cp-cucp-1-sctp-f1'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    envName: "F1_IP"
+  - resourceType: 'service'
+    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
+    resourceNamespace: '{{ .Release.Namespace }}'
+    field: '.status.loadBalancer.ingress[0].ip'
+    envName: "GTP_IP"
+
+bootstrapId: "cucp-1"
+
+extraEnvs:
+  - name: __APPNAME
+    value: "controllerTester"
+  # CHANGE HERE!
+  # This tester works with 1 CP and 2UPs. Make sure to set their bootstrapIds here!
+  - name: TESTER_CUCP_INSTANCE_ID
+    value: "cucp-1"
+  - name: TESTER_CUUP_1_INSTANCE_ID
+    value: "cuup-1"
+  - name: TESTER_CUUP_2_INSTANCE_ID
+    value: "cuup-2"
+
+# CHANGE HERE!
+# This will be the ng IP. Either use that or the DNS name when configuring the CUCP!
+ngControlService:
+  loadBalancerIP: "10.55.1.41"
