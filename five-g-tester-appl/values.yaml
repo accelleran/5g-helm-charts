@@ -17,9 +17,9 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-### We can immediatly run the application, but that will fail if DNS names are used. The AMF NG DNS name has to be resolved, hence the CUCP has to be running. But if the CUCP is running an dthe 5g teater is not, it cannot resovle the DNS name, and hence will fail, and no retries will be attempted.
+### We can immediatly run the application, but that will fail if DNS names are used. The AMF NG DNS name has to be resolved, hence the CUCP has to be running. But if the CUCP is running and the 5g teater is not, it cannot resolve the DNS name, and hence will fail, and no retries will be attempted.
 ### So we need to start the 5g tester helm chart, to get the service started for NG, which will allow CUCP to resolve it
-### After the CUCP and CUUPs are up, manually start the actuall 5g tester application
+### After the CUCP and CUUPs are up, manually start the actual 5g tester application
 cmd: "./testerAppl.exe" 
 
 testing:
