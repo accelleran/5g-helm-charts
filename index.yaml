@@ -3,7 +3,7 @@ entries:
   acc-5g-cu-cp:
   - apiVersion: v2
     appVersion: master-ecb0302eb519
-    created: "2022-01-17T16:08:49.567249466+01:00"
+    created: "2022-01-18T11:08:37.895601438+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -70,7 +70,7 @@ entries:
     version: 4.0.0-rc9
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.560382373+01:00"
+    created: "2022-01-18T11:08:37.889176688+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -137,7 +137,7 @@ entries:
     version: 4.0.0-rc5
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.554282835+01:00"
+    created: "2022-01-18T11:08:37.882406794+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -204,7 +204,7 @@ entries:
     version: 4.0.0-rc4
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.547509969+01:00"
+    created: "2022-01-18T11:08:37.875581606+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -271,7 +271,7 @@ entries:
     version: 4.0.0-rc3
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.540606499+01:00"
+    created: "2022-01-18T11:08:37.869485702+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -337,8 +337,75 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-cp-4.0.0-rc2.tgz
     version: 4.0.0-rc2
   - apiVersion: v2
+    appVersion: R2.4.0_ename
+    created: "2022-01-18T11:08:37.862548095+01:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 2.0.0
+    - condition: amf-controller.enabled
+      name: amf-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.0
+    - condition: cu-up-controller.enabled
+      name: cu-up-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ds-ctrl.enabled
+      name: ds-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: du-controller.enabled
+      name: du-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: e1-cp.enabled
+      name: e1-cp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: f1-ap.enabled
+      name: f1-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: gnb-controller.enabled
+      name: gnb-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: ng-ap.enabled
+      name: ng-ap
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: pm-controller.enabled
+      name: pm-controller
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr.enabled
+      name: res-mgr
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: rr-ctrl.enabled
+      name: rr-ctrl
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0
+    - condition: sctp.enabled
+      name: sctp
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.6.1
+    - condition: ho-tester.enabled
+      name: ho-tester
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.2.0
+    description: Accelleran 5G CU CP Components
+    digest: 7c91d979111fecaebd706301bdb6d937f0f51249b7adc144635154dc9b62b539
+    name: acc-5g-cu-cp
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-cp-4.0.0-rc10.tgz
+    version: 4.0.0-rc10
+  - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.534479235+01:00"
+    created: "2022-01-18T11:08:37.855880757+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -405,7 +472,7 @@ entries:
     version: 4.0.0-rc1
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.527664778+01:00"
+    created: "2022-01-18T11:08:37.849700084+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -472,7 +539,7 @@ entries:
     version: 4.0.0-rc0
   - apiVersion: v2
     appVersion: release-2.3-duvel-8b8d7f05
-    created: "2022-01-17T16:08:49.5208372+01:00"
+    created: "2022-01-18T11:08:37.842938829+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -539,7 +606,7 @@ entries:
     version: 3.0.2
   - apiVersion: v2
     appVersion: release-2.3-duvel-8b8d7f05
-    created: "2022-01-17T16:08:49.514912842+01:00"
+    created: "2022-01-18T11:08:37.836868246+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -606,7 +673,7 @@ entries:
     version: 3.0.1
   - apiVersion: v2
     appVersion: release-2.3-duvel-8b8d7f05
-    created: "2022-01-17T16:08:49.508254915+01:00"
+    created: "2022-01-18T11:08:37.830142932+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -673,7 +740,7 @@ entries:
     version: 3.0.0
   - apiVersion: v2
     appVersion: release-2.3-duvel-8b8d7f05
-    created: "2022-01-17T16:08:49.502317362+01:00"
+    created: "2022-01-18T11:08:37.822744216+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -740,7 +807,7 @@ entries:
     version: 3.0.0-rc8
   - apiVersion: v2
     appVersion: release-2.3-duvel-9561cc98
-    created: "2022-01-17T16:08:49.495628642+01:00"
+    created: "2022-01-18T11:08:37.816793891+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -807,7 +874,7 @@ entries:
     version: 3.0.0-rc7
   - apiVersion: v2
     appVersion: release-2.3-duvel-ae07c684
-    created: "2022-01-17T16:08:49.489113461+01:00"
+    created: "2022-01-18T11:08:37.81008745+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -874,7 +941,7 @@ entries:
     version: 3.0.0-rc6
   - apiVersion: v2
     appVersion: release-2.3-duvel-2fc276e4
-    created: "2022-01-17T16:08:49.483136743+01:00"
+    created: "2022-01-18T11:08:37.803492537+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -941,7 +1008,7 @@ entries:
     version: 3.0.0-rc5
   - apiVersion: v2
     appVersion: release-2.3-duvel-f608a008
-    created: "2022-01-17T16:08:49.476410069+01:00"
+    created: "2022-01-18T11:08:37.797397993+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -1008,7 +1075,7 @@ entries:
     version: 3.0.0-rc4
   - apiVersion: v2
     appVersion: release-2.3-duvel-dc7795e4
-    created: "2022-01-17T16:08:49.469811245+01:00"
+    created: "2022-01-18T11:08:37.790513646+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -1075,7 +1142,7 @@ entries:
     version: 3.0.0-rc3
   - apiVersion: v2
     appVersion: release-2.3-duvel-ef1b7694
-    created: "2022-01-17T16:08:49.463794155+01:00"
+    created: "2022-01-18T11:08:37.783110657+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -1142,7 +1209,7 @@ entries:
     version: 3.0.0-rc2
   - apiVersion: v2
     appVersion: release-2.3-duvel-ef1b7694
-    created: "2022-01-17T16:08:49.457065504+01:00"
+    created: "2022-01-18T11:08:37.776410184+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -1209,7 +1276,7 @@ entries:
     version: 3.0.0-rc1
   - apiVersion: v2
     appVersion: release-2.3-duvel-7c32f26b
-    created: "2022-01-17T16:08:49.45063778+01:00"
+    created: "2022-01-18T11:08:37.769072492+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -1276,7 +1343,7 @@ entries:
     version: 3.0.0-rc0
   - apiVersion: v2
     appVersion: release-2.2-chimay-f87340a
-    created: "2022-01-17T16:08:49.444783788+01:00"
+    created: "2022-01-18T11:08:37.761901462+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -1343,7 +1410,7 @@ entries:
     version: 2.0.1
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2022-01-17T16:08:49.438238333+01:00"
+    created: "2022-01-18T11:08:37.755272684+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -1410,7 +1477,7 @@ entries:
     version: 2.0.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2022-01-17T16:08:49.432276821+01:00"
+    created: "2022-01-18T11:08:37.747848899+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -1473,7 +1540,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2022-01-17T16:08:49.426247873+01:00"
+    created: "2022-01-18T11:08:37.741753912+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1536,7 +1603,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2022-01-17T16:08:49.418613545+01:00"
+    created: "2022-01-18T11:08:37.73267684+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1599,7 +1666,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: master-5360974
-    created: "2022-01-17T16:08:49.410952482+01:00"
+    created: "2022-01-18T11:08:37.723646354+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1662,7 +1729,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: master-5defcff
-    created: "2022-01-17T16:08:49.40399793+01:00"
+    created: "2022-01-18T11:08:37.715094426+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1725,7 +1792,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2022-01-17T16:08:49.398097881+01:00"
+    created: "2022-01-18T11:08:37.70869196+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1788,7 +1855,7 @@ entries:
     version: 0.4.2
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2022-01-17T16:08:49.390472611+01:00"
+    created: "2022-01-18T11:08:37.699072264+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1851,7 +1918,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2022-01-17T16:08:49.382833899+01:00"
+    created: "2022-01-18T11:08:37.689949393+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1914,7 +1981,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2022-01-17T16:08:49.377344885+01:00"
+    created: "2022-01-18T11:08:37.683423037+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -1977,7 +2044,7 @@ entries:
     version: 0.3.3
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2022-01-17T16:08:49.370767677+01:00"
+    created: "2022-01-18T11:08:37.67529312+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -2040,7 +2107,7 @@ entries:
     version: 0.3.2
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2022-01-17T16:08:49.363044644+01:00"
+    created: "2022-01-18T11:08:37.665855639+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -2103,7 +2170,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2022-01-17T16:08:49.354317777+01:00"
+    created: "2022-01-18T11:08:37.653692307+01:00"
     dependencies:
     - condition: acc-fiveg-netconf.enabled
       name: acc-fiveg-netconf
@@ -2167,7 +2234,7 @@ entries:
   acc-5g-cu-up:
   - apiVersion: v2
     appVersion: master-ecb0302eb519
-    created: "2022-01-17T16:08:49.657919946+01:00"
+    created: "2022-01-18T11:08:38.00951377+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2198,7 +2265,7 @@ entries:
     version: 4.0.0-rc9
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.655518627+01:00"
+    created: "2022-01-18T11:08:38.005485831+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2229,7 +2296,7 @@ entries:
     version: 4.0.0-rc7
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.652528799+01:00"
+    created: "2022-01-18T11:08:38.002184127+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2260,7 +2327,7 @@ entries:
     version: 4.0.0-rc6
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.650151001+01:00"
+    created: "2022-01-18T11:08:37.998957887+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2291,7 +2358,7 @@ entries:
     version: 4.0.0-rc5
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.647766708+01:00"
+    created: "2022-01-18T11:08:37.995274746+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2322,7 +2389,7 @@ entries:
     version: 4.0.0-rc4
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.644802954+01:00"
+    created: "2022-01-18T11:08:37.992253151+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2353,7 +2420,7 @@ entries:
     version: 4.0.0-rc3
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.642409867+01:00"
+    created: "2022-01-18T11:08:37.989246658+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2383,8 +2450,39 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-4.0.0-rc2.tgz
     version: 4.0.0-rc2
   - apiVersion: v2
+    appVersion: R2.4.0_ename
+    created: "2022-01-18T11:08:37.986193501+01:00"
+    dependencies:
+    - condition: netconf.enabled
+      name: netconf
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 2.0.0
+    - condition: cu-up.enabled
+      name: cu-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 1.0.0-rc4
+    - condition: e1-sctp-up.enabled
+      name: e1-sctp-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: res-mgr-up.enabled
+      name: res-mgr-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.5.0
+    - condition: pm-controller-up.enabled
+      name: pm-controller-up
+      repository: https://accelleran.github.io/5g-helm-charts/
+      version: 0.3.0
+    description: Accelleran 5G CU UP Components
+    digest: 7bba931733bd6a9eb47b6a726c36ffb661f01edbb8b5815e3768d066243ada84
+    name: acc-5g-cu-up
+    type: application
+    urls:
+    - https://accelleran.github.io/5g-helm-charts/acc-5g-cu-up-4.0.0-rc10.tgz
+    version: 4.0.0-rc10
+  - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.640065064+01:00"
+    created: "2022-01-18T11:08:37.982514357+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2415,7 +2513,7 @@ entries:
     version: 4.0.0-rc1
   - apiVersion: v2
     appVersion: master-af29a94210fa
-    created: "2022-01-17T16:08:49.637655339+01:00"
+    created: "2022-01-18T11:08:37.979416198+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2446,7 +2544,7 @@ entries:
     version: 4.0.0-rc0
   - apiVersion: v2
     appVersion: release-2.3-duvel-8b8d7f05
-    created: "2022-01-17T16:08:49.634716717+01:00"
+    created: "2022-01-18T11:08:37.976410052+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2477,7 +2575,7 @@ entries:
     version: 3.0.2
   - apiVersion: v2
     appVersion: release-2.3-duvel-8b8d7f05
-    created: "2022-01-17T16:08:49.632416299+01:00"
+    created: "2022-01-18T11:08:37.972730876+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2508,7 +2606,7 @@ entries:
     version: 3.0.1
   - apiVersion: v2
     appVersion: release-2.3-duvel-8b8d7f05
-    created: "2022-01-17T16:08:49.630009298+01:00"
+    created: "2022-01-18T11:08:37.969720141+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2539,7 +2637,7 @@ entries:
     version: 3.0.0
   - apiVersion: v2
     appVersion: release-2.3-duvel-8b8d7f05
-    created: "2022-01-17T16:08:49.626856454+01:00"
+    created: "2022-01-18T11:08:37.966566554+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2570,7 +2668,7 @@ entries:
     version: 3.0.0-rc8
   - apiVersion: v2
     appVersion: release-2.3-duvel-9561cc98
-    created: "2022-01-17T16:08:49.624285687+01:00"
+    created: "2022-01-18T11:08:37.963401433+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2601,7 +2699,7 @@ entries:
     version: 3.0.0-rc7
   - apiVersion: v2
     appVersion: release-2.3-duvel-ae07c684
-    created: "2022-01-17T16:08:49.621785869+01:00"
+    created: "2022-01-18T11:08:37.959222126+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2632,7 +2730,7 @@ entries:
     version: 3.0.0-rc6
   - apiVersion: v2
     appVersion: release-2.3-duvel-2fc276e4
-    created: "2022-01-17T16:08:49.619396597+01:00"
+    created: "2022-01-18T11:08:37.95594925+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2663,7 +2761,7 @@ entries:
     version: 3.0.0-rc5
   - apiVersion: v2
     appVersion: release-2.3-duvel-f608a008
-    created: "2022-01-17T16:08:49.616481577+01:00"
+    created: "2022-01-18T11:08:37.952928357+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2694,7 +2792,7 @@ entries:
     version: 3.0.0-rc4
   - apiVersion: v2
     appVersion: release-2.3-duvel-dc7795e4
-    created: "2022-01-17T16:08:49.614242823+01:00"
+    created: "2022-01-18T11:08:37.949762038+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2725,7 +2823,7 @@ entries:
     version: 3.0.0-rc3
   - apiVersion: v2
     appVersion: release-2.3-duvel-ef1b7694
-    created: "2022-01-17T16:08:49.611965126+01:00"
+    created: "2022-01-18T11:08:37.946322733+01:00"
     dependencies:
     - condition: netconf.enabled
       name: netconf
@@ -2756,7 +2854,7 @@ entries:
     version: 3.0.0-rc2
   - apiVersion: v2
     appVersion: release-2.3-duvel-ef1b7694
-    created: "2022-01-17T16:08:49.609190333+01:00"
+    created: "2022-01-18T11:08:37.943118645+01:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -2787,7 +2885,7 @@ entries:
     version: 3.0.0-rc1
   - apiVersion: v2
     appVersion: release-2.3-duvel-7c32f26b
-    created: "2022-01-17T16:08:49.606921131+01:00"
+    created: "2022-01-18T11:08:37.940032258+01:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -2818,7 +2916,7 @@ entries:
     version: 3.0.0-rc0
   - apiVersion: v2
     appVersion: release-2.2-chimay-f87340a
-    created: "2022-01-17T16:08:49.604441683+01:00"
+    created: "2022-01-18T11:08:37.936365358+01:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -2849,7 +2947,7 @@ entries:
     version: 2.0.1
   - apiVersion: v2
     appVersion: release-2.2-chimay-789ed9a
-    created: "2022-01-17T16:08:49.601939821+01:00"
+    created: "2022-01-18T11:08:37.933763962+01:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -2880,7 +2978,7 @@ entries:
     version: 2.0.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2022-01-17T16:08:49.598837552+01:00"
+    created: "2022-01-18T11:08:37.93123939+01:00"
     dependencies:
     - condition: cu-up.enabled
       name: cu-up
@@ -2911,7 +3009,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2022-01-17T16:08:49.596736637+01:00"
+    created: "2022-01-18T11:08:37.928162538+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -2942,7 +3040,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: master-a9ace0a
-    created: "2022-01-17T16:08:49.59399314+01:00"
+    created: "2022-01-18T11:08:37.924303441+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -2973,7 +3071,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: master-5360974
-    created: "2022-01-17T16:08:49.59051911+01:00"
+    created: "2022-01-18T11:08:37.921253627+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -3004,7 +3102,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: master-5defcff
-    created: "2022-01-17T16:08:49.587739133+01:00"
+    created: "2022-01-18T11:08:37.917525927+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -3031,7 +3129,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2022-01-17T16:08:49.585872579+01:00"
+    created: "2022-01-18T11:08:37.915378291+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -3058,7 +3156,7 @@ entries:
     version: 0.4.2
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2022-01-17T16:08:49.582684502+01:00"
+    created: "2022-01-18T11:08:37.912835717+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -3085,7 +3183,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: master-f6f3260
-    created: "2022-01-17T16:08:49.579878003+01:00"
+    created: "2022-01-18T11:08:37.910181781+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -3112,7 +3210,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2022-01-17T16:08:49.577589696+01:00"
+    created: "2022-01-18T11:08:37.907199556+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -3139,7 +3237,7 @@ entries:
     version: 0.3.3
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2022-01-17T16:08:49.575385617+01:00"
+    created: "2022-01-18T11:08:37.904735597+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -3166,7 +3264,7 @@ entries:
     version: 0.3.2
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2022-01-17T16:08:49.5720034+01:00"
+    created: "2022-01-18T11:08:37.901878059+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -3193,7 +3291,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: master-4211d1c
-    created: "2022-01-17T16:08:49.569360538+01:00"
+    created: "2022-01-18T11:08:37.898815642+01:00"
     dependencies:
     - condition: acc-fiveg-cu-up.enabled
       name: acc-fiveg-cu-up
@@ -3220,7 +3318,7 @@ entries:
     version: 0.3.0
   acc-5g-infrastructure:
   - apiVersion: v2
-    created: "2022-01-17T16:08:49.730026732+01:00"
+    created: "2022-01-18T11:08:38.097360298+01:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -3246,7 +3344,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-3.0.0.tgz
     version: 3.0.0
   - apiVersion: v2
-    created: "2022-01-17T16:08:49.718015677+01:00"
+    created: "2022-01-18T11:08:38.082357881+01:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -3272,7 +3370,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-3.0.0-rc0.tgz
     version: 3.0.0-rc0
   - apiVersion: v2
-    created: "2022-01-17T16:08:49.705887643+01:00"
+    created: "2022-01-18T11:08:38.067837825+01:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -3298,7 +3396,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-2.0.1.tgz
     version: 2.0.1
   - apiVersion: v2
-    created: "2022-01-17T16:08:49.693810165+01:00"
+    created: "2022-01-18T11:08:38.053943787+01:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -3324,7 +3422,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v2
-    created: "2022-01-17T16:08:49.681333018+01:00"
+    created: "2022-01-18T11:08:38.039733632+01:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -3346,7 +3444,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-1.0.0.tgz
     version: 1.0.0
   - apiVersion: v2
-    created: "2022-01-17T16:08:49.678262524+01:00"
+    created: "2022-01-18T11:08:38.036059001+01:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -3372,7 +3470,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
-    created: "2022-01-17T16:08:49.666419741+01:00"
+    created: "2022-01-18T11:08:38.02090915+01:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -3394,7 +3492,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
-    created: "2022-01-17T16:08:49.662985635+01:00"
+    created: "2022-01-18T11:08:38.016958941+01:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -3416,7 +3514,7 @@ entries:
     - https://accelleran.github.io/5g-helm-charts/acc-5g-infrastructure-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
-    created: "2022-01-17T16:08:49.660317725+01:00"
+    created: "2022-01-18T11:08:38.013255693+01:00"
     dependencies:
     - condition: nats.enabled
       name: nats
@@ -3440,7 +3538,7 @@ entries:
   amf-controller:
   - apiVersion: v2
     appVersion: 0.3.2
-    created: "2022-01-17T16:08:49.730424011+01:00"
+    created: "2022-01-18T11:08:38.09819962+01:00"
     description: A Helm chart for Kubernetes
     digest: da1f5411cab3c67e44f9dcc031e7a77d42e2719f65485ff3d96320999e947e91
     name: amf-controller
@@ -3451,7 +3549,7 @@ entries:
   cu-up:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2022-01-17T16:08:49.730906398+01:00"
+    created: "2022-01-18T11:08:38.098985974+01:00"
     description: A Helm chart for Kubernetes
     digest: 7037a14a5876574bac01e48ac62f4450a2cef15131cc768a7f5f191df59ac642
     name: cu-up
@@ -3462,7 +3560,7 @@ entries:
   nkafka-5g:
   - apiVersion: v2
     appVersion: 0.6.10_proto.8b8d7f056
-    created: "2022-01-17T16:08:49.737045443+01:00"
+    created: "2022-01-18T11:08:38.109512257+01:00"
     description: A Helm chart for Kubernetes
     digest: 00f52b93f6f01c4feb46ed9005b49c0890e612bf6a85e410519aa362384e8056
     name: nkafka-5g
@@ -3472,7 +3570,7 @@ entries:
     version: 3.0.0
   - apiVersion: v2
     appVersion: 0.6.10_proto.8b8d7f056
-    created: "2022-01-17T16:08:49.736603327+01:00"
+    created: "2022-01-18T11:08:38.108832582+01:00"
     description: A Helm chart for Kubernetes
     digest: 9f2f7c1b168d938160bebf625a2c59ebbd4cdfec7e24b5d3a097c18e39f77598
     name: nkafka-5g
@@ -3482,7 +3580,7 @@ entries:
     version: 3.0.0-rc8
   - apiVersion: v2
     appVersion: 0.6.10_proto.9561cc984
-    created: "2022-01-17T16:08:49.736155177+01:00"
+    created: "2022-01-18T11:08:38.107960211+01:00"
     description: A Helm chart for Kubernetes
     digest: f5b447d6b242d622f737a182fe0d141ff462ebfa87acf18e5ab49c4cba74e4d1
     name: nkafka-5g
@@ -3492,7 +3590,7 @@ entries:
     version: 3.0.0-rc7
   - apiVersion: v2
     appVersion: 0.6.10_proto.ae07c6842
-    created: "2022-01-17T16:08:49.735705087+01:00"
+    created: "2022-01-18T11:08:38.10679544+01:00"
     description: A Helm chart for Kubernetes
     digest: 59ad9465d50b44b707ba60e7ebd866cc1f205cadeac4784f945cd5538bb40441
     name: nkafka-5g
@@ -3502,7 +3600,7 @@ entries:
     version: 3.0.0-rc6
   - apiVersion: v2
     appVersion: 0.6.10_proto.2fc276e4d
-    created: "2022-01-17T16:08:49.73526222+01:00"
+    created: "2022-01-18T11:08:38.10608285+01:00"
     description: A Helm chart for Kubernetes
     digest: 25a425a72b798331e158c92b155711d32ae9145afdd2043baab85408c53b854f
     name: nkafka-5g
@@ -3512,7 +3610,7 @@ entries:
     version: 3.0.0-rc5
   - apiVersion: v2
     appVersion: 0.6.10_proto.f608a0084
-    created: "2022-01-17T16:08:49.734810164+01:00"
+    created: "2022-01-18T11:08:38.105403623+01:00"
     description: A Helm chart for Kubernetes
     digest: 0c24441974ec8758a5b13df307b8ca0d6073aa8b32153a3553dbcd3b0e33ba24
     name: nkafka-5g
@@ -3522,7 +3620,7 @@ entries:
     version: 3.0.0-rc4
   - apiVersion: v2
     appVersion: 0.6.10_proto.f87340abc
-    created: "2022-01-17T16:08:49.734368651+01:00"
+    created: "2022-01-18T11:08:38.104709538+01:00"
     description: NATS to Kafka bridge for Accelleran 5G CU
     digest: 17eb728c66f741d713fe05fdcabd99cd76410d7374192bf29525655c75369a7f
     name: nkafka-5g
@@ -3532,7 +3630,7 @@ entries:
     version: 2.0.1
   - apiVersion: v2
     appVersion: 0.6.10_proto.789ed9a3c
-    created: "2022-01-17T16:08:49.733924045+01:00"
+    created: "2022-01-18T11:08:38.104040922+01:00"
     description: A Helm chart for Kubernetes
     digest: f78b0ed865422ffdaf77bf7263df45ecc009c3d95b68973fc6aff414c1f686cf
     name: nkafka-5g
@@ -3542,7 +3640,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.6.10_proto.789ed9a3c
-    created: "2022-01-17T16:08:49.73347193+01:00"
+    created: "2022-01-18T11:08:38.103326318+01:00"
     description: A Helm chart for Kubernetes
     digest: a1a2f059439b79c840e239c5cfbd43ab741232082a0b15497d526bb53b8ca76e
     name: nkafka-5g
@@ -3552,7 +3650,7 @@ entries:
     version: 0.5.0-rc1
   - apiVersion: v2
     appVersion: 0.6.8_proto.76fab231a
-    created: "2022-01-17T16:08:49.733014505+01:00"
+    created: "2022-01-18T11:08:38.102485433+01:00"
     description: A Helm chart for Kubernetes
     digest: 9e998f03e3f588ad22629e9100948cf84c9d6a073157dc463a5a7560341b5c31
     name: nkafka-5g
@@ -3562,7 +3660,7 @@ entries:
     version: 0.5.0-beta
   - apiVersion: v2
     appVersion: 0.6.6_proto.16fb94008
-    created: "2022-01-17T16:08:49.732568553+01:00"
+    created: "2022-01-18T11:08:38.101867701+01:00"
     description: A Helm chart for Kubernetes
     digest: 36b82c8db3bef94182e681cc432db8b4592d1d37f4cccc074146354f32cecfa9
     name: nkafka-5g
@@ -3572,7 +3670,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: alpha.6756d8d_proto.a9ace0a72
-    created: "2022-01-17T16:08:49.732108728+01:00"
+    created: "2022-01-18T11:08:38.101185561+01:00"
     description: A Helm chart for Kubernetes
     digest: e191f1919542a01a3eedac66404ee12fcb50f7ae9420391eb6367e350b331149
     name: nkafka-5g
@@ -3582,7 +3680,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: alpha.6756d8d_proto.a9ace0a72
-    created: "2022-01-17T16:08:49.731706135+01:00"
+    created: "2022-01-18T11:08:38.100613568+01:00"
     description: A Helm chart for Kubernetes
     digest: 0b7ecc27158115e873a0f565dd3fd9d35d2e95341ad43b08532073c844fedad6
     name: nkafka-5g
@@ -3592,7 +3690,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: alpha.8bb326c_proto.c5a3189b4
-    created: "2022-01-17T16:08:49.731307891+01:00"
+    created: "2022-01-18T11:08:38.099882797+01:00"
     description: A Helm chart for Kubernetes
     digest: 27aafd54cfbe0454506a30e5e12ec812e616128ff4f27b0e151faeea702ff803
     name: nkafka-5g
@@ -3603,7 +3701,7 @@ entries:
   sctp:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2022-01-17T16:08:49.737934111+01:00"
+    created: "2022-01-18T11:08:38.110882364+01:00"
     description: A Helm chart for Kubernetes
     digest: 08b2e6827604c7d060173d36a65e5fd0b0dcdfef0cfa8dfc968b88a8e4abd32f
     name: sctp
@@ -3613,7 +3711,7 @@ entries:
     version: 0.6.1
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2022-01-17T16:08:49.737478416+01:00"
+    created: "2022-01-18T11:08:38.110216207+01:00"
     description: A Helm chart for Kubernetes
     digest: 6a3c329c2b4e7291590fe27c7e11eadd2fc9725e1f89e04e7bd9e9a9fae0b13b
     name: sctp
@@ -3621,4 +3719,4 @@ entries:
     urls:
     - https://accelleran.github.io/5g-helm-charts/sctp-0.6.0.tgz
     version: 0.6.0
-generated: "2022-01-17T16:08:49.344912881+01:00"
+generated: "2022-01-18T11:08:37.643198981+01:00"
