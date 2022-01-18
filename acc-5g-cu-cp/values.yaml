@@ -49,7 +49,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "master-ecb0302eb519"
+  tag: "R2.4.0_ename"
 
 
   # Redis settings
