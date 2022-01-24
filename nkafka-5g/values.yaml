@@ -64,7 +64,7 @@ options:
   - name: "compact"
     value: "true"
   - name: "offset"
-    value: "auto"
+    value: "0"
   - name: "subject"
     value: "topic"
     
