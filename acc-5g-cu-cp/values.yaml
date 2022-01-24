@@ -28,7 +28,7 @@ global:
   #                 - the number of DUs that will be used
   #                 - the number of CELLSs that will be used
   #                   i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
-  #                 - the number of UEs that will be used
+  #                 - the number of UEs that will be used in multiples of 10, so 1=10 UEs, 2=20 UEs, etc
   numOfAmfs: 1
   numOfCuUps: 1
   numOfDus: 3
@@ -53,7 +53,7 @@ global:
 
   # For documentation purpose
   # The version of the helm chart
-  helmVersion: "5.0.0-rc.0"
+  helmVersion: "5.0.0-alpha-multi-ds"
 
   # Redis settings
   #   Description: Certain application need to be able to reach
@@ -394,6 +394,8 @@ ds-ctrl:
   # Number of UEs supported
   numOfUes: "{{ .Values.global.numOfUes }}"
 
+  # Number of DS-CTRL containers per pod
+  numberOfDsCtrl: "10"
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
