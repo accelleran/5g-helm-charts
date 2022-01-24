@@ -31,7 +31,7 @@ spec:
       {{ $count := (tpl .Values.numberOfDsCtrl . | int) }}
       {{- range untilStep 0 $count 1 }}
       containers:
-        - name: {{ .Chart.Name }}-{{ . | toString }}
+        - name: {{ $.Chart.Name }}-{{ . | toString }}
           securityContext:
             {{- toYaml $.Values.securityContext | nindent 12 }}
           image: "{{ $.Values.image.repository }}:{{ tpl $.Values.image.tag $ | default $.Chart.AppVersion }}"
