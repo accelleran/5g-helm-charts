@@ -28,19 +28,21 @@ spec:
       serviceAccountName: {{ include "five-g-appl.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{ $count := (tpl .Values.numberOfDsCtrl . | int) }}
+      {{- range untilStep 0 $count 1 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Chart.Name }}-{{ . }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{ if .Values.developerMode.enabled }}
+            {{- toYaml $.Values.securityContext | nindent 12 }}
+          image: "{{ $.Values.image.repository }}:{{ tpl $.Values.image.tag $ | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          {{ if $.Values.developerMode.enabled }}
           command:
             - sh
             - "-c"
             - |
               /bin/bash <<'EOF'
-              echo "export __APPID=ds_ctrl_${HOSTNAME##*-}" > /home/accelleran/5G/dev/environment.sh
+              echo "export __APPID=ds_ctrl_${HOSTNAME##*-}_{{ . }}" > /home/accelleran/5G/dev/environment.sh
               chmod +x /home/accelleran/5G/dev/environment.sh
               while true; do sleep 30; done;
               EOF
@@ -50,23 +52,23 @@ spec:
             - "-c"
             - |
               /bin/sh <<'EOF'
-              echo ds_ctrl_${HOSTNAME##*-}
-              __APPID=ds_ctrl_${HOSTNAME##*-} {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+              echo ds_ctrl_${HOSTNAME##*-}_{{ . }}
+              __APPID=ds_ctrl_${HOSTNAME##*-}_{{ . }} {{ $.Values.cmd }} {{- if $.Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
               EOF
           {{ end }}
           env:
             - name: NATS_SERVICE_URL
-              value: nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}
+              value: nats://{{ tpl $.Values.nats.url $ }}:{{ tpl $.Values.nats.port $ }}
             - name: ZLOG_CONF_PATH
               value: /home/accelleran/5G/zlog.conf
             - name: BOOTSTRAP_FILENAME
-              value: {{ .Values.bootstrapFile }}
+              value: {{ $.Values.bootstrapFile }}
             - name: JAEGER_AGENT_HOST
-              value: {{ tpl .Values.jaegerAgentHost . }}
+              value: {{ tpl $.Values.jaegerAgentHost $ }}
             - name: __APPNAME
               value: dsCtrl
-            {{- if .Values.extraEnvs }}
-            {{ toYaml .Values.extraEnvs | nindent 12 }}
+            {{- if $.Values.extraEnvs }}
+            {{ toYaml $.Values.extraEnvs | nindent 12 }}
             {{- end }}
 #          ports:
 #            - name: http
@@ -81,22 +83,23 @@ spec:
 #              path: /
 #              port: http
           volumeMounts:
-            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+            - name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
               mountPath: /home/accelleran/5G/zlog.conf
               subPath: "zlog.conf"
-            - name: {{ include "five-g-appl.fullname" . }}-bootstrap
-              mountPath: {{ .Values.bootstrapFile }}
+            - name: {{ include "five-g-appl.fullname" $ }}-bootstrap
+              mountPath: {{ $.Values.bootstrapFile }}
               subPath: "bootstrap.txt"
-            {{ if and (.Values.developerMode.enabled) (.Values.developerMode.hostPath) }}
+            {{ if and ($.Values.developerMode.enabled) ($.Values.developerMode.hostPath) }}
             - name: dev-work-dir
               mountPath: /home/accelleran/5G/dev/
             {{ end }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml $.Values.resources | nindent 12 }}
           lifecycle:
             preStop:
               exec:
-                command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
+                command: [ '/bin/sh', '-c', 'pkill -15 -e {{ $.Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
+      {{- end }}
       {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
       nodeSelector:
         {{ if .Values.nodeSelector }}
