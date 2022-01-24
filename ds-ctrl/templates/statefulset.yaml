@@ -28,9 +28,9 @@ spec:
       serviceAccountName: {{ include "five-g-appl.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{ $count := (tpl .Values.numberOfDsCtrl . | int) }}
-      {{- range untilStep 0 $count 1 }}
       containers:
+        {{ $count := (tpl .Values.numberOfDsCtrl . | int) }}
+        {{- range untilStep 0 $count 1 }}
         - name: {{ $.Chart.Name }}-{{ . | toString }}
           securityContext:
             {{- toYaml $.Values.securityContext | nindent 12 }}
