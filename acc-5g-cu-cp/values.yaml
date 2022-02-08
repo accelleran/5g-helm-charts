@@ -1,11 +1,9 @@
 global:
-
   # Kubernetes Advertise Address
   #   Description: Used as External address for services
   #   Value type: string
   #
   kubeIp: "10.55.1.2"
-
 
   # CU-CP Instance ID
   #   Description:  The Instance ID of the CU-CP component that
@@ -30,10 +28,10 @@ global:
   #                   i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
   #                 - the number of UEs that will be used
   numOfAmfs: 1
-  numOfCuUps: 2
-  numOfDus: 1
-  numOfCells: 1
-  numOfUes: 1
+  numOfCuUps: 1
+  numOfDus: 3
+  numOfCells: 3
+  numOfUes: 16
 
   # NATS URL and PORT
   #   Description: Used to configure the application to talk
@@ -43,14 +41,12 @@ global:
   natsUrl: "10.55.1.2"
   natsPort: "31100"
 
-
   # Version of the 5G applications
   #   Description: This is the version of the 5G applications
   #                in DockerHub.
   #   Value type: string
   #
   tag: "R2.4.2_ename"
-
 
   # Redis settings
   #   Description: Certain application need to be able to reach
@@ -61,7 +57,6 @@ global:
   #
   redisHostname: "10.55.1.2"
   redisPort: "32200"
-
 
   # dRAX Specific Node Selector
   #   Description: This is a special nodeSelector field implemented for the
@@ -95,7 +90,6 @@ netconf:
   #
   enabled: true
 
-
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
   #                 there is a special dRAX NodeSelector. This can be shared
@@ -119,7 +113,6 @@ netconf:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -133,7 +126,6 @@ netconf:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
@@ -149,7 +141,6 @@ netconf:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
 
-
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
   #                 specified or referenced from the global-values.yaml.
@@ -163,7 +154,6 @@ netconf:
   nats:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -192,17 +182,15 @@ netconf:
   # netconfService:
   #   nodePort: 31832
   #
-  
+
   # netconfService:
   #   nodePort: 31832
 
 amf-controller:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: true
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -227,7 +215,6 @@ amf-controller:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -241,7 +228,6 @@ amf-controller:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -257,7 +243,6 @@ amf-controller:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -271,7 +256,6 @@ amf-controller:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -289,12 +273,10 @@ amf-controller:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 cu-up-controller:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: true
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -319,7 +301,6 @@ cu-up-controller:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -333,7 +314,6 @@ cu-up-controller:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -349,7 +329,6 @@ cu-up-controller:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -363,7 +342,6 @@ cu-up-controller:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -381,16 +359,13 @@ cu-up-controller:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 ds-ctrl:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: true
 
-
   # Number of UEs supported
   numOfUes: "{{ .Values.global.numOfUes }}"
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -415,7 +390,6 @@ ds-ctrl:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -429,7 +403,6 @@ ds-ctrl:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -445,7 +418,6 @@ ds-ctrl:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # Arguments for the 5G application
   #   Description:  The arguments for the 5G application run command are specified here. The
   #                 field args is a list. Each list items is a map of 2 fields:
@@ -458,7 +430,6 @@ ds-ctrl:
   #   - name: "--rel_msec"
   #     value: "0"
   #
-
 
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
@@ -473,7 +444,6 @@ ds-ctrl:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -491,12 +461,10 @@ ds-ctrl:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 du-controller:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: true
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -521,7 +489,6 @@ du-controller:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -535,7 +502,6 @@ du-controller:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -551,7 +517,6 @@ du-controller:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -565,7 +530,6 @@ du-controller:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -583,7 +547,6 @@ du-controller:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 e1-cp:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
@@ -591,7 +554,6 @@ e1-cp:
 
   # Number of CU-UPs that should be supported
   numOfCuUps: "{{ .Values.global.numOfCuUps }}"
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -616,7 +578,6 @@ e1-cp:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -630,7 +591,6 @@ e1-cp:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -646,7 +606,6 @@ e1-cp:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -660,7 +619,6 @@ e1-cp:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -678,7 +636,6 @@ e1-cp:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 f1-ap:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
@@ -710,7 +667,6 @@ f1-ap:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -724,7 +680,6 @@ f1-ap:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -740,7 +695,6 @@ f1-ap:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -754,7 +708,6 @@ f1-ap:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -772,12 +725,10 @@ f1-ap:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 gnb-controller:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: true
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -802,7 +753,6 @@ gnb-controller:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -816,7 +766,6 @@ gnb-controller:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -832,7 +781,6 @@ gnb-controller:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -846,7 +794,6 @@ gnb-controller:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -864,7 +811,6 @@ gnb-controller:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 ng-ap:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
@@ -896,7 +842,6 @@ ng-ap:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -910,7 +855,6 @@ ng-ap:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -926,7 +870,6 @@ ng-ap:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -940,7 +883,6 @@ ng-ap:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -958,12 +900,10 @@ ng-ap:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 pm-controller:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: true
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -988,7 +928,6 @@ pm-controller:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -1002,7 +941,6 @@ pm-controller:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -1018,7 +956,6 @@ pm-controller:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -1032,7 +969,6 @@ pm-controller:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -1050,12 +986,10 @@ pm-controller:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 res-mgr:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: true
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -1080,7 +1014,6 @@ res-mgr:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -1094,7 +1027,6 @@ res-mgr:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -1110,7 +1042,6 @@ res-mgr:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -1124,7 +1055,6 @@ res-mgr:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -1142,17 +1072,14 @@ res-mgr:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 rr-ctrl:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: true
 
-
   # Total number of cells to be supported
   # i.e. DU1 supporting 3 cells and DU2 supported 2 cells => numOfCells: 5
   numOfCells: "{{ .Values.global.numOfCells }}"
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -1177,7 +1104,6 @@ rr-ctrl:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -1191,7 +1117,6 @@ rr-ctrl:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -1207,7 +1132,6 @@ rr-ctrl:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -1221,7 +1145,6 @@ rr-ctrl:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -1239,12 +1162,10 @@ rr-ctrl:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 sctp:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: true
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -1269,7 +1190,6 @@ sctp:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -1283,7 +1203,6 @@ sctp:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -1299,7 +1218,6 @@ sctp:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -1313,7 +1231,6 @@ sctp:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
@@ -1325,7 +1242,6 @@ sctp:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-
   # F1 Service Settings
   #   Description:  The settings of the F1 service exposed for this component. You can leave the
   #                 LoadBalancer to give an IP address or you can manually select an IP from the
@@ -1335,9 +1251,8 @@ sctp:
   # f1Service:
   #   loadBalancerIP: "10.55.1.31"
   #
-#  f1Service:
-#    loadBalancerIP: "10.55.1.31"
-
+  #  f1Service:
+  #    loadBalancerIP: "10.55.1.31"
 
   # E1 Service Settings
   #   Description:  The settings of the E1 service exposed for this component. You can leave the
@@ -1348,8 +1263,8 @@ sctp:
   # e1Service:
   #   loadBalancerIP: "10.55.1.32"
   #
-#  e1Service:
-#    loadBalancerIP: "10.55.1.32"
+  #  e1Service:
+  #    loadBalancerIP: "10.55.1.32"
 
   # Jaeger settings
   #   Description:  Sets the DNS hostname where the Jaeger agent is located
@@ -1357,12 +1272,10 @@ sctp:
   jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
 
 ho-tester:
-
   # Enable or disable installation of component
   #   Value type: boolean
   #
   enabled: false
-
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
@@ -1387,7 +1300,6 @@ ho-tester:
   draxNodeSelector:
     draxName: "{{ .Values.global.draxName }}"
 
-
   # Version/tag of component
   #   Description:  The version/tag of the component's Docker image which is
   #                 used to pull it from DockerHub. The version/tag can be
@@ -1401,7 +1313,6 @@ ho-tester:
   #
   image:
     tag: "{{ .Values.global.tag }}"
-
 
   # NATS Settings
   #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
@@ -1417,7 +1328,6 @@ ho-tester:
     url: "{{ .Values.global.natsUrl }}"
     port: "{{ .Values.global.natsPort }}"
 
-
   # REDIS Settings
   #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
   #                 PORT are defined here.
@@ -1431,7 +1341,6 @@ ho-tester:
   redisConfig:
     hostname: "{{ .Values.global.redisHostname }}"
     port: "{{ .Values.global.redisPort }}"
-
 
   # Bootstrap Instance ID
   #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
