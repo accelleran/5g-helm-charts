@@ -2,13 +2,13 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+numberOfCuStacks: "2"
 
 image:
   repository: accelleran/cuupappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -28,13 +28,19 @@ initGetConfigImage:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-initGetConfig:
-  - resourceType: 'service'
-    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
-    resourceNamespace: '{{ .Release.Namespace }}'
-    field: '.status.loadBalancer.ingress[0].ip'
-    # Environmental variable have to be ALL CAPS
-    envName: "GTP_IP"
+###
+# This can be used in templates as:
+# {{ if $.Values.initGetConfig }}
+# {{ range $.Values.initGetConfig }}
+# value=$(kubectl get {{ .resourceType }} {{ tpl .resourceName $ }} -n {{ tpl .resourceNamespace $ }} -o json | jq "{{ .field }}")
+###
+initGetConfig: []
+#  - resourceType: 'service'
+#    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
+#    resourceNamespace: '{{ .Release.Namespace }}'
+#    field: '.status.loadBalancer.ingress[0].ip'
+#    # Environmental variable have to be ALL CAPS
+#    envName: "GTP_IP"
 
 args:
   - name: "--downlink"
@@ -102,8 +108,8 @@ gtpService:
   type: LoadBalancer
   protocol: UDP
   gtpUPort: 2152
-  # loadBalancerIP:
-  # gtpUNodePort:
+#  loadBalancerIP: THIS IS CURRENTLY BROKEN!!!! DONT USE!!!!
+#  gtpUNodePort: THIS IS CURRENTLY BROKEN!!!! DONT USE!!!!
   externalTrafficPolicy: "Local"
 
 ingress:

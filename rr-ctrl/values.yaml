@@ -10,7 +10,7 @@ image:
   repository: accelleran/rrctrlappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets:
   - name: accelleran-secret
@@ -42,9 +42,9 @@ bootstrapFile: /home/accelleran/5G/bootstrap.txt
 
 jaegerAgentHost: "ric-jaeger-agent"
 
-extraEnvs:
-  - name: __APPNAME
-    value: rrCtrl
+extraEnvs: []
+#  - name: __APPNAME
+#    value: rrCtrl
 #  - name: ex1
 #    value: ex1
 
@@ -118,3 +118,7 @@ draxNodeSelector:
 tolerations: []
 
 affinity: {}
+
+developerMode:
+  enabled: false
+  hostPath: ""

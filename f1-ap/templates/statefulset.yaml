@@ -1,0 +1,130 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "five-g-appl.fullname" . }}
+  labels:
+    {{- include "five-g-appl.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "five-g-appl.fullname" . }}-service
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ tpl .Values.numOfDus . }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "five-g-appl.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "five-g-appl.labels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "five-g-appl.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{ if .Values.developerMode.enabled }}
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/bash <<'EOF'
+              echo "export __APPID=f1_ap_${HOSTNAME##*-}" > /home/accelleran/5G/dev/environment.sh
+              chmod +x /home/accelleran/5G/dev/environment.sh
+              while true; do sleep 30; done;
+              EOF
+          {{ else }}
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/sh <<'EOF'
+              echo f1_ap_${HOSTNAME##*-}
+              __APPID=f1_ap_${HOSTNAME##*-} {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+              EOF
+          {{ end }}
+          env:
+            - name: NATS_SERVICE_URL
+              value: nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}
+            - name: ZLOG_CONF_PATH
+              value: /home/accelleran/5G/zlog.conf
+            - name: BOOTSTRAP_FILENAME
+              value: {{ .Values.bootstrapFile }}
+            - name: JAEGER_AGENT_HOST
+              value: {{ tpl .Values.jaegerAgentHost . }}
+            - name: __APPNAME
+              value: f1ap
+            {{- if .Values.extraEnvs }}
+            {{ toYaml .Values.extraEnvs | nindent 12 }}
+            {{- end }}
+#          ports:
+#            - name: http
+#              containerPort: 80
+#              protocol: TCP
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+          volumeMounts:
+            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+              mountPath: /home/accelleran/5G/zlog.conf
+              subPath: "zlog.conf"
+            - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+              mountPath: {{ .Values.bootstrapFile }}
+              subPath: "bootstrap.txt"
+            {{ if and (.Values.developerMode.enabled) (.Values.developerMode.hostPath) }}
+            - name: dev-work-dir
+              mountPath: /home/accelleran/5G/dev/
+            {{ end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
+      {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
+      nodeSelector:
+        {{ if .Values.nodeSelector }}
+          {{- toYaml .Values.nodeSelector | nindent 8 }}
+        {{ end }}
+        {{ if eq (tpl .Values.draxNodeSelectorEnabled .) "true" }}
+          {{- tpl (toYaml .Values.draxNodeSelector) $ | nindent 8 }}
+        {{ end }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+
+        - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-bootstrap
+
+        {{ if and (.Values.developerMode.enabled) (.Values.developerMode.hostPath) }}
+        - name: dev-work-dir
+          hostPath:
+            path: {{ .Values.developerMode.hostPath }}
+        {{ end }}
