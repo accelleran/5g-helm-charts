@@ -6,6 +6,12 @@ global:
   #
   kubeIp: "10.55.1.2"
 
+  # Number of supported components
+  #   Description:  You have to specify the amount of different components that should be supported.
+  #                 Therefore, you have to specify:
+  #                 - the number of UP stacks that will be used
+  numberOfCuStacks: 2
+
 
   # CU-UP Instance ID
   #   Description:  The Instance ID of the CU-UP component that
@@ -35,7 +41,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "release-2.3-duvel-8b8d7f05"
+  tag: "R2.4.5_ename"
 
 
   # Redis settings
@@ -82,6 +88,10 @@ cu-up:
   #   Value type: boolean
   #
   enabled: true
+
+
+  # Number of UP Stacks supported
+  numberOfCuStacks: "{{ .Values.global.numberOfCuStacks }}"
 
 
   # Special dRAX NodeSelector
@@ -162,17 +172,6 @@ cu-up:
   # bootstrapId: "cuup_1"
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
-
-
-  # GTP Service Settings
-  #   Description:  The settings of the GTP service exposed for this component. You can leave the
-  #                 LoadBalancer to give an IP address or you can manually select an IP from the
-  #                 IP pool of the LoadBalancer. By default we leave the LoadBalancer to assign an IP.
-  #                 The POD has a mechanism to discover which ever IP is given.
-  #
-  #   Example:
-  #  gtpService:
-  #    loadBalancerIP: "10.55.1.20"
 
   # Jaeger settings
   #   Description:  Sets the DNS hostname where the Jaeger agent is located
