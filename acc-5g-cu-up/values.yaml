@@ -173,17 +173,6 @@ cu-up:
   #
   bootstrapId: "{{ .Values.global.instanceId }}"
 
-
-  # GTP Service Settings
-  #   Description:  The settings of the GTP service exposed for this component. You can leave the
-  #                 LoadBalancer to give an IP address or you can manually select an IP from the
-  #                 IP pool of the LoadBalancer. By default we leave the LoadBalancer to assign an IP.
-  #                 The POD has a mechanism to discover which ever IP is given.
-  #
-  #   Example:
-  #  gtpService:
-  #    loadBalancerIP: "10.55.1.20"
-
   # Jaeger settings
   #   Description:  Sets the DNS hostname where the Jaeger agent is located
   #   Value type:   string

@@ -35,6 +35,9 @@ Release notes:
   - Ethernet and Unstructured PDU Sessions: Support for additional pdu session types
   - CU KPIs added
 
+# Updated
+  - The default number of supported components in the CU-CP has changed (numOfAmfs: 1,   numOfCuUps: 1,   numOfDus: 3,   numOfCells: 3,   numOfUes: 16)
+
 # Fixed
   - Bug: duController crash when DU configured with 16 cells (issue when > 8)
   - Improvement: Switch to protobuf 3
