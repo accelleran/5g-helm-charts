@@ -42,6 +42,7 @@ Release notes:
   - Bug: duController crash when DU configured with 16 cells (issue when > 8)
   - Improvement: Switch to protobuf 3
   - Improvement: Moved Span Context Propagation from NATS payload to Protobuf
+  - Fixed a crash in sctpCp when the CU is non-operational
 
 # Removed:
 
