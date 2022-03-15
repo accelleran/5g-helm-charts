@@ -15,7 +15,8 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 4.0.2-rc.0
+version: 4.0.2-rc.1
+# MAKE SURE TO EDIT THE global.helmVersion IN VALUES AS WELL!
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -32,7 +33,7 @@ dependencies:
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: cu-up
     condition: cu-up.enabled
-    version: 1.0.0
+    version: 1.1.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: e1-sctp-up
     condition: e1-sctp-up.enabled
