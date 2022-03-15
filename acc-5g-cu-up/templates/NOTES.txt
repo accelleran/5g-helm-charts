@@ -26,6 +26,9 @@ Release notes:
  - Added service (and loadBalancer issued IP) per replica of cu-up microservice (UP Stack) with unique GTP IPs
  - Improvement: Multiple User Plane Stacks per CU-UP
 
+# Updated
+  - Updated labels so that version can be displayed on the dRAX Dashboard
+
 # Fixed
 
 # Removed

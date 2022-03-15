@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "five-g-appl.fullname" . }}
   labels:
-    {{- include "five-g-appl.labels" . | nindent 4 }}
+    {{- include "sctp.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "five-g-appl.labels" . | nindent 8 }}
+        {{- include "sctp.labels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

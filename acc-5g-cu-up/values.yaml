@@ -44,6 +44,11 @@ global:
   tag: "R2.4.8_ename"
 
 
+  # For documentation purpose
+  # The version of the helm chart
+  helmVersion: "4.0.2-rc.1"
+
+
   # Redis settings
   #   Description: Certain application need to be able to reach
   #                Redis. Here we configure the Redis hostname
