@@ -46,7 +46,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "R2.4.6_ename"
+  tag: "R2.4.8_ename"
 
   # Redis settings
   #   Description: Certain application need to be able to reach

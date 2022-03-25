@@ -43,6 +43,7 @@ Release notes:
   - Improvement: Switch to protobuf 3
   - Improvement: Moved Span Context Propagation from NATS payload to Protobuf
   - Fixed a crash in sctpCp when the CU is non-operational
+  - Fixed the RLF handling in CU-CP
 
 # Removed:
 
