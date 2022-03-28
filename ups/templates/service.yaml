@@ -1,6 +1,6 @@
 {{- if .Values.service.enabled -}}
 
-{{ $count := (.Values.numberOfCuStacks | int) }}
+{{ $count := (.Values.numberOfUpStacks | int) }}
 {{- range untilStep 0 $count 1 }}
 
 apiVersion: v1
@@ -9,7 +9,7 @@ metadata:
   name: {{ include "five-g-appl.fullname" $ }}-{{ . | toString }}
   labels:
     {{- include "five-g-appl.labels" $ | nindent 4 }}
-    cu-stack-id: {{ . | quote }}
+    up-stack-id: {{ . | quote }}
 spec:
   type: {{ $.Values.service.type }}
   ports:
@@ -19,7 +19,7 @@ spec:
       name: http
   selector:
     {{- include "five-g-appl.selectorLabels" $ | nindent 4 }}
-    cu-stack-id: {{ . | quote }}
+    up-stack-id: {{ . | quote }}
 ---
 {{- end }}
 

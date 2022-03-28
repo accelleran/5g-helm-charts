@@ -30,9 +30,9 @@ dependencies:
     condition: netconf.enabled
     version: 2.1.0
     repository: https://accelleran.github.io/5g-helm-charts/
-  - name: cu-up
-    condition: cu-up.enabled
-    version: 1.1.0
+  - name: ups
+    condition: ups.enabled
+    version: 2.0.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: e1-sctp-up
     condition: e1-sctp-up.enabled
