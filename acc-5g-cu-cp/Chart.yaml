@@ -74,8 +74,16 @@ dependencies:
     condition: rr-ctrl.enabled
     version: 1.0.0
     repository: https://accelleran.github.io/5g-helm-charts/
-  - name: sctp
-    condition: sctp.enabled
+  - name: sctp-e1
+    condition: sctp-e1.enabled
+    version: 1.0.0
+    repository: https://accelleran.github.io/5g-helm-charts/
+  - name: sctp-f1
+    condition: sctp-f1.enabled
+    version: 1.0.0
+    repository: https://accelleran.github.io/5g-helm-charts/
+  - name: sctp-ng
+    condition: sctp-ng.enabled
     version: 1.0.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: ho-tester

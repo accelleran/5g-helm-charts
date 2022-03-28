@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: accelleran/sctpcpappl
+  repository: accelleran/sctpcpe1appl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -17,7 +17,7 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "./sctpCpAppl.exe"
+cmd: "./sctpCpE1Appl.exe"
 
 args: []
 #  - name: "--own"
@@ -44,7 +44,7 @@ jaegerAgentHost: "ric-jaeger-agent"
 
 extraEnvs:
   - name: __APPNAME
-    value: sctpCp
+    value: sctpCpE1
 #  - name: ex1
 #    value: ex1
 
@@ -75,15 +75,6 @@ service:
   enabled: false
   type: ClusterIP
   port: 80
-
-f1Service:
-  enabled: true
-  type: LoadBalancer
-  protocol: SCTP
-  f1Port: 38472
-  # loadBalancerIP:
-  # f1NodePort:
-  externalTrafficPolicy: "Local"
 
 e1Service:
   enabled: true

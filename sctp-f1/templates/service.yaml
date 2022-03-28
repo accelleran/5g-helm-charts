@@ -8,10 +8,6 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: 38462
-      targetPort:
-      protocol: SCTP
-      name: e1
     - port: 38472
       targetPort:
       protocol: SCTP

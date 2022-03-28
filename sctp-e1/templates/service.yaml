@@ -1,0 +1,17 @@
+{{- if .Values.service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "five-g-appl.fullname" . }}
+  labels:
+    {{- include "five-g-appl.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 38462
+      targetPort:
+      protocol: SCTP
+      name: e1
+  selector:
+    {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
+{{- end -}}

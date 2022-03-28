@@ -52,13 +52,7 @@ spec:
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
-          ports:
-            - name: e1
-              containerPort: {{ .Values.e1Service.e1Port}}
-              protocol: {{ .Values.e1Service.protocol }}
-            - name: f1
-              containerPort: {{ .Values.f1Service.f1Port}}
-              protocol: {{ .Values.f1Service.protocol }}
+          ports: []
 #          livenessProbe:
 #            httpGet:
 #              path: /
