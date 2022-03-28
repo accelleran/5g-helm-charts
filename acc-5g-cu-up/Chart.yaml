@@ -15,13 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 4.1.0-rc.0
+version: 5.0.0-alpha
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "R2.4.11_ename"
+appVersion: "R3.1.0_floreffe"
 # THIS IS FOR DOCUMENTATION. REAL TAG CONTROL IN VALUES FILE!
 
 # Dependencies
@@ -30,9 +30,9 @@ dependencies:
     condition: netconf.enabled
     version: 2.1.0-rc.0
     repository: https://accelleran.github.io/5g-helm-charts/
-  - name: cu-up
-    condition: cu-up.enabled
-    version: 1.1.0
+  - name: ups
+    condition: ups.enabled
+    version: 2.0.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: e1-sctp-up
     condition: e1-sctp-up.enabled

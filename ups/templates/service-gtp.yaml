@@ -1,6 +1,6 @@
 {{- if .Values.gtpService.enabled -}}
 
-{{ $count := (tpl .Values.numberOfCuStacks . | int) }}
+{{ $count := (tpl .Values.numberOfUpStacks . | int) }}
 {{- range untilStep 0 $count 1 }}
 
 apiVersion: v1
@@ -10,7 +10,7 @@ metadata:
   labels:
     {{- include "five-g-appl.labels" $ | nindent 4 }}
     drax/service-name: acc-fiveg-{{ $.Chart.Name }}-gtp
-    cu-stack-id: {{ . | quote }}
+    up-stack-id: {{ . | quote }}
 spec:
   type: {{ $.Values.gtpService.type }}
   {{ if $.Values.gtpService.externalTrafficPolicy }}
@@ -28,7 +28,7 @@ spec:
   {{ end }}
   selector:
     {{- include "five-g-appl.selectorLabels" $ | nindent 4 }}
-    cu-stack-id: {{ . | quote }}
+    up-stack-id: {{ . | quote }}
 ---
 {{- end }}
 

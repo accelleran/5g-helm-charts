@@ -10,7 +10,7 @@ global:
   #   Description:  You have to specify the amount of different components that should be supported.
   #                 Therefore, you have to specify:
   #                 - the number of UP stacks that will be used
-  numberOfCuStacks: 2
+  numberOfUpStacks: 2
 
   # CU-UP Instance ID
   #   Description:  The Instance ID of the CU-UP component that
@@ -40,12 +40,11 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "R2.4.11_ename"
-
+  tag: "R3.1.0_floreffe"
 
   # For documentation purpose
   # The version of the helm chart
-  helmVersion: "4.1.0-rc.0"
+  helmVersion: "5.0.0-alpha"
 
 
   # Redis settings
@@ -87,7 +86,7 @@ global:
   jaegerAgentHost: "ric-jaeger-agent"
 
 
-cu-up:
+ups:
   # Enable or disable installation of component
   #   Value type: boolean
   #
@@ -95,7 +94,7 @@ cu-up:
 
 
   # Number of UP Stacks supported
-  numberOfCuStacks: "{{ .Values.global.numberOfCuStacks }}"
+  numberOfUpStacks: "{{ .Values.global.numberOfUpStacks }}"
 
 
   # Special dRAX NodeSelector

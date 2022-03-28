@@ -2,10 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-numberOfCuStacks: "2"
+numberOfUpStacks: "2"
 
 image:
-  repository: accelleran/cuupappl
+  repository: accelleran/upsappl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -17,7 +17,7 @@ fullnameOverride: ""
 
 # Application Settings
 # cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "./cuUpAppl.exe"
+cmd: "./upsAppl.exe"
 
 testing:
   value: "${GTP_IP}"
@@ -69,7 +69,7 @@ jaegerAgentHost: "ric-jaeger-agent"
 
 extraEnvs:
   - name: __APPNAME
-    value: cuUp
+    value: ups
 #  - name: example_env_name
 #    value: example_env_value
 #  - name: ex1
