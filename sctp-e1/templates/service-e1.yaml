@@ -1,0 +1,26 @@
+{{- if .Values.e1Service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "five-g-appl.fullname" . }}-e1
+  labels:
+    {{- include "sctp.labels" . | nindent 4 }}
+    drax/service-name: acc-fiveg-{{ .Chart.Name }}-e1
+spec:
+  type: {{ .Values.e1Service.type }}
+  {{ if .Values.e1Service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ tpl .Values.e1Service.externalTrafficPolicy . }}
+  {{ end }}
+  ports:
+    - port: {{ .Values.e1Service.e1Port}}
+      protocol: {{ .Values.e1Service.protocol }}
+      name: e1
+      {{ if contains "NodePort" .Values.e1Service.type }}
+      nodePort: {{ .Values.e1NodePort }}
+      {{ end }}
+  {{ if .Values.e1Service.loadBalancerIP }}
+  loadBalancerIP: {{ tpl .Values.e1Service.loadBalancerIP . }}
+  {{ end }}
+  selector:
+    {{- include "five-g-appl.selectorLabels" . | nindent 4 }}
+{{- end -}}
