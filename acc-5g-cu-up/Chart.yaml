@@ -46,3 +46,7 @@ dependencies:
     condition: pm-controller-up.enabled
     version: 0.3.0
     repository: https://accelleran.github.io/5g-helm-charts/
+  - name: controller-up
+    condition: controller-up.enabled
+    version: 0.1.0
+    repository: https://accelleran.github.io/5g-helm-charts/
