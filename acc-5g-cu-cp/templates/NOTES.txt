@@ -1,6 +1,6 @@
 #############################################################################
 
-Accelleran CU-UP {{ .Chart.Version }} using {{ .Values.global.tag }}
+Accelleran CU-CP {{ .Chart.Version }} using {{ .Values.global.tag }}
 
 Deployed Accelleran CU-CP component [{{- include "preFlightCheck.instanceIdLength" . }}] with the following details:
 
@@ -37,17 +37,18 @@ Release notes:
 
 # Updated
   - The default number of supported components in the CU-CP has changed (numOfAmfs: 1,   numOfCuUps: 1,   numOfDus: 3,   numOfCells: 3,   numOfUes: 16)
+  - Updated labels so that version can be displayed on the dRAX Dashboard
 
 # Fixed
   - Bug: duController crash when DU configured with 16 cells (issue when > 8)
   - Improvement: Switch to protobuf 3
   - Improvement: Moved Span Context Propagation from NATS payload to Protobuf
   - Fixed a crash in sctpCp when the CU is non-operational
+  - Fixed the RLF handling in CU-CP
 
 # Removed:
 
 # Limitations
   - The published PmReportingCounterList_t has changed slightly - non-backwards compatible
-
 
 #############################################################################

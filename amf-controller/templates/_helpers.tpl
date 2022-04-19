@@ -44,6 +44,8 @@ drax/technology: 5g
 drax/instanceId: "{{ tpl .Values.bootstrapId . }}"
 drax/redis-url: "{{ tpl .Values.redisConfig.hostname . }}"
 drax/redis-port: "{{ tpl .Values.redisConfig.port . }}"
+drax/helm-version: "{{ tpl .Values.global.helmVersion . }}"
+drax/5g-version: "{{ tpl .Values.global.tag . }}"
 {{- end }}
 
 {{/*
