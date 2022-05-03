@@ -53,7 +53,7 @@ global:
 
   # For documentation purpose
   # The version of the helm chart
-  helmVersion: "4.0.3-rc.0"
+  helmVersion: "4.0.3"
 
   # Redis settings
   #   Description: Certain application need to be able to reach
