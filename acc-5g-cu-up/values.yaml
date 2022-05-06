@@ -45,7 +45,7 @@ global:
 
   # For documentation purpose
   # The version of the helm chart
-  helmVersion: "4.0.3"
+  helmVersion: "4.1.0-rc.0"
 
 
   # Redis settings
