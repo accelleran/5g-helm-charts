@@ -18,7 +18,7 @@ data:
     
                 <netconf-config xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
                   <idle-session-timeout>300</idle-session-timeout>
-                  <enable-notifications>false</enable-notifications>
+                  <enable-notifications>true</enable-notifications>
                   <supported-models xc:operation="create">
                     <model-namespace>http://accelleran.com/ns/yang/accelleran-gnb-cu-cp</model-namespace>
                     <model-name>accelleran-gnb-cu-cp</model-name>
