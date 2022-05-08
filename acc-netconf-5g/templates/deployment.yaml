@@ -70,7 +70,7 @@ spec:
               {{ end }}
 
               EOF
-        {{ if .Values.initNetconfModel.enabled }}
+        {{ if or .Values.initNetconfModel.enabled .Values.initNetconfDefaultPath.enabled }}
         - name: {{ .Chart.Name }}-config-netconf-model
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -112,6 +112,12 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-check-netconf
               mountPath: /home/accelleran/5G/rpcs/check-netconf.py
               subPath: "check-netconf.py"
+            - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+              mountPath: /home/accelleran/5G/rpcs/cucp-rpc.py
+              subPath: "cucp-rpc.py"
+            - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+              mountPath: /home/accelleran/5G/rpcs/cuup-rpc.py
+              subPath: "cuup-rpc.py"
           command:
             - sh
             - "-c"
@@ -124,8 +130,21 @@ spec:
 
               # Start netconf in the background
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }} &
-              
-              sleep 5
+
+              # Add needed APT repositories
+              echo "deb http://archive.ubuntu.com/ubuntu/ focal main restricted
+              deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted
+              deb http://archive.ubuntu.com/ubuntu/ focal universe
+              deb http://archive.ubuntu.com/ubuntu/ focal-updates universe
+              deb http://archive.ubuntu.com/ubuntu/ focal multiverse
+              deb http://archive.ubuntu.com/ubuntu/ focal-updates multiverse
+              deb http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse
+              deb http://security.ubuntu.com/ubuntu/ focal-security main restricted
+              deb http://security.ubuntu.com/ubuntu/ focal-security universe
+              deb http://security.ubuntu.com/ubuntu/ focal-security multiverse" > /etc/apt/sources.list
+
+              # ensure pip is available
+              apt update && DEBIAN_FRONTEND=noninteractive apt -y install python3-pip
 
               # upgrade pip
               python3 -m pip install -U pip
@@ -136,9 +155,24 @@ spec:
               # make sure that netconf is running
               python3 rpcs/check-netconf.py
 
+              {{ if .Values.initNetconfModel.enabled }}
               # Run model-rpc.py script
               python3 rpcs/model-rpc.py
+              {{ end }}
 
+              {{ if .Values.initNetconfDefaultPath.enabled }}
+
+              {{ if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cucp" }}
+
+              python3 /home/accelleran/5G/rpcs/cucp-rpc.py >> rpcs/rpc-log.txt
+
+              {{ else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cuup" }}
+
+              python3 /home/accelleran/5G/rpcs/cuup-rpc.py >> rpcs/rpc-log.txt
+
+              {{ end }}
+
+              {{ end }}
               exit 0
 
               EOF
@@ -202,44 +236,6 @@ spec:
             preStop:
               exec:
                 command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
-            postStart:
-              exec:
-                command:
-                  - sh
-                  - "-c"
-                  - |
-                    /bin/sh <<'EOF'
-
-                    # upgrade pip
-                    python3 -m pip install -U pip
-
-                    pip3 install netconf-client==1.7.1
-
-                    {{ if .Values.initNetconfDefaultPath.enabled }}
-
-                    echo "Starting..." > rpcs/rpc-log.txt
-
-                    python3 /home/accelleran/5G/rpcs/check-netconf.py >> rpcs/rpc-log.txt
-
-                    {{ if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cucp" }}
-
-                    echo "CUCP" >> rpcs/rpc-log.txt
-
-                    python3 /home/accelleran/5G/rpcs/cucp-rpc.py >> rpcs/rpc-log.txt
-
-                    {{ else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cuup" }}
-
-                    echo "CUUP" >> rpcs/rpc-log.txt
-
-                    python3 /home/accelleran/5G/rpcs/cuup-rpc.py >> rpcs/rpc-log.txt
-
-                    {{ end }}
-
-                    {{ end }}
-
-                    echo "[POST-START-SCRIPT] Finished NetConf Default Path initialization!"
-
-                    EOF
           volumeMounts:
             - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
               mountPath: /home/accelleran/5G/zlog.conf
@@ -252,15 +248,6 @@ spec:
               subPath: "bootstrap.txt"
             - name: init-volume
               mountPath: /init-configs/
-            - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
-              mountPath: /home/accelleran/5G/rpcs/cucp-rpc.py
-              subPath: "cucp-rpc.py"
-            - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
-              mountPath: /home/accelleran/5G/rpcs/cuup-rpc.py
-              subPath: "cuup-rpc.py"
-            - name: {{ include "five-g-appl.fullname" . }}-check-netconf
-              mountPath: /home/accelleran/5G/rpcs/check-netconf.py
-              subPath: "check-netconf.py"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
