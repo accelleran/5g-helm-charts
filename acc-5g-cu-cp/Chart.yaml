@@ -28,7 +28,7 @@ appVersion: "R3.2.0_grimbergen"
 dependencies:
   - name: netconf
     condition: netconf.enabled
-    version: 2.1.0
+    version: 2.2.0-rc.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: amf-controller
     condition: amf-controller.enabled

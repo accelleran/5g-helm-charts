@@ -6,6 +6,7 @@ metadata:
     {{- include "five-g-appl.labels" . | nindent 4 }}
 data:
   model-rpc.py: |
+    from pathlib import Path
     from netconf_client.connect import connect_ssh
     from netconf_client.ncclient import Manager
 
@@ -14,35 +15,11 @@ data:
 
     session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
     mgr = Manager(session, timeout=120)
-    models = """<config>
-    
-                <netconf-config xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
-                  <idle-session-timeout>300</idle-session-timeout>
-                  <enable-notifications>true</enable-notifications>
-                  <supported-models xc:operation="create">
-                    <model-namespace>http://accelleran.com/ns/yang/accelleran-gnb-cu-cp</model-namespace>
-                    <model-name>accelleran-gnb-cu-cp</model-name>
-                    <model-revision>2021-10-12</model-revision>
-                    <model-file-name>accelleran-gnb-cu-cp.yang</model-file-name>
-                    <library-name>libgnbCUCPCrudLib.so</library-name>
-                  </supported-models>
-                  <supported-models xc:operation="create">
-                    <model-namespace>http://accelleran.com/ns/yang/accelleran-gnb-cu-up</model-namespace>
-                    <model-name>accelleran-gnb-cu-up</model-name>
-                    <model-revision>2021-09-02</model-revision>
-                    <model-file-name>accelleran-gnb-cu-up.yang</model-file-name>
-                    <library-name>libgnbCUUPCrudLib.so</library-name>
-                  </supported-models>
-                  <supported-models xc:operation="create">
-                    <model-namespace>http://accelleran.com/ns/yang/accelleran-connected-gnb-du</model-namespace>
-                    <model-name>accelleran-connected-gnb-du</model-name>
-                    <model-revision>2020-09-02</model-revision>
-                    <model-file-name>accelleran-connected-gnb-du.yang</model-file-name>
-                    <library-name>libconnGnbDuCrudLib.so</library-name>
-                  </supported-models>
-                </netconf-config>
-    
-            </config>"""
+
+    models_template = Path("/home/accelleran/5G/models.txt").read_text()
+    models = f"<config>{models_template}</config>"
 
     print(mgr.edit_config(config=models,target='running', default_operation=None))
 
+    reload = """<reload-models xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0"/>"""
+    print(mgr.dispatch(reload))
