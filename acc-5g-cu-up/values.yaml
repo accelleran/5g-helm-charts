@@ -40,11 +40,11 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "R3.1.0_floreffe"
+  tag: "R3.1.1_floreffe"
 
   # For documentation purpose
   # The version of the helm chart
-  helmVersion: "5.0.0-alpha"
+  helmVersion: "5.0.0-rc.0"
 
 
   # Redis settings
