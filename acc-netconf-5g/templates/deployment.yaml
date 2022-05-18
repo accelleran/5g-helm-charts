@@ -118,6 +118,15 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
               mountPath: /home/accelleran/5G/rpcs/cuup-rpc.py
               subPath: "cuup-rpc.py"
+            - name: {{ include "five-g-appl.fullname" . }}-rpc-cw
+              mountPath: /home/accelleran/5G/rpcs/cw-rpc.py
+              subPath: "cw-rpc.py"
+            - name: {{ include "five-g-appl.fullname" . }}-config-cw
+              mountPath: /home/accelleran/5G/rpcs/cw-netconf-config.py
+              subPath: "cw-netconf-config.py"
+            - name: {{ include "five-g-appl.fullname" . }}-delete-rpc
+              mountPath: /home/accelleran/5G/rpcs/netconf-delete-config.py
+              subPath: "netconf-delete-config.py"
           command:
             - sh
             - "-c"
@@ -169,10 +178,30 @@ spec:
               {{ else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cuup" }}
 
               python3 /home/accelleran/5G/rpcs/cuup-rpc.py >> rpcs/rpc-log.txt
+              
+              {{ else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cw" }}
+
+              python3 /home/accelleran/5G/rpcs/cw-rpc.py >> rpcs/rpc-log.txt
 
               {{ end }}
 
               {{ end }}
+              
+              
+              {{- if .Values.configOnBoot.enabled }}
+              
+              {{ if .Values.configOnBoot.deleteExistingConfig }}
+              # If the delete config job is enabled, run the following script
+              python3 /home/accelleran/5G/rpcs/netconf-delete-config.py
+              {{ end }}
+  
+              {{ if eq ( tpl .Values.configOnBoot.configId . ) "cw" }}
+              # Run cw-netconf-config.py script
+              python3 /home/accelleran/5G/rpcs/cw-netconf-config.py
+              {{ end }}
+              
+              {{- end }}
+              
               exit 0
 
               EOF
@@ -297,6 +326,18 @@ spec:
         - name: {{ include "five-g-appl.fullname" . }}-check-netconf
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-check-netconf
+
+        - name: {{ include "five-g-appl.fullname" . }}-rpc-cw
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-rpc-cw
+
+        - name: {{ include "five-g-appl.fullname" . }}-config-cw
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-config-cw
+
+        - name: {{ include "five-g-appl.fullname" . }}-delete-rpc
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-delete-rpc
 
 
 

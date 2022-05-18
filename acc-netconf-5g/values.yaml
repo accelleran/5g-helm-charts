@@ -50,6 +50,53 @@ initNetconfDefaultPath:
   host: 'localhost'
   componentType: 'cuup'
 
+configOnBoot:
+  enabled: false
+  deleteExistingConfig: false
+  host: 'localhost'
+  configId: "cw"
+  cwConfig:
+    monitorControlConfiguration:
+      monitorRate:
+        seconds: 20
+        miliSeconds: 0
+    autoRepairerConfiguration:
+      numberOfContainersCounterThreshold: 2
+      l1RruTrafficCounterThreshold: 3
+      saveLogRequestStatus: true
+    physicalCellConfiguration:
+      publicKey: "/home/accelleran/5G/ssh/public"
+      privateKey: "/home/accelleran/5G/ssh/private"
+    distributedUnit:
+      name: du-1
+      type: phluido
+      logSourcePath: /run/logs-du/du
+      logDestinationPath: /home/ad/granny/logs-du-backup
+      connectionDetails:
+        host: 10.22.11.147
+        port: 22
+        username: ad
+      dockerComposeDetails:
+        filePath: /home/ad/granny/config/du/benetel650/docker-compose.yml
+        serviceName: du
+        containerName: gnb_du_main_phluido
+      layer1:
+        name: l1-1
+        type: phluido
+        logSourcePath: /run/logs-du/l1
+        logDestinationPath: /home/ad/granny/logs-du-backup
+        dockerComposeDetails:
+          filePath: /home/ad/granny/config/du/benetel650/docker-compose.yml
+          serviceName: phluido_l1
+          containerName: phluido_l1
+      radioUnit:
+        name: ru-1
+        type: benetel650
+        connectionDetails:
+          host: 10.10.0.100
+          port: 22
+          username: root
+
 
 args: []
 #  - name: "--own"
