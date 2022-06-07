@@ -17,79 +17,30 @@ data:
     mgr = Manager(session, timeout=120)
     
     rc_config = """<config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
-    
-                <configuration xmlns="http://accelleran.com/ns/yang/accelleran-granny" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
-                  <monitor-control-configuration xc:operation="replace">
-                      <monitor-rate xc:operation="replace">
-                          <seconds>{{ .Values.configOnBoot.cwConfig.monitorControlConfiguration.monitorRate.seconds }}</seconds>
-                          <milli-seconds>{{ .Values.configOnBoot.cwConfig.monitorControlConfiguration.monitorRate.miliSeconds }}</milli-seconds>
-                      </monitor-rate>
-                  </monitor-control-configuration>
-              
-                  <auto-repairer-configuration xc:operation="replace">
-                      <number-of-containers-counter-threshold>{{ .Values.configOnBoot.cwConfig.autoRepairerConfiguration.numberOfContainersCounterThreshold }}</number-of-containers-counter-threshold>
-                      <l1-rru-traffic-counter-threshold>{{ .Values.configOnBoot.cwConfig.autoRepairerConfiguration.l1RruTrafficCounterThreshold }}</l1-rru-traffic-counter-threshold>
-                      <save-log-request-status>{{ .Values.configOnBoot.cwConfig.autoRepairerConfiguration.saveLogRequestStatus }}</save-log-request-status>
-                  </auto-repairer-configuration>
-                  
-                  <physical-cell-configuration xc:operation="replace">
-                      <ssh-key-pair xc:operation="replace">
-                          <public-key>{{ .Values.configOnBoot.cwConfig.physicalCellConfiguration.publicKey }}</public-key>
-                          <private-key>{{ .Values.configOnBoot.cwConfig.physicalCellConfiguration.privateKey }}</private-key>
-                      </ssh-key-pair>
-              
-                      <distributed-unit xc:operation="replace">
-                          <name>{{ .Values.configOnBoot.cwConfig.distributedUnit.name }}</name>
-                          <type>{{ .Values.configOnBoot.cwConfig.distributedUnit.type }}</type>
-              
-                          <log-source-path>{{ .Values.configOnBoot.cwConfig.distributedUnit.logSourcePath }}</log-source-path>
-                          <log-destination-path>{{ .Values.configOnBoot.cwConfig.distributedUnit.logDestinationPath }}</log-destination-path>
-                          
-                          <connection-details xc:operation="replace">
-                              <host>{{ .Values.configOnBoot.cwConfig.distributedUnit.connectionDetails.host }}</host>
-                              <port>{{ .Values.configOnBoot.cwConfig.distributedUnit.connectionDetails.port }}</port>
-                              <username>{{ .Values.configOnBoot.cwConfig.distributedUnit.connectionDetails.username }}</username>
-                          </connection-details>
-                          
-                          <docker-compose-details xc:operation="replace">
-                              <file-path>{{ .Values.configOnBoot.cwConfig.distributedUnit.dockerComposeDetails.filePath }}</file-path>
-                              <service-name>{{ .Values.configOnBoot.cwConfig.distributedUnit.dockerComposeDetails.serviceName }}</service-name>
-                              <container-name>{{ .Values.configOnBoot.cwConfig.distributedUnit.dockerComposeDetails.containerName }}</container-name>
-                          </docker-compose-details>
-              
-                          <layer-1 xc:operation="replace">
-                              <name>{{ .Values.configOnBoot.cwConfig.distributedUnit.layer1.name }}</name>
-                              <type>{{ .Values.configOnBoot.cwConfig.distributedUnit.layer1.type }}</type>
-              
-                              <log-source-path>{{ .Values.configOnBoot.cwConfig.distributedUnit.layer1.logSourcePath }}</log-source-path>
-                              <log-destination-path>{{ .Values.configOnBoot.cwConfig.distributedUnit.layer1.logDestinationPath }}</log-destination-path>
-                              
-                              <docker-compose-details xc:operation="replace">
-                                  <file-path>{{ .Values.configOnBoot.cwConfig.distributedUnit.layer1.dockerComposeDetails.filePath }}</file-path>
-                                  <service-name>{{ .Values.configOnBoot.cwConfig.distributedUnit.layer1.dockerComposeDetails.serviceName }}</service-name>
-                                  <container-name>{{ .Values.configOnBoot.cwConfig.distributedUnit.layer1.dockerComposeDetails.containerName }}</container-name>
-                              </docker-compose-details>
-              
-                              <radio-unit xc:operation="replace">
-                                  <name>{{ .Values.configOnBoot.cwConfig.distributedUnit.radioUnit.name }}</name>
-                                  <type>{{ .Values.configOnBoot.cwConfig.distributedUnit.radioUnit.type }}</type>
-              
-                                  <connection-details xc:operation="replace">
-                                      <host>{{ .Values.configOnBoot.cwConfig.distributedUnit.radioUnit.connectionDetails.host }}</host>
-                                      <port>{{ .Values.configOnBoot.cwConfig.distributedUnit.radioUnit.connectionDetails.port }}</port>
-                                      <username>{{ .Values.configOnBoot.cwConfig.distributedUnit.radioUnit.connectionDetails.username }}</username>
-                                  </connection-details>
-                              </radio-unit>
-                          </layer-1>
-                      </distributed-unit>
-                  </physical-cell-configuration>
-                </configuration>
-                  
+                {{ .Values.configOnBoot.config | toYaml }}
                 </config>
-
                 """
+    
+    print("Sending NetConf configuration RPC: {rc_config}".format(rc_config=rc_config))
+    
     try:
       print(mgr.edit_config(config=rc_config,target='running', default_operation=None))
-      print("Successfully set NetConf Configuration!")
+      print("***** Successfully set NetConf Configuration for Cell Wrapper!")
     except Exception as e:
+      print("***** Failed to set NetConf Configuration for Cell Wrapper!")
+      print(e)
+    
+    rc_unlock_admin_state = """
+                <config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+                  <configuration xmlns="http://accelleran.com/ns/yang/accelleran-granny" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
+                    <admin-state>unlocked</admin-state>
+                  </configuration>
+                </config>
+                """
+    
+    try:
+      print(mgr.edit_config(config=rc_unlock_admin_state,target='running', default_operation=None))
+      print("***** Successfully unlocked Cell Wrapper Admin State!")
+    except Exception as e:
+      print("***** Failed to unlock Cell Wrapper Admin State!")
       print(e)

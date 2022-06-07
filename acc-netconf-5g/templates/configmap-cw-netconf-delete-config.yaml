@@ -16,11 +16,12 @@ data:
     session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
     mgr = Manager(session, timeout=120)
     rc_config = """<config>
-                   <enb-internal xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete" />
+                   <netconf-config xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete" />
                    </config>
                 """
     try:
       print(mgr.edit_config(config=rc_config,target='running', default_operation=None))
-      print("Successfully deleted the NetConf Configuration!")
+      print("***** Successfully deleted the NetConf Configuration!")
     except Exception as e:
+      print("***** Failed to delete the NetConf Configuration!")
       print(e)

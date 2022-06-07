@@ -19,7 +19,17 @@ data:
     models_template = Path("/home/accelleran/5G/models.txt").read_text()
     models = f"<config>{models_template}</config>"
 
-    print(mgr.edit_config(config=models,target='running', default_operation=None))
+    try:
+      print(mgr.edit_config(config=models,target='running', default_operation=None))
+      print("***** Successfully set models!")
+    except Exception as e:
+      print("***** Failed to set models!")
+      print(e)
 
-    reload = """<reload-models xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0"/>"""
-    print(mgr.dispatch(reload))
+    try:
+      reload = """<reload-models xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0"/>"""
+      print(mgr.dispatch(reload))
+      print("***** Successfully reloaded models!")
+    except Exception as e:
+      print("***** Failed to reload models!")
+      print(e)

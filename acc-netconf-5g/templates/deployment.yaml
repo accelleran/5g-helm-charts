@@ -163,6 +163,11 @@ spec:
 
               # make sure that netconf is running
               python3 rpcs/check-netconf.py
+              
+              {{ if .Values.configOnBoot.deleteExistingConfig }}
+              # If the delete config job is enabled, run the following script
+              python3 /home/accelleran/5G/rpcs/netconf-delete-config.py
+              {{ end }}
 
               {{ if .Values.initNetconfModel.enabled }}
               # Run model-rpc.py script
@@ -181,7 +186,8 @@ spec:
               
               {{ else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cw" }}
 
-              python3 /home/accelleran/5G/rpcs/cw-rpc.py >> rpcs/rpc-log.txt
+              cat /home/accelleran/5G/rpcs/cw-rpc.py
+              python3 /home/accelleran/5G/rpcs/cw-rpc.py
 
               {{ end }}
 
@@ -189,17 +195,10 @@ spec:
               
               
               {{- if .Values.configOnBoot.enabled }}
-              
-              {{ if .Values.configOnBoot.deleteExistingConfig }}
-              # If the delete config job is enabled, run the following script
-              python3 /home/accelleran/5G/rpcs/netconf-delete-config.py
-              {{ end }}
-  
               {{ if eq ( tpl .Values.configOnBoot.configId . ) "cw" }}
               # Run cw-netconf-config.py script
               python3 /home/accelleran/5G/rpcs/cw-netconf-config.py
               {{ end }}
-              
               {{- end }}
               
               exit 0

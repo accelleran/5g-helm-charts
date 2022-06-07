@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "five-g-appl.labels" . | nindent 4 }}
 data:
-  cuup-rpc.py: |
+  cw-rpc.py: |
     from netconf_client.connect import connect_ssh
     from netconf_client.ncclient import Manager
 
@@ -17,9 +17,14 @@ data:
 
     defPath = """<config>
     <netconf-config xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
-        <default-path>/accelleran-granny:granny</default-path>
+      <default-path>/accelleran-granny:granny</default-path>
     </netconf-config> </config>"""
 
-    print(mgr.edit_config(config=defPath,target='running', default_operation=None))
+    try:
+      print(mgr.edit_config(config=defPath, target='running', default_operation=None))
+      print("***** Successfully set default path for Cell Wrapper!")
+    except Exception as e:
+      print("***** Failed to set default path for Cell Wrapper!")
+      print(e)
 
 
