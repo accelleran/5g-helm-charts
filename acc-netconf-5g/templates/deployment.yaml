@@ -124,6 +124,9 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-config-cw
               mountPath: /home/accelleran/5G/rpcs/cw-netconf-config.py
               subPath: "cw-netconf-config.py"
+            - name: {{ include "five-g-appl.fullname" . }}-config-cw
+              mountPath: /home/accelleran/5G/rpcs/config-rpc.txt
+              subPath: "config-rpc.txt" 
             - name: {{ include "five-g-appl.fullname" . }}-delete-rpc
               mountPath: /home/accelleran/5G/rpcs/netconf-delete-config.py
               subPath: "netconf-delete-config.py"
@@ -195,10 +198,8 @@ spec:
               
               
               {{- if .Values.configOnBoot.enabled }}
-              {{ if eq ( tpl .Values.configOnBoot.configId . ) "cw" }}
               # Run cw-netconf-config.py script
               python3 /home/accelleran/5G/rpcs/cw-netconf-config.py
-              {{ end }}
               {{- end }}
               
               exit 0

@@ -5,7 +5,9 @@ metadata:
   labels:
     {{- include "five-g-appl.labels" . | nindent 4 }}
 data:
+  config-rpc.txt: {{ toYaml (tpl .Values.configOnBoot.config .) }}
   cw-netconf-config.py: |
+    from pathlib import Path
     from netconf_client.connect import connect_ssh
     from netconf_client.ncclient import Manager
     import time
@@ -16,10 +18,9 @@ data:
     session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
     mgr = Manager(session, timeout=120)
     
-    rc_config = """<config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
-                {{ .Values.configOnBoot.config | toYaml }}
-                </config>
-                """
+    config_rpc = Path("/home/accelleran/5G/rpcs/config-rpc.txt").read_text()
+
+    rc_config = f"<config>{config_rpc}</config>"
     
     print("Sending NetConf configuration RPC: {rc_config}".format(rc_config=rc_config))
     
