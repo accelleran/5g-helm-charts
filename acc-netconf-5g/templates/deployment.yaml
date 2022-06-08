@@ -121,12 +121,14 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-rpc-cw
               mountPath: /home/accelleran/5G/rpcs/cw-rpc.py
               subPath: "cw-rpc.py"
+            {{ if .Values.configOnBoot.enabled }}
             - name: {{ include "five-g-appl.fullname" . }}-config-cw
               mountPath: /home/accelleran/5G/rpcs/cw-netconf-config.py
               subPath: "cw-netconf-config.py"
             - name: {{ include "five-g-appl.fullname" . }}-config-cw
               mountPath: /home/accelleran/5G/rpcs/config-rpc.txt
               subPath: "config-rpc.txt" 
+            {{ end }}
             - name: {{ include "five-g-appl.fullname" . }}-delete-rpc
               mountPath: /home/accelleran/5G/rpcs/netconf-delete-config.py
               subPath: "netconf-delete-config.py"
@@ -331,14 +333,15 @@ spec:
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-rpc-cw
 
-        - name: {{ include "five-g-appl.fullname" . }}-config-cw
-          configMap:
-            name: {{ include "five-g-appl.fullname" . }}-config-cw
-
         - name: {{ include "five-g-appl.fullname" . }}-delete-rpc
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-delete-rpc
 
+{{ if .Values.configOnBoot.enabled }}
+        - name: {{ include "five-g-appl.fullname" . }}-config-cw
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-config-cw
+{{ end }}
 
 
 
