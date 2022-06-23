@@ -6,10 +6,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "five-g-appl.fullname" $ }}-gtp-{{ . | toString }}
+  name: {{ include "acc-common.fullname" $ }}-gtp-{{ . | toString }}
   labels:
-    {{- include "five-g-appl.labels" $ | nindent 4 }}
-    drax/service-name: acc-fiveg-{{ $.Chart.Name }}-gtp
+    {{- include "acc-common.labels.5g" $ | nindent 4 }}
     up-stack-id: {{ . | quote }}
 spec:
   type: {{ $.Values.gtpService.type }}
@@ -27,7 +26,7 @@ spec:
   loadBalancerIP: {{ tpl $.Values.gtpService.loadBalancerIP $ }}
   {{ end }}
   selector:
-    {{- include "five-g-appl.selectorLabels" $ | nindent 4 }}
+    {{- include "acc-common.selectorLabels" $ | nindent 4 }}
     up-stack-id: {{ . | quote }}
 ---
 {{- end }}

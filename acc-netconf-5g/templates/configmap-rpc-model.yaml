@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "five-g-appl.fullname" . }}-rpc-model
+  name: {{ include "acc-common.fullname" . }}-rpc-model
   labels:
-    {{- include "five-g-appl.labels" . | nindent 4 }}
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
 data:
   model-rpc.py: |
     from pathlib import Path

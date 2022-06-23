@@ -2,11 +2,11 @@
 
 Accelleran CU-UP {{ .Chart.Version }} using {{ .Values.global.tag }}
 
-Deployed Accelleran CU-UP component [{{- include "preFlightCheck.instanceIdLength" . }}] with the following details:
+Deployed Accelleran CU-UP component [{{- include "acc-common.drax.instanceId.withLengthCheck" . }}] with the following details:
 
 Tag: {{ tpl .Values.global.tag . }}
 
-Instance ID: {{- include "preFlightCheck.instanceId" . }}
+Instance ID: {{- include "acc-common.drax.instanceId.withFormatCheck" . }}
 
 Redis Configuration: {{ tpl .Values.global.redisHostname . }}:{{ tpl .Values.global.redisPort . }}
 

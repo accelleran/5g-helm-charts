@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "five-g-appl.fullname" . }}-check-netconf
+  name: {{ include "acc-common.fullname" . }}-check-netconf
   labels:
-    {{- include "five-g-appl.labels" . | nindent 4 }}
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
 data:
   check-netconf.py: |
     from netconf_client.connect import connect_ssh

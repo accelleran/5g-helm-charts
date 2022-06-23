@@ -1,5 +1,12 @@
 global:
 
+  # For documentation purposes
+  topChart:
+    # The name of this helm chart
+    name: "acc-5g-cu-cp"
+    # The version of this helm chart
+    helmVersion: "5.0.0-alpha"
+
   # Kubernetes Advertise Address
   #   Description: Used as External address for services
   #   Value type: string
@@ -51,9 +58,6 @@ global:
   #
   tag: "R3.2.0_grimbergen"
 
-  # For documentation purpose
-  # The version of the helm chart
-  helmVersion: "5.0.0-alpha"
 
   # Redis settings
   #   Description: Certain application need to be able to reach

@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "five-g-appl.fullname" . }}-bootstrap
+  name: {{ include "acc-common.fullname" . }}-bootstrap
   labels:
-    {{- include "five-g-appl.labels" . | nindent 4 }}
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
 data:
   bootstrap.txt: |
     redis.hostname:{{ tpl .Values.redisConfig.hostname . }}

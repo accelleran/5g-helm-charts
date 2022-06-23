@@ -21,7 +21,7 @@ initGetConfig:
     field: '.status.loadBalancer.ingress[0].ip'
     envName: "F1_IP"
   - resourceType: 'service'
-    resourceName: '{{ include "five-g-appl.fullname" . }}-gtp'
+    resourceName: '{{ include "acc-common.fullname" . }}-gtp'
     resourceNamespace: '{{ .Release.Namespace }}'
     field: '.status.loadBalancer.ingress[0].ip'
     envName: "GTP_IP"

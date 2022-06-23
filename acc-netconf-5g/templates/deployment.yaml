@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "five-g-appl.fullname" . }}
+  name: {{ include "acc-common.fullname" . }}
   labels:
-    {{- include "five-g-appl.labels" . | nindent 4 }}
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "five-g-appl.selectorLabels" . | nindent 6 }}
+      {{- include "acc-common.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "five-g-appl.labels" . | nindent 8 }}
+        {{- include "acc-common.labels.5g" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "five-g-appl.serviceAccountName" . }}
+      serviceAccountName: {{ include "acc-common.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
@@ -97,25 +97,25 @@ spec:
               containerPort: {{ .Values.netconfService.port }}
               protocol: {{ .Values.netconfService.protocol }}
           volumeMounts:
-            - name: {{ include "five-g-appl.fullname" . }}-rpc-model
+            - name: {{ include "acc-common.fullname" . }}-rpc-model
               mountPath: /home/accelleran/5G/rpcs/model-rpc.py
               subPath: "model-rpc.py"
-            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+            - name: {{ include "acc-common.fullname" . }}-zlog-conf
               mountPath: /home/accelleran/5G/zlog.conf
               subPath: "zlog.conf"
-            - name: {{ include "five-g-appl.fullname" . }}-ncstart
+            - name: {{ include "acc-common.fullname" . }}-ncstart
               mountPath: /home/accelleran/5G/ncstart
               subPath: "ncstart"
-            - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+            - name: {{ include "acc-common.fullname" . }}-bootstrap
               mountPath: {{ .Values.bootstrapFile }}
               subPath: "bootstrap.txt"
-            - name: {{ include "five-g-appl.fullname" . }}-check-netconf
+            - name: {{ include "acc-common.fullname" . }}-check-netconf
               mountPath: /home/accelleran/5G/rpcs/check-netconf.py
               subPath: "check-netconf.py"
-            - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+            - name: {{ include "acc-common.fullname" . }}-rpc-cucp
               mountPath: /home/accelleran/5G/rpcs/cucp-rpc.py
               subPath: "cucp-rpc.py"
-            - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+            - name: {{ include "acc-common.fullname" . }}-rpc-cuup
               mountPath: /home/accelleran/5G/rpcs/cuup-rpc.py
               subPath: "cuup-rpc.py"
           command:
@@ -237,13 +237,13 @@ spec:
               exec:
                 command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
           volumeMounts:
-            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+            - name: {{ include "acc-common.fullname" . }}-zlog-conf
               mountPath: /home/accelleran/5G/zlog.conf
               subPath: "zlog.conf"
-            - name: {{ include "five-g-appl.fullname" . }}-ncstart
+            - name: {{ include "acc-common.fullname" . }}-ncstart
               mountPath: /home/accelleran/5G/ncstart
               subPath: "ncstart"
-            - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+            - name: {{ include "acc-common.fullname" . }}-bootstrap
               mountPath: {{ .Values.bootstrapFile }}
               subPath: "bootstrap.txt"
             - name: init-volume
@@ -270,33 +270,33 @@ spec:
       volumes:
         - name: init-volume
           emptyDir: {}
-        - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+        - name: {{ include "acc-common.fullname" . }}-zlog-conf
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+            name: {{ include "acc-common.fullname" . }}-zlog-conf
 
-        - name: {{ include "five-g-appl.fullname" . }}-ncstart
+        - name: {{ include "acc-common.fullname" . }}-ncstart
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-ncstart
+            name: {{ include "acc-common.fullname" . }}-ncstart
             defaultMode: 0777
-        - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+        - name: {{ include "acc-common.fullname" . }}-bootstrap
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-bootstrap
+            name: {{ include "acc-common.fullname" . }}-bootstrap
 
-        - name: {{ include "five-g-appl.fullname" . }}-rpc-model
+        - name: {{ include "acc-common.fullname" . }}-rpc-model
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-rpc-model
+            name: {{ include "acc-common.fullname" . }}-rpc-model
 
-        - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+        - name: {{ include "acc-common.fullname" . }}-rpc-cucp
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+            name: {{ include "acc-common.fullname" . }}-rpc-cucp
 
-        - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+        - name: {{ include "acc-common.fullname" . }}-rpc-cuup
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+            name: {{ include "acc-common.fullname" . }}-rpc-cuup
 
-        - name: {{ include "five-g-appl.fullname" . }}-check-netconf
+        - name: {{ include "acc-common.fullname" . }}-check-netconf
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-check-netconf
+            name: {{ include "acc-common.fullname" . }}-check-netconf
 
 
 

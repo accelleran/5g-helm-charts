@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "five-g-appl.fullname" . }}-test-connection"
+  name: "{{ include "acc-common.fullname" . }}-test-connection"
   labels:
-    {{- include "five-g-appl.labels" . | nindent 4 }}
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test-success
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "five-g-appl.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "acc-common.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never

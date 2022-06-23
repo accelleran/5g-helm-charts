@@ -16,6 +16,7 @@ type: application
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 version: 5.0.0-alpha
+# UPDATE .global.topChart.version IN VALUES FILE TO MATCH!
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -26,27 +27,30 @@ appVersion: "R3.2.0_grimbergen"
 
 # Dependencies
 dependencies:
+  - name: acc-common
+    version: 0.1.0
+    repository: https://accelleran.github.io/helm-charts/
   - name: netconf
     condition: netconf.enabled
-    version: 2.2.0-rc.0
+    version: 2.2.0-rc.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: ups
     condition: ups.enabled
-    version: 2.0.0
+    version: 2.1.0-rc.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: e1-sctp-up
     condition: e1-sctp-up.enabled
-    version: 0.5.0
+    version: 0.6.0-rc.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: res-mgr-up
     condition: res-mgr-up.enabled
-    version: 0.5.0
+    version: 0.6.0-rc.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: pm-controller-up
     condition: pm-controller-up.enabled
-    version: 0.3.0
+    version: 0.4.0-rc.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: controller-up
     condition: controller-up.enabled
-    version: 0.1.0
+    version: 0.2.0-rc.0
     repository: https://accelleran.github.io/5g-helm-charts/

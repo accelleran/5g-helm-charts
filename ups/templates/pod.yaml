@@ -3,20 +3,20 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: {{ include "five-g-appl.fullname" $ }}-{{ . | toString }}
+  name: {{ include "acc-common.fullname" $ }}-{{ . | toString }}
   {{- with $.Values.podAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   labels:
-    {{- include "five-g-appl.labels" $ | nindent 4 }}
+    {{- include "acc-common.labels.5g" $ | nindent 4 }}
     up-stack-id: {{ . | quote }}
 spec:
   {{- with $.Values.imagePullSecrets }}
   imagePullSecrets:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  serviceAccountName: {{ include "five-g-appl.serviceAccountName" $ }}
+  serviceAccountName: {{ include "acc-common.serviceAccountName" $ }}
   securityContext:
     {{- toYaml $.Values.podSecurityContext | nindent 4 }}
   initContainers:
@@ -34,7 +34,7 @@ spec:
 
           #!/bin/bash
 
-          value=$(kubectl get service {{ include "five-g-appl.fullname" $ }}-gtp-{{ . }} -n {{ $.Release.Namespace }} -o json | jq ".status.loadBalancer.ingress[0].ip")
+          value=$(kubectl get service {{ include "acc-common.fullname" $ }}-gtp-{{ . }} -n {{ $.Release.Namespace }} -o json | jq ".status.loadBalancer.ingress[0].ip")
 
           echo "GTP_IP=$value" >> /init-configs/env.env
 
@@ -107,12 +107,12 @@ spec:
 #              path: /
 #              port: http
       volumeMounts:
-        - name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
+        - name: {{ include "acc-common.fullname" $ }}-zlog-conf
           mountPath: /5G/zlog.conf
           subPath: "zlog.conf"
         - name: init-volume
           mountPath: /init-configs/
-        - name: {{ include "five-g-appl.fullname" $ }}-bootstrap
+        - name: {{ include "acc-common.fullname" $ }}-bootstrap
           mountPath: {{ $.Values.bootstrapFile }}
           subPath: "bootstrap.txt"
       resources:
@@ -141,12 +141,12 @@ spec:
   volumes:
     - name: init-volume
       emptyDir: {}
-    - name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
+    - name: {{ include "acc-common.fullname" $ }}-zlog-conf
       configMap:
-        name: {{ include "five-g-appl.fullname" $ }}-zlog-conf
+        name: {{ include "acc-common.fullname" $ }}-zlog-conf
 
-    - name: {{ include "five-g-appl.fullname" $ }}-bootstrap
+    - name: {{ include "acc-common.fullname" $ }}-bootstrap
       configMap:
-        name: {{ include "five-g-appl.fullname" $ }}-bootstrap
+        name: {{ include "acc-common.fullname" $ }}-bootstrap
 ---
 {{- end }}
