@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "five-g-appl.labels" . | nindent 4 }}
 data:
-  config-rpc.txt: {{ toYaml (tpl .Values.configOnBoot.config .) }}
+  config-rpc.txt: {{ toYaml (tpl .Values.configOnBoot.config .) | nindent 4 }}
   cw-netconf-config.py: |
     from pathlib import Path
     from netconf_client.connect import connect_ssh
