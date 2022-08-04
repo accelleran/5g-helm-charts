@@ -32,6 +32,7 @@ Release notes:
 
 # Fixed
   - 4.0.2 and 4.0.3 didn't correctly provide version information in the labels. This has been resolved in 4.1.0.
+  - IE ordering in E1AP messages
 
 # Removed
   - The ability to specify the IP address of the GTP service (as LoadBalancer service type) is not supported in this version
