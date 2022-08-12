@@ -32,19 +32,19 @@ dependencies:
     repository: https://accelleran.github.io/helm-charts/
   - name: netconf
     condition: netconf.enabled
-    version: 2.2.0-rc.3
+    version: 2.2.0-rc.4
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: ups
     condition: ups.enabled
-    version: 2.1.0-rc.0
+    version: 2.1.0-rc.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: e1-sctp-up
     condition: e1-sctp-up.enabled
-    version: 0.6.0-rc.0
+    version: 0.6.0-rc.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: res-mgr-up
     condition: res-mgr-up.enabled
-    version: 0.6.0-rc.0
+    version: 0.6.0-rc.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: pm-controller-up
     condition: pm-controller-up.enabled
