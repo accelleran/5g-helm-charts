@@ -1,0 +1,84 @@
+amf-controller:
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+
+cu-up-controller:
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+
+du-controller: 
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+
+gnb-controller: 
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+
+pm-controller: 
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+
+sctp: 
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+
+res-mgr:
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+
+
+netconf:
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+    podSecurityContext: 
+        runAsUser: 1000
+        runAsNonRoot: true
+        fsGroup: 5555
+    netconfService:
+        port: 8300
+    initNetconfModel:
+        enabled: false 
+
+
+# CU-UP Configuration 
+
+cu-up:
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+        runAsNonRoot: true
+    podSecurityContext: 
+        runAsUser: 1000
+        runAsNonRoot: true
+
+e1-sctp-up:
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+        runAsNonRoot: true
+    podSecurityContext: 
+        runAsUser: 1000
+        runAsNonRoot: true
+
+pm-controller-up: 
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+        runAsNonRoot: true
+
+res-mgr-up:
+    podSecurityContext: 
+        runAsUser: 1000
+        runAsNonRoot: true
+    securityContext:
+        runAsUser: 1000
+        privileged: false
+        runAsNonRoot: true
