@@ -89,6 +89,8 @@ spec:
               value: {{ .Values.bootstrapFile }}
             - name: NATS_SERVICE_URL
               value: "nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}"
+            - name: NETCONF_LISTEN_PORT
+              value: "{{ .Values.netconfService.port }}"
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
@@ -120,6 +122,7 @@ spec:
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }} &
 
               ./ncclient \
+                --port "{{ .Values.netconfService.port }}" \
                 {{- if .Values.initNetconfModel.enabled }}
                 --edit /home/accelleran/5G/models.txt \
                 --custom /rpcs/reload-models.xml \
@@ -176,6 +179,8 @@ spec:
               value: {{ .Values.bootstrapFile }}
             - name: NATS_SERVICE_URL
               value: "nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}"
+            - name: NETCONF_LISTEN_PORT
+              value: "{{ .Values.netconfService.port }}"
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}

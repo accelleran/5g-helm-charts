@@ -94,7 +94,7 @@ securityContext:
 netconfService:
   enabled: true
   type: NodePort
-  port: 830
+  port: 8300
   name: netconf
   protocol: TCP
 

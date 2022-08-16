@@ -32,7 +32,7 @@ dependencies:
     repository: https://accelleran.github.io/helm-charts/
   - name: netconf
     condition: netconf.enabled
-    version: 2.2.0-rc.2
+    version: 2.2.0-rc.3
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: amf-controller
     condition: amf-controller.enabled
