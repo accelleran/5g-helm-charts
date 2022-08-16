@@ -97,9 +97,6 @@ spec:
               containerPort: {{ .Values.netconfService.port }}
               protocol: {{ .Values.netconfService.protocol }}
           volumeMounts:
-            - name: {{ include "acc-common.fullname" . }}-rpc-model
-              mountPath: /home/accelleran/5G/rpcs/model-rpc.py
-              subPath: "model-rpc.py"
             - name: {{ include "acc-common.fullname" . }}-zlog-conf
               mountPath: /home/accelleran/5G/zlog.conf
               subPath: "zlog.conf"
@@ -109,15 +106,8 @@ spec:
             - name: {{ include "acc-common.fullname" . }}-bootstrap
               mountPath: {{ .Values.bootstrapFile }}
               subPath: "bootstrap.txt"
-            - name: {{ include "acc-common.fullname" . }}-check-netconf
-              mountPath: /home/accelleran/5G/rpcs/check-netconf.py
-              subPath: "check-netconf.py"
-            - name: {{ include "acc-common.fullname" . }}-rpc-cucp
-              mountPath: /home/accelleran/5G/rpcs/cucp-rpc.py
-              subPath: "cucp-rpc.py"
-            - name: {{ include "acc-common.fullname" . }}-rpc-cuup
-              mountPath: /home/accelleran/5G/rpcs/cuup-rpc.py
-              subPath: "cuup-rpc.py"
+            - name: {{ include "acc-common.fullname" . }}-rpcs
+              mountPath: /rpcs
           command:
             - sh
             - "-c"
@@ -126,55 +116,24 @@ spec:
 
               #!/bin/bash
 
-              ls
-
               # Start netconf in the background
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }} &
 
-              # Add needed APT repositories
-              echo "deb http://archive.ubuntu.com/ubuntu/ focal main restricted
-              deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted
-              deb http://archive.ubuntu.com/ubuntu/ focal universe
-              deb http://archive.ubuntu.com/ubuntu/ focal-updates universe
-              deb http://archive.ubuntu.com/ubuntu/ focal multiverse
-              deb http://archive.ubuntu.com/ubuntu/ focal-updates multiverse
-              deb http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse
-              deb http://security.ubuntu.com/ubuntu/ focal-security main restricted
-              deb http://security.ubuntu.com/ubuntu/ focal-security universe
-              deb http://security.ubuntu.com/ubuntu/ focal-security multiverse" > /etc/apt/sources.list
+              ./ncclient \
+                {{- if .Values.initNetconfModel.enabled }}
+                --edit /home/accelleran/5G/models.txt \
+                --custom /rpcs/reload-models.xml \
+                {{- end }}
+                {{- if .Values.initNetconfDefaultPath.enabled }}
+                {{- if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cucp" }}
+                --edit /rpcs/set-default-path-to-cucp.xml \
+                {{- else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cuup" }}
+                --edit /rpcs/set-default-path-to-cuup.xml \
+                {{- end }}
+                {{- end }}
+                --custom /rpcs/shutdown.xml
 
-              # ensure pip is available
-              apt update && DEBIAN_FRONTEND=noninteractive apt -y install python3-pip
-
-              # upgrade pip
-              python3 -m pip install -U pip
-
-              # Install netconf python lib
-              pip3 install netconf-client==1.7.1
-
-              # make sure that netconf is running
-              python3 rpcs/check-netconf.py
-
-              {{ if .Values.initNetconfModel.enabled }}
-              # Run model-rpc.py script
-              python3 rpcs/model-rpc.py
-              {{ end }}
-
-              {{ if .Values.initNetconfDefaultPath.enabled }}
-
-              {{ if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cucp" }}
-
-              python3 /home/accelleran/5G/rpcs/cucp-rpc.py >> rpcs/rpc-log.txt
-
-              {{ else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cuup" }}
-
-              python3 /home/accelleran/5G/rpcs/cuup-rpc.py >> rpcs/rpc-log.txt
-
-              {{ end }}
-
-              {{ end }}
-              exit 0
-
+              wait # Wait for Netconf Server to stop
               EOF
         {{ end }}
 
@@ -273,7 +232,7 @@ spec:
         - name: {{ include "acc-common.fullname" . }}-zlog-conf
           configMap:
             name: {{ include "acc-common.fullname" . }}-zlog-conf
-
+            defaultMode: 0777
         - name: {{ include "acc-common.fullname" . }}-ncstart
           configMap:
             name: {{ include "acc-common.fullname" . }}-ncstart
@@ -281,23 +240,8 @@ spec:
         - name: {{ include "acc-common.fullname" . }}-bootstrap
           configMap:
             name: {{ include "acc-common.fullname" . }}-bootstrap
-
-        - name: {{ include "acc-common.fullname" . }}-rpc-model
+            defaultMode: 0777
+        - name: {{ include "acc-common.fullname" . }}-rpcs
           configMap:
-            name: {{ include "acc-common.fullname" . }}-rpc-model
-
-        - name: {{ include "acc-common.fullname" . }}-rpc-cucp
-          configMap:
-            name: {{ include "acc-common.fullname" . }}-rpc-cucp
-
-        - name: {{ include "acc-common.fullname" . }}-rpc-cuup
-          configMap:
-            name: {{ include "acc-common.fullname" . }}-rpc-cuup
-
-        - name: {{ include "acc-common.fullname" . }}-check-netconf
-          configMap:
-            name: {{ include "acc-common.fullname" . }}-check-netconf
-
-
-
-
+            name: {{ include "acc-common.fullname" . }}-rpcs
+            defaultMode: 0777
