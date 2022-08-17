@@ -40,12 +40,12 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "R2.4.23_ename"
+  tag: "R3.2.0_grimbergen"
 
 
   # For documentation purpose
   # The version of the helm chart
-  helmVersion: "4.1.0"
+  helmVersion: "5.0.0-alpha"
 
 
   # Redis settings
