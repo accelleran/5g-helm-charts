@@ -34,9 +34,9 @@ data:
     
     rc_unlock_admin_state = """
                 <config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
-                  <configuration xmlns="http://accelleran.com/ns/yang/accelleran-granny" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
+                  <cell-wrapper xmlns="http://accelleran.com/ns/yang/accelleran-granny" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
                     <admin-state>unlocked</admin-state>
-                  </configuration>
+                  </cell-wrapper>
                 </config>
                 """
     
