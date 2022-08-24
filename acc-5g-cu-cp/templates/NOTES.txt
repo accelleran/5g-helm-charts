@@ -34,6 +34,7 @@ Release notes:
   - NR SIB Information: Support for SIB2, SIB3, SIB4 and SIB5
   - Ethernet and Unstructured PDU Sessions: Support for additional pdu session types
   - CU KPIs added
+  - Support for dynamic reconfiguration via Netconf
 
 # Updated
   - The default number of supported components in the CU-CP has changed (numOfAmfs: 1,   numOfCuUps: 1,   numOfDus: 3,   numOfCells: 3,   numOfUes: 16)
@@ -45,7 +46,7 @@ Release notes:
   - Improvement: Moved Span Context Propagation from NATS payload to Protobuf
   - Fixed a crash in sctpCp when the CU is non-operational
   - Fixed the RLF handling in CU-CP
-  - Handle RRCReestablishmentRequest with RRC Setup as DU does not support Reestablishment
+  - IE ordering in F1AP, E1AP and NGAP messages
 
 # Removed:
 
