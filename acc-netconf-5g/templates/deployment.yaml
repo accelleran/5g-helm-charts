@@ -97,41 +97,49 @@ spec:
               containerPort: {{ .Values.netconfService.port }}
               protocol: {{ .Values.netconfService.protocol }}
           volumeMounts:
-            - name: {{ include "five-g-appl.fullname" . }}-rpc-model
-              mountPath: /home/accelleran/5G/rpcs/model-rpc.py
-              subPath: "model-rpc.py"
-            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
-              mountPath: /home/accelleran/5G/zlog.conf
-              subPath: "zlog.conf"
             - name: {{ include "five-g-appl.fullname" . }}-ncstart
               mountPath: /home/accelleran/5G/ncstart
               subPath: "ncstart"
+
+            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+              mountPath: /home/accelleran/5G/zlog.conf
+              subPath: "zlog.conf"
             - name: {{ include "five-g-appl.fullname" . }}-bootstrap
               mountPath: {{ .Values.bootstrapFile }}
               subPath: "bootstrap.txt"
-            - name: {{ include "five-g-appl.fullname" . }}-check-netconf
-              mountPath: /home/accelleran/5G/rpcs/check-netconf.py
-              subPath: "check-netconf.py"
-            - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
-              mountPath: /home/accelleran/5G/rpcs/cucp-rpc.py
-              subPath: "cucp-rpc.py"
-            - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
-              mountPath: /home/accelleran/5G/rpcs/cuup-rpc.py
-              subPath: "cuup-rpc.py"
-            - name: {{ include "five-g-appl.fullname" . }}-rpc-cw
-              mountPath: /home/accelleran/5G/rpcs/cw-rpc.py
-              subPath: "cw-rpc.py"
-            {{ if .Values.configOnBoot.enabled }}
-            - name: {{ include "five-g-appl.fullname" . }}-config-cw
-              mountPath: /home/accelleran/5G/rpcs/cw-netconf-config.py
-              subPath: "cw-netconf-config.py"
-            - name: {{ include "five-g-appl.fullname" . }}-config-cw
-              mountPath: /home/accelleran/5G/rpcs/config-rpc.txt
-              subPath: "config-rpc.txt" 
-            {{ end }}
-            - name: {{ include "five-g-appl.fullname" . }}-delete-rpc
-              mountPath: /home/accelleran/5G/rpcs/netconf-delete-config.py
-              subPath: "netconf-delete-config.py"
+
+            - name: {{ include "five-g-appl.fullname" . }}-models
+              subPath: "reload"
+              mountPath: /home/accelleran/5G/rpcs/models-reload.xml
+
+            - name: {{ include "five-g-appl.fullname" . }}-netconf-config
+              subPath: "delete"
+              mountPath: /home/accelleran/5G/rpcs/netconf-config-delete.xml
+
+            - name: {{ include "five-g-appl.fullname" . }}-cucp
+              subPath: "default-path"
+              mountPath: /home/accelleran/5G/rpcs/cucp-default-path.xml
+
+            - name: {{ include "five-g-appl.fullname" . }}-cuup
+              subPath: "default-path"
+              mountPath: /home/accelleran/5G/rpcs/cuup-default-path.xml
+
+            - name: {{ include "five-g-appl.fullname" . }}-cw
+              subPath: "default-path"
+              mountPath: /home/accelleran/5G/rpcs/cw-default-path.xml
+            - name: {{ include "five-g-appl.fullname" . }}-cw
+              subPath: "config"
+              mountPath: /home/accelleran/5G/rpcs/cw-config.xml
+            - name: {{ include "five-g-appl.fullname" . }}-cw
+              subPath: "unlock-admin-state"
+              mountPath: /home/accelleran/5G/rpcs/cw-unlock-admin-state.xml
+            - name: {{ include "five-g-appl.fullname" . }}-cw
+              subPath: "lock-admin-state"
+              mountPath: /home/accelleran/5G/rpcs/cw-lock-admin-state.xml
+            - name: {{ include "five-g-appl.fullname" . }}-cw
+              subPath: "get"
+              mountPath: /home/accelleran/5G/rpcs/cw-get.xml
+
           command:
             - sh
             - "-c"
@@ -145,67 +153,31 @@ spec:
               # Start netconf in the background
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }} &
 
-              # Add needed APT repositories
-              echo "deb http://archive.ubuntu.com/ubuntu/ focal main restricted
-              deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted
-              deb http://archive.ubuntu.com/ubuntu/ focal universe
-              deb http://archive.ubuntu.com/ubuntu/ focal-updates universe
-              deb http://archive.ubuntu.com/ubuntu/ focal multiverse
-              deb http://archive.ubuntu.com/ubuntu/ focal-updates multiverse
-              deb http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse
-              deb http://security.ubuntu.com/ubuntu/ focal-security main restricted
-              deb http://security.ubuntu.com/ubuntu/ focal-security universe
-              deb http://security.ubuntu.com/ubuntu/ focal-security multiverse" > /etc/apt/sources.list
+              ./ncclient \
+                {{- if .Values.configOnBoot.deleteExistingConfig }}
+                --edit /home/accelleran/5G/rpcs/netconf-config-delete.xml \
+                {{- end }}
+                {{- if .Values.initNetconfModel.enabled }}
+                --edit models.txt \
+                --custom rpcs/models-reload.xml \
+                {{- end }}
+                {{- if .Values.initNetconfDefaultPath.enabled }}
+                  {{- if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cucp" }}
+                --edit rpcs/cucp-default-path.xml \
+                  {{- else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cuup" }}
+                --edit rpcs/cuup-default-path.xml \
+                  {{- else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cw" }}
+                --edit rpcs/cw-default-path.xml \
+                  {{- end }}
+                {{- end }}
+                {{- if .Values.configOnBoot.enabled }}
+                --edit rpcs/cw-config.xml \
+                --edit rpcs/cw-unlock-admin-state.xml \
+                --get-config rpcs/cw-get.xml \
+                {{- end }}
+                --port 830
 
-              # ensure pip is available
-              apt update && DEBIAN_FRONTEND=noninteractive apt -y install python3-pip
-
-              # upgrade pip
-              python3 -m pip install -U pip
-
-              # Install netconf python lib
-              pip3 install netconf-client==1.7.1
-
-              # make sure that netconf is running
-              python3 rpcs/check-netconf.py
-              
-              {{ if .Values.configOnBoot.deleteExistingConfig }}
-              # If the delete config job is enabled, run the following script
-              python3 /home/accelleran/5G/rpcs/netconf-delete-config.py
-              {{ end }}
-
-              {{ if .Values.initNetconfModel.enabled }}
-              # Run model-rpc.py script
-              python3 rpcs/model-rpc.py
-              {{ end }}
-
-              {{ if .Values.initNetconfDefaultPath.enabled }}
-
-              {{ if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cucp" }}
-
-              python3 /home/accelleran/5G/rpcs/cucp-rpc.py >> rpcs/rpc-log.txt
-
-              {{ else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cuup" }}
-
-              python3 /home/accelleran/5G/rpcs/cuup-rpc.py >> rpcs/rpc-log.txt
-              
-              {{ else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cw" }}
-
-              cat /home/accelleran/5G/rpcs/cw-rpc.py
-              python3 /home/accelleran/5G/rpcs/cw-rpc.py
-
-              {{ end }}
-
-              {{ end }}
-              
-              
-              {{- if .Values.configOnBoot.enabled }}
-              # Run cw-netconf-config.py script
-              python3 /home/accelleran/5G/rpcs/cw-netconf-config.py
-              {{- end }}
-              
               exit 0
-
               EOF
         {{ end }}
 
@@ -268,12 +240,12 @@ spec:
               exec:
                 command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
           volumeMounts:
-            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
-              mountPath: /home/accelleran/5G/zlog.conf
-              subPath: "zlog.conf"
             - name: {{ include "five-g-appl.fullname" . }}-ncstart
               mountPath: /home/accelleran/5G/ncstart
               subPath: "ncstart"
+            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+              mountPath: /home/accelleran/5G/zlog.conf
+              subPath: "zlog.conf"
             - name: {{ include "five-g-appl.fullname" . }}-bootstrap
               mountPath: {{ .Values.bootstrapFile }}
               subPath: "bootstrap.txt"
@@ -301,47 +273,35 @@ spec:
       volumes:
         - name: init-volume
           emptyDir: {}
-        - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
-          configMap:
-            name: {{ include "five-g-appl.fullname" . }}-zlog-conf
 
         - name: {{ include "five-g-appl.fullname" . }}-ncstart
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-ncstart
             defaultMode: 0777
+
+        - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-zlog-conf
         - name: {{ include "five-g-appl.fullname" . }}-bootstrap
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-bootstrap
 
-        - name: {{ include "five-g-appl.fullname" . }}-rpc-model
+        - name: {{ include "five-g-appl.fullname" . }}-models
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-rpc-model
-
-        - name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+            name: {{ include "five-g-appl.fullname" . }}-models
+        
+        - name: {{ include "five-g-appl.fullname" . }}-netconf-config
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-rpc-cucp
+            name: {{ include "five-g-appl.fullname" . }}-netconf-config
 
-        - name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+        - name: {{ include "five-g-appl.fullname" . }}-cucp
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-rpc-cuup
+            name: {{ include "five-g-appl.fullname" . }}-cucp
 
-        - name: {{ include "five-g-appl.fullname" . }}-check-netconf
+        - name: {{ include "five-g-appl.fullname" . }}-cuup
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-check-netconf
+            name: {{ include "five-g-appl.fullname" . }}-cuup
 
-        - name: {{ include "five-g-appl.fullname" . }}-rpc-cw
+        - name: {{ include "five-g-appl.fullname" . }}-cw
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-rpc-cw
-
-        - name: {{ include "five-g-appl.fullname" . }}-delete-rpc
-          configMap:
-            name: {{ include "five-g-appl.fullname" . }}-delete-rpc
-
-{{ if .Values.configOnBoot.enabled }}
-        - name: {{ include "five-g-appl.fullname" . }}-config-cw
-          configMap:
-            name: {{ include "five-g-appl.fullname" . }}-config-cw
-{{ end }}
-
-
-
+            name: {{ include "five-g-appl.fullname" . }}-cw
