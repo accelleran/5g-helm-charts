@@ -127,6 +127,7 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-cw
               subPath: "default-path"
               mountPath: /home/accelleran/5G/rpcs/cw-default-path.xml
+            {{- if .Values.configOnBoot.enabled }}
             - name: {{ include "five-g-appl.fullname" . }}-cw
               subPath: "config"
               mountPath: /home/accelleran/5G/rpcs/cw-config.xml
@@ -139,6 +140,7 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-cw
               subPath: "get"
               mountPath: /home/accelleran/5G/rpcs/cw-get.xml
+            {{- end }}
 
           command:
             - sh
