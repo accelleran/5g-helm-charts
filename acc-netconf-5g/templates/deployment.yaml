@@ -179,7 +179,7 @@ spec:
                 {{- end }}
                 --port 830
 
-              exit 0
+              exit $?
               EOF
         {{ end }}
 
