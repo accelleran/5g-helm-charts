@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "five-g-appl.fullname" . }}
+  name: {{ include "acc-common.fullname" . }}
   labels:
-    {{- include "five-g-appl.labels" . | nindent 4 }}
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ tpl .Values.numOfDus . }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "five-g-appl.selectorLabels" . | nindent 6 }}
+      {{- include "acc-common.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "five-g-appl.labels" . | nindent 8 }}
+        {{- include "acc-common.labels.5g" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "five-g-appl.serviceAccountName" . }}
+      serviceAccountName: {{ include "acc-common.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -65,10 +65,10 @@ spec:
 #              path: /
 #              port: http
           volumeMounts:
-            - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+            - name: {{ include "acc-common.fullname" . }}-zlog-conf
               mountPath: /5G/zlog.conf
               subPath: "zlog.conf"
-            - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+            - name: {{ include "acc-common.fullname" . }}-bootstrap
               mountPath: {{ .Values.bootstrapFile }}
               subPath: "bootstrap.txt"
           resources:
@@ -95,10 +95,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+        - name: {{ include "acc-common.fullname" . }}-zlog-conf
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-zlog-conf
+            name: {{ include "acc-common.fullname" . }}-zlog-conf
 
-        - name: {{ include "five-g-appl.fullname" . }}-bootstrap
+        - name: {{ include "acc-common.fullname" . }}-bootstrap
           configMap:
-            name: {{ include "five-g-appl.fullname" . }}-bootstrap
+            name: {{ include "acc-common.fullname" . }}-bootstrap

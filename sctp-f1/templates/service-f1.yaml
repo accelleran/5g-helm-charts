@@ -1,0 +1,25 @@
+{{- if .Values.f1Service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "acc-common.fullname" . }}
+  labels:
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
+spec:
+  type: {{ .Values.f1Service.type }}
+  {{ if .Values.f1Service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ tpl .Values.f1Service.externalTrafficPolicy . }}
+  {{ end }}
+  ports:
+    - port: {{ .Values.f1Service.f1Port}}
+      protocol: {{ .Values.f1Service.protocol }}
+      name: f1
+      {{ if contains "NodePort" .Values.f1Service.type }}
+      nodePort: {{ .Values.f1NodePort }}
+      {{ end }}
+  {{ if .Values.f1Service.loadBalancerIP }}
+  loadBalancerIP: {{ tpl .Values.f1Service.loadBalancerIP . }}
+  {{ end }}
+  selector:
+    {{- include "acc-common.selectorLabels" . | nindent 4 }}
+{{- end -}}

@@ -2,11 +2,11 @@
 
 Accelleran CU-CP {{ .Chart.Version }} using {{ .Values.global.tag }}
 
-Deployed Accelleran CU-CP component [{{- include "preFlightCheck.instanceIdLength" . }}] with the following details:
+Deployed Accelleran CU-CP component [{{- include "acc-common.drax.instanceId.withLengthCheck" . }}] with the following details:
 
 Tag: {{ tpl .Values.global.tag . }}
 
-Instance ID: {{- include "preFlightCheck.instanceId" . }}
+Instance ID: {{- include "acc-common.drax.instanceId.withFormatCheck" . }}
 
 Supported number of components:
 AMFs: {{ .Values.global.numOfAmfs }}
@@ -25,32 +25,5 @@ kubectl get service
 {{ if eq (tpl .Values.global.draxNodeSelectorEnabled .) "true" }}
 The CU-CP component is installed on the Kubernetes node with the following dRAX Node Selector Name: {{ tpl .Values.global.draxName . }}
 {{ end }}
-
-Release notes:
-# Added
-  - Added __APPID to ds-ctrl, e1-ap, f1-ap, ng-ap and rr-ctrl
-  - Micro Services Failover: Recovery mechanism for a micro service which restarts while in service. 3 CU-CP micro services (f1apIntf, e1cpIntf and ngapIntf) included in this release.
-  - KPI SM Support
-  - NR SIB Information: Support for SIB2, SIB3, SIB4 and SIB5
-  - Ethernet and Unstructured PDU Sessions: Support for additional pdu session types
-  - CU KPIs added
-  - Support for dynamic reconfiguration via Netconf
-
-# Updated
-  - The default number of supported components in the CU-CP has changed (numOfAmfs: 1,   numOfCuUps: 1,   numOfDus: 3,   numOfCells: 3,   numOfUes: 16)
-  - Updated labels so that version can be displayed on the dRAX Dashboard
-
-# Fixed
-  - Bug: duController crash when DU configured with 16 cells (issue when > 8)
-  - Improvement: Switch to protobuf 3
-  - Improvement: Moved Span Context Propagation from NATS payload to Protobuf
-  - Fixed a crash in sctpCp when the CU is non-operational
-  - Fixed the RLF handling in CU-CP
-  - IE ordering in F1AP, E1AP and NGAP messages
-
-# Removed:
-
-# Limitations
-  - The published PmReportingCounterList_t has changed slightly - non-backwards compatible
 
 #############################################################################

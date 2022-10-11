@@ -1,8 +1,8 @@
 {{- if .Values.initGetConfig }}
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
-  name: {{ include "five-g-appl.fullname" . }}-cluster-role
+  name: {{ include "acc-common.fullname" . }}-cluster-role
 rules:
 - apiGroups:
   - ""

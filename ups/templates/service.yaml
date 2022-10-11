@@ -1,0 +1,26 @@
+{{- if .Values.service.enabled -}}
+
+{{ $count := (.Values.numberOfUpStacks | int) }}
+{{- range untilStep 0 $count 1 }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "acc-common.fullname" $ }}-{{ . | toString }}
+  labels:
+    {{- include "acc-common.labels.5g" $ | nindent 4 }}
+    up-stack-id: {{ . | quote }}
+spec:
+  type: {{ $.Values.service.type }}
+  ports:
+    - port: {{ $.Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "acc-common.selectorLabels" $ | nindent 4 }}
+    up-stack-id: {{ . | quote }}
+---
+{{- end }}
+
+{{- end -}}

@@ -1,4 +1,4 @@
-# Default values for five-g-appl.
+# Default values for acc-common.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -25,7 +25,7 @@ testing:
 # name filed has to be CAPITALIZED
 initConfig:
   ips:
-    - url: '{{ include "five-g-appl.fullname" . }}-gtp'
+    - url: '{{ include "acc-common.fullname" . }}-gtp'
       name: "GTP_IP"
 #    - url: 'f1_dns_name'
 #      name: 'F1_IP'

@@ -1,0 +1,156 @@
+# Default values for acc-common.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+numberOfUpStacks: "2"
+
+image:
+  repository: accelleran/upsappl
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets:
+  - name: accelleran-secret
+nameOverride: ""
+fullnameOverride: ""
+
+# Application Settings
+# cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
+cmd: "./upsAppl.exe"
+
+testing:
+  value: "${GTP_IP}"
+
+initGetConfigImage:
+  repository: accelleran/acc-generic-img
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+###
+# This can be used in templates as:
+# {{ if $.Values.initGetConfig }}
+# {{ range $.Values.initGetConfig }}
+# value=$(kubectl get {{ .resourceType }} {{ tpl .resourceName $ }} -n {{ tpl .resourceNamespace $ }} -o json | jq "{{ .field }}")
+###
+initGetConfig: []
+#  - resourceType: 'service'
+#    resourceName: '{{ include "acc-common.fullname" . }}-gtp'
+#    resourceNamespace: '{{ .Release.Namespace }}'
+#    field: '.status.loadBalancer.ingress[0].ip'
+#    # Environmental variable have to be ALL CAPS
+#    envName: "GTP_IP"
+
+args:
+  - name: "--downlink"
+    value: "$GTP_IP" 
+  - name: "--uplink"
+    value: "$GTP_IP"
+  - name: "--bind"
+    value: "$POD_IP"
+
+# NATS Settings
+nats:
+  # URL of NATS
+  url: "10.55.2.2"
+
+  # Port of NAST
+  port: "31000"
+
+redisConfig:
+  hostname: "10.55.2.2"
+  port: "32200"
+
+bootstrapId: "cuup1"
+bootstrapFile: /home/accelleran/5G/bootstrap.txt
+
+jaegerAgentHost: "ric-jaeger-agent"
+
+extraEnvs:
+  - name: __APPNAME
+    value: ups
+#  - name: example_env_name
+#    value: example_env_value
+#  - name: ex1
+#    value: ex1
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: 
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  runAsUser: 0
+  privileged: true
+
+service:
+  enabled: false
+  type: ClusterIP
+  port: 80
+
+gtpService:
+  enabled: true
+  type: LoadBalancer
+  protocol: UDP
+  gtpUPort: 2152
+#  loadBalancerIP: THIS IS CURRENTLY BROKEN!!!! DONT USE!!!!
+#  gtpUNodePort: THIS IS CURRENTLY BROKEN!!!! DONT USE!!!!
+  externalTrafficPolicy: "Local"
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+draxNodeSelectorEnabled: "false"
+
+draxNodeSelector:
+  draxName: "main"
+
+tolerations: []
+
+affinity: {}

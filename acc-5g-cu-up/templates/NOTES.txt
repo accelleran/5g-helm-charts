@@ -2,11 +2,11 @@
 
 Accelleran CU-UP {{ .Chart.Version }} using {{ .Values.global.tag }}
 
-Deployed Accelleran CU-UP component [{{- include "preFlightCheck.instanceIdLength" . }}] with the following details:
+Deployed Accelleran CU-UP component [{{- include "acc-common.drax.instanceId.withLengthCheck" . }}] with the following details:
 
 Tag: {{ tpl .Values.global.tag . }}
 
-Instance ID: {{- include "preFlightCheck.instanceId" . }}
+Instance ID: {{- include "acc-common.drax.instanceId.withFormatCheck" . }}
 
 Redis Configuration: {{ tpl .Values.global.redisHostname . }}:{{ tpl .Values.global.redisPort . }}
 
@@ -18,25 +18,5 @@ kubectl get service
 {{ if eq (tpl .Values.global.draxNodeSelectorEnabled .) "true" }}
 The CU-UP component is installed on the Kubernetes node with the following dRAX Node Selector Name: {{ tpl .Values.global.draxName . }}
 {{ end }}
-
-Release notes:
-
-# Added
- - Added __APPID to cu-up
- - Added service (and loadBalancer issued IP) per replica of cu-up microservice (UP Stack) with unique GTP IPs
- - Improvement: Multiple User Plane Stacks per CU-UP
- - Support for dynamic reconfiguration via Netconf
-
-# Updated
-  - Updated labels so that version can be displayed on the dRAX Dashboard
-
-# Fixed
-  - 4.0.2 and 4.0.3 didn't correctly provide version information in the labels. This has been resolved in 4.1.0.
-  - IE ordering in E1AP messages
-
-# Removed
-  - The ability to specify the IP address of the GTP service (as LoadBalancer service type) is not supported in this version
-
-# Limitations
 
 #############################################################################
