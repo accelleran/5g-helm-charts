@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 5.0.0
+version: 5.0.1
 # UPDATE .global.topChart.version IN VALUES FILE TO MATCH!
 
 # This is the version number of the application being deployed. This version number should be
@@ -32,7 +32,7 @@ dependencies:
     repository: https://accelleran.github.io/helm-charts/
   - name: netconf
     condition: netconf.enabled
-    version: 2.2.0
+    version: 2.2.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: amf-controller
     condition: amf-controller.enabled

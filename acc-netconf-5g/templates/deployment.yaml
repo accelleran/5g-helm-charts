@@ -43,6 +43,10 @@ spec:
               echo "$(date) Redis ready"
 
               EOF
+        - name: {{ .Chart.Name }}-check-nats
+          image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          command: ['sh', '-c', 'until nc -z -v -w1 {{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}; do sleep 1; done; echo "$(date) NATS ready"']
         - name: {{ .Chart.Name }}-get-configs
           image: "{{ .Values.initImage.repository }}:{{ tpl .Values.initImage.tag . }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
