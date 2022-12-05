@@ -5,6 +5,8 @@
 # Number of UEs supported
 numOfUes: "1"
 
+numOfDsCtrlPerPod: "8"
+
 image:
   repository: accelleran/dsctrlappl
   pullPolicy: IfNotPresent

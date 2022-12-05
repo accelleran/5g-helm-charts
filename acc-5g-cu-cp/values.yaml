@@ -5,7 +5,7 @@ global:
     # The name of this helm chart
     name: "acc-5g-cu-cp"
     # The version of this helm chart
-    helmVersion: "5.0.1"
+    helmVersion: "5.1.0-alpha"
 
   # Kubernetes Advertise Address
   #   Description: Used as External address for services
@@ -398,6 +398,11 @@ ds-ctrl:
   # Number of UEs supported
   numOfUes: "{{ .Values.global.numOfUes }}"
 
+  # Number of DS-CTRL containers per pod
+  # This may also be a string, referencing other values
+  #
+  # numOfDsCtrlPerPod: 8
+  # numOfDsCtrlPerPod: "{{ .Values.numOfUes }}"
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
