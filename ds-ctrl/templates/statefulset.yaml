@@ -1,10 +1,10 @@
 {{- $numOfUes := tpl (toString .Values.numOfUes) . | int -}}
-{{- $numOfDsCtrlPerPod := tpl (toString .Values.numOfDsCtrlPerPod) . | int -}}
+{{- $numOfDsCtrlsPerPod := tpl (toString .Values.numOfDsCtrlsPerPod) . | int -}}
 {{- if lt $numOfUes 1 -}}
 {{- required (printf "dsCtrl.numOfUes must be greater than 0! (Calculated value: %d)" $numOfUes) nil -}}
 {{- end -}}
-{{- if lt $numOfDsCtrlPerPod 1 -}}
-{{- required (printf "dsCtrl.numOfDsCtrlPerPod must be greater than 0! (Calculated value: %d)" $numOfDsCtrlPerPod) nil -}}
+{{- if lt $numOfDsCtrlsPerPod 1 -}}
+{{- required (printf "dsCtrl.numOfDsCtrlsPerPod must be greater than 0! (Calculated value: %d)" $numOfDsCtrlsPerPod) nil -}}
 {{- end -}}
 
 apiVersion: apps/v1
@@ -16,7 +16,7 @@ metadata:
 spec:
   serviceName: {{ include "acc-common.fullname" . }}-service
   {{- if not .Values.autoscaling.enabled }}
-  {{- $numOfReplicas := divf $numOfUes $numOfDsCtrlPerPod | ceil }}
+  {{- $numOfReplicas := divf $numOfUes $numOfDsCtrlsPerPod | ceil }}
   replicas: {{ $numOfReplicas }}
   {{- end }}
   selector:
@@ -39,7 +39,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        {{- range until $numOfDsCtrlPerPod }}
+        {{- range until $numOfDsCtrlsPerPod }}
         - name: {{ $.Chart.Name }}-{{ . | toString }}
           securityContext:
             {{- toYaml $.Values.securityContext | nindent 12 }}

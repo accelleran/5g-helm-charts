@@ -401,8 +401,8 @@ ds-ctrl:
   # Number of DS-CTRL containers per pod
   # This may also be a string, referencing other values
   #
-  # numOfDsCtrlPerPod: 8
-  # numOfDsCtrlPerPod: "{{ .Values.numOfUes }}"
+  # numOfDsCtrlsPerPod: 8
+  # numOfDsCtrlsPerPod: "{{ .Values.numOfUes }}"
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
