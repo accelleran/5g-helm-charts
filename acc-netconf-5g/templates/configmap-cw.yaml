@@ -7,18 +7,5 @@ metadata:
 data:
   default-path: |
     <netconf-config xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
-      <default-path>/accelleran-granny:cell-wrapper</default-path>
+      <default-path>/accelleran-cw-install:cw-install</default-path>
     </netconf-config>
-{{ if .Values.configOnBoot.enabled }}
-  config: {{ toYaml (tpl .Values.configOnBoot.config .) | nindent 4 }}
-  unlock-admin-state: |
-    <cell-wrapper xmlns="http://accelleran.com/ns/yang/accelleran-granny" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
-      <admin-state>unlocked</admin-state>
-    </cell-wrapper>
-  lock-admin-state: |
-    <cell-wrapper xmlns="http://accelleran.com/ns/yang/accelleran-granny" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
-      <admin-state>locked</admin-state>
-    </cell-wrapper>
-  get: |
-    <cell-wrapper xmlns="http://accelleran.com/ns/yang/accelleran-granny"/>
-{{ end }}

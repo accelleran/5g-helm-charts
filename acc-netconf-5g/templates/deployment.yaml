@@ -19,6 +19,7 @@ spec:
     {{- end }}
       labels:
         {{- include "five-g-appl.labels" . | nindent 8 }}
+        {{- include "five-g-appl.draxNetconfLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -128,18 +129,11 @@ spec:
               subPath: "default-path"
               mountPath: /home/accelleran/5G/rpcs/cw-default-path.xml
             {{- if .Values.configOnBoot.enabled }}
-            - name: {{ include "five-g-appl.fullname" . }}-cw
-              subPath: "config"
-              mountPath: /home/accelleran/5G/rpcs/cw-config.xml
-            - name: {{ include "five-g-appl.fullname" . }}-cw
-              subPath: "unlock-admin-state"
-              mountPath: /home/accelleran/5G/rpcs/cw-unlock-admin-state.xml
-            - name: {{ include "five-g-appl.fullname" . }}-cw
-              subPath: "lock-admin-state"
-              mountPath: /home/accelleran/5G/rpcs/cw-lock-admin-state.xml
-            - name: {{ include "five-g-appl.fullname" . }}-cw
-              subPath: "get"
-              mountPath: /home/accelleran/5G/rpcs/cw-get.xml
+            {{- range $index, $configRpc := .Values.configOnBoot.config }}
+            - name: {{ include "five-g-appl.fullname" $ }}-config-on-boot
+              subPath: "config-on-boot-{{- $index -}}"
+              mountPath: /home/accelleran/5G/rpcs/config-on-boot-{{- $index -}}.xml
+            {{- end }}
             {{- end }}
 
           command:
@@ -173,9 +167,9 @@ spec:
                   {{- end }}
                 {{- end }}
                 {{- if .Values.configOnBoot.enabled }}
-                --edit rpcs/cw-config.xml \
-                --edit rpcs/cw-unlock-admin-state.xml \
-                --get-config rpcs/cw-get.xml \
+                {{- range $index, $configRpc := .Values.configOnBoot.config }}
+                --edit rpcs/config-on-boot-{{- $index -}}.xml \
+                {{- end }}
                 {{- end }}
                 --port 830
 
@@ -307,3 +301,9 @@ spec:
         - name: {{ include "five-g-appl.fullname" . }}-cw
           configMap:
             name: {{ include "five-g-appl.fullname" . }}-cw
+
+        {{- if .Values.configOnBoot.enabled }}
+        - name: {{ include "five-g-appl.fullname" . }}-config-on-boot
+          configMap:
+            name: {{ include "five-g-appl.fullname" . }}-config-on-boot
+        {{- end }}

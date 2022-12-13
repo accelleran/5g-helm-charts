@@ -54,8 +54,7 @@ configOnBoot:
   enabled: false
   deleteExistingConfig: false
   host: 'localhost'
-  config: |
-    This is where the configuration RPC XML goes
+  config: []
 
 
 args: []
