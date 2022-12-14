@@ -1,0 +1,120 @@
+global:
+  instanceId: "cw-1"
+
+  config:
+    enabled: true
+    deleteExisting: true
+    global:
+      install: |
+        <!-- Global CW install config -->
+      internal: |
+        <!-- Global CW internal config -->
+      ran: |
+        <!-- Global CW RAN config -->
+    dus:
+      - name: "du-1"
+        install: |
+          <type>effnet</type>
+
+          <connection-details xc:operation="create">
+            <host>127.0.0.1</host>
+            <port>22</port>
+            <username>root</username>
+          </connection-details>
+
+          <working-directory>/run</working-directory>
+
+          <du-image>gnb_du_main_phluido:2022-08-26-q2-release-0.4</du-image>
+          <du-extra-args></du-extra-args>
+          <pcscd-socket>/run/pcscd/pcscd.comm</pcscd-socket>
+          <du-base-config-file>/home/accelleran/5G/config/duEffnetConfig.json</du-base-config-file>
+
+          <l1-image>phluido_l1:v8.7.1</l1-image>
+          <l1-extra-args></l1-extra-args>
+          <phluido-l1-config xc:operation="create">
+            <license-key>XXXX-YYYY-ZZZZ-WWWW</license-key>
+            <bbu-addr>10.10.0.1</bbu-addr>
+            <max-pusch-mod-order>6</max-pusch-mod-order>
+            <max-num-pdsch-layers>2</max-num-pdsch-layers>
+            <max-num-pusch-layers>1</max-num-pusch-layers>
+            <num-workers>8</num-workers>
+            <target-recv-delay-us>2500</target-recv-delay-us>
+            <pucch-format0-threshold>0.01</pucch-format0-threshold>
+            <timing-offset-threshold-nsec>10000</timing-offset-threshold-nsec>
+          </phluido-l1-config>
+        internal: |
+          <auto-repair>
+            <enable>true</enable>
+          </auto-repair>
+        ran: |
+          <gnb-id>123</gnb-id>
+          <gnb-id-length>22</gnb-id-length>
+          <gnb-du-id>456</gnb-du-id>
+          
+          <cu>127.0.0.1</cu>
+
+          <admin-state>locked</admin-state>
+
+          <served-cell xc:operation="create">
+            <local-cell-id>1</local-cell-id>
+
+            <plmn-info-list xc:operation="create">
+              <plmn-info xc:operation="create">
+                <mcc>001</mcc>
+                <mnc>01</mnc>
+                <s-nssai xc:operation="create">
+                  <sst>1</sst>
+                  <sd>16777215</sd>
+                </s-nssai>
+              </plmn-info>
+            </plmn-info-list>
+
+            <pci>101</pci>
+            <tac>1</tac>
+
+            <admin-state>locked</admin-state>
+
+            <sector-carrier xc:operation="create">
+              <carrier-id>1</carrier-id>
+              <tx-direction>dl</tx-direction>
+              <arfcn-dl>648840</arfcn-dl>
+              <bandwidth-dl>40</bandwidth-dl>
+              <frequency-band>78</frequency-band>
+              <ru>ru-1</ru>
+            </sector-carrier>
+          </served-cell>
+        rus:
+        - name: "ru-1"
+          install: |
+            <type>benetel650</type>
+
+            <connection-details xc:operation="create">
+              <host>127.0.0.1</host>
+              <port>22</port>
+              <username>root</username>
+            </connection-details>
+
+            <serial-number>test123</serial-number>
+            
+            <supported-frequency-band xc:operation="create">77</supported-frequency-band>
+            <supported-frequency-band xc:operation="create">78</supported-frequency-band>
+
+            <location xc:operation="create">
+              <latitude>123</latitude>
+              <longitude>123</longitude>
+              <altitude>0</altitude>
+              <altitude-ref>msl-geoid</altitude-ref>
+            </location>
+
+            <antenna-gain>0</antenna-gain>
+
+            <maximum-power-capability>0</maximum-power-capability>
+            <minimum-power-capability>0</minimum-power-capability>
+          internal: |
+            <enable-ssh>false</enable-ssh>
+          ran: |
+            <!-- RU RAN does not exist -->
+
+netconf:
+  netconfService:
+    nodePort: 31830

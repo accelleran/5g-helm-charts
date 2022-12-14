@@ -1,0 +1,370 @@
+global:
+  # Instance ID
+  #   Description:  The Instance ID of the component that
+  #                 will be used in the bootstrap file.
+  #                 The Instance ID must consist of lower case alphanumeric characters
+  #                 or '-', start with an alphabetic character, and end with an alphanumeric
+  #                 character (e.g. 'my-name',  or 'abc-123', regex used for validation is
+  #                 '^[a-z0-9-]+$'). The Instance ID also cannot be longer than 54 alphanumeric characters!
+  #
+  #   Example:
+  # instanceId: "cw"
+  #
+  instanceId: "cw"
+
+
+  # Version of the 5G applications
+  #   Description: This is the version of the 5G applications
+  #                in DockerHub.
+  #   Value type: string
+  #
+  tag: "CW2.0.0-gamma"
+  # DONT FORGET TO UPDATE TAG IN CHART.YAML FOR DOCUMENTATION
+
+
+  config:
+    enabled: false
+    deleteExisting: false
+    global:
+      install: |
+        <!-- Global CW install config -->
+      internal: |
+        <!-- Global CW internal config -->
+      ran: |
+        <!-- Global CW RAN config -->
+    dus: []
+
+
+  # NATS URL and PORT
+  #   Description: Used to configure the application to talk
+  #                to NATS
+  #   Value type: string
+  #
+  natsUrl: "ric-nats-5g"
+  natsPort: "4222"
+
+
+  # Redis settings
+  #   Description: Certain application need to be able to reach
+  #                Redis. Here we configure the Redis hostname
+  #                and port.
+  #   Value type: string
+  #   Example:
+  #
+  redisHostname: "ric-redis-5g"
+  redisPort: "6379"
+
+
+  # dRAX Specific Node Selector
+  #   Description: This is a special nodeSelector field implemented for the
+  #                Accelleran 5G Helm charts. You need to first label your
+  #                node in Kubernetes with a label "draxName" and give it a
+  #                <value>. For example for node <node_name>, you can use the
+  #                following command to label it:
+  #                kubectl label node <node_name> draxName=<value>.
+  #                You can then enabled this feature by setting
+  #                "draxNodeSelectorEnabled" to "true" (as a string with quotes!).
+  #                The in "draxName" set the value of the label you chose for
+  #                the node. This will in effect install all the 5G Application
+  #                on that node, without the need to edit all individual helm
+  #                charts. In case you want to add other nodeSelector options,
+  #                you have to add them to the helm chart specific values files.
+  #   Value type: string
+  #   Example:
+  #
+  draxNodeSelectorEnabled: "false"
+  draxName: "main"
+
+  # Jaeger settings
+  #   Description:  Sets the DNS hostname where the Jaeger agent is located
+  #   Value type:   string
+  #   Example: jaegerAgentHost: "ric-jaeger-agent"
+  jaegerAgentHost: "ric-jaeger-agent"
+
+cw-ctrl:
+  enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
+
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
+    port: "{{ .Values.global.natsPort }}"
+
+  bootstrapId: "{{ .Values.global.instanceId }}"
+
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
+
+cw-inst:
+  enabled: true
+
+  image:
+    tag: "{{ .Values.global.tag }}"
+
+  cwSsh:
+    publicKeySecretName: "cw-public"
+    privateKeySecretName: "cw-private"
+
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
+    port: "{{ .Values.global.natsPort }}"
+
+  bootstrapId: "{{ .Values.global.instanceId }}"
+
+  jaegerAgentHost: "{{ .Values.global.jaegerAgentHost }}"
+
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
+
+netconf:
+  # Enable or disable installation of component
+  #   Value type: boolean
+  #
+  enabled: true
+
+
+  # Special dRAX NodeSelector
+  #   Description:  Besides the default NodeSelector field for each component,
+  #                 there is a special dRAX NodeSelector. This can be shared
+  #                 among all 5G Helm Charts to install all components on the
+  #                 same node. To enable this feature, first set
+  #                 "draxNodeSelectorEnabled" to "true" (using quotes for
+  #                 string type!). Next, draxNodeSelector field is a map,
+  #                 where you can input different labels to look for in nodes.
+  #                 A default label is the "draxName", which can be shared
+  #                 among all 5G Helm Charts. To have it shared, values from
+  #                 the global-values.yaml are used. Therefore, a string to
+  #                 reference those values should be placed.
+  #   Value type:   string
+  #   Example:
+  #
+  # draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  # draxNodeSelector:
+  #   draxName: "{{ .Values.global.draxName }}"
+  #
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
+
+
+  # Version/tag of component
+  #   Description:  The version/tag of the component's Docker image which is
+  #                 used to pull it from DockerHub. The version/tag can be
+  #                 specified per component, or this field can reference to
+  #                 the global tag in the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # image:
+  #   tag: "{{ .Values.global.tag }}"
+  #
+  image:
+    repository: accelleran/cw-netconf
+    tag: "{{ .Values.global.tag }}"
+
+
+  # REDIS Settings
+  #   Description:  The component uses REDIS to read the configuration. The REDIS hostname and
+  #                 PORT are defined here.
+  #   Value type:   string
+  #   Example:
+  #
+  # redisConfig:
+  #   hostname: "{{ .Values.global.redisHostname }}"
+  #   port: "{{ .Values.global.redisPort }}"
+  #
+  redisConfig:
+    hostname: "{{ .Values.global.redisHostname }}"
+    port: "{{ .Values.global.redisPort }}"
+
+
+  # NATS Settings
+  #   Description:  The component uses NATS. The URL and PORT are defined here. They can be
+  #                 specified or referenced from the global-values.yaml.
+  #   Value type:   string
+  #   Example:
+  #
+  # nats:
+  #   url: "{{ .Values.global.natsUrl }}"
+  #   port: "{{ .Values.global.natsPort }}"
+  #
+  nats:
+    url: "{{ .Values.global.natsUrl }}"
+    port: "{{ .Values.global.natsPort }}"
+
+
+  # Bootstrap Instance ID
+  #   Description:  This 5G component used an Instance ID defined in its Bootstrap Instance ID
+  #                 file. The Instance ID is specified in this filed.
+  #   Value type:   string
+  #   Example:
+  #
+  # bootstrapId: "cuup_1"
+  #
+  bootstrapId: "{{ .Values.global.instanceId }}"
+
+  # Component type
+  #   Description:  Used for initializing the NetConf server with the proper default path.
+  #   Example:
+  # initNetconfDefaultPath:
+  #   componentType: cucp
+  #
+  initNetconfDefaultPath:
+    componentType: cw
+
+  # NodePort for the NetConf service
+  #   Description:  You can select a specific port for each CU-CP instance, or leave it
+  #                 to the LoadBalancer to randomly select a free NodePort.
+  #   Example:
+  #
+  # netconfService:
+  #   nodePort: 31832
+  #
+
+  # netconfService:
+  #   nodePort: 31832
+
+  configOnBoot:
+    enabled: "{{ .Values.global.config.enabled }}"
+    deleteExistingConfig: "{{ .Values.global.config.deleteExisting }}"
+    host: 'localhost'
+    config:
+      - |
+        <cw-install xmlns="http://accelleran.com/ns/yang/accelleran-cw-install" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
+          {{- range $index, $du := .Values.global.config.dus }}
+          <du xc:operation="create">
+            <name>{{ $du.name }}</name>
+            {{- $du.install | nindent 4 }}
+          </du>
+
+          {{ range $index, $ru := $du.rus }}
+          <ru xc:operation="create">
+            <name>{{ $ru.name }}</name>
+            {{- $ru.install | nindent 4 }}
+
+            <du>{{ $du.name }}</du>
+          </ru>
+          {{- end }}
+          {{- end }}
+
+          {{ .Values.global.config.global.install | nindent 2 }}
+        </cw-install>
+      - |
+        <cw-internal xmlns="http://accelleran.com/ns/yang/accelleran-cw-internal" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
+          {{- range $index, $du := .Values.global.config.dus }}
+          <du xc:operation="create">
+            <name>{{ $du.name }}</name>
+            {{- $du.internal | nindent 4 }}
+          </du>
+
+          {{ range $index, $ru := $du.rus }}
+          <ru xc:operation="create">
+            <name>{{ $ru.name }}</name>
+            {{- $ru.internal | nindent 4 }}
+          </ru>
+          {{- end }}
+          {{- end }}
+
+          {{ .Values.global.config.global.internal | nindent 2}}
+        </cw-internal>
+      - |
+        <cw-ran xmlns="http://accelleran.com/ns/yang/accelleran-cw-ran" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
+          {{- range $index, $du := .Values.global.config.dus }}
+          <du xc:operation="create">
+            <name>{{ $du.name }}</name>
+            {{- $du.ran | nindent 4 }}
+          </du>
+          {{- end }}
+
+          {{ .Values.global.config.global.ran | nindent 2 }}
+        </cw-ran>
+
+
+redis:
+  enabled: false
+
+  nameOverride: "redis-cw"
+
+  # Custom labels for the deployment
+  customLabels:
+    drax/technology: 5g
+
+  # The External IP of where NATS is installed
+  natsIp: "{{ .Values.global.natsUrl }}"
+
+  # The port NATS is using, check in the above settings of NATS
+  natsPort: "{{ .Values.global.natsPort }}"
+
+  # Backup the redis db when the pod is terminated
+  backup:
+    # Enabled or disable this feature
+    enabled: true
+    # Choose after how many days should the backed up DBs be deleted
+    deleteAfterDay: 7
+
+  # Enabled or disable different jobs
+  jobs:
+    # If the data in Redis should be deleted on Redis startup, enable this job
+    deleteExistingData: false
+
+  service:
+    type: NodePort
+    port: 6379
+    nodePort: 32220
+    name: "redisport"
+    serviceName: '{{ include "redis.fullname" . }}'
+
+  persistence:
+    accessModes:
+      - ReadWriteMany
+    enabled: true
+    size: 10Gi
+    storageClassName: acc-redis-cw
+    type: pvc
+    ### TESTING
+    #hostPath: /opt/pods/acc-redis
+    ### Production
+    hostPath: /opt/pods/redis-storage-cw
+
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
+
+nats:
+  enabled: false
+
+  nameOverride: "nats-cw"
+
+  commonLabels:
+    drax/technology: 5g
+
+  service:
+    serviceName: '{{ include "nats.fullname" . }}'
+    type: NodePort
+    client:
+      nodePort: 31110
+
+  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
+  draxNodeSelector:
+    draxName: "{{ .Values.global.draxName }}"
+
+jobs: []
+  # - name: <job_name>
+  #   schedule: "<cron_schedule>"
+  #   netconfHost: <netconf_host> # optional
+  #   netconfPort: <netconf_port> # optional
+  #   rpc: |
+  #     <edit_config_rpc>

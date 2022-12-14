@@ -1,0 +1,183 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cw-inst.fullname" . }}
+  labels:
+    {{- include "cw-inst.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "cw-inst.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "cw-inst.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "cw-inst.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{ if or .Values.initConfig.natsCheckEnabled .Values.initConfig.redisCheckEnabled }}
+      initContainers:
+        {{ if .Values.initConfig.redisCheckEnabled }}
+        - name: {{ .Chart.Name }}-check-redis
+          image: "{{ .Values.initImage.repository }}:{{ tpl .Values.initImage.tag . }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/bash <<'EOF'
+
+              #!/bin/bash
+
+              until [ "$(timeout 5s bash -c 'redis-cli -h {{ tpl .Values.redisConfig.hostname . }} -p {{ tpl .Values.redisConfig.port . }} ping')" == "PONG" ]; do sleep 1; done;
+              echo "$(date) Redis ready"
+
+              EOF
+        {{ end }}
+        {{ if .Values.initConfig.natsCheckEnabled }}
+        - name: {{ .Chart.Name }}-check-nats
+          image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          command: ['sh', '-c', 'until nc -z -v -w1 {{ tpl .Values.nats.url . }} {{ tpl .Values.nats.port . }}; do echo $(date) [CHECK-SERVICES] Waiting for NATS at {{ tpl .Values.nats.url . }} {{ tpl .Values.nats.port . }}; sleep 2; done']
+        {{ end }}
+        {{ if .Values.initConfig.sshSecretCheckEnabled }}
+        - name: {{ .Chart.Name }}-check-ssh-secrets
+          image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+          imagePullPolicy: {{ .Values.initImage.pullPolicy }}
+          command: ['sh', '-c', 'until kubectl get secret {{ tpl .Values.cwSsh.publicKeySecretName . }}; do echo $(date) [CHECK-SSH-SECRETS] Public SSH key not found; sleep 2; done && until kubectl get secret {{ tpl .Values.cwSsh.privateKeySecretName . }}; do echo $(date) [CHECK-SSH-SECRETS] Private SSH key not found; sleep 2; done']
+        {{ end }}
+      {{ end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{ if .Values.developerMode.enabled }}
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/bash <<'EOF'
+              while true; do sleep 30; done;
+              EOF
+          {{ else }}
+          command:
+            - sh
+            - "-c"
+            - |
+              /bin/sh <<'EOF'
+              {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+              EOF
+          {{ end }}
+          env:
+            - name: NATS_SERVICE_URL
+              value: nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}
+            - name: ZLOG_CONF_PATH
+              value: {{ .Values.zlogFile }}
+            - name: BOOTSTRAP_FILENAME
+              value: {{ .Values.bootstrapFile }}
+            - name: JAEGER_AGENT_HOST
+              value: {{ tpl .Values.jaegerAgentHost . }}
+            - name: __APPNAME
+              value: {{ include "cw-inst.fullname" . }}
+            {{- if .Values.extraEnvs }}
+            {{ toYaml .Values.extraEnvs | nindent 12 }}
+            {{- end }}
+#          ports:
+#            - name: {{ tpl .Values.service.name . }}
+#              containerPort: {{ .Values.service.port}}
+#              protocol: {{ .Values.service.protocol }}
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+          volumeMounts:
+            - name: {{ include "cw-inst.fullname" . }}-zlog-conf
+              mountPath: {{ .Values.zlogFile }}
+              subPath: "zlog.conf"
+            - name: {{ include "cw-inst.fullname" . }}-bootstrap
+              mountPath: {{ .Values.bootstrapFile }}
+              subPath: "bootstrap.txt"
+            - name: {{ include "cw-inst.fullname" . }}-ssh-private
+              mountPath: "/home/accelleran/5G/ssh/private"
+              subPath: "private"
+              readOnly: true
+            - name: {{ include "cw-inst.fullname" . }}-ssh-public
+              mountPath: "/home/accelleran/5G/ssh/public"
+              subPath: "public"
+              readOnly: true
+            - name: {{ include "cw-inst.fullname" . }}-du-effnet-conf
+              mountPath: {{ .Values.baseConfig.duEffnetFile }}
+              subPath: "duEffnetConfig.json"
+            {{ if and (.Values.developerMode.enabled) (.Values.developerMode.hostPath) }}
+            - name: dev-work-dir
+              mountPath: /home/accelleran/5G/dev/
+            {{ end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
+      {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
+      nodeSelector:
+        {{ if .Values.nodeSelector }}
+          {{- toYaml .Values.nodeSelector | nindent 8 }}
+        {{ end }}
+        {{ if eq (tpl .Values.draxNodeSelectorEnabled .) "true" }}
+          {{- tpl (toYaml .Values.draxNodeSelector) $ | nindent 8 }}
+        {{ end }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ include "cw-inst.fullname" . }}-zlog-conf
+          configMap:
+            name: {{ include "cw-inst.fullname" . }}-zlog-conf
+
+        - name: {{ include "cw-inst.fullname" . }}-bootstrap
+          configMap:
+            name: {{ include "cw-inst.fullname" . }}-bootstrap
+
+        {{ if and (.Values.developerMode.enabled) (.Values.developerMode.hostPath) }}
+        - name: dev-work-dir
+          hostPath:
+            path: {{ .Values.developerMode.hostPath }}
+        {{ end }}
+
+        - name: {{ include "cw-inst.fullname" . }}-ssh-public
+          secret:
+            secretName: {{ tpl .Values.cwSsh.publicKeySecretName . }}
+            defaultMode: 256
+
+        - name: {{ include "cw-inst.fullname" . }}-ssh-private
+          secret:
+            secretName: {{ tpl .Values.cwSsh.privateKeySecretName . }}
+            defaultMode: 256
+        
+        - name: {{ include "cw-inst.fullname" . }}-du-effnet-conf
+          configMap:
+            name: {{ include "cw-inst.fullname" . }}-du-effnet-conf

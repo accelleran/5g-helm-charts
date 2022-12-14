@@ -1,0 +1,26 @@
+{{- if .Values.service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cw-inst.fullname" . }}-service
+  labels:
+    {{- include "cw-inst.labels" . | nindent 4 }}
+    drax/service-name: {{ tpl .Values.service.name . }}
+spec:
+  type: {{ .Values.service.type }}
+  {{ if .Values.service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ tpl .Values.service.externalTrafficPolicy . }}
+  {{ end }}
+  ports:
+    - port: {{ .Values.service.port}}
+      protocol: {{ .Values.service.protocol }}
+      name: {{ tpl .Values.service.name . }}
+      {{ if contains "NodePort" .Values.service.type }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{ end }}
+  {{ if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ tpl .Values.service.loadBalancerIP . }}
+  {{ end }}
+  selector:
+    {{- include "cw-inst.selectorLabels" . | nindent 4 }}
+{{- end -}}

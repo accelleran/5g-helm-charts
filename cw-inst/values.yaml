@@ -1,0 +1,297 @@
+# Default values for cw-inst.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: accelleran/cw-inst
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets:
+  - name: accelleran-secret
+nameOverride: ""
+fullnameOverride: ""
+
+initImage:
+  repository: accelleran/acc-generic-img
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+initConfig:
+  redisCheckEnabled: true
+  natsCheckEnabled: true
+  sshSecretCheckEnabled: true
+
+# Application Settings
+# cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
+cmd: "./cellWrapperInstanceAppl.exe"
+
+args: []
+#  - name: "--own"
+#    value: 127.0.0.1
+#  - name: "--ng"
+#    value: 127.0.0.5
+
+nats:
+  url: "10.55.1.2"
+  port: "31100"
+
+redisConfig:
+  hostname: "10.55.1.2"
+  port: "32200"
+
+bootstrapId: "granny"
+bootstrapFile: /home/accelleran/5G/bootstrap.txt
+zlogFile: /home/accelleran/5G/zlog.conf
+
+cwSsh:
+  publicKeySecretName: "cw-public"
+  privateKeySecretName: "cw-private"
+
+jaegerAgentHost: "ric-jaeger-agent"
+
+extraEnvs: []
+#  - name: __APPNAME
+#    value: cellWrapperInstance
+#  - name: ex1
+#    value: ex1
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext:
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  runAsUser: 0
+  privileged: true
+
+service:
+  enabled: false
+  name: "cw-inst"
+  type: NodePort
+  protocol: SCTP
+  port: 80
+  # loadBalancerIP:
+  # nodePort:
+  # externalTrafficPolicy: "Local"
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+      - path: /
+        backend:
+          serviceName: chart-example.local
+          servicePort: 80
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+draxNodeSelectorEnabled: "false"
+
+draxNodeSelector:
+  draxName: "main"
+
+tolerations: []
+
+affinity: {}
+
+developerMode:
+  enabled: false
+  hostPath: ""
+
+baseConfig:
+  duEffnetFile: "/home/accelleran/5G/config/duEffnetConfig.json"
+  duEffnetData: |
+    {
+      "configuration": {
+        "du_address": "du",
+        "cu_address": "cu",
+        "gtp_listen_address": "du",
+        "f1c_bind_address": "du",
+        "vphy_listen_address": "127.0.0.1",
+        "vphy_port": 13337,
+        "vphy_tick_multiplier": 1,
+        "gnb_du_id": 38209903575,
+        "gnb_du_name": "cw-du",
+        "phy_control": {
+          "crnti_range": {
+            "min": 42000,
+            "max": 42127
+          }
+        },
+        "rrc_version": {
+          "x": 15,
+          "y": 6,
+          "z": 0
+        },
+        "served_cells_list": [
+          {
+            "served_cell_information": {
+              "nr_cgi": {
+                "plmn_identity": "001f01",
+                "nr_cell_identity": "000000000000000000000000000000000001"
+              },
+              "nr_pci": 101,
+              "5gs_tac": "000001",
+              "ran_area_code": 1,
+              "served_plmns": [
+                {
+                  "plmn_identity": "001f01",
+                  "tai_slice_support_list": [
+                    {
+                      "sst": 1
+                    }
+                  ]
+                }
+              ],
+              "nr_mode_info": {
+                "nr_freq_info": {
+                  "nr_arfcn": 648840,
+                  "frequency_band_list": [
+                    {
+                      "nr_frequency_band": 78
+                    }
+                  ]
+                },
+                "transmission_bandwidth": {
+                  "bandwidth_mhz": 40,
+                  "scs_khz": 30,
+                  "nrb": 106
+                },
+                "pattern": {
+                  "periodicity_in_slots": 10,
+                  "downlink": {
+                    "slots": 7,
+                    "symbols": 6
+                  },
+                  "uplink": {
+                    "slots": 2,
+                    "symbols": 4
+                  }
+                }
+              },
+              "measurement_timing_configuration": [222, 173, 190, 239],
+              "dmrs_type_a_position": "pos2",
+              "intra_freq_reselection": "allowed",
+              "ssb_pattern": "1000000000000000000000000000000000000000000000000000000000000000",
+              "ssb_periodicity_serving_cell_ms": 10,
+              "prach_configuration_index": 202,
+              "ssb_pbch_scs": 30,
+              "offset_point_a": 6,
+              "k_ssb": 0,
+              "coreset_zero_index": 3,
+              "search_space_zero_index": 2,
+              "ra_response_window_slots": 20,
+              "sr_slot_periodicity": 40,
+              "search_space_other_si": 1,
+              "paging_search_space": 0,
+              "ra_search_space": 1,
+              "bwps": [
+                {
+                  "id": 0,
+                  "start_crb": 0,
+                  "num_rb": 106,
+                  "scs": 30,
+                  "cyclic_prefix": "normal"
+                }
+              ],
+              "coresets": [
+                {
+                  "id": 1,
+                  "bwp_id": 0,
+                  "fd_resources": "111100000000000000000000000000000000000000000",
+                  "duration": 2,
+                  "interleaved": {
+                    "reg_bundle_size": 6,
+                    "interleaver_size": 2
+                  },
+                  "precoder_granularity": "same_as_reg_bundle"
+                }
+              ],
+              "search_spaces": [
+                {
+                  "id": 1,
+                  "control_resource_set_id": 0,
+                  "common": {}
+                },
+                {
+                  "id": 2,
+                  "control_resource_set_id": 1,
+                  "ue_specific": {
+                    "dci_formats": "formats0-1-And-1-1"
+                  }
+                }
+              ],
+              "maximum_ru_power_dbm": 35.0,
+              "num_tx_antennas": 2,
+              "trs": {
+                "periodicity_and_offset": {
+                  "period": 80,
+                  "offset": 1
+                },
+                "symbol_pair": "four_eight",
+                "subcarrier_location": 1
+              },
+              "periodic_srs_periodicity": 64,
+              "csi_rs": {
+                "periodicity_and_offset": {
+                  "period": 40,
+                  "offset": 15
+                }
+              },
+              "harq_processes_for_pdsch": 16,
+              "minimum_k1_delay": 1,
+              "minimum_k2_delay": 3,
+              "force_rlc_buffer_size": 8388608,
+              "default_paging_cycle": 128,
+              "modification_period_coeff": 2
+            }
+          }
+        ]
+      }
+    }

@@ -1,0 +1,22 @@
+#############################################################################
+
+Accelleran Cell Wrapper {{ .Chart.Version }} using {{ .Values.global.tag }}
+
+Deployed Accelleran Cell Wrapper component [{{- include "preFlightCheck.instanceIdLength" . }}] with the following details:
+
+Tag: {{ tpl .Values.global.tag . }}
+
+Instance ID: {{- include "preFlightCheck.instanceId" . }}
+
+Redis Configuration: {{ tpl .Values.global.redisHostname . }}:{{ tpl .Values.global.redisPort . }}
+
+Nats Configuration: {{ tpl .Values.global.natsUrl . }}:{{ tpl .Values.global.natsPort . }}
+
+Discover the IPs given to the services using the following command and its EXTERNAL-IP column:
+kubectl get service
+
+{{ if eq (tpl .Values.global.draxNodeSelectorEnabled .) "true" }}
+The Cell Wrapper component is installed on the Kubernetes node with the following dRAX Node Selector Name: {{ tpl .Values.global.draxName . }}
+{{ end }}
+
+#############################################################################

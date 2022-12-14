@@ -1,0 +1,15 @@
+{{- if .Values.initConfig.sshSecretCheckEnabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "cw-inst.fullname" . }}-role-binding
+  namespace: {{ .Release.Namespace }}
+subjects:  
+- kind: ServiceAccount
+  name: {{ include "cw-inst.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+roleRef:  
+  kind: Role
+  name: {{ include "cw-inst.fullname" . }}-role
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

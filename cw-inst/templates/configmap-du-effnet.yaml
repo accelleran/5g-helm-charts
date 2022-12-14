@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "cw-inst.fullname" . }}-du-effnet-conf
+  labels:
+    {{- include "cw-inst.labels" . | nindent 4 }}
+data:
+  duEffnetConfig.json: |
+    {{- .Values.baseConfig.duEffnetData | nindent 4 }}

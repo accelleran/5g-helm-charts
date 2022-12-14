@@ -1,0 +1,67 @@
+{{- range $job := .Values.jobs }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: "{{ $.Release.Name }}-{{ $job.name }}"
+spec:
+  schedule: {{ $job.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            cron: {{ $job.name | quote }}
+        spec:
+          restartPolicy: "OnFailure"
+          containers:
+            - image: "python:3.9.13-alpine"
+              imagePullPolicy: "IfNotPresent"
+              name: {{ $job.name | quote }}
+              command:
+                - sh
+                - "-c"
+                - |
+                  /bin/sh <<'EOF'
+                  #!/bin/sh
+
+                  # Install netconf python lib
+                  pip3 install netconf-client==1.7.1
+
+                  # Run edit-config rpc
+                  python3 - << EOP
+                  import os
+                  from netconf_client.connect import connect_ssh
+                  from netconf_client.ncclient import Manager
+
+                  HOST = os.getenv('NC_HOST', "127.0.0.1")
+                  PORT = int(os.getenv('NC_PORT', 830))
+                  RPC = os.getenv('NC_RPC')
+
+                  if RPC is not None:
+                    session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
+                    mgr = Manager(session, timeout=120)
+
+                    try:
+                      configRpc = f"<config>{RPC}</config>"
+                      print(mgr.edit_config(config=configRpc, target='running', default_operation=None))
+                      print("***** Successfully edited cell-wrapper config!")
+                    except Exception as e:
+                      print("***** Failed to edit cell-wrapper config!")
+                      print(e)
+                  else:
+                    print("***** No RPC provided!")
+                  EOP
+                                  
+                  exit 0
+
+                  EOF
+              env:
+                - name: NC_HOST
+                  value: {{ $job.netconfHost | default (print "netconf-" $.Values.global.instanceId) | quote }}
+                - name: NC_PORT
+                  value: {{ $job.netconfPort | default $.Values.netconf.netconfService.port | quote }}
+                - name: NC_RPC
+                  value: >-
+                    {{- $job.rpc | nindent 20 }}
+{{- end }}

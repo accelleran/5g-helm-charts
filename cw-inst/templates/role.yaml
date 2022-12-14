@@ -1,0 +1,19 @@
+{{- if .Values.initConfig.sshSecretCheckEnabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "cw-inst.fullname" . }}-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - configmaps
+  - namespaces
+  - secrets
+  verbs:
+  - get
+  - watch
+  - list
+{{- end }}
