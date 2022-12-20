@@ -127,6 +127,11 @@ spec:
             - name: {{ include "five-g-appl.fullname" . }}-cw
               subPath: "default-path"
               mountPath: /home/accelleran/5G/rpcs/cw-default-path.xml
+            {{- if .Values.configOnBoot.deleteExistingConfig }}
+            - name: {{ include "five-g-appl.fullname" . }}-cw
+              subPath: "delete"
+              mountPath: /home/accelleran/5G/rpcs/cw-delete.xml
+            {{- end }}
             {{- if .Values.configOnBoot.enabled }}
             - name: {{ include "five-g-appl.fullname" . }}-cw
               subPath: "config"
@@ -158,6 +163,9 @@ spec:
               ./ncclient \
                 {{- if .Values.configOnBoot.deleteExistingConfig }}
                 --edit /home/accelleran/5G/rpcs/netconf-config-delete.xml \
+                  {{- if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cw" }}
+                --edit rpcs/cw-delete.xml \
+                  {{- end }}
                 {{- end }}
                 {{- if .Values.initNetconfModel.enabled }}
                 --edit models.txt \
