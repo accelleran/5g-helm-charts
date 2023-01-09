@@ -7,18 +7,19 @@ Expand the name of the chart.
 
 {{/*
 Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+We truncate at 19 chars because the service ID (internally in the cw-inst application)
+cannot contain more than 36 chars (where the random hash of the replicaset and pod together with "-" are 17 chars)
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "cw-inst.fullname" -}}
 {{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- .Values.fullnameOverride | trunc 19 | trimSuffix "-" }}
 {{- else }}
 {{- $name := default .Chart.Name .Values.nameOverride }}
 {{- if contains $name .Release.Name }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- .Release.Name | trunc 19 | trimSuffix "-" }}
 {{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" .Release.Name $name | trunc 19 | trimSuffix "-" }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -59,4 +60,11 @@ Create the name of the service account to use
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
+{{- end }}
+
+{{/*
+Replicas for the deployment
+*/}}
+{{- define "cw-inst.replicas" -}}
+{{- default (add (len .Values.global.config.dus) .Values.fallbackCount) .Values.replicaCount -}}
 {{- end }}

@@ -6,7 +6,7 @@ metadata:
     {{- include "cw-inst.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ include "cw-inst.replicas" . }}
   {{- end }}
   selector:
     matchLabels:
@@ -79,7 +79,7 @@ spec:
             - "-c"
             - |
               /bin/sh <<'EOF'
-              {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
+              __APPID="${POD_NAME}" {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }}
               EOF
           {{ end }}
           env:
@@ -93,6 +93,10 @@ spec:
               value: {{ tpl .Values.jaegerAgentHost . }}
             - name: __APPNAME
               value: {{ include "cw-inst.fullname" . }}
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             {{- if .Values.extraEnvs }}
             {{ toYaml .Values.extraEnvs | nindent 12 }}
             {{- end }}
