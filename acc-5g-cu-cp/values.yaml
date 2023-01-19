@@ -5,7 +5,7 @@ global:
     # The name of this helm chart
     name: "acc-5g-cu-cp"
     # The version of this helm chart
-    helmVersion: "5.0.1"
+    helmVersion: "5.1.0"
 
   # Kubernetes Advertise Address
   #   Description: Used as External address for services
@@ -56,7 +56,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "R3.3.0_hoegaarden"
+  tag: "R3.3.2_hoegaarden"
 
 
   # Redis settings
@@ -398,6 +398,11 @@ ds-ctrl:
   # Number of UEs supported
   numOfUes: "{{ .Values.global.numOfUes }}"
 
+  # Number of DS-CTRL containers per pod
+  # This may also be a string, referencing other values
+  #
+  # numOfDsCtrlsPerPod: 8
+  # numOfDsCtrlsPerPod: "{{ .Values.numOfUes }}"
 
   # Special dRAX NodeSelector
   #   Description:  Besides the default NodeSelector field for each component,
