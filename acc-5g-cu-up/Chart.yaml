@@ -15,14 +15,14 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 5.1.0-rc.0
+version: 5.1.0
 # UPDATE .global.topChart.version IN VALUES FILE TO MATCH!
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "R3.3.0_hoegaarden"
+appVersion: "R3.3.2_hoegaarden"
 # THIS IS FOR DOCUMENTATION. REAL TAG CONTROL IN VALUES FILE!
 
 # Dependencies
