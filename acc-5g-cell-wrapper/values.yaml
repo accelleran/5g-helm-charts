@@ -24,7 +24,6 @@ global:
 
   config:
     enabled: false
-    deleteExisting: false
     global:
       install: |
         <!-- Global CW install config -->
@@ -237,11 +236,15 @@ netconf:
   # netconfService:
   #   nodePort: 31832
 
-  configOnBoot:
+  initEditConfig:
     enabled: "{{ .Values.global.config.enabled }}"
-    deleteExistingConfig: "{{ .Values.global.config.deleteExisting }}"
-    host: 'localhost'
     config:
+      - |
+        <cw-install xmlns="http://accelleran.com/ns/yang/accelleran-cw-install" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
+      - |
+        <cw-internal xmlns="http://accelleran.com/ns/yang/accelleran-cw-internal" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
+      - |
+        <cw-ran xmlns="http://accelleran.com/ns/yang/accelleran-cw-ran" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
       - |
         <cw-install xmlns="http://accelleran.com/ns/yang/accelleran-cw-install" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
           {{- range $index, $du := .Values.global.config.dus }}

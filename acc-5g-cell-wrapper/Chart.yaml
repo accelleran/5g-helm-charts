@@ -26,6 +26,9 @@ appVersion: "CW2.0.0-gamma"
 
 # Dependencies
 dependencies:
+  - name: acc-common
+    version: 0.1.0
+    repository: https://accelleran.github.io/helm-charts/
   - name: cw-ctrl
     condition: cw-ctrl.enabled
     version: 2.0.0-gamma
@@ -36,7 +39,7 @@ dependencies:
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: netconf
     condition: netconf.enabled
-    version: 3.0.0-dev.0
+    version: 2.3.0
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: redis
     condition: redis.enabled
