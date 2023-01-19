@@ -17,3 +17,12 @@ data:
     </netconf-config>
   shutdown.xml: |
     <shutdown xmlns="http://accelleran.com/ns/yang/accelleran-netconf-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0"/>
+
+  {{- if and (.Values.initEditConfig.enabled) (gt (len .Values.initEditConfig.config) 0) }}
+
+  {{- range $index, $configRpc := .Values.initEditConfig.config }}
+  init-edit-config-{{- $index -}}.xml: |
+    {{- tpl $configRpc $ | nindent 4 }}
+  {{- end }}
+
+  {{- end }}

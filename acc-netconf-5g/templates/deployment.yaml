@@ -138,6 +138,11 @@ spec:
                 --edit /rpcs/set-default-path-to-cuup.xml \
                 {{- end }}
                 {{- end }}
+                {{- if .Values.initEditConfig.enabled }}
+                {{- range $index, $configRpc := .Values.initEditConfig.config }}
+                --edit /rpcs/init-edit-config-{{- $index -}}.xml \
+                {{- end }}
+                {{- end }}
                 --custom /rpcs/shutdown.xml
 
               wait # Wait for Netconf Server to stop

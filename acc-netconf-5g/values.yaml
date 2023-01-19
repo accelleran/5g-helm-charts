@@ -43,6 +43,9 @@ initNetconfDefaultPath:
   enabled: true
   componentType: 'cuup'
 
+initEditConfig:
+  enabled: false
+  config: []
 
 args: []
 #  - name: "--own"
