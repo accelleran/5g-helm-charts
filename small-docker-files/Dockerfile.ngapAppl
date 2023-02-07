@@ -1,3 +1,0 @@
-FROM accfivegbase AS ngapAppl
-
-COPY ./native/ngapAppl.exe .
