@@ -29,19 +29,15 @@ spec:
           - name: {{ include "acc-common.fullname" . }}-rpcs
             mountPath: /rpcs
         command:
-          - sh
-          - "-c"
-          - |
-            /bin/bash <<'EOF'
-            #!/bin/bash
-
-            ./ncclient \
-              --host "netconf-{{ include "acc-common.drax.instanceId.withFormatCheck" . }}" \
-              --port "{{ .Values.netconfService.port }}" \
-              {{- range $index, $configRpc := .Values.initEditConfig.config }}
-              --edit /rpcs/init-edit-config-{{- $index -}}.xml \
-              {{- end }}
-            EOF
+          - "./ncclient"
+          - "--host"
+          - "netconf-{{ include "acc-common.drax.instanceId.withFormatCheck" . }}"
+          - "--port"
+          - "{{ .Values.netconfService.port }}"
+          {{- range $index, $configRpc := .Values.initEditConfig.config }}
+          - "--edit"
+          - "/rpcs/init-edit-config-{{- $index -}}.xml"
+          {{- end }}
       {{- if or (.Values.nodeSelector) (eq (tpl .Values.draxNodeSelectorEnabled .) "true") }}
       nodeSelector:
       {{- if .Values.nodeSelector }}
