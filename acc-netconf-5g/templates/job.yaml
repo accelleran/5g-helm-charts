@@ -7,7 +7,7 @@ metadata:
     {{- include "acc-common.labels.5g" . | nindent 4 }}
 spec:
   # ttlSecondsAfterFinished: 600 # k8s v1.23
-  backoffLimit: 1
+  backoffLimit: 2
   template:
     spec:
       restartPolicy: OnFailure
