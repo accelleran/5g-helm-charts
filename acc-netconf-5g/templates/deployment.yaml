@@ -32,17 +32,11 @@ spec:
           image: "{{ .Values.initImage.repository }}:{{ tpl .Values.initImage.tag . }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
           command:
-            - sh
+            - "/bin/bash"
             - "-c"
             - |
-              /bin/bash <<'EOF'
-
-              #!/bin/bash
-
               until [ "$(redis-cli -h {{ tpl .Values.redisConfig.hostname . }} -p {{ tpl .Values.redisConfig.port . }} ping)" == "PONG" ]; do sleep 1; done;
               echo "$(date) Redis ready"
-
-              EOF
         - name: {{ .Chart.Name }}-check-nats
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
@@ -54,26 +48,15 @@ spec:
             - name: init-volume
               mountPath: /init-configs/
           command:
-            - sh
+            - "/bin/bash"
             - "-c"
             - |
-              /bin/bash <<'EOF'
-
-              #!/bin/bash
-
-              {{ if .Values.initGetConfig }}
-
-              {{ range .Values.initGetConfig }}
-
+              {{- if .Values.initGetConfig }}
+              {{- range .Values.initGetConfig }}
               value=$(kubectl get {{ .resourceType }} {{ tpl .resourceName $ }} -n {{ tpl .resourceNamespace $ }} -o json | jq "{{ .field }}")
-
               echo "{{ .envName }}=$value" >> /init-configs/env.env
-
-              {{ end }}
-
-              {{ end }}
-
-              EOF
+              {{- end }}
+              {{- end }}
         {{ if or .Values.initNetconfModel.enabled .Values.initNetconfDefaultPath.enabled }}
         - name: {{ .Chart.Name }}-config-netconf-model
           securityContext:
@@ -115,13 +98,9 @@ spec:
             - name: {{ include "acc-common.fullname" . }}-rpcs
               mountPath: /rpcs
           command:
-            - sh
+            - "/bin/bash"
             - "-c"
             - |
-              /bin/bash <<'EOF'
-
-              #!/bin/bash
-
               # Start netconf in the background
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }} &
 
@@ -141,7 +120,6 @@ spec:
                 --custom /rpcs/shutdown.xml
 
               wait # Wait for Netconf Server to stop
-              EOF
         {{ end }}
 
       containers:
@@ -151,25 +129,16 @@ spec:
           image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            - sh
+            - "/bin/bash"
             - "-c"
             - |
-              /bin/bash <<'EOF'
-              #!/bin/bash
-
-              {{ if .Values.initGetConfig }}
-
+              {{- if .Values.initGetConfig }}
               export $(xargs < /init-configs/env.env)
-
-              {{ if .Values.testing }}
+              {{- if .Values.testing }}
               echo {{ .Values.testing.value }} > /init-configs/test.txt
-              {{ end }}
-
-              {{ end }}
-
+              {{- end }}
+              {{- end }}
               {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
-
-              EOF
           env: 
             - name: POD_IP
               valueFrom:
