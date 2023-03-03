@@ -1,0 +1,86 @@
+# Default values for acc-common.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  xdpUpsInterfaces: []
+  # - name: "eth0"
+  #   address: "127.0.0.1"
+  #   mtu: 1460 # optional, default 1460
+
+image:
+  repository: accelleran/xdpupsappl
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets:
+  - name: accelleran-secret
+# nameOverride: ""
+# fullnameOverride: ""
+
+# Application Settings
+cmd: "./xdpUpsAppl.exe"
+
+args:
+  - name: "--downlink"
+    value: "$GTP_IP" 
+  - name: "--uplink"
+    value: "$GTP_IP"
+  - name: "--bind"
+    value: "$GTP_IP"
+
+# NATS Settings
+nats:
+  # URL of NATS
+  url: "10.55.2.2"
+
+  # Port of NATS
+  port: "31000"
+
+redisConfig:
+  hostname: "10.55.2.2"
+  port: "32200"
+
+bootstrapId: "cuup1"
+bootstrapFile: /home/accelleran/5G/bootstrap.txt
+
+extraEnvs:
+#  - name: example_env_name
+#    value: example_env_value
+#  - name: ex1
+#    value: ex1
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext:
+  # XDP UPS needs to run as root
+  runAsUser: 0
+  runAsGroup: 0
+  privileged: true
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+draxNodeSelectorEnabled: "false"
+
+draxNodeSelector:
+  draxName: "main"
+
+tolerations: []
+
+affinity: {}
