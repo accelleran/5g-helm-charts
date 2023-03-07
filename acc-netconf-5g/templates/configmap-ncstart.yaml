@@ -12,7 +12,6 @@ data:
 
     VARIANT=/home/accelleran/5G
   
-    ZLOG_CONF_PATH=/home/accelleran/5G/zlog.conf \
     NETCONF_HOST_KEY_PATH=/home/accelleran/5G/nc-testkey \
     NETCONF_MODEL_PATH=/home/accelleran/5G/models \
     NETCONF_LIBRARY_PATH=/home/accelleran/5G/slib \

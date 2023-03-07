@@ -68,8 +68,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-            - name: ZLOG_CONF_PATH
-              value: /5G/zlog.conf
             - name: BOOTSTRAP_INSTANCE_ID
               value: {{ tpl .Values.bootstrapId . }}
             - name: BOOTSTRAP_FILENAME
@@ -86,9 +84,6 @@ spec:
               containerPort: {{ .Values.netconfService.port }}
               protocol: {{ .Values.netconfService.protocol }}
           volumeMounts:
-            - name: {{ include "acc-common.fullname" . }}-zlog-conf
-              mountPath: /home/accelleran/5G/zlog.conf
-              subPath: "zlog.conf"
             - name: {{ include "acc-common.fullname" . }}-ncstart
               mountPath: /home/accelleran/5G/ncstart
               subPath: "ncstart"
@@ -144,8 +139,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-            - name: ZLOG_CONF_PATH
-              value: /5G/zlog.conf
             - name: BOOTSTRAP_INSTANCE_ID 
               value: {{ tpl .Values.bootstrapId . }}
             - name: BOOTSTRAP_FILENAME
@@ -174,9 +167,6 @@ spec:
               exec:
                 command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
           volumeMounts:
-            - name: {{ include "acc-common.fullname" . }}-zlog-conf
-              mountPath: /home/accelleran/5G/zlog.conf
-              subPath: "zlog.conf"
             - name: {{ include "acc-common.fullname" . }}-ncstart
               mountPath: /home/accelleran/5G/ncstart
               subPath: "ncstart"
@@ -207,10 +197,6 @@ spec:
       volumes:
         - name: init-volume
           emptyDir: {}
-        - name: {{ include "acc-common.fullname" . }}-zlog-conf
-          configMap:
-            name: {{ include "acc-common.fullname" . }}-zlog-conf
-            defaultMode: 0777
         - name: {{ include "acc-common.fullname" . }}-ncstart
           configMap:
             name: {{ include "acc-common.fullname" . }}-ncstart

@@ -87,8 +87,6 @@ spec:
                   fieldPath: status.podIP
             - name: NATS_SERVICE_URL
               value: nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}
-            - name: ZLOG_CONF_PATH
-              value: /5G/zlog.conf
             - name: BOOTSTRAP_FILENAME
               value: {{ .Values.bootstrapFile }}
             - name: JAEGER_AGENT_HOST
@@ -109,9 +107,6 @@ spec:
 #              path: /
 #              port: http
           volumeMounts:
-            - name: {{ include "acc-common.fullname" . }}-zlog-conf
-              mountPath: /5G/zlog.conf
-              subPath: "zlog.conf"
             - name: init-volume
               mountPath: /init-configs/
             - name: {{ include "acc-common.fullname" . }}-bootstrap
@@ -143,10 +138,6 @@ spec:
       volumes:
         - name: init-volume
           emptyDir: {}
-        - name: {{ include "acc-common.fullname" . }}-zlog-conf
-          configMap:
-            name: {{ include "acc-common.fullname" . }}-zlog-conf
-
         - name: {{ include "acc-common.fullname" . }}-bootstrap
           configMap:
             name: {{ include "acc-common.fullname" . }}-bootstrap
