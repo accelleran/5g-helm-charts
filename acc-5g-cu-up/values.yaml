@@ -47,7 +47,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "R3.3.2_hoegaarden"
+  tag: "R3.4.2_ichtegem"
 
 
 
