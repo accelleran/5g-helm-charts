@@ -1,3 +1,0 @@
-FROM accfivegbase AS amfController
-
-COPY ./native/amfControllerAppl.exe .

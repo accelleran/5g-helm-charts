@@ -1,3 +1,0 @@
-FROM accfivegbase AS cuUpController
-
-COPY ./native/cuUpControllerAppl.exe .

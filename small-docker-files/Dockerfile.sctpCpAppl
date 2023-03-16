@@ -1,3 +1,0 @@
-FROM accfivegbase AS sctpCpAppl
-
-COPY ./native/sctpCpAppl.exe .

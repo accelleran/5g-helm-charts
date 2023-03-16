@@ -1,3 +1,0 @@
-FROM accfivegbase AS f1apIntfAppl
-
-COPY ./native/f1apIntfAppl.exe .

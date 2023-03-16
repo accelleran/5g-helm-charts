@@ -1,5 +1,0 @@
-FROM accfivegbase AS amfTester
-
-COPY ./native/amfTesterAppl.exe .
-
-

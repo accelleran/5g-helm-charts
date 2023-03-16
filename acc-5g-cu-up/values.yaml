@@ -5,7 +5,7 @@ global:
     # The name of this helm chart
     name: "acc-5g-cu-up"
     # The version of this helm chart
-    helmVersion: "5.1.0"
+    helmVersion: "5.2.0"
 
   # Kubernetes Advertise Address
   #   Description: Used as External address for services
@@ -47,7 +47,7 @@ global:
   #                in DockerHub.
   #   Value type: string
   #
-  tag: "R3.3.2_hoegaarden"
+  tag: "R3.4.2_ichtegem"
 
 
 
