@@ -57,66 +57,6 @@ spec:
               echo "{{ .envName }}=$value" >> /init-configs/env.env
               {{- end }}
               {{- end }}
-        {{ if or .Values.initNetconfModel.enabled .Values.initNetconfDefaultPath.enabled }}
-        - name: {{ .Chart.Name }}-config-netconf-model
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ tpl .Values.image.tag . | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: POD_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
-            - name: BOOTSTRAP_INSTANCE_ID
-              value: {{ tpl .Values.bootstrapId . }}
-            - name: BOOTSTRAP_FILENAME
-              value: {{ .Values.bootstrapFile }}
-            - name: NATS_SERVICE_URL
-              value: "nats://{{ tpl .Values.nats.url . }}:{{ tpl .Values.nats.port . }}"
-            - name: NETCONF_LISTEN_PORT
-              value: "{{ .Values.netconfService.port }}"
-            {{- if .Values.extraEnvs }}
-            {{ toYaml .Values.extraEnvs | nindent 12 }}
-            {{- end }}
-          ports:
-            - name: {{ .Values.netconfService.name }}
-              containerPort: {{ .Values.netconfService.port }}
-              protocol: {{ .Values.netconfService.protocol }}
-          volumeMounts:
-            - name: {{ include "acc-common.fullname" . }}-ncstart
-              mountPath: /home/accelleran/5G/ncstart
-              subPath: "ncstart"
-            - name: {{ include "acc-common.fullname" . }}-bootstrap
-              mountPath: {{ .Values.bootstrapFile }}
-              subPath: "bootstrap.txt"
-            - name: {{ include "acc-common.fullname" . }}-rpcs
-              mountPath: /rpcs
-          command:
-            - "/bin/bash"
-            - "-c"
-            - |
-              # Start netconf in the background
-              {{ .Values.cmd }} {{- if .Values.args }}{{ range .Values.args }} {{ .name }} {{ .value }}{{ end }}{{- end }} &
-
-              ./ncclient \
-                --port "{{ .Values.netconfService.port }}" \
-                {{- if .Values.initNetconfModel.enabled }}
-                --edit /home/accelleran/5G/models.txt \
-                --custom /rpcs/reload-models.xml \
-                {{- end }}
-                {{- if .Values.initNetconfDefaultPath.enabled }}
-                {{- if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cucp" }}
-                --edit /rpcs/set-default-path-to-cucp.xml \
-                {{- else if eq ( tpl .Values.initNetconfDefaultPath.componentType . ) "cuup" }}
-                --edit /rpcs/set-default-path-to-cuup.xml \
-                {{- end }}
-                {{- end }}
-                --custom /rpcs/shutdown.xml
-
-              wait # Wait for Netconf Server to stop
-        {{ end }}
-
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -162,14 +102,7 @@ spec:
 #            httpGet:
 #              path: /
 #              port: http
-          lifecycle:
-            preStop:
-              exec:
-                command: [ '/bin/sh', '-c', 'pkill -15 -e {{ .Values.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
           volumeMounts:
-            - name: {{ include "acc-common.fullname" . }}-ncstart
-              mountPath: /home/accelleran/5G/ncstart
-              subPath: "ncstart"
             - name: {{ include "acc-common.fullname" . }}-bootstrap
               mountPath: {{ .Values.bootstrapFile }}
               subPath: "bootstrap.txt"
@@ -197,10 +130,6 @@ spec:
       volumes:
         - name: init-volume
           emptyDir: {}
-        - name: {{ include "acc-common.fullname" . }}-ncstart
-          configMap:
-            name: {{ include "acc-common.fullname" . }}-ncstart
-            defaultMode: 0777
         - name: {{ include "acc-common.fullname" . }}-bootstrap
           configMap:
             name: {{ include "acc-common.fullname" . }}-bootstrap
