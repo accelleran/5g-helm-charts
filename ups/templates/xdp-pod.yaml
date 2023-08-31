@@ -1,0 +1,87 @@
+{{- range $index, $xdpUpsInterface := .Values.xdp.interfaces }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "acc-common.fullname" $ }}-xdp-{{ $index }}"
+  {{- with $.Values.podAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "acc-common.labels.5g" $ | nindent 4 }}
+    up-stack-id: "xdp-{{ $index }}"
+spec:
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  {{- with $.Values.imagePullSecrets }}
+  imagePullSecrets:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  serviceAccountName: {{ include "acc-common.serviceAccountName" $ }}
+  securityContext:
+    {{- toYaml $.Values.podSecurityContext | nindent 4 }}
+  containers:
+    - name: "{{ $.Chart.Name }}-xdp-{{ $index }}"
+      securityContext:
+        {{- toYaml $.Values.securityContext | nindent 8 }}
+      image: "{{ $.Values.xdp.image.repository }}:{{ tpl $.Values.image.tag $ | default $.Chart.AppVersion }}"
+      imagePullPolicy: {{ $.Values.image.pullPolicy }}
+      command:
+      - /bin/bash
+      - "-c"
+      - |
+        ip link set dev $IFNAME xdpgeneric off
+        {{ $.Values.xdp.cmd }} {{- if $.Values.xdp.args }}{{ range $.Values.xdp.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
+      env:
+        - name: HOSTMODE
+          value: "true"
+        - name: GTP_IP
+          value: "{{ $xdpUpsInterface.address }}"
+        - name: "IFNAME"
+          value: "{{ $xdpUpsInterface.name }}"
+        - name: MTU_SIZE
+          value: "{{ $xdpUpsInterface.mtu | default 1460 }}"
+        - name: __APPID
+          value: xdp-ups_{{ $index }}
+        - name: __APPNAME
+          value: xdp-ups
+        - name: NATS_SERVICE_URL
+          value: "nats://{{ tpl $.Values.nats.url $ }}:{{ tpl $.Values.nats.port $ }}"
+        - name: BOOTSTRAP_FILENAME
+          value: "{{ $.Values.bootstrapFile }}"
+        {{- if $.Values.extraEnvs }}
+        {{ toYaml $.Values.extraEnvs | nindent 8 }}
+        {{- end }}
+      volumeMounts:
+        - name: {{ include "acc-common.fullname" $ }}-bootstrap
+          mountPath: {{ $.Values.bootstrapFile }}
+          subPath: "bootstrap.txt"
+      resources:
+        {{- toYaml $.Values.resources | nindent 8 }}
+      lifecycle:
+        preStop:
+          exec:
+            command: [ '/bin/sh', '-c', 'pkill -15 -e {{ $.Values.xdp.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
+  {{- if or ($.Values.nodeSelector) (eq (tpl $.Values.draxNodeSelectorEnabled $) "true") }}
+  nodeSelector:
+    {{ if $.Values.nodeSelector }}
+      {{- toYaml $.Values.nodeSelector | nindent 4 }}
+    {{ end }}
+    {{ if eq (tpl $.Values.draxNodeSelectorEnabled $) "true" }}
+      {{- tpl (toYaml $.Values.draxNodeSelector) $ | nindent 4 }}
+    {{ end }}
+  {{- end }}
+  {{- with $.Values.affinity }}
+  affinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $.Values.tolerations }}
+  tolerations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  volumes:
+    - name: {{ include "acc-common.fullname" $ }}-bootstrap
+      configMap:
+        name: {{ include "acc-common.fullname" $ }}-bootstrap
+---
+{{- end }}
