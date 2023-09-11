@@ -1,3 +1,7 @@
+{{- if and (gt (len .Values.xdp.interfaces) 0) (gt (tpl .Values.numberOfUpStacks . | int) 0) -}}
+{{- fail "UPS XDP Interfaces can only be specified if numberOfUpStacks is set to 0" -}}
+{{- end -}}
+
 {{- range $index, $xdpUpsInterface := .Values.xdp.interfaces }}
 apiVersion: v1
 kind: Pod
