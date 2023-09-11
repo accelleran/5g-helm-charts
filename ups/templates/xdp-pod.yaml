@@ -66,14 +66,23 @@ spec:
         preStop:
           exec:
             command: [ '/bin/sh', '-c', 'pkill -15 -e {{ $.Values.xdp.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
-  {{- if or ($.Values.nodeSelector) (eq (tpl $.Values.draxNodeSelectorEnabled $) "true") }}
+  {{- if $xdpUpsInterface.nodeName }}
+  nodeName: {{ $xdpUpsInterface.nodeName }}
+  {{- end }}
+  {{- if $xdpUpsInterface.nodeSelectorOverride }}
   nodeSelector:
-    {{ if $.Values.nodeSelector }}
+    {{- toYaml $xdpUpsInterface.nodeSelectorOverride | nindent 4 }}
+  {{- else if or (or $xdpUpsInterface.nodeSelector ($.Values.nodeSelector)) (eq (tpl $.Values.draxNodeSelectorEnabled $) "true") }}
+  nodeSelector:
+    {{- if $.Values.nodeSelector }}
       {{- toYaml $.Values.nodeSelector | nindent 4 }}
-    {{ end }}
-    {{ if eq (tpl $.Values.draxNodeSelectorEnabled $) "true" }}
+    {{- end }}
+    {{- if $xdpUpsInterface.nodeSelector }}
+      {{- toYaml $xdpUpsInterface.nodeSelector | nindent 4 }}
+    {{- end }}
+    {{- if eq (tpl $.Values.draxNodeSelectorEnabled $) "true" }}
       {{- tpl (toYaml $.Values.draxNodeSelector) $ | nindent 4 }}
-    {{ end }}
+    {{- end }}
   {{- end }}
   {{- with $.Values.affinity }}
   affinity:
