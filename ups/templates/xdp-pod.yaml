@@ -30,12 +30,16 @@ spec:
         {{- toYaml $.Values.securityContext | nindent 8 }}
       image: "{{ $.Values.xdp.image.repository }}:{{ tpl $.Values.image.tag $ | default $.Chart.AppVersion }}"
       imagePullPolicy: {{ $.Values.image.pullPolicy }}
-      command:
-      - /bin/bash
-      - "-c"
-      - |
-        ip link set dev $IFNAME xdpgeneric off
-        {{ $.Values.xdp.cmd }} {{- if $.Values.xdp.args }}{{ range $.Values.xdp.args }} {{ .name }} {{ tpl .value $ }}{{ end }}{{- end }}
+      {{- if $.Values.xdp.cmd }}
+      command: "{{ $.Values.xdp.cmd }}"
+      {{- end }}
+      {{- if $.Values.xdp.args }}
+      args:
+      {{- range $.Values.xdp.args }}
+        - "{{ .name }}"
+        - "{{ tpl .value $ }}"
+      {{- end }}
+      {{- end }}
       env:
         - name: HOSTMODE
           value: "true"
@@ -62,10 +66,6 @@ spec:
           subPath: "bootstrap.txt"
       resources:
         {{- toYaml $.Values.resources | nindent 8 }}
-      lifecycle:
-        preStop:
-          exec:
-            command: [ '/bin/sh', '-c', 'pkill -15 -e {{ $.Values.xdp.cmd | trimPrefix "./" | trimSuffix ".exe" | trunc 15  }}' ]
   {{- if $xdpUpsInterface.nodeName }}
   nodeName: {{ $xdpUpsInterface.nodeName }}
   {{- end }}

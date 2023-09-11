@@ -16,8 +16,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # Application Settings
-# cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "./upsAppl.exe"
+cmd: "./entrypoint.sh"
 
 testing:
   value: "${GTP_IP}"
@@ -66,9 +65,8 @@ xdp:
   #   mtu: 1460 # optional, default 1460
   image:
     repository: accelleran/xdpupsappl
-  # Application Settings
-  cmd: "./xdpUpsAppl.exe"
 
+  cmd: null # Use image entrypoint by default
   args:
     - name: "--downlink"
       value: "$GTP_IP"
