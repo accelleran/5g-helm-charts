@@ -36,7 +36,7 @@ dependencies:
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: ups
     condition: ups.enabled
-    version: 2.2.0
+    version: 2.2.1
     repository: https://accelleran.github.io/5g-helm-charts/
   - name: e1-sctp-up
     condition: e1-sctp-up.enabled

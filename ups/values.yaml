@@ -16,7 +16,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # Application Settings
-cmd: "./entrypoint.sh"
+cmd: "/entrypoint.sh"
 
 testing:
   value: "${GTP_IP}"
