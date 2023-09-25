@@ -5,7 +5,7 @@ global:
     # The name of this helm chart
     name: "acc-5g-cu-cp"
     # The version of this helm chart
-    helmVersion: "6.0.0-rc.2"
+    helmVersion: "6.0.0-rc.3"
 
   # Kubernetes Advertise Address
   #   Description: Used as External address for services
