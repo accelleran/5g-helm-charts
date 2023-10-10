@@ -16,8 +16,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # Application Settings
-cmd: "./ncstart"
-#cmd: "sleep 3600"
+cmd: "/entrypoint.sh"
 
 # testing:
   # value: "${GTP_IP}"
@@ -35,13 +34,6 @@ initGetConfig: []
 #    field: '.status.loadBalancer.ingress[0].ip'
 #    # Environmental variable have to be ALL CAPS
 #    envName: "GTP_IP"
-
-initNetconfModel:
-  enabled: true
-
-initNetconfDefaultPath:
-  enabled: true
-  componentType: 'cuup'
 
 initEditConfig:
   enabled: false

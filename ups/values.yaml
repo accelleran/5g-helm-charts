@@ -16,8 +16,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # Application Settings
-# cmd: "__APPNAME=amfController ./amfControllerAppl.exe"
-cmd: "./upsAppl.exe"
+cmd: "/entrypoint.sh"
 
 testing:
   value: "${GTP_IP}"
@@ -50,6 +49,32 @@ args:
   - name: "--bind"
     value: "$POD_IP"
 
+xdp:
+  interfaces: []
+  # - name: "eth0"
+  #   address: "127.0.0.1"
+  #   # nodeSelector, nodeSelectorOverride and nodeName are optional, but at least one of them should probably be used
+  #   # Otherwise in multi-node clusters, there's no way to know which Node the XDP Pod will be assigned to
+  #   # and it's unlikely the interface/IP information is correct
+  #   # nodeSelectorOverride is similar to nodeSelector but if specified only those labels will be used for this Pod
+  #   nodeSelector:
+  #     example-label: example-value
+  #   nodeSelectorOverride:
+  #     override-label: override-value
+  #   nodeName: example-node-name
+  #   mtu: 1460 # optional, default 1460
+  image:
+    repository: accelleran/xdpupsappl
+
+  cmd: null # Use image entrypoint by default
+  args:
+    - name: "--downlink"
+      value: "$GTP_IP"
+    - name: "--uplink"
+      value: "$GTP_IP"
+    - name: "--bind"
+      value: "$GTP_IP"
+
 # NATS Settings
 nats:
   # URL of NATS
@@ -68,8 +93,6 @@ bootstrapFile: /home/accelleran/5G/bootstrap.txt
 jaegerAgentHost: "ric-jaeger-agent"
 
 extraEnvs:
-  - name: __APPNAME
-    value: ups
 #  - name: example_env_name
 #    value: example_env_value
 #  - name: ex1

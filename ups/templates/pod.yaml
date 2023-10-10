@@ -1,4 +1,4 @@
-{{ $count := (tpl .Values.numberOfUpStacks . | int) }}
+{{- $count := (tpl .Values.numberOfUpStacks . | int) -}}
 {{- range untilStep 0 $count 1 }}
 apiVersion: v1
 kind: Pod
@@ -83,12 +83,14 @@ spec:
               fieldPath: metadata.name
         - name: __APPID
           value: ups_{{ . }}
+        - name: __APPNAME
+          value: ups
         - name: NATS_SERVICE_URL
-          value: nats://{{ tpl $.Values.nats.url $ }}:{{ tpl $.Values.nats.port $ }}
+          value: "nats://{{ tpl $.Values.nats.url $ }}:{{ tpl $.Values.nats.port $ }}"
         - name: BOOTSTRAP_FILENAME
-          value: {{ $.Values.bootstrapFile }}
+          value: "{{ $.Values.bootstrapFile }}"
         - name: JAEGER_AGENT_HOST
-          value: {{ tpl $.Values.jaegerAgentHost $ }}
+          value: "{{ tpl $.Values.jaegerAgentHost $ }}"
         {{- if $.Values.extraEnvs }}
         {{ toYaml $.Values.extraEnvs | nindent 8 }}
         {{- end }}

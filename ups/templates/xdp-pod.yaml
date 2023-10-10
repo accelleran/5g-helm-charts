@@ -1,0 +1,100 @@
+{{- if and (gt (len .Values.xdp.interfaces) 0) (gt (tpl .Values.numberOfUpStacks . | int) 0) -}}
+{{- fail "UPS XDP Interfaces can only be specified if numberOfUpStacks is set to 0" -}}
+{{- end -}}
+
+{{- range $index, $xdpUpsInterface := .Values.xdp.interfaces }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "acc-common.fullname" $ }}-xdp-{{ $index }}"
+  {{- with $.Values.podAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "acc-common.labels.5g" $ | nindent 4 }}
+    up-stack-id: "xdp-{{ $index }}"
+spec:
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  {{- with $.Values.imagePullSecrets }}
+  imagePullSecrets:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  serviceAccountName: {{ include "acc-common.serviceAccountName" $ }}
+  securityContext:
+    {{- toYaml $.Values.podSecurityContext | nindent 4 }}
+  containers:
+    - name: "{{ $.Chart.Name }}-xdp-{{ $index }}"
+      securityContext:
+        {{- toYaml $.Values.securityContext | nindent 8 }}
+      image: "{{ $.Values.xdp.image.repository }}:{{ tpl $.Values.image.tag $ | default $.Chart.AppVersion }}"
+      imagePullPolicy: {{ $.Values.image.pullPolicy }}
+      {{- if $.Values.xdp.cmd }}
+      command: "{{ $.Values.xdp.cmd }}"
+      {{- end }}
+      {{- if $.Values.xdp.args }}
+      args:
+      {{- range $.Values.xdp.args }}
+        - "{{ .name }}"
+        - "{{ tpl .value $ }}"
+      {{- end }}
+      {{- end }}
+      env:
+        - name: HOSTMODE
+          value: "true"
+        - name: GTP_IP
+          value: "{{ $xdpUpsInterface.address }}"
+        - name: "IFNAME"
+          value: "{{ $xdpUpsInterface.name }}"
+        - name: MTU_SIZE
+          value: "{{ $xdpUpsInterface.mtu | default 1460 }}"
+        - name: __APPID
+          value: xdp-ups_{{ $index }}
+        - name: __APPNAME
+          value: xdp-ups
+        - name: NATS_SERVICE_URL
+          value: "nats://{{ tpl $.Values.nats.url $ }}:{{ tpl $.Values.nats.port $ }}"
+        - name: BOOTSTRAP_FILENAME
+          value: "{{ $.Values.bootstrapFile }}"
+        {{- if $.Values.extraEnvs }}
+        {{ toYaml $.Values.extraEnvs | nindent 8 }}
+        {{- end }}
+      volumeMounts:
+        - name: {{ include "acc-common.fullname" $ }}-bootstrap
+          mountPath: {{ $.Values.bootstrapFile }}
+          subPath: "bootstrap.txt"
+      resources:
+        {{- toYaml $.Values.resources | nindent 8 }}
+  {{- if $xdpUpsInterface.nodeName }}
+  nodeName: {{ $xdpUpsInterface.nodeName }}
+  {{- end }}
+  {{- if $xdpUpsInterface.nodeSelectorOverride }}
+  nodeSelector:
+    {{- toYaml $xdpUpsInterface.nodeSelectorOverride | nindent 4 }}
+  {{- else if or (or $xdpUpsInterface.nodeSelector ($.Values.nodeSelector)) (eq (tpl $.Values.draxNodeSelectorEnabled $) "true") }}
+  nodeSelector:
+    {{- if $.Values.nodeSelector }}
+      {{- toYaml $.Values.nodeSelector | nindent 4 }}
+    {{- end }}
+    {{- if $xdpUpsInterface.nodeSelector }}
+      {{- toYaml $xdpUpsInterface.nodeSelector | nindent 4 }}
+    {{- end }}
+    {{- if eq (tpl $.Values.draxNodeSelectorEnabled $) "true" }}
+      {{- tpl (toYaml $.Values.draxNodeSelector) $ | nindent 4 }}
+    {{- end }}
+  {{- end }}
+  {{- with $.Values.affinity }}
+  affinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $.Values.tolerations }}
+  tolerations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  volumes:
+    - name: {{ include "acc-common.fullname" $ }}-bootstrap
+      configMap:
+        name: {{ include "acc-common.fullname" $ }}-bootstrap
+---
+{{- end }}
